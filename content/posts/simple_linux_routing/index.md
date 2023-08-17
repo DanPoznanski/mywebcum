@@ -830,14 +830,3 @@ And if we want `all traffic` to go through the VPN, we set the value for  Allowe
 
 AllowedIPs = AllowedIPs = 0.0.0.0/0
 ```
-
-
-
-
-
-
-
-
-```
-Add a rule to the firewall:
-```
