@@ -1066,18 +1066,18 @@ pipeline {
 
 ### Lockable Resource database
 
-its plugin need install 
+its plugin need install (lockable Resource) after
 
 Configure System => System => Lockable Resources Manager
----
+
 Resource:
 
 Name: SCHEMA_1
 
 Labels: database
 
-SAVE
----
+**SAVE**
+
 
 
 ```groovy
@@ -1437,3 +1437,99 @@ Let's create a simple groovy script and add a description to Jenkinsfile:
 An important change is the `referencedParameters` option. In it we specify the parameter on which the script execution depends. Run our Job, select the component and version and look at the result:
 
 ![jenkins10](images/jenkins10.png)
+
+
+
+
+
+### integration with Gitlab
+
+To get started, install the "Gitlab" plugin
+
+![jenkins11](images/jenkins11.png)
+
+
+After installation, need restart Jenkins
+
+Go to Gitlab and go to project Access Tokens => Add New Token
+
+![jenkins12](images/jenkins12.png)
+
+select all scopes and copy past personal access token
+
+Go to => Manage Jenkins => Credentials => Global => Add Credentials
+
+![jenkins13](images/jenkins13.png)
+
+ past personal access token to api token and **create!**
+
+
+
+
+Let's go to New Item => Multibranch pipeline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Добавить условия запуска stage, если PROD, то предлагать пользователю сообщение о подтверждении действия
+На любом этапе выполнения у нас может быть условие исполнения данного этапа.
+Есть несколько различных условий:
+1.	when { branch ‘develop’ } - выполнить stage если branch = develop
+2.	when { environment name: "BUILD", value: "DEBUG" } - выполнить если переменная BUILD имеет значение DEBUG
+3.	when {expression {expression { return params.DEPLOY } } - выполнить если переменная DEPLOY = true ( не false и не null )
+Операторы И, ИЛИ, НЕ
+allOf - работает как оператор И, все условия должны быть выполнены для запуска stage
+Пример:
+when { allOf {
+environment name: "BUILD", value: "DEBUG"
+branch 'develop' }
+}
+anyOf - работает как оператор ИЛИ, для выполнения этого stage должно быть выполнено любое из условий
+when { anyOf  {
+environment name: "BUILD", value: "DEBUG"
+branch 'develop' }
+}
+not  - для выполнение stage, условие не должно быть выполнено
+when { not {
+branch  ‘main’}
+}
+Одной из главных особенностей Jenkins, является возможность менять поведение pipeline в зависимости от пользовательского ввода.
+Шаг input позволяет нашему pipeline останавливаться и ждать ответа пользователя
+Пример:
+input 'Continue to deploy on PROD?'
+Шаг input имеет несколько параметров:
+message - сообщение которое будет отображаться пользователю
+ok - надпись на кнопке Ok
+submitter - список, разделенный запятыми, пользователей или групп пользователей, которым разрешено реагировать
+submitterParameter - переменаня для хранения пользователя, который подтверждает
+Пример:
+input {
+message "Ready to deploy?"
+ok "Yes"
+submitter "admin"
+submitterParameter "SUBMITTER_USERNAME"
+}
+В данном пример, продолжение pipeline разрешено только пользователю admin
