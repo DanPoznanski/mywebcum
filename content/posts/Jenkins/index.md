@@ -326,7 +326,7 @@ Add maven and npm to Global Tool Configuration
 
 Consider the example of installing maven, for this we go to Manage Jenkins-> Tools
 
-Add Maven
+### Add Maven
 ```
 Name: maven-3.9.4
 Version:
@@ -1265,18 +1265,6 @@ To parameterize the pipeline in jenkins, the parameter section is used. The foll
 `choice (name: «env», choices: [«PROD», «DEV», «UAT»], description: «choose an environment to install the release»)` 
 
 
-Пример:
-parameters {
-booleanParam(name: "dryrun", defaultValue: true, description: "Тестовый запуск")
-string(name: "version", defaultValue: "r48", trim: true, description: "Введите версию компонента")
-text(name: "releaseNotes", defaultValue: "Добавлены новые feature", description: "Описание изменений в релизе")
-password(name: "password", defaultValue: "changeme", description: "Введите пароль")
-choice(name: "env", choices: ["PROD", "DEV", "UAT"], description: "Sample multi-choice parameter")
-}
-Active Choice Parameter
-Active Choice Parameter не добавляется по умолчанию. Для его использования сначала нужно установить плагин Active Choices.
-
-Как написано в документации: «Active Choices используется для параметризация Jenkins Job и для создания динамических и интерактивных параметров. Параметры Active Choices могут динамически обновляться и отображаться в виде полей со списком, флажков, переключателей или виджетов пользовательского интерфейса с HTML».
 
 ### How to declare parameters in Jenkinsfile
 
@@ -1442,9 +1430,9 @@ An important change is the `referencedParameters` option. In it we specify the p
 
 
 
-### integration with Gitlab
+## integration with Gitlab
 
-To get started, install the "Gitlab" plugin
+To get started, install the `Gitlab` plugin and `Gitlab branch`
 
 ![jenkins11](images/jenkins11.png)
 
@@ -1455,19 +1443,306 @@ Go to Gitlab and go to project Access Tokens => Add New Token
 
 ![jenkins12](images/jenkins12.png)
 
-select all scopes and copy past personal access token
+select all scopes and copy past personal access token (do not copy stars)
 
 Go to => Manage Jenkins => Credentials => Global => Add Credentials
 
 ![jenkins13](images/jenkins13.png)
 
- past personal access token to api token and **create!**
+ past personal access token to api token and **create!** do not copy stars
+
+Dashboard => Manage Jenkins => System
+
+![jenkins15](images/jenkins15.png)
 
 
+test connection 
 
+Create for user token
+
+![jenkins16](images/jenkins16.png)
+
+Go to Gitlab -> Settings -> Webhook
+
+![jenkins17](images/jenkins17.png)
+
+**!!! Webhook not work from local machine !!! i used ngrok**
+
+![jenkins18](images/jenkins18.png)
+
+Webhook need for synchronization change jenkins branch
+
+
+https://user:password@mywebrepository.com/project/nameofproject.git
 
 Let's go to New Item => Multibranch pipeline
 
+**Click** Add source
+
+Select **Git**
+
+Enter your Repository URL (e.g.: git@your.gitlab.server:group/repo_name.git)
+
+save 
+
+after it jenkins scan all branch `Jenkinsfile` on Gitlab
+
+
+for examlpe:
+
+```groovy 
+
+pipeline {
+    agent any
+    tools {
+        maven 'maven-3.9.4'
+    }
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                checkout scm
+                }
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "env | sort"
+                sh 'mvn clean install'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage(Only 'MR') {
+          when {
+            branch 'MR-*'
+          }
+          steps {
+            sh "env | sort"
+          }
+        }
+    }
+}
+```
+MR = Merge Request
+
+
+
+
+
+
+
+
+
+\\\
+
+
+
+
+
+```groovy
+pipeline {
+    agent any
+    post {
+      failure {
+        updateGitlabCommitStatus name: 'build', state: 'failed'
+      }
+      success {
+        updateGitlabCommitStatus name: 'build', state: 'success'
+      }
+      aborted {
+        updateGitlabCommitStatus name: 'build', state: 'canceled'
+      }
+    }
+    options {
+      gitLabConnection('your-gitlab-connection-name')
+    }
+    triggers {
+        gitlab(triggerOnPush: true, triggerOnMergeRequest: true, branchFilterType: 'All')
+    }
+    stages {
+      stage("build") {
+        steps {
+          updateGitlabCommitStatus name: 'build', state: 'running'
+          echo "hello world"
+        }
+      }
+    }
+   [...]
+}
+```
+**gitLabConnection** - allows ours within a single Jenkins , work with multiple gitlab installations, by specifying the right one for each pipeline
+
+**triggers** - Added an option to the triggers section: gitlab - allows you to configure a trigger by event from gitlab
+
+**gitlabCommitStatus** - allows you to notify gitlab of build steps
+
+**updateGitlabCommitStatus** - allow you to notify giltab of status pipeline
+\\\
+
+![jenkins14](images/jenkins14.png)
+
+## Maven
+
+Install plugin `pipeline maven integration` 
+
+![jenkins19](images/jenkins19.png)
+
+After installation, we have an additional snippet inside steps
+
+Need Create new account in jenkins `name_of_user-gitlab-user`
+
+if you get his error need install git on agents
+```
+ERROR: Error cloning remote repo 'origin'
+hudson.plugins.git.GitException: Could not init /home/jenkins/workspace/maven
+```
+or path in gloobal jenkins => tools => git `/usr/bin/git`
+
+***withMaven*** - any mvn command executed inside this block will be processed by the withMaven wrapper
+
+***maven*** - version of maven declared in Tools
+
+
+
+```groovy
+pipeline { 
+    agent {
+    label 'linux'
+    }
+    stages {
+      stage('checkout') {
+        steps {
+          git branch: 'master', credentialsId: '15388941-gitlab-user', url: 'https://gitlab.com/DanPoznanski/spring-boot-rest-example.git'
+        }
+      }
+      stage('build') {
+        steps { 
+          withMaven(maven: 'maven-3.9.4')
+           {
+            sh "mvn clean install -DskipTests=true"
+           } 
+          }
+        }
+      stage('test') {
+        steps {
+          withMaven(maven: 'maven-3.9.4') {
+            sh "mvn test"
+          }
+        }
+      }
+    }
+} 
+```
+
+### Create XML Manage Files
+
+когда нету доступа к интернету.. и хранить секреты.. 
+
+its plugin 
+
+when there is no access to the Internet.. and you nedd keep secrets..
+
+Manage Jenkins => Add new Config
+
+![jenkins20](images/jenkins20.png)
+
+
+![jenkins22](images/jenkins22.png)
+
+
+
+hot to integrate to pipeline xml file 
+
+
+***mavenSettingsConfig*** - id settings.xml file from config file provider 
+
+*** -s ${env.MVN_SETTINGS} *** - its take from tmp settings xml `/home/jenkins/workspace/maven@tmp/withMaven86ec651/setting.xml`
+
+***mavenOpts*** - additional mvn options such as XmX, XmS, proxy settings and others
+
+*** '-Xmx1G' *** = 1G RAM MEMORY
+
+***mavenLocalRepo*** - path to the local repository
+
+```groovy
+pipeline { 
+    agent {
+    label 'linux'
+    }
+    environment {
+      ADDITIONAL_MVN_OPTS = '-Xmx1G'
+    }
+    stages {
+      stage('checkout') {
+        steps {
+          git branch: 'master', credentialsId: '15388941-gitlab-user', url: 'https://gitlab.com/DanPoznanski/spring-boot-rest-example.git'
+        }
+      }
+      stage('build') {
+        steps { 
+          withMaven(maven: 'maven-3.9.4', mavenSettingsConfig: 'my-project', mavenOpts: '$ADDITIONAL_MVN_OPTS') {
+            sh "env | sort"
+            sh "mvn clean install -s ${env.MVN_SETTINGS} -DskipTests=true"
+           } 
+          }
+        }
+      stage('test') {
+        steps {
+          withMaven(maven: 'maven-3.9.4', mavenSettingsConfig: 'my-project', mavenOpts: '$ADDITIONAL_MVN_OPTS') {
+            sh "mvn test -s ${env.MVN_SETTINGS}"
+          }
+        }
+      }
+    }
+} 
+
+```
+
+
+
+
+
+Also withMaven offers the ability to work with '.jar' files obtained as a result of pipeline execution and test results.
+`artifactsPublisher(disabled: true)`  - publish jar files
+
+```groovy
+pipeline { 
+    agent {
+    label "linux"
+    }
+    environment {
+        ADDITIONAL_MVN_OPS = '-Xmx1G'
+    }
+    stages {
+      stage('checkout') {
+        steps {
+          git branch: 'master', credentialsId: 'user15388941-gitlab-token', url: 'https://gitlab.com/DanPoznanski/spring-boot-rest-example.git'
+          }
+      }
+      stage('build') {
+        steps { 
+          withMaven(maven: '3.9.4',mavenSettingConfig: 'my-project' mavenOpts: '${ADDITIONAL_MVN_OPS}',options: [artifactsPublisher(disabled: true)])
+           {
+            sh "evn | sort"
+            sh "mvn clean install -s ${env.MVN_SETTINGS} -DskipTests=true"
+           } 
+          }
+        }
+      stage('test') {
+        steps {
+          withMaven(maven: '3.8.6' mavenOpts: '${ADDITIONAL_MVN_OPS}',options: [artifactsPublisher(disabled: true)]) {
+            sh "mvn test -s ${env.MVN_SETTINGS}"
+          
+          }
+        }
+      }
+    }
+} 
+```
 
 
 
@@ -1483,15 +1758,167 @@ Let's go to New Item => Multibranch pipeline
 
 
 
+### Sonarqube
+
+Install plugin `sonarqube scanner`
+
+need server sonarqube
 
 
 
 
 
 
+### EMAIL
+
+plugin in stock `extension email notifaction`
 
 
+```groovy
+pipeline {
+    agent {
+              label:linux
+    }
+    parameters {
+      choice(name: "env", choices: ["PROD", "DEV", "AUT"], description: "choice env")
+    }
+    stages {
+        stage(maintenance 'PROD') {
+          when {
+              expression {
+                params.env = 'PROD'
+              }
+          }
+          steps {
+                   sh 'sleep 10'
+          }
+        }
+    }  
+        post {
+        always {
+            emailext body: 'SUCCESS', subject: 'Maintenance finished', to 'danpoznansky@gmail.com'
+        } 
+      } 
+}
+```
 
+### Nexus
+
+Install plugin `nexus artifact upload`
+
+pupeline utility steps
+
+
+```groovy
+pipeline {
+    agent {
+      label 'linux'
+    }
+    environment {
+        ADDITIONAL_MVN_OPTS = '-Xmx256m -Xx:+UseConcMarkSweepGC'
+        NEXUS_VERSION = 'nexus3'
+        NEXUS_PROTOCOL = 'http'
+        NEXUS_URL = "192.168.1.333:8081"
+        NEXUS_REPOSITORY = 'maven-local'
+        NEXUS_CREDENTIALID = 'dev-nexus'
+    }
+    stages {
+      stage('checkout') {
+        steps {
+          git branch: 'main',  url: 'https://github.com./silabeer/spring-boot-example.git'
+        }
+      }
+      stage('build') {
+        steps { 
+          withMaven(maven: '3.8.6',mavenSettingConfig: 'my-project' mavenOpts: '${ADDITIONAL_MVN_OPS}',options: [artifactsPublisher(disabled: true)])
+           {
+            sh "evn | sort"
+            sh "mvn clean install -s ${env.MVN_SETTINGS} -DskipTests=true"
+           } 
+          }
+        }
+      stage('test') {
+        steps {
+          withMaven(maven: '3.8.6' mavenOpts: '${ADDITIONAL_MVN_OPS}',options: [artifactsPublisher(disabled: true)]) {
+            sh "mvn test -s ${env.MVN_SETTINGS}"
+          
+          }
+        }
+      }
+    }
+} 
+}
+
+
+```
+```groovy```
+pipeline {
+    agent {
+        label "master"
+    }
+    tools {
+        maven "Maven"
+    }
+    environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "you-ip-addr-here:8081"
+        NEXUS_REPOSITORY = "maven-nexus-repo"
+        NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
+    }
+    stages {
+        stage("Clone code from VCS") {
+            steps {
+                script {
+                    git 'https://github.com/javaee/cargotracker.git';
+                }
+            }
+        }
+        stage("Maven Build") {
+            steps {
+                script {
+                    sh "mvn package -DskipTests=true"
+                }
+            }
+        }
+        stage("Publish to Nexus Repository Manager") {
+            steps {
+                script {
+                    pom = readMavenPom file: "pom.xml";
+                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+                    artifactPath = filesByGlob[0].path;
+                    artifactExists = fileExists artifactPath;
+                    if(artifactExists) {
+                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+                        nexusArtifactUploader(
+                            nexusVersion: NEXUS_VERSION,
+                            protocol: NEXUS_PROTOCOL,
+                            nexusUrl: NEXUS_URL,
+                            groupId: pom.groupId,
+                            version: pom.version,
+                            repository: NEXUS_REPOSITORY,
+                            credentialsId: NEXUS_CREDENTIAL_ID,
+                            artifacts: [
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: artifactPath,
+                                type: pom.packaging],
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: "pom.xml",
+                                type: "pom"]
+                            ]
+                        );
+                    } else {
+                        error "*** File: ${artifactPath}, could not be found";
+                    }
+                }
+            }
+        }
+    }
+}
+```
 
 
 Добавить условия запуска stage, если PROD, то предлагать пользователю сообщение о подтверждении действия
