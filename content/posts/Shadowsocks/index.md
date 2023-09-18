@@ -157,5 +157,5 @@ and replace to shadowsocks folder `c:\shadowsocks\v2ray-plugin.exe`
 shadowsocks can download from GooglePlay
 
 
-plugin
+and plugin V2Ray from f-droid
 `https://f-droid.org/en/packages/com.github.shadowsocks.plugin.v2ray/` 

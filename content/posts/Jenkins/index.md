@@ -1849,9 +1849,8 @@ pipeline {
 } 
 }
 
-
 ```
-```groovy```
+```groovy
 pipeline {
     agent {
         label "master"
@@ -1921,42 +1920,64 @@ pipeline {
 ```
 
 
-Добавить условия запуска stage, если PROD, то предлагать пользователю сообщение о подтверждении действия
-На любом этапе выполнения у нас может быть условие исполнения данного этапа.
-Есть несколько различных условий:
-1.	when { branch ‘develop’ } - выполнить stage если branch = develop
-2.	when { environment name: "BUILD", value: "DEBUG" } - выполнить если переменная BUILD имеет значение DEBUG
-3.	when {expression {expression { return params.DEPLOY } } - выполнить если переменная DEPLOY = true ( не false и не null )
-Операторы И, ИЛИ, НЕ
-allOf - работает как оператор И, все условия должны быть выполнены для запуска stage
-Пример:
-when { allOf {
-environment name: "BUILD", value: "DEBUG"
-branch 'develop' }
-}
-anyOf - работает как оператор ИЛИ, для выполнения этого stage должно быть выполнено любое из условий
-when { anyOf  {
-environment name: "BUILD", value: "DEBUG"
-branch 'develop' }
-}
-not  - для выполнение stage, условие не должно быть выполнено
-when { not {
-branch  ‘main’}
-}
-Одной из главных особенностей Jenkins, является возможность менять поведение pipeline в зависимости от пользовательского ввода.
-Шаг input позволяет нашему pipeline останавливаться и ждать ответа пользователя
-Пример:
-input 'Continue to deploy on PROD?'
-Шаг input имеет несколько параметров:
-message - сообщение которое будет отображаться пользователю
-ok - надпись на кнопке Ok
-submitter - список, разделенный запятыми, пользователей или групп пользователей, которым разрешено реагировать
-submitterParameter - переменаня для хранения пользователя, который подтверждает
-Пример:
-input {
-message "Ready to deploy?"
-ok "Yes"
-submitter "admin"
-submitterParameter "SUBMITTER_USERNAME"
-}
-В данном пример, продолжение pipeline разрешено только пользователю admin
+
+
+## Jenkins Template Engine
+
+Plugin need install `Tempating Engine`
+
+### Directory structure
+
+![jenkins26](images/jenkins26.svg)
+
+
+
+
+![jenkins23](images/jenkins23.png)
+
+Manage Jenkins -> System -> Jenkins Template Engine
+
+`Library Sources` Add `From SCM` 
+
+`SCM` -> `Git`
+
+`Base Directory`-> your folder in gitlab
+
+`Credentials` -> Gitlab-user-token
+
+![jenkins24](images/jenkins24.png)
+
+
+after New Item -> Pipeline 
+
+copy past Jenkinsfile and Pipeline Configuration from gitlab 
+
+![jenkins25](images/jenkins25.png)
+
+
+## Jenkins Shared Library 
+
+### Directory structure
+
+```
+(root)
++- src                     # Groovy source files
+|   +- org
+|       +- foo
+|           +- Bar.groovy  # for org.foo.Bar class
++- vars
+|   +- foo.groovy          # for global 'foo' variable
+|   +- foo.txt             # help for 'foo' variable
++- resources               # resource files (external libraries only)
+|   +- org
+|       +- foo
+|           +- bar.json    # static helper data for org.foo.Bar
+```
+
+Add 
+
+   Name: 
+    
+Manage Jenkins -> System -> Global Pipeline Libraries
+
+
