@@ -1980,4 +1980,41 @@ Add
     
 Manage Jenkins -> System -> Global Pipeline Libraries
 
+Тhe name is important
+
+![jenkins27](images/jenkins27.png)
+
+
+net items -> pipeline
+
+'_' all import in
+```groovy
+@libraty('jenkins-shared-libraty') _
+import com.example.Notification
+
+pileline {
+    agent {
+      label 'linux'
+    }
+    stages {
+      stage('Demo') {
+        steps {
+            script {
+              def msg = new Notification(this)
+            withCredentials([string(credentialsId: 'telegram api', variable 'TOKEN')]) {
+            msg.sendMessage(env. [
+                 chatID: "1564161"
+                 token: "${TOKEN}"]
+                 )
+            }
+            }
+        }
+      } 
+    }
+} 
+```
+
+
+
+## Docker Slave 
 
