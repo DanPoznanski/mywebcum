@@ -46,3 +46,117 @@ Visit our email subscription preference center to let us know when to communicat
 Twice a month, we send out the GitLab news you need to know, including new features, integrations, docs, and behind the scenes stories from our dev teams. For critical security updates related to bugs and system performance, sign up for our dedicated security newsletter.
 
 Important Note If you do not opt-in to the security newsletter, you will not receive security alerts.
+
+
+## Gitlab-ci.yml
+
+
+for example gitlab-ci.yml
+```yaml
+stages:
+  - build
+  - test
+
+test-code-job1:
+  stage: test
+  script:
+    - echo "test1"
+
+test-code-job2:
+  stage: test
+  script:
+    - echo "test2"
+
+build-code-job:
+  stage: build
+  script:
+    - ./build.sh
+```
+
+## Trigger Event
+
+for trriger can add `when manual` its stop befor build job
+```
+build-code-job:
+  stage: build
+  script:
+    - ./build.sh
+  when: manual
+```
+
+Trigger to run on special branch
+
+```
+build-code-job:
+  stage: build
+  script:
+    - ./build.sh
+  only:
+    - master
+    - /^release_[0-9]+(?:.[0-9]+)+$/
+```
+
+
+## Run Only
+
+```
+stages:
+  - test
+  - build
+  - test2
+  - dev
+  - stage 
+  - prod
+
+install_env:
+  stage: test
+  script:
+    - echo " test1 ---------------------- "
+
+run_test:
+  stage: test
+  script:
+    - echo "test2 ---------------------- "
+
+linters:
+  stage: test
+  script:
+    - echo "test linter ---------------- "
+
+build:
+  stage: build
+  script:
+    - echo " running ./build.sh"
+
+test_after_build:
+  stage: test2
+  script
+    - echo " test after build ---------------- "
+
+deploy dev:
+  stage: dev
+  script:
+    - echo " running ./build.sh"
+
+deploy stage:
+  stage: stage
+  script:
+    - echo " running ./deploy.sh"
+  when: manual
+  only:
+    refs:
+      - tags
+      - master
+      - /^release.*$/
+deploy prod:
+  stage prod:
+  script
+    - ./deploy.sh
+  when: manual 
+  only:
+    refs:
+      - tags
+      - master
+      - /^release.*$/
+
+```

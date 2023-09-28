@@ -57,3 +57,7 @@ advanced option can edit in
 ```
 sudo nano /etc/prometheus/prometheus.yml
 ```
+add ngnix job
+```
+- job name:
+```

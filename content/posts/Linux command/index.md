@@ -491,7 +491,7 @@ netstat -lptun | grep 8080
 
 ### Iptables
 
-see all rules
+see all rules :
 ```
 sudo iptables -L
 ```
@@ -499,7 +499,7 @@ for all rules and numbers and tables
 ```
 sudo iptables --line-numbers -L -v -n
 ```
-see rules only input 
+see rules only input :
 ```
 sudo iptables -L INPUT  
 ```
@@ -519,41 +519,75 @@ all packet from 10.10.10.10 be drop to port 22
 ```
 sudo iptables -A INPUT -p tcp --dport 22 -s 10.10.10.10 -j DROP 
 ```
-for delete rules 
+to accept all 
+```
+sudo iptables -P INPUT ACCEPT 
+```
+disable ICMP answer 
+```
+sudo iptables -A INPUT -p icmp --icmp-type 8 -j DROP
+```
+for delete rules: 
 ```
 sudo iptables -D s 10.10.10.0 =j DROP
 ```
-all clean rules
+all clean rules:
 ```
 iptables -F
 ```
+### Iptables persistent
 
+we need iptables-persistent for be save after restart:
+
+install
 ```
+apt install iptables-persistent
+```
+run and save rules
+```
+sudo service netfilter-persistent save 
+```
+to see changes netfilter file
+```
+cat /etc/iptables/rules.v4
+```
+to restore all rules in file 
+``` 
+iptables-restore < /etc/iptables/rules.v4
+```
+```
+sudo sh -c "iptables-restore < /etc/iptables/rules.v4"
 ```
 
+
+### NAT forward
+
+![linux2](images/linux2.svg)
+
+to destination
 ```
+iptables -t nat -A PREROUTING -p tcp -d 192.168.0.2 --dport 80 -j DNAT --to-destination 192.168.0.3:80
+```
+to source
+```
+iptables -t nat -A POSTROUTING -p tcp -d 192.168.0.3 --dport 80 -j SNAT --to-source 192.168.0.2:80
 ```
 
+to source use masquerade
 ```
-```
-
-```
-```
-
-```
+iptables -t nat -A POSTROUTING -p tcp -d 192.168.0.3 MASQUERADE 
 ```
 
-```
-```
 
-```
-```
+## MAIL 
 
-```
-```
 
-```
-```
+
+
+
+
+
+
 
 ```
 ```
