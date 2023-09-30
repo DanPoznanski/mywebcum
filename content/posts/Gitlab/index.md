@@ -126,37 +126,89 @@ linters:
 build:
   stage: build
   script:
-    - echo " running ./build.sh"
+    - echo 'running ./build.sh'
 
 test_after_build:
   stage: test2
-  script
+  script:
     - echo " test after build ---------------- "
 
 deploy dev:
   stage: dev
   script:
-    - echo " running ./build.sh"
-
-deploy stage:
-  stage: stage
-  script:
-    - echo " running ./deploy.sh"
+    - echo 'running ./build.sh'
   when: manual
   only:
     refs:
       - tags
       - master
       - /^release.*$/
-deploy prod:
-  stage prod:
-  script
-    - ./deploy.sh
-  when: manual 
+
+deploy stage:
+  stage: stage
+  script:
+    - echo 'running ./deploy.sh'
+  when: manual
   only:
     refs:
       - tags
       - master
       - /^release.*$/
 
+deploy prod:
+  stage: prod
+  script:
+    - echo 'running ./deploy.sh'
+  when: manual 
+  only:
+    refs:
+      - tags
+      - master
+      - /^release.*$/
 ```
+
+only work on master 
+
+![gitlab2](images/gitlab2.png)
+
+
+
+
+example job 
+
+copy from `var/www/html` to `./html/*` 
+
+remove from `/var/www/html/site.zip`  zip from`zip -r /var/www/html/site.zip` and copy to `./html` 
+```
+stages:
+  - deploy
+
+deploy_prod_job:
+  stage: deploy 
+  script:
+    - cp -r ./html/* /var/wwww/html
+    - rm -f /var/www/html/site.zip; zip -r /var/www/html/site.zip ./html
+    tags:
+    - stage-shell
+     only:
+      refs:
+        - master
+```
+&nbsp;️ 
+
+
+
+### Gitlab Runner on Docker
+```
+docker run -d --name gitlab-runner --restart always \
+  -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  gitlab/gitlab-runner:latest
+
+```
+Registering runners 
+
+```
+docker run --rm -it -v /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
+```
+
