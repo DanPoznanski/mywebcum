@@ -170,7 +170,7 @@ would be:
     D---E---F---G master
 ```
 ```
-git merge topic
+git merge topicg
 ```
 ```
 	  A---B---C topic
@@ -183,4 +183,17 @@ git merge topic
 
 ### Git cherry-pick 
 
+With the "cherry-pick" command, Git allows you to integrate selected, individual commits from any branch into your current HEAD branch.
 
+Contrast this with the way commit integration normally works in Git: when performing a Merge or Rebase, all commits from one branch are integrated.
+
+![git2](images/git2.png)
+
+Cherry-pick, on the other hand, allows you to select individual commits for integration. In this example, only C2 is integrated into the master branch, but not C4.
+
+![git3](images/git3.png)
+
+for example :
+```
+git cherry-pick af02e0b
+```
