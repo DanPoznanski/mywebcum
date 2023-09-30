@@ -121,3 +121,66 @@ git commit -m
 ```
 git commit --amend  
 ```
+
+### Git Reset
+
+Mixed Reset: `git reset <commit>` resets the staging area to match the specified commit but it doesn't affect the working directory. Your changes are unstaged but not lost, allowing you review you changes before committing again
+```
+git reset
+```
+
+Soft Reset: `git reset --soft <commit>` keeps  you changes in the staging area. it means you can re-commit the changes after the reset. 
+```
+git reset --soft HEAD-1
+````
+Hard Reset: `git reset --hard <commit>` resets the staging area and the working directory to match the specified commit. Be careful with this option as it discards all changes in the working directory 
+
+`HEAD-1` delete 1 commit
+
+```bash
+git reset --hard  
+```
+
+### Git rebase 
+
+Assume the following history exists and the current branch is "topic":
+```
+          A---B---C topic
+         /
+    D---E---F---G master
+```
+From this point, the result of either of the following commands:
+```
+git rebase master
+git rebase master topic
+```
+would be:
+```
+                  A'--B'--C' topic
+                 /
+    D---E---F---G master
+```
+
+### Git Merge 
+
+
+```
+	  A---B---C topic
+	 /
+    D---E---F---G master
+```
+```
+git merge topic
+```
+```
+	  A---B---C topic
+	 /         \
+    D---E---F---G---H master
+```
+
+
+
+
+### Git cherry-pick 
+
+
