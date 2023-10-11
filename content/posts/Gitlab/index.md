@@ -48,10 +48,10 @@ Twice a month, we send out the GitLab news you need to know, including new featu
 Important Note If you do not opt-in to the security newsletter, you will not receive security alerts.
 
 
-## Gitlab-ci.yml
+## .gitlab-ci.yml
 
 
-for example gitlab-ci.yml
+for example .gitlab-ci.yml
 ```yaml
 stages:
   - build
@@ -199,6 +199,11 @@ deploy_prod_job:
 
 
 ### Gitlab Runner on Docker
+
+need gitlab runner for test in local machine and you can used runners SaaS on gitlab 
+
+
+
 ```
 docker run -d --name gitlab-runner --restart always \
   -v /srv/gitlab-runner/config:/etc/gitlab-runner \
@@ -212,3 +217,379 @@ Registering runners
 docker run --rm -it -v /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
 ```
 
+
+Gitlab => Setting => CI/CD => 
+
+![gitlab3](images/gitlab3.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Connect to Git Repository
+
+```
+git remote add origin https://gitlab.com/Danpoznanski/test-react-app.git
+git branch -M main
+```
+
+
+git fetch origin main:tmp
+
+
+
+git init
+
+git add -A
+
+git commit -m 'add your commit'
+
+git branch -m main
+
+git push origin main --force
+
+
+## Disable ptotect on main branch
+
+open you project -> Settings -> Repository and go to "Protected Pranches" find master branch into the list and click "Unprotect"
+
+
+### Yaml exemple to .gitlab-ci.yml
+
+```
+image: node:latest
+stages:
+  - build
+  - test
+  - deploy
+  - revert
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  artifacts:                         
+    paths:
+      - node_modules
+      - build
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+      
+test:
+  stage: deploy
+  script:
+    - cp -r build /www/test-app/$CI_COMMIT_SHA    
+    - ln -fsnv /var/www/test-app/$CI_COMMIT_SHA /www/html 
+
+```
+
+## Mount Volume in Docker
+
+```
+nano /srv/gitlab-runner/config/config.toml
+```
+
+need add volume to docker `/var/www/test-app`
+
+```
+volume = ["cache", "/var/www/:/www:rw"]
+```
+
+### Revert 
+```
+image: node:latest
+stages:
+  - build
+  - test
+  - deploy
+  - revert
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  artifacts:                         
+    paths:
+      - node_modules
+      - build
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+      
+test:
+  stage: deploy
+  script:
+    - cp -r build /www/test-app/$CI_COMMIT_SHA
+    - cp -Pv /www/html /www/test-app/$CI_COMMIT_SHA/prev-version   
+    - ln -fsnv /var/www/test-app/$CI_COMMIT_SHA /www/html 
+
+revert:
+  stage: revert
+  when: manual
+  script:
+    - cp -Pv --remove-destination /www/test-app/$CI_COMMIT_SHA/prev-version /www/html
+
+```
+
+`-P`&nbsp;&nbsp;&nbsp; **--no-dereference** &nbsp;&nbsp;&nbsp; never follow symbolic links in SOURCE
+
+**- - remove-destination**  &nbsp;&nbsp; remove each existing destination file before attempting to open it (contrast with --force)
+
+
+  ## Variables Gitlab
+
+  https://docs.gitlab.com/ee/ci/variables/
+
+
+print_vars:
+
+```
+image: node:latest
+stages:
+  - print_vars
+  - build
+  - test
+  - deploy
+  - revert
+
+print_vars:
+  stage: print_vars
+  script:
+    - export
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  artifacts:                         
+    paths:
+      - node_modules
+      - build
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+      
+test:
+  stage: deploy
+  script:
+    - cp -r build /www/test-app/$CI_COMMIT_SHA
+    - cp -Pv /www/html /www/test-app/$CI_COMMIT_SHA/prev-version   
+    - ln -fsnv /var/www/test-app/$CI_COMMIT_SHA /www/html 
+
+revert:
+  stage: revert
+  when: manual
+  script:
+    - cp -Pv --remove-destination /www/test-app/$CI_COMMIT_SHA/prev-version /www/html
+
+```
+
+export all variables 
+
+![gitlab4](images/gitlab4.png)
+
+### User Variables
+
+ Settings > CI/CD > Variables
+
+![gitlab5](images/gitlab5.png)
+
+`Mask a CI/CD variable` &nbsp;&nbsp; Masking a CI/CD variable is not a guaranteed way to prevent malicious users from accessing variable values. The masking feature is “best-effort” and there to help when a variable is accidentally revealed. To make variables more secure, consider using external secrets and file type variables to prevent commands such as env/printenv from printing secret variables.
+
+
+### Other Way
+
+in .gitlab-ci.yml create variables and `docker_html_path: "/www"` docker_html_path = www
+
+```
+image: node:latest
+stages:
+  - build
+  - test
+  - deploy
+  - revert
+
+variables:
+  docker_html_path: "/www"
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  artifacts:                         
+    paths:
+      - node_modules
+      - build
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+      
+test:
+  stage: deploy
+  script:
+    - cp -r build docker_html_path/test-app/$CI_COMMIT_SHA
+    - cp -Pv $docker_html_path/html /www/test-app/$CI_COMMIT_SHA/prev-version   
+    - ln -fsnv /var/www/test-app/$CI_COMMIT_SHA docker_html_path/html 
+
+revert:
+  stage: revert
+  when: manual
+  script:
+    - cp -Pv --remove-destination docker_html_path/test-app/$CI_COMMIT_SHA/prev-version docker_html_path/html
+
+```
+
+&nbsp;
+
+&nbsp;
+
+
+
+
+### Ngnix and 2 deploys for prod and for dev
+
+copy 
+```
+cp /etc/ngnix/sites-enabled/default /etc/ngnix/sites-enabled/staging
+
+```
+
+```
+nano /etc/ngnix/sites-enabled/staging
+```
+port from 80 to 81
+```
+listen 81;
+
+root /var/www/staging;
+autoindex on; 
+```
+create folder `staging`
+```
+mkdir /var/www/staging
+```
+
+test configuration ngnix
+```
+/etc/init.d/ngnix configtest
+```
+reload ngnix
+```
+/etc/init.d/ngnix reload
+```
+
+```
+nano public/index.html
+```
+```
+<title>%REACT_APP_WEBSITE_PREFIX%React app </title>
+```
+```yaml
+image: node:latest
+stages:  
+  - build
+  - test
+  - deploy
+  - revert
+
+variables:
+  docker_html_path: "/www"
+  env: prod
+  deploy_subfolder: html
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  - mv build build_$env
+  artifacts:                         
+    paths:
+      - node_modules
+      - build_$env
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+
+    
+build_staging
+  extends: insttall_dependencies
+  variables:
+    env: staging
+    REACT_APP_WEBSITE_PREFIX:"[staging] "
+    PUBLIC_URL: "/$CI_COMMIT_BRANCH"
+
+
+
+deploy_staging:
+  extends: deploy_prod
+  variables:
+    deploy_subfolder: staging/$CI_COMMIT_BRANCH
+    env: staging
+  when: always
+  allow_failure: true
+  only:
+    - master
+    - feature-.*
+
+deploy_prod:
+  stage: deploy
+  script:
+    - cp -r build_$env $docker_html_path/test-app/${env}_$CI_COMMIT_SHA
+    - cp -Pv $docker_html_path/$deploy_subfolder $docker_html_path/test-app/${env}$CI_COMMIT_SHA/prev-version  
+  only:
+    - master
+   
+
+
+activate_staging:
+  extends: active_prod
+  variables:
+    deploy_subfolder: staging/$CI_COMMIT_BRANCH
+    env: staging
+  when: always
+  only:
+    - master
+    - feature.*
+
+active_prod:
+  stage: deploy
+  script:
+    - ln -fsnv /var/www/test-app/${env}_$CI_COMMIT_SHA $docker_html_path/$deploy_subfolder
+  when: manual
+  only:
+    - master
+    
+```
+push to feature branch 
+```
+git push origin master:feature-test
+```

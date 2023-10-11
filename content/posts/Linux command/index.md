@@ -588,8 +588,11 @@ iptables -t nat -A POSTROUTING -p tcp -d 192.168.0.3 MASQUERADE
 
 
 
+### Delete
 
+delete files and folder
 ```
+rm -rf <folder>
 ```
 
 ```

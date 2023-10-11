@@ -197,3 +197,94 @@ for example :
 ```
 git cherry-pick af02e0b
 ```
+
+### git rebase 2 commit
+
+```
+git rebase -i HEAD~2
+```
+in commit
+```
+squash or fixup
+```
+```
+git rebase --continue
+```
+
+
+```
+git rebase -i HEAD~3
+```
+in commit
+```
+edit
+```
+```
+git rebase --continue
+```
+
+### git revert
+
+
+
+
+```
+git revert <hash commit>
+```
+
+
+### How restor git commit
+
+`git reflog` or `git log -g` 
+
+```
+git reset --hard master@{"15 minutes ago"}
+```
+
+```
+git fsck --full 
+```
+
+
+git besect
+```
+git besert <hash-commit>
+```
+git besert good or bad
+
+git besert reset
+
+
+
+
+git slash
+
+git slash list 
+
+git slash pop 
+
+git slash apply
+
+
+```
+git slash drop slash@{1}
+```
+clear all git slash
+```
+git slash clear
+
+```
+
+
+git diff
+
+
+```
+git diff master <hash-commit1> 
+```
+
+
+git blame
+```
+git blame index.html
+```
