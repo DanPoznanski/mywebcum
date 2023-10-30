@@ -586,7 +586,7 @@ iptables -t nat -A POSTROUTING -p tcp -d 192.168.0.3 MASQUERADE
 
 
 
-
+## Simple Command
 
 ### Delete
 
@@ -595,13 +595,22 @@ delete files and folder
 rm -rf <folder>
 ```
 
-```
-```
+### Program Dependencies
 
 ```
+ldd /usr/bin/bash
 ```
 
+
+### Tree 
+
 ```
+tree folder/
+```
+
+all tree process
+```
+sudo pstree
 ```
 
 ```

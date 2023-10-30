@@ -46,6 +46,8 @@ terraform init
 ```
 terraform apply 
 ```
+
+```
 `terraform destroy`  command in Terraform destroys all the resources created by your Terraform configuration, effectively tearing down the entire infrastructure.
 ```
 terraform destroy
