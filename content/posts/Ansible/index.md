@@ -706,7 +706,134 @@ nano verify.yml
 mol converge
 ```
 
+## Ansible Lint
 
+install ansible lint to ubuntu 
+```
+apt instal ansible-lint
+```
+```
+collection/
+├── docs/
+├── galaxy.yml
+├── meta/ 
+│ └── runtime.yml
+├── plugins/ 
+│ ├── modules/ 
+│ │ └── module1.py 
+│ ├── inventory/ 
+│ └── .../
+├── README.md
+├── roles/ 
+│ ├── role1/ 
+│ ├── role2/ 
+│ └── .../
+├── playbooks/ 
+│ ├── files/ 
+│ ├── vars/ 
+│ ├── templates/ 
+│ └── tasks/
+└── tests/
+```
+scanning catalog ansible-lint/examples ansible-lint:
+```bash
+ansible-lint -p examples/playbooks/example.yml
+```
+If playbooks include other playbooks or roles:
+```bash
+ansible-lint --force-color --offline -p examples/playbooks/include.yml
+```
+The test execution report in json format through the command codeclimate ansible-lint:
+```bash
+$ ansible-lint -f codeclimate examples/playbooks/norole.yml
+```
+
+```
+# .ansible-lint
+exclude_paths:
+  - .cache/  # implicit unless exclude_paths is defined in config
+  - .github/
+# parseable: true
+# quiet: true
+# verbosity: 1
+
+# Mock modules or roles in order to pass ansible-playbook --syntax-check
+mock_modules:
+  - zuul_return
+  # note the foo.bar is invalid as being neither a module or a collection
+  - fake_namespace.fake_collection.fake_module
+  - fake_namespace.fake_collection.fake_module.fake_submodule
+mock_roles:
+  - mocked_role
+  - author.role_name  # old standalone galaxy role
+  - fake_namespace.fake_collection.fake_role  # role within a collection
+
+# Enable checking of loop variable prefixes in roles
+loop_var_prefix: "{role}_"
+
+# Enforce variable names to follow pattern below, in addition to Ansible own
+# requirements, like avoiding python identifiers. To disable add `var-naming`
+# to skip_list.
+# var_naming_pattern: "^[a-z_][a-z0-9_]*$"
+
+use_default_rules: true
+# Load custom rules from this specific folder
+# rulesdir:
+#   - ./rule/directory/
+
+# This makes linter to fully ignore rules/tags listed below
+skip_list:
+  - skip_this_tag
+  - git-latest
+
+# Any rule that has the 'opt-in' tag will not be loaded unless its 'id' is
+# mentioned in the enable_list:
+enable_list:
+  - fqcn-builtins  # opt-in
+  - no-log-password  # opt-in
+  - no-same-owner  # opt-in
+  # add yaml here if you want to avoid ignoring yaml checks when yamllint
+  # library is missing. Normally its absence just skips using that rule.
+  - yaml
+# Report only a subset of tags and fully ignore any others
+# tags:
+#   - var-spacing
+
+# This makes the linter display but not fail for rules/tags listed below:
+warn_list:
+  - skip_this_tag
+  - git-latest
+  - experimental  # experimental is included in the implicit list
+  # - role-name
+
+# Offline mode disables installation of requirements.yml
+offline: false
+
+# Define required Ansible's variables to satisfy syntax check
+extra_vars:
+  foo: bar
+  multiline_string_variable: |
+    line1
+    line2
+  complex_variable: ":{;\t$()"
+```
+
+```bash
+ansible-lint -p ../../../SHARED/devops_guru/devops_guru/ansible/AB/deploy.yml -v -q
+
+```
+```bash
+---
+- hosts: all
+ any_errors_fatal: true
+ serial: 10
+ tasks:
+ - import_tasks: tasks/appd.yml
+ - import_tasks: tasks/start.yml
+ when: servrole is search ("batch")
+ - import_tasks: tasks/start.yml
+ when: servrole is not search ("batch")
+```
 
 ## KARATE
 
