@@ -1,8 +1,6 @@
-baseURL = "blog.pdan.dev"
+baseURL = "http://blog.pdan.dev"
 defaultContentLanguage = "en"
 languageCode = "en"
-
-title = "My New Hugo Site"
 
 theme = "gokarna"
 

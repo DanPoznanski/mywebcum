@@ -272,13 +272,21 @@ metrics for cpu im take from `node_exporter` its `node_cpu_seconds_total(mode="i
 
 for save dashboard `save dashboard` and give name
 
-### Simple metrics
+### Simple Metrics
 
 for monitoring up or down server A : metrics `up` Legend `{{job}}`
 
 for monitoring time scrape A : metrics `scrape_duration_seconds` Legend `{{instance}} {{job}}`
 
-for monitoring memory ram A:  metrics `100 - node_filesystem_avail_bytes{fstype!="tmfs"}/node_filesystem_size_bytes * 100` Legend {{device}}
+for monitoring memory ram A:  metrics `100 - node_filesystem_avail_bytes{fstype!="tmfs"}/node_filesystem_size_bytes * 100` Legend `{{device}}`
+
+for monitoring aggiration cpu  A: metrics `avg by (instance, cpu) (node_cpu_seconds_total)`
+
+for monitoring how many cpu core A: metrics `count (count(node_cpu_seconds_total)without (mode)) without (cpu)`
+
+### Function
+
+for monitoring how many places take on disk `delta(node_filesystem_avail_bytes {device!='tmpfs'}[45s])`
 
 ### Install Grafana Loki 
 
