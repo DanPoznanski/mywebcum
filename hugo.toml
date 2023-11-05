@@ -1,7 +1,7 @@
 baseURL = "http://blog.pdan.dev"
 defaultContentLanguage = "en"
 languageCode = "en"
-title = "My New Hugo Site"
+title = "myblog"
 theme = "gokarna"
 
 # Automatically generate robots.txt
