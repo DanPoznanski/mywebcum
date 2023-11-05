@@ -886,6 +886,7 @@ mvn test
 ```
 
 ### Karate Test Example:
+
 ```
 Feature: Get Tesin on reqres.in
   Scenario: Get Users List
@@ -895,6 +896,7 @@ Feature: Get Tesin on reqres.in
 ```
 ```
 mvn clean test
+```
 ```
 Feature: Get Tesin on reqres.in
 Background:
@@ -920,3 +922,4 @@ Background:
 And match $..first_name contains 'Emma'
 And match $..id contains '#notnull' 
 ```
+
