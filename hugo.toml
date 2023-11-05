@@ -1,7 +1,7 @@
 baseURL = "http://blog.pdan.dev"
 defaultContentLanguage = "en"
 languageCode = "en"
-
+title = "My New Hugo Site"
 theme = "gokarna"
 
 # Automatically generate robots.txt
@@ -38,4 +38,3 @@ enableRobotsTXT = true
     weight = 3
     
     # We use feather-icons: https://feathericons.com/
-    pre = "<span data-feather='github'></span>"
