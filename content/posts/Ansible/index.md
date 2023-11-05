@@ -923,3 +923,65 @@ And match $..first_name contains 'Emma'
 And match $..id contains '#notnull' 
 ```
 
+
+
+## Ansible Consul
+
+### Ansible inventory file
+
+
+consul.inv
+```
+[consul_instances]
+
+192.168.0.1 consul_bind_address=192.168.0.1 consul_client_address="192.168.0.1
+127.0.0.1" consul_node_role=server consul_bootstrap_expect=true
+
+192.168.0.2 consul_bind_address=192.168.0.2 consul_client_address="192.168.0.2
+127.0.0.1" consul_node_role=server consul_bootstrap_expect=true
+
+192.168.0.3 consul_bind_address=192.168.0.3 consul_client_address="192.168.0.3
+127.0.0.1" consul_node_role=server consul_bootstrap_expect=true
+
+192.168.0.4 consul_bind_address=192.168.0.4 consul_client_address="192.168.0.4
+127.0.0.1" consul_node_role=client consul_enable_local_script_checks=true
+```
+
+### Run Ansible
+```bash
+ansible-playbook -i consul.inb -K -b -u user playbook.yml
+```
+`i` - inventory file
+`u` - remote user on host
+`b` - run commands with sudo
+`K` - password for run sudo
+
+### Install Ansible-Roles for Consul
+
+Install roles for Consul
+```
+mkdir -p ansible_playbooks/roles
+```
+```
+cd ansible_playbooks/roles
+```
+```
+git clone https://github.com/ansible-community/ansible-consul
+```
+
+### Install Ansible-Roles for Ngnix
+
+install roles for ngnix
+```
+cd ansible_playbooks/roles
+```
+```
+git clone https://github.com/nginxinc/ansible-role-nginx.git
+```
+
+### Install Ansible-Roles for Ngnix from Galaxy
+
+Install from Galaxy 
+```
+ansible-galaxy role install nginxinc.nginx
+```
