@@ -1063,6 +1063,7 @@ site.yaml
   roles:
     - ansible-role-nginx
 ```
+
 ```yaml
 ansible-playbook -i consul.inv site.yaml
 ```
