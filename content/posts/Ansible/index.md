@@ -949,7 +949,7 @@ consul.inv
 
 ### Run Ansible
 ```bash
-ansible-playbook -i consul.inb -K -b -u user playbook.yml
+ansible-playbook -i consul.inv -K -b -u user playbook.yml
 ```
 `i` - inventory file
 `u` - remote user on host
@@ -984,4 +984,85 @@ git clone https://github.com/nginxinc/ansible-role-nginx.git
 Install from Galaxy 
 ```
 ansible-galaxy role install nginxinc.nginx
+```
+
+
+
+### Playbook 
+
+site.yaml
+```yaml
+- name: Assemble Consul cluster
+  hosts: consul_instances
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - ansible-consul
+``` 
+```
+ansible-playbook -i consul.inv site.yaml
+```
+
+`site.yaml` + ngnix config from ngnix-consul
+```yaml
+- name: Assemble Consul cluster
+  hosts: consul_instances
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - ansible-consul
+
+- name: Install Nginx
+  hosts: 192.168.0.4
+  become: true
+  become_user: root
+  roles:
+    - ansible-role-nginx
+```
+
+test on client ngnix work `netstat -lptn`
+
+
+### File format ansible for client backend
+
+nano consul_services.yaml 
+```yaml
+consul_services:
+  - name: "ngnix"
+    id: "web server"
+    tags: ['be']
+    checks:
+        - { name: 'Check Ngnix availability', id: 'NGINX', http: 'http://127.0.0.1', method: 'GET', interval: '10s', timeout '1s' }
+```
+
+site.yaml
+```yaml
+- name: Assemble Consul cluster
+  hosts: consul_instances
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - ansible-consul
+- name: Consul client and service
+  hosts: 192.168.0.4
+  vars_files:
+    - consul_services.yaml
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - ansible-consul
+
+- name: Install Nginx
+  hosts: 192.168.0.4
+  become: true
+  become_user: root
+  roles:
+    - ansible-role-nginx
+```
+```yaml
+ansible-playbook -i consul.inv site.yaml
 ```
