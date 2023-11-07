@@ -1025,7 +1025,9 @@ ansible-playbook -i consul.inv site.yaml
 test on client ngnix work `netstat -lptn`
 
 
-### File format ansible for client backend
+### File format json add for backend client
+
+and add to playbook `site.yaml`
 
 nano consul_services.yaml 
 ```yaml

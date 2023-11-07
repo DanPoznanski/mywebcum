@@ -279,3 +279,63 @@ ssh -L 8500:localhost:8500 root@<ip_of_machine>
 ```
 
 after goto `127.0.0.1:8500/ui`
+
+
+
+## Consul Template
+
+install on new machine
+```bash
+apt install software-properties-common
+```
+```bash
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+```
+```bash
+apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+```
+```bash
+apt-get update && sudo apt-get install consul-template
+```
+```bash
+mkdir /etc/consul-template.d/
+```
+```bash
+ chown -R consul:consul /etc/consul-template.d
+```
+
+
+## Create for Consul Template Systemd Unit
+
+
+![consul3](images/consul3.png)
+
+The deb package does not have a consul template start/stop service, need to create it in yourself.
+
+create service file
+```
+nano /usr/lib/systemd/system/consul-template.service
+```
+copy && past
+```
+[Unit]
+Description=Consul-Template Daemon
+Documentation=https://github.com/hashicorp/consul-template/
+Wants=basic.target
+After=network.target
+
+[Service]
+User=consul
+Group=consul
+ExecStart=/usr/bin/consul-template -config=/etc/consul-template.d/
+SuccessExitStatus=12
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+```
