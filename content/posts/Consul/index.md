@@ -926,5 +926,5 @@ create new file `config_nginx.yml`
        ngnix_config_cleanup_files:
           - /etc/nginx/conf.d/default.conf
           - /etc/nginx/sites-enabled/000-default
-
 ```
+
