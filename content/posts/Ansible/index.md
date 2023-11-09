@@ -62,7 +62,7 @@ reactjs.yaml
     
     - name: Install the packages YARN, NPM, NodeJS, Nginx
       apt:
-        pkg: ['yarn','npm','nodejs','ngnix']
+        pkg: ['yarn','npm','nodejs','nginx']
     
     - name: Delete the html file
       file:
@@ -124,7 +124,7 @@ ansible-playbook -b reactjs.yaml -vv
 ```
 delete files in instance
 ```
-ansible ngnix_servers -m command -a "rm -rf <files>" -b
+ansible nginx_servers -m command -a "rm -rf <files>" -b
 ```
 
 
@@ -198,7 +198,7 @@ ANSIBLE_STDOUT_CALLBACK=json
 
 ## Ansible Ad-Hoc commands
 ```
-ansible ngnix_servers -m user -a "name=ansible group=admin" -b
+ansible nginx_servers -m user -a "name=ansible group=admin" -b
 
 ```
 
@@ -425,16 +425,16 @@ ansible-inventory --graph --vars
 ansible reactjs_servers -m setup
 ```
 
-ngnix.yaml
+nginx.yaml
 ```yaml
 ---
-- hosts: ngnix_servers
+- hosts: nginx_servers
   vars:
-    ngnix_vhosts:
+    nginx_vhosts:
     - listen: "80
     service_name: "react.akilin.com"
     state: "present"
-    template: " {{ ngnix_vhost_template }}
+    template: " {{ nginx_vhost_template }}
     filename: "react.akilin.com.conf"
     extra_parameters: |
       location / {
@@ -444,12 +444,12 @@ ngnix.yaml
           roxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       }
     pre_tasks:
-      - name: Ensure that the default ngnix symlink is absent
+      - name: Ensure that the default nginx symlink is absent
         file:
-          path: "/etc/ngnix/sites-enabled/default"
+          path: "/etc/nginx/sites-enabled/default"
           state: absent
     roles:
-      - role: ngnix
+      - role: nginx
 ```
 
 
@@ -682,9 +682,9 @@ nano main.yml
 
 ```
 ---
-- name: Ensure ngnix installed
+- name: Ensure nginx installed
 package: 
-        name: ngnix
+        name: nginx
         state: present 
 ```
 ```
@@ -696,9 +696,9 @@ nano verify.yml
 - name: Verify
   hosts: all
   tasks:
-        - name: Check ngnix binary
+        - name: Check nginx binary
           stat:
-                  path: "/usr/bin/ngnix"
+                  path: "/usr/bin/nginx"
           register: this
           failed_when: "not this.stat.exists"
 ```
@@ -969,9 +969,9 @@ cd ansible_playbooks/roles
 git clone https://github.com/ansible-community/ansible-consul
 ```
 
-### Install Ansible-Roles for Ngnix
+### Install Ansible-Roles for Nginx
 
-install roles for ngnix
+install roles for nginx
 ```
 cd ansible_playbooks/roles
 ```
@@ -979,7 +979,7 @@ cd ansible_playbooks/roles
 git clone https://github.com/nginxinc/ansible-role-nginx.git
 ```
 
-### Install Ansible-Roles for Ngnix from Galaxy
+### Install Ansible-Roles for Nginx from Galaxy
 
 Install from Galaxy 
 ```
@@ -1004,7 +1004,7 @@ site.yaml
 ansible-playbook -i consul.inv site.yaml
 ```
 
-`site.yaml` + ngnix config from ngnix-consul
+`site.yaml` + nginx config from Nginx-consul
 ```yaml
 - name: Assemble Consul cluster
   hosts: consul_instances
@@ -1022,7 +1022,7 @@ ansible-playbook -i consul.inv site.yaml
     - ansible-role-nginx
 ```
 
-test on client ngnix work `netstat -lptn`
+test on client nginx work `netstat -lptn`
 
 
 ### File format json add for backend client
@@ -1032,11 +1032,11 @@ and add to playbook `site.yaml`
 nano consul_services.yaml 
 ```yaml
 consul_services:
-  - name: "ngnix"
+  - name: "nginx"
     id: "web server"
     tags: ['be']
     checks:
-        - { name: 'Check Ngnix availability', id: 'NGINX', http: 'http://127.0.0.1', method: 'GET', interval: '10s', timeout '1s' }
+        - { name: 'Check Nginx availability', id: 'NGINX', http: 'http://127.0.0.1', method: 'GET', interval: '10s', timeout '1s' }
 ```
 
 site.yaml
