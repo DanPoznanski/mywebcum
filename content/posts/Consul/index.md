@@ -917,4 +917,14 @@ create new file `config_nginx.yml`
           - template_file: stream/load-balancer.conf.tmp.j2        
             conf_file_name: load-balancer.conf.tmp
             conf_file_location:: /etc/nginx/conf.d
+       ngnix_config_cleanup: true
+       ngnix_config_cleanup_paths:
+          - directory:
+              - /etc/nginx/conf.d
+              - /etc/nginx/sites-enabled
+            recurse: false
+       ngnix_config_cleanup_files:
+          - /etc/nginx/conf.d/default.conf
+          - /etc/nginx/sites-enabled/000-default
+
 ```
