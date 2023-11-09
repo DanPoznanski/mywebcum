@@ -895,7 +895,8 @@ git clone https://github.com/nginxinc/ansible-role-nginx.git
 
 create new file `config_nginx.yml`
 
-```
+```yaml
+
 ---
 -name: Configuring Nginx
  hosts: consul_template
@@ -926,5 +927,51 @@ create new file `config_nginx.yml`
        ngnix_config_cleanup_files:
           - /etc/nginx/conf.d/default.conf
           - /etc/nginx/sites-enabled/000-default
+```
+
+
+
+### Ansible Role Ngnix Config
+
+`/roles/ansible-role-nginx-config/templates/stream/load-balancer.conf.tmp.js`
+
+```j2
+{% if version is defined %}
+  {% if version == "v1" %}
+   upsteam be_version_v1 {
+     {{'{{'}}- range service "be_version_v1" {{'}}'}}
+       server {{'{{'}} .Address {{'}}'}};
+     {{'{{'}}- end {{'}}'}}
+}
+{% elif version == "v2" %}
+  upsteam be_version_v2 {
+    {{'{{'}}- range service "be_version_v2 {{'}}'}}
+       server {{'{{'}} .Address {{'}}'}};
+    {{'{{'}}- end {{'}}'}}
+  }
+  {% endif %}
+{% endif %}
+
+server {
+   listen 80;
+
+{% if version is defined %}
+  {% if version == "v1" %}
+   location /v1/ {
+       proxy_pass http://be_version_v1;
+}
+
+{% elif version == "v2" %}
+   location /v2/ {
+       proxy_pass http://be_version_v2;
+ }
+}
+
+  {% endif %}
+{% endif %}
+```
+run   
+```bash
+ansible-playbook -i consul.inv configure-nginx.yml 
 ```
 
