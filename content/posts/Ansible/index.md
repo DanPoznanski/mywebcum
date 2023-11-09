@@ -1069,3 +1069,26 @@ site.yaml
 ```yaml
 ansible-playbook -i consul.inv site.yaml
 ```
+
+
+
+
+
+## CRM Configuration Management System Ansible
+
+
+Diargam Pull/Push System
+
+![ansible2](images/ansible2.svg)
+
+
+
+
+## What is Playbook
+
+![ansible3](images/ansible3.svg)
+
+
+![nsible4](images/ansible4.svg)
+
+
