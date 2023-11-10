@@ -1086,9 +1086,252 @@ Diargam Pull/Push System
 
 ## What is Playbook
 
+Example what is Play
 ![ansible3](images/ansible3.svg)
 
 
-![nsible4](images/ansible4.svg)
+Example what is Tasks
+![ansible4](images/ansible4.svg)
 
 
+
+## Stategy of Ansible
+
+Playbook:
+```
+- hosts: all
+strategy : Free
+tasks:
+```
+
+Stategy of Ansible `Free` or `Linear`
+
+
+ansible.cfg:
+```
+[defaults]
+strategy = free
+```
+
+
+## Run Sort hosts 
+```
+- hosts: all
+order: sorted
+```
+- order: inventory - by default, like in inventory file ( up to down list)
+
+- order: reverse_inventory - from down to up 
+
+- order: softed - by abc name
+
+- order: reverse_softed -  reverse abc
+
+- order: shuffle - random list
+
+inventory file:
+```
+[consul_instances]
+192.168.0.1
+192.168.0.2
+192.168.0.3
+192.168.0.4
+192.168.0.5
+192.168.0.6
+```
+
+**Variant of control execution tasks**
+
+```
+- name: my play
+  hosts: consul_instances
+  serial:3
+  gather_facts: False
+
+  task:
+  - name: first task
+    command: hostname
+  - name: second task
+    command: hostname
+  task:
+  - command: /path/to/cpu_intensive_command
+  throttle: 1                                      # 1 worker
+  task:
+  - name: show mypass variable run_once: true
+    run_once: true       # 1 run in first inventory list 
+    delegete_to: web01.example.org  # run on his machine 
+
+```
+
+
+**Handler**
+
+Handler be run аfter all (no matter where it was on the playbook list)
+```
+tasks/main.yml
+- name: configuring zabbix agent to connect to zabbix server
+  delegate_to: "{{ server_ip }}"
+  run_once: true 
+  template: 
+    scr: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{item.mode }}"
+    owner: "{{item.owner }}"
+  with_items:
+    - {scr: 'zabbix_agentd.conf.j2', dest:'/etc/zabbix/zabbix_agentd.conf', mode: '0644', owner: 'root', group: 'root' }
+    - {scr: 'zabbix_agentd.psk.j2', dest:'/etc/zabbix/zabbix_agentd.psk', mode: '0644', owner: 'root', group: 'root' }
+  notify: Restart Zabbix Agent 
+- meta: flush_handlera
+
+handlers/main.yml
+- name: Restart Zabbix Agent
+  delegate_to: {{ server_ip }}
+  service: 
+   name: zabbix agent
+   state: restarted
+```
+
+
+Example playbook with `tasks`, `post_tasks`, `pre_tasks`
+
+```
+---
+- name: my play
+  hosts: consul_instances
+
+  task:
+  - name: first task
+    command: hostname
+  - name: second task
+    command: hostname
+---
+- name: my play
+  hosts: consul_instances
+  pre_tasks:
+    - task1
+  roles:
+    - myrole1
+    - myrole2
+  post_tasks:
+    - task2
+
+```
+
+
+## See what tasks be running
+
+```
+ansible-playbook -i consul.inv --zabbix.yml --list tasks
+```
+
+## Playbook with tags
+
+```
+- name: installing packages
+  delegate_to: "{{ server }}"
+  run_once:true
+  apt:
+    update_cache: yes
+    name:
+      - zabbix-agent
+      - ntp
+      - python3.8
+      - python3-pip
+      - python3-apt
+      - mc
+      - unzip
+    state: present
+- name: Install nginx and certbot
+  tags: nginx
+  delegate_to: "{{ server_ip }}"
+  run_once: true
+  apt:
+    name:
+      - nginx
+      - certbot
+      - python3-cerbot-nginx
+- name: Lets encrypt issueing certificates
+  tags: ngnix
+  delegate_to: "{{ server_ip }}"
+  include: letsencrypt.yml
+```
+```
+ansible-playbook -i consul.inv zabbix.yml  --list-tasks --tags ngnix
+```
+
+
+## Inventory Files
+
+
+See inventory list
+```bash
+ansible-playbook - consul.inv zabbix.yml --list-host 
+```
+
+
+**Inventory from Service Discovery**
+
+
+
+**Variables for group servers**
+
+```ini
+[consul_instances]
+192.168.0.1
+192.168.0.2
+192.168.0.3
+
+[consul_instansces:vars]
+consul_node_role=servers
+consul_bootstrap_expect=true
+```
+*  `consul_bootstrap_expect` When setting up a Consul cluster, one of the servers is typically chosen as the leader, which manages the bootstrap process. The consul_bootstrap_expect option indicates how many servers should be included in this bootstrap process.
+
+
+**Inventory Variables for Ansible**
+
+```
+localhost    ansinle_connection=local 
+192.168.0.1  ansinle_connection=ssh   ansible_user=ansible
+192.168.0.2  ansinle_connection=lssh  ansible_user=root
+```
+
+**Combination groups for childrens group**
+
+```ini
+[nginx]
+192.168.0.1
+192.168.0.2
+[nginx2]
+192.168.0.3
+192.168.0.4
+[telaviv:children]
+nginx
+nginx2
+[telaviv:vars]
+nginx_config_stream_template_enable: true
+```
+
+
+
+##Variables in Ansible
+
+simple variable
+```
+datacenter: telaviv
+```
+list variables
+```
+users:
+  - dan
+  - idan
+  - ofek
+```
+
+dictionary variables
+```
+
+users:
+ofek_key: ssh-rsa
+<your_key>ofek@linux
+```
