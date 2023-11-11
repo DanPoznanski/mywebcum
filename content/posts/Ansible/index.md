@@ -1434,3 +1434,33 @@ Source: http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable
 - extra vars (always win precedence)
 
 ---
+
+## Use facts in playbook
+```
+- hosts: all 
+  tasks:
+  - package:
+      name: "httpd"
+      state: present
+    when "{{ ansible_distribution }}" == "CentOs"
+  - package:
+      name: "httpd"
+      state: present
+    when "{{ ansible_distribution }}" == "Ubuntu"
+```
+
+** Prints all facts about hosts
+```
+- name: Ansible facts
+  debug:
+    msg: "facts = {{ ansible_facts }}"
+```
+
+see facts :
+```
+ansible all -m setup 
+```
+can filter 
+```
+ansible all -m setup -a "filter=ansible=eth0"
+```
