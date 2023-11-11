@@ -975,3 +975,44 @@ run
 ansible-playbook -i consul.inv configure-nginx.yml 
 ```
 
+### Load Balance
+
+on machine loadbalance
+
+```bash
+cd /etc/nginx/conf.d/
+```
+```bash
+cat load-balancer.conf.tmp
+```
+
+get key value
+```bash
+consul kv get version
+```
+put version
+```bash
+consul kv put version v1
+```
+/etc/ngnix/conf.d/ use `cat load-balancer.conf.tmp`
+```
+{{ $keyname := keyOrDefault "version" "v2" }}
+{{ $service name := printf "be_version_%s" $keyname }}
+upstream {{ $service name }} {
+     {{- range service  $service_name }}
+       service {{ .Address }};
+     {{- end }}
+}
+server {
+   listen 80;
+
+     localion /{{ $keyname }}/ {
+       proxy_pass http://{{ $service_name }};
+     }
+}
+```
+
+start consul-template
+```
+systemctl start consul-template
+```

@@ -1464,3 +1464,88 @@ can filter
 ```
 ansible all -m setup -a "filter=ansible=eth0"
 ```
+
+## Нow to speed up running playbook
+
+use in playbook 
+```
+gather_facts: no
+```
+use redis 
+```ini
+[defaults]
+gathering = smart
+fact_caching = redis
+# two hours timeout
+fact_caching_timeout = 7200
+```
+
+```
+[defaults]
+gathering =smart
+fact_caching = json
+fact_caching_connection = /tmp/facts_cache
+# two hours timeout
+fact_caching_timeout = 7200
+```
+
+## Work with variables in KV vault in consul
+```
+- name Setting var server_ip
+  consul_kv:
+    key: server_ip
+    value: 192.168.0.5
+- name Removing var server_ip
+  consul_kv:
+    key: server_ip
+    value: absend
+- set_fact:
+    server_ip: "{{ lookup('consul_kv', 'server_ip', host='192.168.0.4') }}"
+```
+
+search variables environment
+```
+- set_fact:
+  api_token: "{{ lookup('env', 'API_TOKEN') }}"
+```
+
+## Ansible-Vault
+
+base command
+```
+ansible-vault create <myfile> 
+
+ansible-vault view <myfile>
+
+ansible-vault edit <myfile> 
+
+ansible-vault encrypt <myfile> 
+
+ansible-vault decrypt <myfile>
+
+ansible-vault rekey <myfile>
+````
+Ask To Password to run
+```
+ansible-vault myplaybook.yml -ask-vault-pass 
+```
+
+password 
+```
+ansible-vault encrypt_string
+```
+for easy method (no interactive)
+```
+echo -n "mypassword" | ansible-vault encrypt_string
+```
+no save history bash session ssh
+```
+unset HISTFILE
+```
+
+
+
+```
+ansible-vault myplaybook.yml -vault-password-file <mypasswordfile>
+```
+
