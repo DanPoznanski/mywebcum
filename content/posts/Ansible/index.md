@@ -1087,10 +1087,12 @@ Diargam Pull/Push System
 ## What is Playbook
 
 Example what is Play
+
 ![ansible3](images/ansible3.svg)
 
 
 Example what is Tasks
+
 ![ansible4](images/ansible4.svg)
 
 
