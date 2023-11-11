@@ -1316,7 +1316,7 @@ nginx_config_stream_template_enable: true
 
 
 
-##Variables in Ansible
+## Variables in Ansible
 
 simple variable
 ```
@@ -1337,3 +1337,100 @@ users:
 ofek_key: ssh-rsa
 <your_key>ofek@linux
 ```
+access to simple variables
+```
+"{{ datacenter }}"
+```
+acess to list variables
+```
+user: "{{  user[0] }}"
+```
+access to dictionary
+```
+ssh_keys['ofek_key']
+```
+or
+
+```
+ssh_keys.ivan_key
+```
+**access to nested variables**
+```
+users:
+  - name: dan
+    key: 
+      - shh-rsa
+```
+```
+- name: adding ssh keys
+  delegate_to: "{{ server_ip }}"
+  run_once: true
+  authorized_key:
+    key: "{{ item.1 }}"
+    user: "{{ item.0.name }}"   # or "{{ item[0].name }}" or "{{ item[0]['name'] }}"
+    with_subelements:
+      - "{{ users }}"
+      - key
+```
+
+Registry variables
+```
+- name: generating tls psk 
+  delegate_to: localhost
+  shell: /usr/bin/openssl rand -hex 32 # Generate random -hex 32 key
+  register: tls_psk 
+- name: print variables
+  delegate_to: localhost
+  run_once: yes
+  debug:
+    msg: "tls pks is "{{ tls_psk: "{{ tls_psk.stdout }}" # print key
+```
+
+## Ansible variable precedence
+Source: http://docs.ansible.com/ansible/latest/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
+
+- From least to most important
+
+- command line values (for example, -u my_user, these are not variables)
+
+- role defaults (defined in role/defaults/main.yml)
+
+- inventory file or script group vars
+
+- inventory group_vars/all
+
+- playbook group_vars/all
+
+- inventory group_vars/*
+
+- playbook group_vars/*
+
+- inventory file or script host vars
+
+- inventory host_vars/*
+
+- playbook host_vars/*
+
+- host facts / cached set_facts
+
+- play vars_prompt
+
+- play vars_files
+
+- role vars (defined in role/vars/main.yml)
+
+- block vars (only for tasks in block)
+
+- task vars (only for the task)
+
+- include_vars
+
+- set_facts / registered vars
+
+- role (and include_role) params
+
+- include params
+
+- extra vars (always win precedence)
+
+---
