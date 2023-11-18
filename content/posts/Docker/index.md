@@ -130,7 +130,7 @@ docker load < start.tar
 ### Tag Image
 
 ```
-docker tag <IMAGE ID> ngnix:alpine 
+docker tag <IMAGE ID> nginx:alpine 
 
 ```
 
@@ -295,7 +295,7 @@ docker network disconnect <Name_of_Container>
 ### Forward Ports from Host to Docker
 
 ```
-docker run -d -p 2000:80 ngnix
+docker run -d -p 2000:80 nginx
 ```
 first port Host second Container 
 
@@ -392,12 +392,58 @@ ENTRYPOINT ["npm", "start"]
 ```
 
 
+### Multi-stage building
+```dockerfile
+FROM ubuntu:focal AS build
+RUN export DEBIAN FRONTEND=noninteractive && apt-get update && apt-get -q -y install apt-utils git cmake g++ && git clone https://github.com/toprakkeskin/Cpp-Socket-Simple-TCP-Echo-Server-Client.git && cp Cpp-Socket-Simple-TCP-Echo-Server-Client/server && cmake CMakeLists.txt && make 
+EXPOSE 8080/tcp
+WORKDIR /Cpp-Socket-Simple-TCP-Echo-Server-Client/server
+CMD ["./tcp-echo-server,8080"]
 
+FROM ubuntu:focal AS prod
+WORKDIR /server
+COPY --from=build Cpp-Socket-Simple-TCP-Echo-Server-Client/server/tcp-echo-server /server
+EXPOSE 8080/tcp
+CMD ["./tcp-echo-server,8080"]
 
+```
 
+`-t` - tag name of docker for example `tcpserver:latest`
+```bash
+docker build -t tcpserver .
+```
 
+### Image Optimization
 
+```dockerfile
+From alpine As build
+RUN apk add git gcc g++ cmake make libgcc libstdc++ && git clone https://github.com/toprakkeskin/Cpp-Socket-Simple-TCP-Echo-Server-Client.git && cp cp Cpp-Socket-Simple-TCP-Echo-Server-Client/server && cmake CMakeLists.txt && make
+EXPOSE 8080/tcp
+WORKDIR /Cpp-Socket-Simple-TCP-Echo-Server-Client/server
+CMD ["./tcp-echo-server,8080"]
 
+FROM alpine AS prod
+RUN apk --no-cache add libstdc++ libgcc
+WORKDIR  root/server
+COPY --from=build Cpp-Socket-Simple-TCP-Echo-Server-Client/server/tcp-echo-server root/server
+EXPOSE 8080/tcp
+CMD ["./tcp-echo-server,8080"]
+
+```
+`-f` from 
+```
+docker build -t tcpserver -f dockerfile1 .
+```
+
+docker history
+
+```bash
+docker image history <image>
+```
+time of build
+```bash
+time docker build -t tcpserver -f dockerfile1 .
+```
 
 ### Docker Builder
 
@@ -409,6 +455,9 @@ from file
 ```
 docker build -t <Name_of_NEW_Image> -f <Name_of_Dockerfile>
 ```
+
+
+
  
 ### OverlayFS and Overlay2
 
@@ -452,6 +501,38 @@ docker pull local:5000/test_boi
 
 redhut query or harbor
 
+Docker-Compose Registry
+
+```yml
+version: '3'
+
+services:
+  registry:
+    restart: always
+    image: registry:2
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: Registry
+      REGISTRY_AUTH_HTPASSWD_PATH: ./auth/registry.password
+    volumes:
+      - ./:/data
+      - ./auth:/auth
+```
+
+`htpasswd` create list name and password 
+```bash
+htpasswd -B -c ./auth/registry.password dan
+```
+
+
+
+
+
+
+
 
 ## DockerD
 
@@ -466,7 +547,9 @@ cat daemon.json
 ```
 journalctl -xu docker.service
 ```
-### Change driver for docker `daemon.json`
+### Change driver for docker 
+
+`daemon.json`
 ```
 {
   "storage-driver":"aufs"
@@ -506,7 +589,7 @@ sudo chown $USER. /opt/nginx-compose-example
 ```
 service:
   ng1:
-    image: ngnix
+    image: nginx
     port: 
       - "8080:80"
 ```
@@ -585,14 +668,14 @@ environment:
 
 ```
 $ head .env
-##### NGNIX ##################
+##### NGiNX ##################
 
-NGNIX_SSL_PATH=./ngnix/ssl/
+NGINX_SSL_PATH=./nginx/ssl/
 ###### TO-DO APP CONFIG ##############
-NGNIX_TODO_HOST_HTTP_PORT=8081
-NGNIX_TODO_HOST_HTTPS_PORT=8081
-NGNIX_TODO_SITE_PATH=./ngnix/sites/todo.conf
-NGNIX_TODO_HOST_LOG_PATH=./../logs/ngnix_todo
+NGINX_TODO_HOST_HTTP_PORT=8081
+NGINX_TODO_HOST_HTTPS_PORT=8081
+NGINX_TODO_SITE_PATH=./nginx/sites/todo.conf
+NGINX_TODO_HOST_LOG_PATH=./../logs/nginx_todo
 APP_CODE_TODO_PATH_HOST=./../todo
 APP_CODE_TODO_PATH_CONTAINER=/var/www/todo
 
@@ -603,11 +686,11 @@ service:
   env_file .env
   nginx_todo:
     build:
-      context: ./ngnix
+      context: ./nginx
     volumes:
       - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}
-      - ${NGNIX_TODO_HOST_LOG_PATH}:/var/log/ngnix
-      - ${NGNIX_TODO_SITE_PATH}:/etc/ngnix/site-available/todo.conf
+      - ${NGINX_TODO_HOST_LOG_PATH}:/var/log/nginx
+      - ${NGINX_TODO_SITE_PATH}:/etc/nginx/site-available/todo.conf
 
 ```
 
@@ -657,7 +740,7 @@ start_period: 40s
 ```
 services:
   ng1:
-    images: ngnix
+    images: nginx
     volumes:
       - type: bind
         source: /tmp
@@ -677,7 +760,7 @@ version "3.1"
 services:
   reverse_proxy:
     build: ./reverse_proxy
-     user: ngnix
+     user: nginx
     ports: 
       - "433:433"
   networks:
@@ -866,11 +949,11 @@ docker stack rm sw1
 
 for connect to network 
 ```
-docker network connect <my-net> my-ngnix
+docker network connect <my-net> my-nginx
 ```
 for disconnect
 ```
-docker network connect <my-net> my-ngnix
+docker network connect <my-net> my-nginx
 ```
 
 ### Overlay

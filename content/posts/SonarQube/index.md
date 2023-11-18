@@ -289,12 +289,21 @@ sudo systemctl status sonar
 ```
 
 
------------------------------------------------------------------------------------------
+---
 
 ### Access SonarQube Web Interface
+
 Access SonarQube in a web browser at your server's IP address on port 9000. For example:
 
 `http://IP:9000` `http://127.0.0.1:9000`
 
 Log in with username admin and password admin. SonarQube will prompt you to change your password.
+
+---
+
+
+
+
+
+
 

@@ -1253,12 +1253,12 @@ ansible-playbook -i consul.inv --zabbix.yml --list tasks
       - certbot
       - python3-cerbot-nginx
 - name: Lets encrypt issueing certificates
-  tags: ngnix
+  tags: nginx
   delegate_to: "{{ server_ip }}"
   include: letsencrypt.yml
 ```
 ```
-ansible-playbook -i consul.inv zabbix.yml  --list-tasks --tags ngnix
+ansible-playbook -i consul.inv zabbix.yml  --list-tasks --tags nginx
 ```
 
 
@@ -1539,13 +1539,290 @@ for easy method (no interactive)
 echo -n "mypassword" | ansible-vault encrypt_string
 ```
 no save history bash session ssh
-```
+```bash
 unset HISTFILE
 ```
 
 
 
-```
+```bash
 ansible-vault myplaybook.yml -vault-password-file <mypasswordfile>
 ```
+
+## First steps
+
+```bash
+ansible-galaxy init_configure
+```
+
+create ssh key
+```bash
+ssh-keygen -t rsa -f ansible_rsa
+```
+Copy Public Key
+```
+cat ansible_rsa.pub
+```
+```bash
+nano init_configure/defaults/main.yml
+```
+or
+
+```Bash
+ansible_rsa.pub >> init_configure/defaults/main.yml 
+```
+init_configure/defaults/main.yml
+```yaml
+---
+users:
+   - name: ansible
+     key:
+      - ssh-rsa <past_key_here>  
+```
+
+```bash
+nano init_configure/tasks/main.yml
+```
+init_configure/tasks/main.yml
+```yml
+---
+- name: create users
+  user:
+     name: "{{item.name}}"
+     password: "{{ upassword | string | password_hash{'sha512'} }}"
+     groups:
+       - sudo
+     append: yes
+     shell: /bin/shell
+     create_home: yes
+with_items:
+  - "{{ users }}"
+- name: adding ssh keys
+  authorized_key:
+     key: " {{ item.1 }}"
+     user: "{{ item.0.name }}"
+  with_seblements:
+    - "{{ users }}"
+    - key
+- name: installing packages
+  apt:
+    update_cache: yes
+    name:
+      - ntp
+      - python3.8
+      - python3-pip
+      - python3-apt
+      - mc
+      - unzip
+    state: present
+
+```
+
+Generate Password word
+```bash
+apg -l
+```
+```
+echo -n "my_password" | ansible-vault encrypt_string 
+```
+
+add to `init_configure/defaults/main.yml`
+```bash
+nano init_configure/defaults/main.yml
+```
+000..
+```yml
+---
+users:
+   - name: ansible
+     key:
+      - ssh-rsa <past_key_here>  
+upassword: !vault | 
+          $ANSINLE_VAULT;1.1;AES256
+          00000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000
+          00000
+```
+ater add ngninx
+```yml
+---
+- name: create users
+  user:
+     name: "{{item.name}}"
+     password: "{{ upassword | string | password_hash{'sha512'} }}"
+     groups:
+       - sudo
+     append: yes
+     shell: /bin/shell
+     create_home: yes
+with_items:
+  - "{{ users }}"
+- name: adding ssh keys
+  authorized_key:
+     key: " {{ item.1 }}"
+     user: "{{ item.0.name }}"
+  with_seblements:
+    - "{{ users }}"
+    - key
+- name: installing packages
+  apt:
+    update_cache: yes
+    name:
+      - ntp
+      - python3.8
+      - python3-pip
+      - python3-apt
+      - mc
+      - unzip
+
+    state: present
+- name: Nginx
+  tags: nginx
+  block:
+     - name: Install nginx and certbot
+       tags: nginx
+       apt:
+         name:
+           - nginx
+           - certbot
+           - python3-cerbot-nginx
+    - name: Remove default nginx config
+      file: name=/etc/nginx/sites-anabled/default state=absent
+    - name: add a virtual host to nginx conf
+      template:
+        scr: templates/nginx-http.j2
+        dest: /etc/nginx/sites-avaible/{{ domain_name }}
+    - name: Enable nginx
+      shell: ln -s /etc/nginx /etc/nginx/sites-available/{{domain_name}} /etc/nginx/sites-enabled/{{ domain_name }}
+      notify: Reload ngnix
+
+```
+add domain 
+```yml
+---
+users:
+   - name: ansible
+     key:
+      - ssh-rsa <past_key_here>  
+upassword: !vault | 
+          $ANSINLE_VAULT;1.1;AES256
+          00000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000
+          00000
+domain: example.com
+```
+
+create template `ngnix-http.j2`
+
+```bash
+nano init_configure/tempaltes/ngnix-http.j2
+```
+```json
+server {
+    listen 80;
+    server_name {{ domain_name }};
+    server_token off;
+
+    location /.well-known/acme-challenge {
+        root /var/www/letsencrypt;
+        try_files $uri $uri/ =404;
+    }
+    location / {
+        rewrite ^ https://{{ domain_name }}$request_uri? permanemt;
+    }
+}
+```
+
+clone
+```
+https://github.com/willshersystems/ansible-sshd.git
+```
+
+take example from /example/example-root-login.yml 
+```yml
+---
+- name: Manage root login
+  hosts: all
+  tasks:
+    - name: Configure sshd to prevent root and password login except from particular subnet
+      ansible.builtin.include_role:
+        name: ansible-sshd
+      vars:
+        sshd:
+          # root login and password login is enabled only from a particular subnet
+          PermitRootLogin: false
+          PasswordAuthentication: false
+          Match:
+            - Condition: "Address 192.0.2.0/24"
+              PermitRootLogin: true
+              PasswordAuthentication: true
+```
+
+nano playbook.yml
+```yml
+---
+- name: Configure web server
+  hosts: all 
+  vars:
+    domain_name: " {{ lookup {'redis', 'ansible/domain_name'} }}"
+    sshd:
+      PermitRootLogin: no 
+      PasswordAuthentication: no
+      PubkeyAuthentication: yes
+  roles:
+    = init_configure
+    - ansible-sshd
+  post_tasks:
+       - name: some extra tasks
+         tags: print
+         block:
+          - name: Print ipv4 address
+            debug:
+               msg: "ipv4={{ ansible_all_ipv4_addresses[0] }}" 
+          - name: Getting kernel version
+            shell: uname -a
+            register: uname
+          - name: Print kernel version
+            debug:
+               msg: "Kernel version: {{ uname.stdout }}"
+            
+```
+see key in redis  
+
+```
+redis-cli
+```
+get   all keys
+```
+KEY *
+```
+```
+get ansible/domain_name
+```
+
+
+see all setup facts  
+
+```
+ansible-all - inv -m setup
+```
+
+run playbook
+```yml
+ansible-playbook -i inv -l web playbook.yml --skip-tags ngnix.print --ask-vault-pass
+```
+
+test on slave machine
+```bash
+id ansible
+``` 
+```
+cat /home/ansible/.ssh/autorized_keys
+```
+```
+ssh -T | grep -i 'permitrootlogin\|PasswordAuthentication'
+```
+
 

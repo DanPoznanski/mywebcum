@@ -62,3 +62,10 @@ see config
 Get-NetSwitchTeam
 ```
 
+
+## Wim Capture Image
+
+need external disk image capture to `d:\`
+```
+e:\imagex.exe /capture c: d:\install.wim "my windows 7 install" /compress fast /verify
+```
