@@ -15,8 +15,7 @@ showTableOfContents: true
 
 ![victoria1](images/victoria1.svg)
 ```bash
-wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/victoria-metrics-linux-amd64-v1.95.1.tar.gz
-
+curl -O -L https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/victoria-metrics-linux-amd64-v1.95.1.tar.gz
 ```
 
 
