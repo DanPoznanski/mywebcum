@@ -1,4 +1,12 @@
-
+---
+title: "Victoria Metrics"
+discription: Victoria on ubuntu 
+date: 2023-01-01T21:29:01+08:00 
+draft: false
+type: post
+tags: ["Linux","Monitoring","Graphana"]
+showTableOfContents: true
+--- 
 
 
 
