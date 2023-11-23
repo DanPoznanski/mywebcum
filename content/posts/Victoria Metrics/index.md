@@ -8,12 +8,8 @@ tags: ["Linux","Monitoring","Graphana"]
 showTableOfContents: true
 --- 
 
-
-
-
-
-
 ![victoria1](images/victoria1.svg)
+
 ```bash
 curl -O -L https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/victoria-metrics-linux-amd64-v1.95.1.tar.gz
 ```
@@ -36,7 +32,8 @@ This command breaks down as follows:
 
 
 
-run
+Run
+
 ```bash
 ./victoria-metrics-prod
 ```
