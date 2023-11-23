@@ -22,8 +22,21 @@ wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/vic
 
 ```bash
 tar -zxvf victoria-metrics-linux-amd64-v1.95.1.tar.gz
-
 ```
+This command breaks down as follows:
+
+`-x`: Extract
+
+`-z`: Use gzip compression
+
+`-v`: Verbose mode (show the progress)
+
+`-f`: Specify the file to extract
+
+
+
+
+
 run
 ```bash
 ./victoria-metrics-prod
