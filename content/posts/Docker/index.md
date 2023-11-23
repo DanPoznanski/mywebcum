@@ -527,9 +527,29 @@ services:
 htpasswd -B -c ./auth/registry.password dan
 ```
 
+command with work to privet registry
+
+login in registry
+```bash
+docker login https://docker.example.com
+```
+tag image
+```bash
+docker tag tcpserver:apline docker.example.com/tcpserver
+``
+
+upload image
+```bash
+docker push docker.example.com/tcpserver
+```
+download image
+```bash
+docker pull docker.example.com/tcpserver
+```
 
 
 
+ 
 
 
 
@@ -564,6 +584,36 @@ journalctl -xu docker.service
 
 ## Docker-Compose
 
+
+example:
+```yml
+version: 'v3'
+
+services: 
+  application:
+     depends_on:
+      - postgresql
+     restart: always
+     image: docker.example.com/tcpserver
+     ports:
+      - "127.0.0.1:8080:8080"
+
+  postqresql:
+      image: postgress
+      environment:
+         POSTGRES_USER: dan
+         POSTGRES_PASSWORD: strongpass
+         POSTGRES_DB: test
+      ports:
+       - "127.0.0.1:5432:5432"
+      volumes:
+       - ./postgresql_data:/var/lib/postgresql/data
+```
+
+`depends_on` - תלוי ב
+
+---
+
 to add docker rootgroup
 ```
 sudo usermod -aG docker administrator
@@ -595,11 +645,28 @@ service:
 ```
 
 ### Run Docker-Compose 
-```
+
+```bash
 docker-compose up
 ```
 to stop `down`
 
+logs service
+```bash
+docker-compose logs -f [sevice name]
+```
+list of running container
+```bash
+docker-compose ps 
+```
+list of docker images used docker-compose
+```bash
+docker-compose images
+```
+running service command
+```bash
+docker-compose exec [service name] [command]
+```
 
 ### Compose. Profile
 
@@ -694,7 +761,7 @@ service:
 
 ```
 
-### Compose. Ntwork 
+### Compose. Nеtwork 
 
 ```
 services:
@@ -819,39 +886,93 @@ secrets:
 ```
 
 
-
-
-
-
-```
-
-
 ## Docker Swarm
 
-do add to group root user docker
+min need 2 node
+
+![docker3](images/docker3.webp)
+
+Services, tasks, and containers
+When you deploy the service to the swarm, the swarm manager accepts your service definition as the desired state for the service. Then it schedules the service on nodes in the swarm as one or more replica tasks. The tasks run independently of each other on nodes in the swarm.
+
+For example, imagine you want to load balance between three instances of an HTTP listener. The diagram below shows an HTTP listener service with three replicas. Each of the three instances of the listener is a task in the swarm.
+
+![docker4](images/docker4.webp)
+
+
+
+### Docker Swarm Stack
+
+example:
+```yml
+version: 'v3'
+
+services: 
+  application:
+     depends_on:
+      - postgresql
+     restart: always
+     image: docker.example.com/tcpserver
+     ports:
+      - "127.0.0.1:8080:8080"
+    deploy:
+      mode: replicated
+      replicas: 2
+
+  postqresql:
+      image: postgress
+      environment:
+         POSTGRES_USER: dan
+         POSTGRES_PASSWORD: strongpass
+         POSTGRES_DB: test
+      ports:
+       - "127.0.0.1:5432:5432"
+      volumes:
+       - ./postgresql_data:/var/lib/postgresql/data
+      deploy:
+        mode: replicated
+        replicas: 2
 ```
+```bash
+docker stack deploy -c docker-compose.yml --with-registry-auth application 
+```
+
+
+do add to group root user docker
+```bash
 sudo usermod -aG docker administrator
 ```
 
 to change name 
-```
+```bash
 nano /etc/hostname
 ```
 
 
-to create master node
-```
+to create master node, key `--advertise-addr` `192.168.0.1`
+
+```bash
 docker swarm init
 ```
+after Create Master сreated link copy past to other machine to add Worker or Manager
+```
+docker swarm join --tokern <Token> <IP>:<Port>
+```
+
 Docker Node List
 ```
 docker node ls
 ```
 
-after create master сreated link copy past to other machine to add workernode master
+add replication to hosts
+```bash
+docker update --replicas 5 [image:latest]
 ```
-docker swarm join --tokern <Token> <IP>:<Port>
+remove services
+```bash
+docker service rm tcpserver
 ```
+
 
 for other docker node pull containers need local repository
 ```
@@ -876,37 +997,37 @@ sudo nano /etc/docker/daemon.json
 {"insecure-registries": ["192.168.88.113:5000"]} 
 ```
 After in need restart docker daemon and push image 
-```
+```bash
 sudo systemctl restart docker 
 ```
 
 to run docker swarm container 
-```
+```bash
 docker service create --replicas 1 --publish 8000:8000 --name sw1 192.168.88.113/sw1
 ```
 
 This command lists services are running in the swarm
-```
+```bash
 docker service ls
 ```
 Lists the tasks that are running as part of the specified services. 
-```
+```bash
 docker service ps sw1 
 ```
 ### To Scale containers
 
-```
+```bash
 docker service scale SERVICE=REPLICAS
 docker service scale sw1=4
 ```
 
 ### for update containers 
-```
+```bash
 docker service update --image 192.168.88.113/sw1 sw1
 ```
 
 ### to remove all service
-```
+```bash
 docker service rm sw1
 ```
 
@@ -915,7 +1036,7 @@ docker service rm sw1
 file `stack.yml` 
 
 for example:
-```
+```bash
 version: "3.9"
 services:
   web:
@@ -1029,4 +1150,50 @@ $ docker network create -d macvlan \
     --subnet=2001:db8:abc8::/64 --gateway=2001:db8:abc8::10 \
      -o parent=eth0.218 \
      -o macvlan_mode=bridge macvlan216
+```
+
+
+
+
+Generate SSL certificat for docker
+
+```bash
+mkdir ssl
+
+cd ssl
+```
+
+```bash
+nano /etc/ssl/openssl.cnf
+```
+
+add ip your IP
+```bash
+[ v3_ca ] 
+
+subjectAltName = IP:85.41.11.8
+```
+
+generate ssl key
+
+```bash
+openssl req -x509  -nodes -days 365 -newkey rsa:2048 -keyout selfsigned.key -out selfsigned.crt
+```
+
+```bash
+openssl dhparam -out dhparam.pem  2048
+```
+
+mkdir site-available
+
+```conf
+  server {
+    # listen 443 default deferred; # for Linux
+    # listen 443 default accept_filter=httpready; # for FreeBSD
+    listen 443 http2; # for OSX
+    server_name docker.example.com;
+    client_max_body_size 4G;
+    
+    access_log /var/log/nginx/docker.example.com.access.log;
+    error_log /var/log/nginx/docker.examlpe.matveev.com.error.log error;
 ```
