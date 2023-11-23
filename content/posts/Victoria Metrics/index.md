@@ -13,13 +13,14 @@ showTableOfContents: true
 
 
 
-![victoria](images/victoria1.svg)
+![victoria1](images/victoria1.svg)
 ```bash
-wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/
+wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/victoria-metrics-linux-386-v1.95.1.tar.gz
+```
 
 
 ```bash
-tar -zxvf 
+tar -zxvf victoria-metrics-linux-386-v1.95.1.tar.gz
 ```
 run
 ```bash
