@@ -45,9 +45,9 @@ file tells the Prometheus servers to fetch metrics every 15s on the specified en
 
 ## Install 
 
-install Prometheus, Alert Manager, Node Exporter and Ngnix exporter
+install Prometheus, Alert Manager, Node Exporter and Nginx exporter
 ```
-sudo apt install prometheus prometheus-alertmanager prometheus-node-exporter prometheus-ngnix-exporter
+sudo apt install prometheus prometheus-alertmanager prometheus-node-exporter prometheus-nginx-exporter
 ```
 
 see if all modules online
@@ -56,13 +56,13 @@ ps auxf | grep prometheus
 ```
 
 
-### if ngnix not start 
-```
-sudo nano /etc/ngnix/sites-available/site-local.conf
+### If nginx not start 
+```bash
+sudo nano /etc/nginx/sites-available/site-local.conf
 ```
 
-if ngnix exporter not in local machine change 127.0.0.1 to ip ngnix exporter
-```
+if nginx exporter not in local machine change 127.0.0.1 to ip nginx exporter
+```bash
 listen 8080 default_server;
 
 location /stub status {
@@ -72,9 +72,9 @@ location /stub status {
 }
 
 ```
-after it need restart ngnix `sudo systemctl restart ngnix` 
+after it need restart nginx `sudo systemctl restart nginx` 
  
-and ngnix exporter
+and nginx exporter
 
 ```
 sudo systemctl restart prometheus-nginx-exporter
@@ -85,11 +85,11 @@ and see status
 sudo systemctl status prometheus-nginx-exporter
 ```
 
-advanced option can edit in 
+Advanced Option can edit in 
 ```
 sudo nano /etc/prometheus/prometheus.yml
 ```
-add ngnix job
+add nginx job
 ```
 - job name:
 ```
@@ -97,7 +97,7 @@ add ngnix job
 
 
 
-### install from website
+### Install from Website
 
 download `prometeus-2.26.0-linux-amd64.tar.gz`
 
@@ -144,7 +144,7 @@ to see added target
 localhost:9090 => Status => Targets 
 
 
-### Install Alertmanager from website
+### Install Alertmanager from Website
 ![prometheus](images/prometheus4.png)
 
 download `alertmanager-0.21.0.linux-amd64.tar.gz` 
@@ -357,7 +357,7 @@ run with config (default port `localhost:9080`)
 ./loki-linux-amd64 -config.file=loki-local-config.yaml
 ```
 
-### Run promtail 
+### Run Promtail 
 
 run with config
 ```
