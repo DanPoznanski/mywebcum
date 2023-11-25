@@ -1196,4 +1196,14 @@ mkdir site-available
     
     access_log /var/log/nginx/docker.example.com.access.log;
     error_log /var/log/nginx/docker.examlpe.matveev.com.error.log error;
-```
+
+    server_tokens off;
+
+    ssl_session_cache shared:SSL:50m;
+    ssl-session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    ssl_protocols TLSv1.3 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+
+    add

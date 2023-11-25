@@ -69,6 +69,19 @@ Let's unpack the downloaded archive:
 ```bash
 tar zxf victoria-metrics-linux-amd64-*.tar.gz -C /usr/local/bin/
 ```
+This command breaks down as follows:
+
+`-x`: Extract
+
+`-z`: Use gzip compression
+
+`-v`: Verbose mode (show the progress)
+
+`-f`: Specify the file to extract
+
+
+
+
 You can run the command to examine all the application startup parameters:
 ```bash
 victoria-metrics-prod -help | less
@@ -95,69 +108,188 @@ We also create directories for store data and process identifier
 mkdir -p /var/lib/victoriametrics /run/victoriametrics
 ```
 Let's set our new user as the owner for the created directories
-```bash
-mkdir -p /var/lib/victoriametrics /run/victoriametrics
-```
+
 ```bash
 chown victoriametrics:victoriametrics /var/lib/victoriametrics /run/victoriametrics
 ```
+Now let's create a unit file:
 ```bash
+nano /etc/systemd/system/victoriametrics.service
 ```
 ```bash
+[Unit]
+Description=VictoriaMetrics
+After=network.target
+
+[Service]
+Type=simple
+User=victoriametrics
+PIDFile=/run/victoriametrics/victoriametrics.pid
+ExecStart=/usr/local/bin/victoria-metrics-prod -storageDataPath /var/lib/victoriametrics -retentionPeriod 12
+ExecStop=/bin/kill -s SIGTERM $MAINPID
+StartLimitBurst=5
+StartLimitInterval=0
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=multi-user.target
 ```
- download https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/victoria-metrics-linux-amd64-v1.95.1.tar.gz
+__* in this example we will store the files in the `/var/lib/victoriametrics` directory, as we said above. The data storage period is 1 year.__
+
+Rereading the systemd configuration:
+```bash
+systemctl daemon-reload
+```
+Allow the unit to autostart and start it:
+```bash
+systemctl enable victoriametrics --now
+```
+Allow the unit to start and start it: By default, VictoriaMetrics listens on port 8428. We can make a request using curl:
+```bash
+curl 127.0.0.1:8428
+```
+***VictoriaMetrics is installed and working.***
+
+
+
+
+## Storing Prometheus metrics in VictoriaMetrics
+
+Let's check the availability of VictoriaMetrics:
+```bash
+curl 192.168.0.15:8428
+```
+* where 192.168.0.15 is the address of the VictoriaMetrics server.
+
+We should get a page with links that are located next to the service after it is installed.
+
+
+open the Prometheus configuration file:
+```bash
+nano/etc/prometheus/prometheus.yml
+```
+add to global
+```yml
+global:
+  external_labels:
+    server_name: prometheus0
+```
+* the `external_labels` option allows us to add a tag that will let us know that specific metrics came from a specific Prometheus server.
+
+
+And add option:
+```bash
+remote_write:
+  - url: http://192.168.0.15:8428/api/v1/write
+    queue_config:
+      max_samples_per_send: 10000
+      capacity: 20000
+      max_shards: 30
+```
+And add
+`url` - address of VictoriaMetrics server, where will be duplicated.
+
+`max_samples_per_send` - the maximum number of metrics that can be sent at one time.
+
+`capacity` - determines how many samples are queued in memory for each segment before reading from the WAL is blocked. Once the WAL is locked, no samples can be added to any shards and all bandwidth will cease.
+
+`max_shards` - the maximum number of segments Prometheus will use for each remote write queue.
+
+
+
+
+
+and restart prometheus
+```bash
+systemctl restart prometheus
+```
+
+we can access the VictoriaMetrics web interface at http://192.168.0.15:8428/vmui/, where 192.168.0.15 is the address of server. We can enter any PromQL query in the Query 1 field,
+```
+node_memory_MemTotal_bytes{server_name="prometheus01"}
+```
+* where `server_name="prometheus01"` is the tag and its value that we specified in the prometheus settings.
+
+This query should return values to us. This means that the data gets from Prometheus to VictoriaMetrics.
+
+
+
+## Customizing Grafana
+
+Adding data source
+
+Go to the web interface of the graphana. Go to **Configuration** - **Data sources**:
+
+[Add Data Source]
+
+Select Prometheus as the source:
+
+Specify the name of the source and the URL address where the VictoriaMetrics service is available:
+
+```
+HTTP
+
+URL                      http://192.168.0.15:8428
+Allowed cookies
+Timeout
+```
+Save the settings.
+
+
+## Visualization of metrics by VictoriaMetrics itself
+
+VictoriaMetrics' own metrics are available at http://<address victoriametrics>:8428/metrics. We need to exportera this address to Prometheus, which passes the data back to VictoriaMetrics. We can then visualize the information using the datasource added above.
+
+
+Open the Prometheus configuration file:
+```bash
+nano /etc/prometheus/prometheus.yml
+```
+```yml
+  - job_name: 'node_exporter_clients'
+    ...
+    static_configs:
+      - targets:
+          ...
+          - 192.168.0.15:8428
+```
+
+Now it is possible to customize Grafana. On the official website we can read about VictoriaMetrics dashboard and also get an identifier to install it.
+
+In Grafana go to **Dashboards** - **Import**:
+
+Enter the dashboard identifier for VictoriaMetrics. It's **10229**:
+```
+import via grafana.com
+10229
+```
+In the next step, you can simply click **Import**
+
+Done. We can move on to the dashboard
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 ```bash
+
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```bash
-tar -zxvf victoria-metrics-linux-amd64-v1.95.1.tar.gz
+
 ```
-This command breaks down as follows:
-
-`-x`: Extract
-
-`-z`: Use gzip compression
-
-`-v`: Verbose mode (show the progress)
-
-`-f`: Specify the file to extract
-
-Run
-
 ```bash
-./victoria-metrics-prod
+
 ```
-
-`-storageDataPath` - VictoriaMetrics stores all the data in this directory. Default path is victoria-metrics-data in the current working directory.
-
-`-retentionPeriod` - retention for stored data. Older data is automatically deleted. Default retention is 1 month (31 days). The minimum retention period is 24h or 1d. See these docs for more details.
-
 
 
 ## Vmagent
