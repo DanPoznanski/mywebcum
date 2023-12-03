@@ -331,3 +331,59 @@ scrape_configs:
     consul_sd_configs:
       - server: 'localhost:9100'
 ```
+
+
+
+## Prometheus + Consul
+
+mkdir ./configs.d
+
+
+run in dev mode 
+```bash
+consul agent -dev
+```
+consul run in port 8500
+
+exporter1.json
+```json
+{
+    "service": {
+      "name": exporter0",
+      "tags": [
+        "exporter0",
+        "test",
+      ],
+      "port": 9100
+    }
+}
+```
+```bash
+consul agent -dev -enable-script-checks -config-dir=./configs.d
+```
+
+---
+other machine create node exporter
+
+
+cd prom/node_exporter-1.3.1.linux-amd64/
+
+./node_exporter
+
+---
+
+in directory prometheus and edit
+```bash
+nano prometheus.yml
+```
+```yml
+scrape_configs:
+  - job_name: consul
+    consul_cd_configs:
+      - server: localhost:8500
+        tags: [test]
+```
+```
+./prometheus
+```
+status => tagrets  and see target
