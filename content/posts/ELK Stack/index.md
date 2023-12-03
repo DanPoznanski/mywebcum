@@ -343,7 +343,7 @@ for work with him need **Elasticsearch** and **Mongodb**
 
 - MongoDB 5.x or 6.x
 
-## Installation MongoDB
+### Installation MongoDB
 
 **Ubuntu 22.04**
 
@@ -384,3 +384,47 @@ sudo systemctl --type=service --state=active | grep mongod
 ```
 
 > Hint: For the following sections on OpenSearch and Elasticsearch, select which data node you will be using for your Graylog instance and complete only the requisite section.
+
+### Install Elastic for Graylog
+
+```bash
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.2-amd64.deb
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.2-amd64.deb.sha512
+shasum -a 512 -c elasticsearch-7.10.2-amd64.deb.sha512 
+sudo dpkg -i elasticsearch-7.10.2-amd64.deb
+```
+
+```bash
+sudo systemctl daemon-reload
+```
+```bash
+sudo systemctl start elasticsearch.service
+```
+
+> if not work delete `/var/lib/elasticsearch/` files `node` and `node.lock`
+
+in elasticsearch 7.x.x use http protocol default address `127.0.0.1:9200`
+
+
+**config elasticsearch** 
+
+```bash
+sudo nano /etc/elasticsearch/elasticsearch.yml
+```
+```yml
+cluster.name: graylog
+```
+```bash
+sudo systemctl restar elasticsearch.service
+```
+
+**config Graylog**
+
+```bash
+sudo nano /etc/graylog/server/server.conf
+```
+```yml
+password_sercret  =  < generate password >  # for generate password "pwgen -N 1 -s 96
+
+root_password_sha2 = < generat password >   # for generate password "echo -n yourpassword | shasum -a 256
+```
