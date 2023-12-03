@@ -210,7 +210,24 @@ sudo /usr/share/logstash/bin/logstash -f /etc/logstash/conf.d/main.conf --config
 
 ## Kibana
 
-
+```bash
+wget https://artifacts.elastic.co/downloads/kibana/kibana-8.11.1-amd64.deb
+hasum -a 512 kibana-8.11.1-amd64.deb 
+```
 ```bash
 sudo dpkg -i kinana-8.1.1-amd64.deb
+```
+
+### Run Kibana with systemd
+
+```bash
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable kibana.service
+```
+
+Kibana can be started and stopped as follows:
+
+```bash
+sudo systemctl start kibana.service
+sudo systemctl stop kibana.service
 ```
