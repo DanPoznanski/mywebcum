@@ -231,3 +231,24 @@ Kibana can be started and stopped as follows:
 sudo systemctl start kibana.service
 sudo systemctl stop kibana.service
 ```
+
+kibana default port 5601 for kibana for normal work need 6 ram or 8 ram
+
+127.0.0.1:5601
+
+### Start Elasticsearch and generate an enrollment token for Kibana
+
+When you start Elasticsearch for the first time, the following security configuration occurs automatically:
+
+- Authentication and authorization are enabled, and a password is generated for the elastic built-in superuser.
+
+- Certificates and keys for TLS are generated for the transport and HTTP layer, and TLS is enabled and configured with these keys and certificates.
+
+The password and certificate and keys are output to your terminal.
+
+ou can then generate an enrollment token for Kibana with the `elasticsearch-create-enrollment-token` tool:
+
+```bash
+sudo /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token * -s kibana
+```
+copy past in `127.0.0.1:5601`
