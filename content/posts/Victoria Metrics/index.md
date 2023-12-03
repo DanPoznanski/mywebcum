@@ -387,3 +387,34 @@ scrape_configs:
 ./prometheus
 ```
 status => tagrets  and see target
+
+
+USE:
+
+Utilisation
+
+avg by (instance,mode)(irate(node_cpu_seconds_total{mode!='indle'}[1m]))
+
+Saturation
+
+node_load*
+
+Errors 
+{job="somejob"} |= "error"
+
+rate(http_requests_total{status_code=~"5.*"}[5m])
+
+
+RED:
+
+Rate 
+
+rate(request_count[5m])
+
+Errors
+
+Loki + 5** ( for example)
+
+Duration
+
+rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m])
