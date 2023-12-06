@@ -233,7 +233,12 @@ See all Metrics
 localhost:9090/metrics
 ```
 
+### Promtool
 
+test config 
+```bash
+./promtool check config prometheus.yml
+```
 
 ### install Node_exporter from website
 
@@ -253,30 +258,77 @@ rm -f node_exporter-1.7.0.linux-amd64.tar.gz
 ```
 Rename name to Node-Exporter 
 ```bash
-mv node_exporter-1.7.0.linux-amd64 prometheus
+mv node_exporter-1.7.0.linux-amd64 node_exporter 
 ```
-
-
-
 
 Run Node-Exporter (default port `localhost:9100`)
 ```
 ./node_exporter
 ```
+See all metrics
+```bash
+http://localhost:9100/metrics
+```
+
+
+**Collectors**
+```bash
+./node_exporter --help 2>&1 | grep collector
+```
+
+In addition to selecting the collectors that will give us different metrics, we can specify the following parameters to run:
+
+`--web.listen-address=":9100"` - the address and port where the `node_exporter` will wait for incoming connections;
+
+`--web.telemetry-path="/metrics"` - URL where our metrics will be available;
+
+`--web.max-requests` - the maximum number of simultaneous requests to receive metrics on the port specified in the first parameter;
+
+`--web.config=""` - experts
 
 
 
 
+### User for Systemd for Exporter
 
+```bash
+useradd -s /sbin/nologin -d /opt/node_exporter node_exporter
+```
+```bash
+chown -R node_exporter:node_exporter /opt/node_exporter
+copy && past
+```bash
+nano /etc/systemd/system/node_exporter.service
+```
+```
+```ini
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
 
+[Service]
+User=root
+Group=root
+Type=simple
+ExecStart=/opt/node_exporter/node_exporter
 
+[Install]
+WantedBy=multi-user.target
+```
+Start the service with systemd 
+```bash
+sudo systemctl daemon-reload
+sudo systemctl start node_exporter && sudo journalctl -f --unit node_exporter
+```
+> On the prometheus server, dont' forget to add the static config for the collection of data!
 
+> BEST PRACTICE: The official documentation does NOT recommend running node_exporter in docker, because it needs access to the host system to get all metrics. And you will need to mount all file systems inside the docker container. So it is much easier to run it as a service from the example above.
 
-
-
-
-
-
+test all metrics
+```bash
+curl localhost:9100/metrics
+```
 
 
 
