@@ -424,7 +424,122 @@ sudo systemctl restar elasticsearch.service
 sudo nano /etc/graylog/server/server.conf
 ```
 ```yml
-password_sercret  =  < generate password >  # for generate password "pwgen -N 1 -s 96
+password_sercret  =  <generate_password>  
+```
+for generate password and copy && past
+```bash
+pwgen -N 1 -s 96
+```
+```yml
+root_password_sha2 = <root_generate_password>   
+```
+for generate root password 
+> copy && past from generate_password to your_password 
+```bash
+echo -n your_password | shasum -a 256
+```
 
-root_password_sha2 = < generat password >   # for generate password "echo -n yourpassword | shasum -a 256
+start
+```bash
+sudo systemctl start graylog.service
+```
+status
+```bash
+sudo systemctl start graylog.service
+```
+
+Gravelog on port `127.0.0.1:9000` login: admin and password in file `service.conf`
+
+
+**Test Message**
+
+System => Input => Raw/Plaintext TCP => Launch New Input => 
+```
+title: 
+test
+
+port 
+5000
+```
+
+ somthing send to port 5000
+ ```bash
+ echo "some pretty message" | nc -n 127.0.0.1 5000
+ ```
+
+**Syslog**
+ 
+ System => Input => Syslog TCP => Launch New Input => 
+```
+title: 
+Demo-rsyslog
+
+port 
+5001
+```
+
+```bash
+sudo nano /etc/rsyslog.d/graylog.conf
+```
+```
+*.* @127.0.0.1:5001;RSYSLOG_SyslogProtocol23Format
+```
+restart rsyslog 
+
+```bash
+sudo systemctl restart rsyslog.service
+```
+
+### From Rsyslog to graylog
+
+open Gravelog on port `127.0.0.1:9000`
+
+System => Input => Raw/Plaintext TCP => Launch New Input => 
+
+```
+title: 
+rsyslog-demo
+
+port 
+5001
+```
+
+```bash
+sudo nano /etc/rsyslog.d/graylog.conf
+```
+```
+*.*@@127.0.0.1:5001;RSYSLOG_SyslogProtocol23Format
+```
+restart
+```bash
+sudo nanao /etc/rsyslog.d/graylog.conf
+```
+
+### Alerts & Events
+
+Alerts => Event Definitions => Get Started! =>
+
+Event Details =>
+```
+Title
+Root logout 
+
+Priority
+High
+```
+Condition =>
+```
+Condition Type
+Filter & Aggregation
+
+Search Query
+session closed for user root 
+
+Streams
+All messsages
+```
+
+Notifications =>
+```
+
 ```

@@ -19,8 +19,57 @@ showTableOfContents: true
 - Exporter - instrument for get metric
 - Alertmanager - notification and everything is connected with it
 
+Basic startup parameters
 
-### push and pull model :
+We will start looking at the configuration file in the next task, but now let's look at the main Prometheus startup keys:
+
+`--config.file="prometheus.yml"` - which configuration file to use;
+
+`--web.listen-address="0.0.0.0:9090"` - the address that the embedded web server will listen to;
+
+`--web.enable-admin-api` - enable or disable administrative API via web-interface;
+
+`--web.console.templates="consoles"` - path to the directory with html templates;
+
+`--web.console.libraries="console_libraries"` - path to the directory with libraries for templates;
+
+`--web.page-title` - the title of the web page;
+
+`--web.cors.origin=".*"` - CORS settings for web-interface;
+
+`--storage.tsdb.path="data/"` - path for storing time series database;
+
+`--storage.tsdb.retention.time` - default metrics retention time is 15 days, anything older will be deleted;
+
+`--storage.tsdb.retention.size` - TSDB size, after which Prometheus will start deleting the oldest data;
+
+`--query.max-concurrency` - maximum simultaneous number of requests to Prometheus via PromQL;
+
+`--query.timeout=2m` - maximum execution time of one query;
+
+`--enable-feature` - flag to enable various functions described here;
+
+`--log.level` - logging level
+
+
+Let's take a look at the main files:
+
+`console_libraries` - a directory that contains libraries for html templates;
+
+`consoles` - directory that contains html page templates for the web interface;
+
+`prometheus` - Prometheus server executable;
+
+`prometheus.yml` - Prometheus configuration file;
+
+`prometheus.yml` - Prometheus configuration file; prometheus.yml - Prometheus configuration file; promtool - utility for checking configuration, working with TSDB and getting metrics.
+
+
+
+
+
+
+### Push and Pull Model:
 
 Prometheus uses a Pull model (also called Scraping) to collect metrics, 
 meaning the Prometheus server will reach out to specified services 
@@ -97,38 +146,139 @@ add nginx job
 
 
 
-### Install from Website
+### Install Prometheus from Binary
 
-download `prometeus-2.26.0-linux-amd64.tar.gz`
-
-create new folder `mkdir monitoring` and copy past in folder
-
-unzip him
+download `prometheus-2.48.0.linux-amd64.tar.gz`
+```bash
+cd /opt/
+wget https://github.com/prometheus/prometheus/releases/download/v2.48.0/prometheus-2.48.0.linux-amd64.tar.gz
+``
+Unzip him
+```bash
+tar -zxf prometheus-2.26.0-linux-amd64.tar.gz 
 ```
-tar -xvf prometeus-2.26.0-linux-amd64.tar.gz 
+Delete prometheus archive `tar.gz` file
+```bash
+rm -rf prometheus-2.48.0.linux-amd64.tar.gz
 ```
-run prometius default site `localhost:9090`
+Rename name to prometheus 
+```bash
+mv prometheus-2.48.0.linux-amd64 prometheus
+```
+Enter in directory
+```bash
+cd prometheus
+```
+
+Run prometheus (default site on port `localhost:9090`)
 ```
 ./prometius
 ```
-test
+---
+Test
 ```
 rate(prometheus_http_requests_total[1m])
 ```
+---
+
+
+### User for Systemd and Prometheus 
+
+```bash
+useradd -s /sbin/nologin -d /opt/prometheus prometheus
+```
+```bash
+chown -R prometheus:prometheus /opt/prometheus
+```
+copy && past
+```bash
+nano /etc/systemd/system/prometheus.service
+```
+```ini
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+ExecStart=/opt/prometheus/prometheus \
+    --config.file=/opt/prometheus/prometheus.yml \
+    --storage.tsdb.path=/opt/prometheus/data \
+    --web.console.templates=/opt/prometheus/consoles \
+    --web.console.libraries=/opt/prometheus/console_libraries
+
+[Install]
+WantedBy=default.target
+```
+
+```bash
+systemctl daemon-reload
+```
+```bash
+systemctl enable prometheus
+```
+```bash
+systemctl start prometheus
+```
+```bash
+systemctl status prometheus
+```
+```bash
+ps ax | prometheus
+```
+See all Metrics  
+```
+localhost:9090/metrics
+```
+
+
 
 ### install Node_exporter from website
 
-download `node_exporter-1.1.2-linux-amd64.tar.gz` 
+Download `node_exporter-1.7.0.linux-amd64.tar.gz`
+```bash
+cd /opt/
+wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+```
 
-create new folder `mkdir monitoring` and copy past in folder
-unzip him
+Unzip him
+```bash
+tar -xvf node_exporter-1.7.0.linux-amd64.tar.gz 
 ```
-tar -xvf pnode_exporter-1.1.2-linux-amd64.tar.gz  
+Remove archive `tar.gz`
+```bash
+rm -f node_exporter-1.7.0.linux-amd64.tar.gz 
 ```
-run exporter to see default site `localhost:9100`
+Rename name to Node-Exporter 
+```bash
+mv node_exporter-1.7.0.linux-amd64 prometheus
+```
+
+
+
+
+Run Node-Exporter (default port `localhost:9100`)
 ```
 ./node_exporter
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Take metrics from node_exporter
 
@@ -142,6 +292,26 @@ scrape_configs:
 
 to see added target 
 localhost:9090 => Status => Targets 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### Install Alertmanager from Website
@@ -180,6 +350,21 @@ alerting:
         - localhost: 9093
 ```
 restart all and test on localhost:9090 => `Alerts`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### PagerDuty
