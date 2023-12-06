@@ -233,14 +233,41 @@ See all Metrics
 localhost:9090/metrics
 ```
 
-### Promtool
+### Test with Promtool
 
-test config 
+Test config 
 ```bash
 ./promtool check config prometheus.yml
 ```
+```bash
+./promtool query instant http://localhost:9090 up
+```
+```
+up{instance="localhost:9090", job="prometheus"} => 1 @[1617970111.787]
+up{instance="localhost:9100", job="node"} => 1 @[1617970111.787]
+```
 
-### install Node_exporter from website
+```bash
+root@node1:~# ./promtool query instant http://localhost:9090 'up{job="node"}'
+```
+```
+up{instance="localhost:9100", job="node"} => 1 @[1617970210.143]
+```
+
+```bash
+./promtool query instant http://localhost:9090 'node_disk_written_bytes_total'
+```
+```
+node_disk_written_bytes_total{device="vda", instance="localhost:9100", job="node"} => 52323148800 @[1617970275.39]
+```
+```bash
+./promtool query instant http://localhost:9090 'node_disk_written_bytes_total'
+```
+```
+node_disk_written_bytes_total{device="vda", env="dev", instance="localhost:9100", job="node"} => 52338947072 @[1617970356.777]
+node_disk_written_bytes_total{device="vda", instance="localhost:9100", job="node"} => 52332880896 @[1617970356.777]
+```
+### install Node_exporter from Binary
 
 Download `node_exporter-1.7.0.linux-amd64.tar.gz`
 ```bash
@@ -296,10 +323,9 @@ useradd -s /sbin/nologin -d /opt/node_exporter node_exporter
 ```
 ```bash
 chown -R node_exporter:node_exporter /opt/node_exporter
-copy && past
+Copy && Past
 ```bash
 nano /etc/systemd/system/node_exporter.service
-```
 ```
 ```ini
 [Unit]
@@ -319,16 +345,58 @@ WantedBy=multi-user.target
 Start the service with systemd 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl start node_exporter && sudo journalctl -f --unit node_exporter
 ```
-> On the prometheus server, dont' forget to add the static config for the collection of data!
+```bash
+systemctl enable node_exporter
+```
+```bash
+systemctl start node_exporter
+```
+```bash
+systemctl status node_exporter
+```
+> On the prometheus server, dont' forget to add the static config `prometheus.yml` for the collection of data!
 
 > BEST PRACTICE: The official documentation does NOT recommend running node_exporter in docker, because it needs access to the host system to get all metrics. And you will need to mount all file systems inside the docker container. So it is much easier to run it as a service from the example above.
 
-test all metrics
+Test all metrics
+
 ```bash
 curl localhost:9100/metrics
 ```
+
+### Exporter connections to Prometheus
+
+on Prometheus `prometheus.yml`
+```yml 
+global:
+  scrape_interval:     15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+```
+
+```bash
+ systemctl restart prometheus
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
