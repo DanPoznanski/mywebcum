@@ -287,7 +287,9 @@ Rename name to Node-Exporter
 ```bash
 mv node_exporter-1.7.0.linux-amd64 node_exporter 
 ```
-
+```bash
+cd node_exporter
+```
 Run Node-Exporter (default port `localhost:9100`)
 ```
 ./node_exporter
@@ -296,7 +298,8 @@ See all metrics
 ```bash
 http://localhost:9100/metrics
 ```
-
+>>check added target 
+>>`localhost:9090` => Status => Targets 
 
 **Collectors**
 ```bash
@@ -316,13 +319,14 @@ In addition to selecting the collectors that will give us different metrics, we 
 
 
 
-### User for Systemd for Exporter
+### User for Systemd for Node-Exporter
 
 ```bash
 useradd -s /sbin/nologin -d /opt/node_exporter node_exporter
 ```
 ```bash
 chown -R node_exporter:node_exporter /opt/node_exporter
+```
 Copy && Past
 ```bash
 nano /etc/systemd/system/node_exporter.service
@@ -365,7 +369,7 @@ Test all metrics
 curl localhost:9100/metrics
 ```
 
-### Exporter connections to Prometheus
+### Connect Node Exporter to Prometheus
 
 on Prometheus `prometheus.yml`
 ```yml 
@@ -388,30 +392,393 @@ scrape_configs:
 ```
 
 
+### Redis Exporter 
 
-
-
-
-
-
-
-
-
-
-
-
-### Take metrics from node_exporter
-
-in prometeus.yml
+Install Redis server
+```bash
+apt install redis-server
 ```
+check status
+```bash
+systemctl status redis-server
+```
+connect to redis
+```
+connect to redis-cli  
+```bash
+redis-cli
+info
+```
+
+**Install Redis-Exporter** 
+
+Download
+```bash
+cd /opt/
+wget https://github.com/oliver006/redis_exporter/releases/download/v1.55.0/redis_exporter-v1.55.0.linux-amd64.tar.gz
+```
+```bash
+tar -xvf redis_exporter-v1.55.0.linux-amd64.tar.gz
+```
+Remove archive `tar.gz`
+```bash
+rm -f redis_exporter-v1.55.0.linux-amd64.tar.gz 
+```
+Rename name to Redis-Exporter 
+```bash
+mv redis_exporter-v1.55.0.linux-amd64 redis_exporter
+```
+```bash
+cd redis_exporter
+```
+Run PostgreSQL-Exporter (default port `localhost:9187/metrics`)
+```
+./postgresql_exporter
+```
+```
+./postgresql_exporter -help
+```
+
+### Connect Redis Exporter to Prometheus
+Edit `prometheus.yml`
+```yml
+global:
+  scrape_interval:     15s
+
 scrape_configs:
-  - jobe name: 'hello from node_exporter'
-    statics_configs:
-    - targets: [localhost:9100]
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']
+```
+```bash
+ systemctl restart prometheus
 ```
 
-to see added target 
-localhost:9090 => Status => Targets 
+### Systemd for Redis-Exporter
+
+Add user 
+```bash
+useradd -s /sbin/nologin -d /opt/redis_exporter redis_exporter
+```
+```bash
+chown -R redis_exporter:redis_exporter /opt/node_exporter
+```
+Copy && Past
+```bash
+nano /etc/systemd/system/redis_exporter.service
+```
+```bash
+[Unit]
+Description=Redis Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=redis_exporter
+Group=redis_exporter
+Type=simple
+ExecStart=/opt/redis_exporter/redis_server /etc/redis/redis.conf
+RestartSec=5s
+Restart=on-success
+
+[Install]
+WantedBy=multi-user.target
+```
+other option no redis config:
+```bash
+ExecStart=/usr/bin/redis_exporter \
+    -web.listen-address ":9121" \
+    -redis.addr "redis://ip.of.redis.server:6379" \
+    -redis.password "your-strong-redis-password"
+```
+
+
+
+
+
+
+### PostgreSQL from APT
+
+install postgresql-14
+```bash
+apt install  postgresql-14
+```
+check if postgresql running
+```bash
+ps ax | grep post
+```
+switch user to postgres
+```bash
+su postgres
+```
+enter to postrges
+```bash
+psql
+\l
+\q
+```
+
+### PostgreSQL Server Configuration
+
+The PostgreSQL server provides two different password encryption methods: `md5` and `scram-sha-256`. Both password encryptions can be configured via the PostgreSQL config file `postgresql.conf`.
+
+In this step, you'll set up PostgreSQL to use the `scram-sha-256` password encryption.
+
+This example uses the PostgreSQL server v14 that is installed on an Ubuntu system, so the PostgreSQL configuration files is stored in the `/etc/postgresql/14/main` directory.
+
+Move to the working directory to the `/etc/postgresql/14/main` directory and open the configuration file `postgresql.conf` via the nano editor command.
+
+```bash
+cd /etc/postgresql/14/main
+sudo nano postgresql.conf
+```
+Uncomment the option `password_encryption` and change the value to `scram-sha-256`.
+
+```
+password_encryption = scram-sha-256     # scram-sha-256 or md5
+```
+> Save the file and exit the editor when you are finished.
+
+Next, open the config file `pg_hba.conf`` via the nano editor command below. The file `pg_hba.conf`` is the configuration where password authentication methods are defined for hosts or IP addresses.
+
+```bash
+sudo nano pg_hba.conf
+```
+Change the default authentication methods for the host `127.0.0.1/32` and `::1/128` to `scram-sha-256`. With this, the authentication method `scram-sha-256` will be used for every client connection to the PostgreSQL server `127.0.0.1`.
+```
+# "local" is for Unix domain socket connections only
+local   all             all                                     peer
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            scram-sha-256
+# IPv6 local connections:
+host    all             all             ::1/128                 scram-sha-256
+```
+Save and exit the editor when you're done.
+
+Lastly, run the below systemctl command utility to restart the PostgreSQL service and apply the changes.
+
+```bash
+sudo systemctl restart postgresql
+```
+
+
+
+**Install Postgres-Exporter**
+
+
+```bash
+cd /opt/
+wget https://github.com/prometheus-community/postgres_exporter/releases/download/v0.15.0/postgres_exporter-0.15.0.linux-arm64.tar.gz
+```
+```bash
+tar -xvf postgres_exporter-0.15.0.linux-arm64.tar.gz
+```
+Remove archive `tar.gz`
+```bash
+rm -f postgres_exporter-0.15.0.linux-arm64.tar.gz
+```
+Rename name to PostgreSQL-Exporter 
+```bash
+mv postgres_exporter-0.15.0.linux-arm64.tar.gz postgres_exporter
+```
+```bash
+cd porstgres_exporter
+```
+
+Run Postgres_exporter (localhost:9187/mertics)
+```bash
+DATA_SOURCE_NAME=postgresql://postgres_exporter:password@localhost:5432/postgres?sslmode=disable ./postgress_exporter
+```
+
+**Configuring postgres_exporter**
+
+I this step, you'll configure the `postgres_exporter` to gather PostgreSQL metrics, and this can be done by defining the PostgreSQL user and password. You'll also set up and configure the systemd service for the `postgres_exporter`.
+
+With the `postgres_exporter`, you can expose metrics for all available databases on the PostgreSQL server, or you can expose specific databases that you want to monitor. You can also use secure SSL mode or non-SSL mode.
+
+Move the current working directory to `/opt/postgres_exporter`. via the cd command below.
+
+```bash
+cd /opt/postgres_exporter
+```
+Now create a new file `.env` using the below nano editor command.
+```bash
+nano .env
+```
+Add the following lines to the file. Also, be sure to change the details of the PostgreSQL user, password, and host. With this `.env` file, you'll scrape and gathers PostgreSQL metrics from all available databases. You can also gather metrics from a specific PostgreSQL database, and adjust the following config file.
+```
+# Format
+#DATA_SOURCE_NAME=postgresql://username:password@localhost:5432/postgres?sslmode=disable
+
+# Monitor all databases via postgres_exporter
+DATA_SOURCE_NAME="postgresql://postgres:strongpostgrespassword@localhost:5432/?sslmode=disable"
+
+# Monitor specific databases on the PostgreSQL server
+# DATA_SOURCE_NAME="postgresql://username:password@localhost:5432/database-name?sslmode=disable"
+```
+Save the file and exit the editor when you're finished.
+
+
+
+### Systemd for Postgres-Exporter
+
+Create a new system user `postgres_exporter` 
+```bash
+useradd -s /sbin/nologin -d /opt/postgres_exporter postgres_exporter
+```
+ownership of the `/opt/postgres_exporter` directory to the user `postgres_exporter`.
+```bash
+chown -R postgresql_exporter:postgres_exporter /opt/postgres_exporter
+```
+Copy && Past
+```bash
+sudo nano /etc/systemd/system/postgres_exporter.service
+```
+```ini
+[Unit]
+Description=Postgresql Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=postgres_exporter
+Group=postgres_exporter
+WorkingDirectory=/opt/postgres_exporter
+EnvironmentFile=/opt/postgres_exporter/.env
+ExecStart=/opt/postgres_exporter/postgres_exporter --web.listen-address=:9187 --web.telemetry-path=/metrics
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+Reload the systemd manager and apply the changes.
+```bash
+sudo systemctl daemon-reload
+```
+After the systemd manager is reloaded, start and enable the `postgres_exporter` service via the systemctl command utility below.
+```bash
+sudo systemctl start postgres_exporter
+sudo systemctl enable postgres_exporter
+```
+The `postgres_exporter` should be running and scrape metrics from the PostgreSQL server. Also, it should be enabled and will be run automatically upon the bootup.
+
+You'll receive the output similar to this - the `postgres_exporter` service is running and it's enabled.
+```bash
+sudo systemctl status postgres_exporter
+```
+**Setting up Firewall**
+In this step, you'll set up the firewall to open the default port of `postgres_exporter` - **TCP 9187**. After that, you'll verify that the `postgres_exporter` metrics is accessible via the web browser.
+
+For Ubuntu systems that used UFW as the firewall, run the below ufw command to add port 9187 to the ufw firewall. Then, reload the firewall to apply the changes.
+```bash
+sudo ufw allow 9187/tcp
+sudo ufw reload
+```
+You can now verify the list of ports on UFW via the ufw command below.
+```bash
+sudo ufw status
+```
+
+
+### ### Connect Postgres-Exporter to Prometheus
+
+Edit prometheus.yml
+
+```yml
+global:
+  scrape_interval:     15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['localhost:9187']
+```
+```bash
+ps aux | prom
+```
+
+Reload process 
+```bash
+kill -HUP process_id
+```
+Or restart the Prometheus service and apply the changes.
+```bash
+sudo systemctl restart prometheus
+```
+&nbsp;
+
+&nbsp;
+> Tips: Create Postgresql Superuser for easy connect 
+>> su - postgresql
+>>
+>> psql
+>>> create user prom with password '12345678';
+>>>
+>>> alter user prom superuser;
+
+
+
+### MyAPP exporter
+
+
+>  I have my own application i need install golang 
+
+```bash
+wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz
+```
+```bash
+tar  -xzvf go1.21.5.linux-amd64.tar.gz
+```
+```bash
+rm -rf go1.21.5.linux-amd64.tar.gz
+```
+```bash
+GOROOT=/root/go
+```
+```bash
+export PATH=/root/go/bin:$PATH
+```
+```bash
+mkdir app
+cd app
+```
+```bash
+mkdir -p /src/app
+export GOPATH=/root/app
+```
+Copy app to my directory
+```bash
+cp /root/t/main.go main.go 
+```
+```bash
+go build -o main main.go 
+```
+Run
+```
+./main
+```
 
 
 
@@ -629,7 +996,7 @@ wget https://raw.githubusercontent.com/grafana/loki/main/clients/cmd/promtail/pr
 
 
 
-### Change Configuration of promtail 
+### Change Configuration of Promtail 
 
 
 promtail-local-config.yaml
