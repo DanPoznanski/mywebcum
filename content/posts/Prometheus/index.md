@@ -756,7 +756,8 @@ sudo systemctl restart prometheus
 
 
 >  I have my own application i need install golang and integrate golang prometheus client 
-Download golang
+
+Download Golang
 ```bash
 wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz
 ```
@@ -905,6 +906,202 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:8080']
 ```
+
+
+
+### Pushgateway_Exporter from Binary
+
+The Pushgateway is an intermediary service which allows you to push metrics from jobs which cannot be scraped. For details, see Pushing metrics.
+
+> only use short programs like Crone or something end quickly
+
+
+**[OPTIONS]**
+
+`--web.config.file=""` - [EXPERIMENTAL] Path to configuration file that can enable TLS or authentication. See: https://github.com/prometheus/exporter-toolkit/blob/master/docs/web-configuration.md
+
+`--web.listen-address=:9091` - Addresses on which to expose metrics and web interface. Repeatable for multiple addresse
+
+`--web.telemetry-path="/metrics"` - Path where the metrics for Prometheus will be available.
+
+`--web.enable-lifecycle` - Enable shutdown via HTTP request.
+
+`--web.enable-admin-api` - Enable API endpoints for admin control actions.
+
+`--persistence.file="/var/lib/prometheus/pushgateway.data"` - File to persist metrics. If empty, metrics are only kept in memory.
+
+`--persistence.interval=5m` - The minimum interval at which to write out the persistence file.
+
+Download 
+```bash
+cd /opt/
+wget https://github.com/prometheus/pushgateway/releases/download/v1.6.2/pushgateway-1.6.2.linux-arm64.tar.gz
+```
+
+Unpack 
+```bash
+tar -xvf pushgateway-1.6.2.linux-arm64.tar.gz
+```
+
+Remove archive
+```bash
+rm -rf pushgateway-1.6.2.linux-arm64.tar.gz
+```
+
+Rename 
+```bash
+mv pushgateway-1.6.2.linux-arm64.tar.gz pushgateway
+```
+
+Run (default port `127.0.0.1:9091`)
+
+```bash
+./pushgateway
+```
+
+
+
+
+
+### Configurate Pushgateway For systemd
+
+Create a new system user `pushgateway` 
+```bash
+useradd -s /sbin/nologin -d /opt/pushgateway pushgateway
+```
+ownership of the `/opt/pushgateway` directory to the user `pushgateway`.
+```bash
+chown -R pushgateway:pushgateway /opt/pushgateway
+```
+Copy && Past
+```bash
+sudo nano /etc/systemd/system/pushgateway.service
+```
+```ini
+[Unit]
+Description=Prometheus Pushgateway
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=pushgateway
+Group=pushgateway
+Type=simple
+ExecStart=/opt/pushgateway
+
+[Install]
+WantedBy=multi-user.target
+```
+Start and enable the pushgateway service:
+```bash
+sudo systemctl enable pushgateway
+```
+
+```bash
+sudo systemctl start pushgateway
+```
+Verify the service is running and serving metrics:
+```bash
+sudo systemctl status pushgateway
+```
+
+```bash
+curl localhost:9091/metrics
+```
+
+
+### Conncet Myapp to Prometheus
+
+
+Edit file `prometheus.yml`
+```yml
+global:
+  scrape_interval:     15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['localhost:9187']
+  
+  - job_name 'myapp'
+    static_configs:
+      - targets: ['localhost:8080']
+
+  - job_name: 'Pushgateway'
+    honor_labels: true
+    static_configs:
+      - targets: ['localhost:9091']  
+```
+> * honor_labels: true must be!
+
+Restart Prometheus to load the new configuration:
+```bash
+sudo systemctl restart prometheus
+```
+
+
+## Send Metrics to PushGateway
+
+Sending basic metrics
+
+First, it's worth mentioning that pushgateway has a built-in web interface, which can be accessed using port 9091 (default). We will use the console to work with it. So, pushgateway provides a simple API that you can use to send metrics to it. After receiving the metrics, pushgateway can give them to Prometheus server via the /metrics endpoint. Let's try to create our first metric using curl. Let's say our cron script runs once an hour and takes money from users' accounts. Then we can send information to pushgateway about the number of users processed. Or the total amount of debit:
+
+```bash
+echo "cron_app_processed_users 112" | curl --data-binary @- http://localhost:9091/metrics/job/cron_app
+
+echo "cron_app_payed_sum 13423" | curl --data-binary @- http://localhost:9091/metrics/job/cron_app
+```
+In this example we sent two metrics - `cron_app_processed_users` - number of processed users with the value `112` and `cron_app_payed_sum` - total amount of debit in the amount of `13423`. We also used the `--data-binary` option, which does not modify the data passed to it from stdin in any way, but just passes it in the POST request.
+
+we used the path `/metrics/job/cron_app`. In this case, `job` is a label, and `cron_app` is its value. Remember in scrape_config for Prometheus we set the job option, which was displayed in metrics as a tag? Actually, this is exactly that tag. Pushgateway will group your metrics by this tag. This is very useful when working with a large number of crowns or other short-lived tasks. You can see the grouped metrics by them.
+
+
+
+
+root@prom:/opt# curl http://localhost:9091/metrics
+# TYPE cron_app_payed_sum untyped
+cron_app_payed_sum{instance="",job="cron_app"} 13423
+# TYPE cron_app_processed_users untyped
+cron_app_processed_users{instance="",job="cron_app"} 112
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Prometheus 
+
+
+
+
+
+
 
 
 
