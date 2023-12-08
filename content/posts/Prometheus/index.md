@@ -267,7 +267,10 @@ node_disk_written_bytes_total{device="vda", instance="localhost:9100", job="node
 node_disk_written_bytes_total{device="vda", env="dev", instance="localhost:9100", job="node"} => 52338947072 @[1617970356.777]
 node_disk_written_bytes_total{device="vda", instance="localhost:9100", job="node"} => 52332880896 @[1617970356.777]
 ```
-### install Node_exporter from Binary
+
+## Exporters
+
+### Node_Exporter from Binary
 
 Download `node_exporter-1.7.0.linux-amd64.tar.gz`
 ```bash
@@ -319,7 +322,7 @@ In addition to selecting the collectors that will give us different metrics, we 
 
 
 
-### User for Systemd for Node-Exporter
+### Configurate Node_Exporter for Systemd
 
 ```bash
 useradd -s /sbin/nologin -d /opt/node_exporter node_exporter
@@ -369,7 +372,7 @@ Test all metrics
 curl localhost:9100/metrics
 ```
 
-### Connect Node Exporter to Prometheus
+### Connect Node_Exporter to Prometheus
 
 on Prometheus `prometheus.yml`
 ```yml 
@@ -392,7 +395,7 @@ scrape_configs:
 ```
 
 
-### Redis Exporter 
+### Redis_Exporter from Binary 
 
 Install Redis server
 ```bash
@@ -439,31 +442,7 @@ Run PostgreSQL-Exporter (default port `localhost:9187/metrics`)
 ./postgresql_exporter -help
 ```
 
-### Connect Redis Exporter to Prometheus
-Edit `prometheus.yml`
-```yml
-global:
-  scrape_interval:     15s
-
-scrape_configs:
-  - job_name: 'prometheus'
-    static_configs:
-    - targets: ['localhost:9090']
-
-  - job_name: 'node'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['localhost:9100']
-
-  - job_name: 'redis'
-    static_configs:
-      - targets: ['localhost:9121']
-```
-```bash
- systemctl restart prometheus
-```
-
-### Systemd for Redis-Exporter
+### Configurate Redis_Exporter for Systemd
 
 Add user 
 ```bash
@@ -501,12 +480,45 @@ ExecStart=/usr/bin/redis_exporter \
     -redis.password "your-strong-redis-password"
 ```
 
+```bash
+systemctl start redis_exporter.service
+```
+...bash
+systemctl enable redis_exporter.service
+```
+```bash
+systemctl status redis_exporter.service
+```
+
+### Connect Redis_Exporter to Prometheus
+Edit `prometheus.yml`
+```yml
+global:
+  scrape_interval:     15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']
+```
+```bash
+ systemctl restart prometheus
+```
 
 
 
 
 
-### PostgreSQL from APT
+### PostgreSQL from Repository
 
 install postgresql-14
 ```bash
@@ -572,7 +584,7 @@ sudo systemctl restart postgresql
 
 
 
-**Install Postgres-Exporter**
+### Postgres_Exporter from Binary
 
 
 ```bash
@@ -629,7 +641,7 @@ Save the file and exit the editor when you're finished.
 
 
 
-### Systemd for Postgres-Exporter
+### Configure Postgres_Exporter for Systemd
 
 Create a new system user `postgres_exporter` 
 ```bash
@@ -689,7 +701,7 @@ sudo ufw status
 ```
 
 
-### ### Connect Postgres-Exporter to Prometheus
+### Connect Postgres_Exporter to Prometheus
 
 Edit prometheus.yml
 
@@ -740,48 +752,159 @@ sudo systemctl restart prometheus
 
 
 
-### MyAPP exporter
+### MyAPP_Exporter
 
 
->  I have my own application i need install golang 
-
+>  I have my own application i need install golang and integrate golang prometheus client 
+Download golang
 ```bash
 wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz
 ```
+unpack `tar.gz`
 ```bash
 tar  -xzvf go1.21.5.linux-amd64.tar.gz
 ```
+remove pack 
 ```bash
 rm -rf go1.21.5.linux-amd64.tar.gz
 ```
+
 ```bash
-GOROOT=/root/go
+echo 'export GOROOT=$HOME/go' >> .bashrc
+echo 'export PATH=$PATH:$GOROOT/bin' >> .bashrc
 ```
+
+The first variable GOROOT is needed by the golang interpreter itself: thanks to it it finds the path to its built-in libraries. The second variable is required so that we do not write the full path to the go binary, but the system finds it by itself. Now we can log in and check that golang has been successfully installed:
 ```bash
-export PATH=/root/go/bin:$PATH
+go version
 ```
+### Creating the application
+
+Create directory for our project:
 ```bash
-mkdir app
-cd app
+mkdir -p app/src/app
+cd app/src/app
 ```
-```bash
-mkdir -p /src/app
-export GOPATH=/root/app
+Inside it we will create a simple `main.go` file
+```go
+package main
+
+// Import basic modules - fmt, log, net/http, time, math/rand
+import (
+    "fmt"
+    "log"
+    "net/http"
+    "time"
+    "math/rand"
+
+    // Add Prometheus client library import
+    "github.com/prometheus/client_golang/prometheus"
+    "github.com/prometheus/client_golang/prometheus/promhttp"
+)
+
+var (
+        // Metric for calculating request processing time
+        apiDurations = prometheus.NewSummary(
+                prometheus.SummaryOpts{
+                        Name:       "app_api_durations_seconds",
+                        Help:       "API latency distributions.",
+                        Objectives: map[float64]float64{0.5: 0.05, 0.9: 0.01, 0.99: 0.001},
+                })
+
+        // Metric for counting the number of incoming requests
+        apiProcessed = prometheus.NewCounter(prometheus.CounterOpts{
+                Name: "app_api_processed_ops_total",
+                Help: "The total number of processed requests",
+        })
+)
+
+// A function that will handled all requests to our web server
+func handler(w http.ResponseWriter, r *http.Request) {
+    // Increase the counter of the number of incoming requests
+    apiProcessed.Inc()
+    
+    // Time to start processing the request
+    start := time.Now()
+    
+    // asleep for a random number of seconds - from 0 to 2х
+    time.Sleep(time.Duration(rand.Intn(2)) * time.Second)
+    // In response, we send the path that the user has requested
+    fmt.Fprintf(w, "%s\n", r.URL.Path)
+
+    // After the end of processing, count how much time has passed since the start of processing
+    duration := time.Since(start)
+    // Save the processing time to a metric
+    apiDurations.Observe(duration.Seconds())
+}
+
+// The main function is the starting point of our program
+func main() {
+    // Register our metrics
+    prometheus.MustRegister(apiDurations)
+    prometheus.MustRegister(apiProcessed)
+
+    // Initialize the random number generator
+    rand.Seed(time.Now().UnixNano())
+    // We define twhen making requests to / - to any http path, it is necessary to call function handler 
+    http.HandleFunc("/", handler)
+
+
+    // When requesting the path "/metrics" we will output metrics in Prometheus format
+    http.Handle("/metrics", promhttp.Handler())
+
+    // start server on port 8080
+    log.Fatal(http.ListenAndServe(":8080", nil))
+}
 ```
-Copy app to my directory
+Build project 
 ```bash
-cp /root/t/main.go main.go 
-```
-```bash
-go build -o main main.go 
+export GOPATH=$HOME/app
+go build -o app main.go
 ```
 Run
 ```
 ./main
 ```
+fort test 
+```bash
+curl localhost:8080/test
+curl localhost:8080/test/user/path
+```
 
 
 
+
+
+### Conncet Myapp to Prometheus
+
+
+Edit file `prometheus.yml`
+```yml
+global:
+  scrape_interval:     15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['localhost:9187']
+  
+  - job_name 'myapp'
+    static_configs:
+      - targets: ['localhost:8080']
+```
 
 
 
