@@ -963,7 +963,7 @@ Run (default port `127.0.0.1:9091`)
 
 
 
-### Configurate Pushgateway For systemd
+### Configurate Pushgateway For Systemd
 
 Create a new system user `pushgateway` 
 ```bash
@@ -1045,7 +1045,7 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9091']  
 ```
-> * honor_labels: true must be!
+> * Of interest here is the `honor_labels: true` parameter. Let's remember how Prometheus collects metrics. First of all, it accesses the exporter via http at the path `/metrics`, from where it takes all metrics with their tags. After that it adds its own internal tags - job, which is specified in the `job_name` configuration, as well as instance - endpoint from which these metrics were collected. In our case, we expose these tags ourselves in pushgateway. Since it can collect data from different services, we directly pass the job name and instance name to `db1`. So this option `honor_labels: true` prohibits Prometheus from replacing these tags with its own, but requires using the ones specified in pushgateway.So this option `honor_labels: true` disallows Prometheus to replace these tags with its own, but requires to use the ones specified in pushgateway.
 
 Restart Prometheus to load the new configuration:
 ```bash
@@ -1055,7 +1055,7 @@ sudo systemctl restart prometheus
 
 ## Send Metrics to PushGateway
 
-Sending basic metrics
+Sending basic metrics to pushgateway
 
 First, it's worth mentioning that pushgateway has a built-in web interface, which can be accessed using port 9091 (default). We will use the console to work with it. So, pushgateway provides a simple API that you can use to send metrics to it. After receiving the metrics, pushgateway can give them to Prometheus server via the /metrics endpoint. Let's try to create our first metric using curl. Let's say our cron script runs once an hour and takes money from users' accounts. Then we can send information to pushgateway about the number of users processed. Or the total amount of debit:
 
@@ -1066,17 +1066,106 @@ echo "cron_app_payed_sum 13423" | curl --data-binary @- http://localhost:9091/me
 ```
 In this example we sent two metrics - `cron_app_processed_users` - number of processed users with the value `112` and `cron_app_payed_sum` - total amount of debit in the amount of `13423`. We also used the `--data-binary` option, which does not modify the data passed to it from stdin in any way, but just passes it in the POST request.
 
-we used the path `/metrics/job/cron_app`. In this case, `job` is a label, and `cron_app` is its value. Remember in scrape_config for Prometheus we set the job option, which was displayed in metrics as a tag? Actually, this is exactly that tag. Pushgateway will group your metrics by this tag. This is very useful when working with a large number of crowns or other short-lived tasks. You can see the grouped metrics by them.
+we used the path `/metrics/job/cron_app`. In this case, `job` is a label, and `cron_app` is its value. Remember in `scrape_config` for Prometheus we set the job option, which was displayed in metrics as a tag? Actually, this is exactly that tag. Pushgateway will group your metrics by this tag. This is very useful when working with a large number of crowns or other short-lived tasks. You can see the grouped metrics by them.
 
 
 
+```bash
+curl http://localhost:9091/metrics
+# TYPE cron_app_payed_sum untyped
+cron_app_payed_sum{instance="",job="cron_app"} 13423
+# TYPE cron_app_processed_users untyped
+cron_app_processed_users{instance="",job="cron_app"} 112
+```
 
-root@prom:/opt# curl http://localhost:9091/metrics
+Let's now try to see how our metrics will be given to Prometheus:
+
+```bash
+curl http://localhost:9091/metrics
 # TYPE cron_app_payed_sum untyped
 cron_app_payed_sum{instance="",job="cron_app"} 13423
 # TYPE cron_app_processed_users untyped
 cron_app_processed_users{instance="",job="cron_app"} 112
 
+... skipped ...
+
+# HELP push_failure_time_seconds Last Unix time when changing this group in the Pushgateway failed.
+# TYPE push_failure_time_seconds gauge
+push_failure_time_seconds{instance="",job="cron_app"} 0
+# HELP push_time_seconds Last Unix time when changing this group in the Pushgateway succeeded.
+# TYPE push_time_seconds gauge
+push_time_seconds{instance="",job="cron_app"} 1.6208582543334155e+09
+
+... skipped ...
+```
+
+Additional parameters when sending metrics :
+
+In addition to the basic option of sending metrics, we can also use the advanced option - specifying the type of metric to be sent:
+```bash
+cat <<EOF | curl --data-binary @- http://localhost:9091/metrics/job/cron_app
+# TYPE cron_app_payed_sum gauge
+cron_app_payed_sum 15487
+# TYPE cron_app_processed_users gauge
+# HELP cron_app_processed_users Processed Users Counter.
+cron_app_processed_users 238
+EOF
+```
+In this example we sent the same metrics as before, but we specified their type in the comment. We will talk more about data types in Prometheus in the promql assignment, now the main thing is to understand that you can specify the type of data to be sent.
+
+Another important feature when passing metrics is the ability to tag your metrics. Let's add a new metric to our application. For example, the number of users processed, categorized by groups.
+
+For example our script processes two groups of users - corporate clients and individuals. We want to see how many users from one or the other group were processed. To do this, it is enough to send metrics in this format:
+
+```bash
+cat <<EOF | curl --data-binary @- http://localhost:9091/metrics/job/cron_app
+cron_app_users{type="corp"} 64
+cron_app_users{type="man"} 47
+EOF
+
+```
+That is, we specified the tag directly in our metric. Let's see what happened with our metrics:
+
+```bash
+curl http://localhost:9091/metrics
+
+# TYPE cron_app_payed_sum gauge
+cron_app_payed_sum{instance="",job="cron_app"} 15487
+# HELP cron_app_processed_users Processed Users Counter.
+# TYPE cron_app_processed_users gauge
+cron_app_processed_users{instance="",job="cron_app"} 238
+# TYPE cron_app_users untyped
+cron_app_users{instance="",job="cron_app",type="corp"} 64
+cron_app_users{instance="",job="cron_app",type="man"} 47
+
+... skipped ...
+
+```
+As you can see from the output, we have a new metric with different tags.
+
+
+**Dividing metrics into groups**
+
+In addition to adding labels directly in metrics, you can add tags via URLs. For example like this:
+
+```
+echo 'test_app_processed{type="users"} 12' | curl --data-binary @- http://localhost:9091/metrics/job/test_app/instance/db1
+```
+In this case, we added a new metric `test_app_processed` with three tags. One tag `type=users`, which was specified directly in the metric, the other two were specified via URL: `job=test_app` and `instance=db1`. Let's see how this metric will look like in Prometheus format:
+
+```bash
+curl -s http://localhost:9091/metrics
+
+... skipped ...
+# TYPE test_app_processed untyped
+test_app_processed{instance="db1",job="test_app",type="users"} 12
+```
+
+Delete Metrics
+```bash
+curl -X DELETE http://localhost:9091/metrics/job/test_app/instance/db1
+```
+And all metrics that belonged to this group will be removed. To summarize, pushgateway grouping allows you to flexibly manage incoming metrics.
 
 
 
@@ -1092,16 +1181,85 @@ cron_app_processed_users{instance="",job="cron_app"} 112
 
 
 
+## Prometheus Service Discovery
 
 
 
-## Prometheus 
+**Manual Add Targets scripts**
+
+Create dirctory for scripts
+```bash
+mkdir -p /opt/targets
+```
+
+```bash
+cd /opt/targets
+```
+
+Now modify the config in `targets.json` by adding an entry for the new Node Exporter:
+```json
+[
+  {
+    "targets": [
+      "localhost:9100"
+    ],
+    "labels": {
+      "job": "node"
+    }
+  }
+]
+```
+
+test config
+
+```bash
+cat targets.json | jq .
+```
+
+```yml
+global:
+  scrape_interval:     15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['localhost:9187']
+  
+  - job_name 'myapp'
+    static_configs:
+      - targets: ['localhost:8080']
+
+  - job_name: 'Pushgateway'
+    honor_labels: true
+    static_configs:
+      - targets: ['localhost:9091']
+  
+  - job_name: 'file'
+    file_sd_config:
+    - file:
+      - '/opt/targets/*.json
+      refresh_interval: 10s
+
+```
+
+Go on Prometheus Website `localhost:9090` Status => Server Discovery 
 
 
 
-
-
-
+**DNS SRV(Service Record) method**
 
 
 
