@@ -81,9 +81,6 @@ file tells the Prometheus servers to fetch metrics every 15s on the specified en
 ![prometheus2](images/prometheus2.svg)
 
 
-### 4 Types of Prometheus Metrics 
-
-![prometheus3](images/prometheus3.png)
 
 
 
@@ -1218,6 +1215,53 @@ cat targets.json | jq .
 
 ```yml
 global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: 'node'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['localhost:9100']
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['localhost:9121']
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['localhost:9187']
+  
+  - job_name 'myapp'
+    static_configs:
+      - targets: ['localhost:8080']
+
+  - job_name: 'Pushgateway'
+    honor_labels: true
+    static_configs:
+      - targets: ['localhost:9091']
+  
+  - job_name: 'file'
+    file_sd_config:
+    - file:
+      - '/opt/targets/*.json
+      refresh_interval: 10s
+```
+
+Go on Prometheus Website `localhost:9090` Status => Server Discovery 
+
+
+
+**DNS SRV(Service Record) method**
+
+
+
+
+```yml
+global:
   scrape_interval:     15s
 
 scrape_configs:
@@ -1253,13 +1297,369 @@ scrape_configs:
       - '/opt/targets/*.json
       refresh_interval: 10s
 
+  - job_name: 'dns'
+    dns_sd_configs:
+  - names:
+    - _payment._tcp.api.prod.example.org'
+    type: SRV
+    refresh_interval: 120s
 ```
 
-Go on Prometheus Website `localhost:9090` Status => Server Discovery 
+If you don't want to bother with SRV record detection, you can use regular A types. The only difference is that you will have to specify the port to which prometheus should connect. In SRV record the port is specified, but in A record there is no such field, so the configuration will take the following form:
+
+```yaml
+  - job_name: 'dns'
+    dns_sd_configs:
+    - names:
+      - example.com
+      type: A
+      port: 9090
+      refresh_interval: 10s
+```
 
 
 
-**DNS SRV(Service Record) method**
+## PromQL
+
+Prometheus there are only 4 types of metrics:
+
+![prometheus3](images/prometheus3.png)
+
+
+- **Counter** is a simple counter. Its peculiarity is that the value of this metric cannot decrease. For example, the `processed_requests` metric is the number of processed requests. Agree that it cannot decrease - with each new request it will increase by one.
+
+- **Gauge** this type is responsible for a simple metric that can both increase and decrease. A good example of such a metric is temperature. At the moment it is 18 degrees, in a couple hours it will be 21 degrees, and at night it will drop to 10 degrees.
+
+- **Histograms** Collects several data about a metric - the total number of values, their sum, as well as a breakdown by groups. It is most often used to collect temporal metrics (e.g. response time). All values are calculated on the server side.
+
+- **Summaries** are essentially the same histograms, but all calculations are done on the client, so the client can eat up some percentage of CPU time. But they do not load the prometheus server, unlike Histograms.
+
+
+**Data filtering**
+
+```bash
+./promtool query instant http://localhost:9090/ up
+
+up{instance="localhost:8080", job="app"} => 1 @[1622717586.873]
+up{instance="localhost:9090", job="prometheus"} => 1 @[1622717586.873]
+```
+In this case, we have output the latest values of the `up` metric. To filter the values - we can add the tags we want to see there to the queries:
+
+```bash
+./promtool query instant http://localhost:9090/ "up{job='app'}"
+
+up{instance="localhost:8080", job="app"} => 1 @[1622717644.331]
+```
+In this way prometheus shows us all up metrics that have a job tag identical to app. Besides direct comparison you can also use negation and even `regexp`:
+```bash
+./promtool query instant http://localhost:9090/ "up{job!='prometheus'}"
+
+up{instance="localhost:8080", job="app"} => 1 @[1622717699.7]
+
+./promtool query instant http://localhost:9090/ "up{job=~'..p'}"
+
+up{instance="localhost:8080", job="app"} => 1 @[1622717711.238]
+root@prom-test:/opt/prometheus#
+```
+By the way, in prometheus you can use the secret tag `__name__`, which contains the name of the metric. In this way you can output all metrics with the name you are interested in with one query:
+```bash
+./promtool query instant http://localhost:9090/ "{__name__=~'^up$'}"
+
+up{instance="localhost:8080", job="app"} => 0 @[1622759105.491]
+up{instance="localhost:9090", job="prometheus"} => 1 @[1622759105.491]
+```
+In addition to filtering by tags, you can also filter metrics by current values - for example, let's display all `up` metrics that have a value of `1`:
+```bash
+./promtool query instant http://localhost:9090/ "up == 1"
+
+up{instance="localhost:8080", job="app"} => 1 @[1622717784.272]
+up{instance="localhost:9090", job="prometheus"} => 1 @[1622717784.272]
+```
+And now all app metrics that have a metric value not equal to 1:
+
+```bash
+./promtool query instant http://localhost:9090/ "up != 1"
+
+```
+Everything is logical - the output is empty - we don't have such metrics. Or let's output all up metrics that have a value greater than 0:
+```bash
+./promtool query instant http://localhost:9090/ "up > 0"
+
+up{instance="localhost:8080", job="app"} => 1 @[1622717832.933]
+up{instance="localhost:9090", job="prometheus"} => 1 @[1622717832.933]
+```
+
+**Working with basic functions**
+
+https://prometheus.io/docs/prometheus/latest/querying/functions/
+
+*Instant Vectors* are multiple time series metrics that reflect a single value over a specific time, for example:
+```bash
+./promtool query instant http://localhost:9090/ "up"
+up{instance="localhost:8080", job="app"} => 1 @[1622719041.253]
+up{instance="localhost:9090", job="prometheus"} => 1 @[1622719041.253]
+```
+> This displays the value of the up metric for all tags for the same timestamp - 1622719041.253.
+
+*Range Vectors* are multiple time series metrics that reflect multiple values over a specific time interval, for example:
+```bash
+/promtool query instant http://localhost:9090/ "up[2m]"
+up{instance="localhost:8080", job="app"} =>
+1 @[1622718987.573]
+1 @[1622719002.573]
+1 @[1622719017.573]
+1 @[1622719032.573]
+1 @[1622719047.573]
+1 @[1622719062.573]
+1 @[1622719077.573]
+1 @[1622719092.573]
+up{instance="localhost:9090", job="prometheus"} =>
+1 @[1622718989.926]
+1 @[1622719004.926]
+1 @[1622719019.926]
+1 @[1622719034.926]
+1 @[1622719049.926]
+1 @[1622719064.926]
+1 @[1622719079.926]
+1 @[1622719094.926]
+```
+This displays the value of the up metric for the last two minutes. When using range vector, you specify the time period in square brackets. You can also use tag filtering in front of them:
+```bash
+./promtool query instant http://localhost:9090/ "up{job='app'}[2m]"
+up{instance="localhost:8080", job="app"} =>
+1 @[1622719047.573]
+1 @[1622719062.573]
+1 @[1622719077.573]
+1 @[1622719092.573]
+1 @[1622719107.573]
+1 @[1622719122.573]
+1 @[1622719137.573]
+1 @[1622719152.573]
+```
+**Scalar** - simple floating point numbers. You will be able to use them, for example, by adding to or multiplying by metrics.
+
+Now let's move on to the operators. In general, they are all intuitive:
+
+- `+` addition
+
+- `-` subtraction
+
+- `*` multiplication
+
+- `/` division
+
+- `%` modulus
+
+- `^` ascending
+
+These operators work both between scalar values (5*5) and instant vectors, for example:
+
+```bash
+./promtool query instant http://localhost:9090/ "2 + 2"
+
+scalar: 4 @[1622719951.177]
+
+ ./promtool query instant http://localhost:9090/ "up + 1"
+
+{instance="localhost:8080", job="app"} => 2 @[1622719953.617]
+{instance="localhost:9090", job="prometheus"} => 2 @[1622719953.617]
+
+./promtool query instant http://localhost:9090/ "up + up"
+
+{instance="localhost:8080", job="app"} => 2 @[1622719955.02]
+{instance="localhost:9090", job="prometheus"} => 2 @[1622719955.02]
+```
+
+>In the first example, we add just two scalar values. In the second example we add a scalar value of 1 to the up metric. And in the third example we add two instant vectors.
+
+In addition to standard additions there are also aggregation operators - they allow to aggregate values of one instant vector by different tags - for example, to summarize the number of requests between all hosts with the tag `env=dev`. Here are the main ones:
+
+- `sum` - summation
+- `min` - take the minimum value
+- `max` - take the maximum value
+- `avg` - take average value
+- `count` - count the number of elements in the vector
+
+Let's try to summarize all the values of all the up metrics:
+```bash
+./promtool query instant http://localhost:9090/ "sum(up)"
+{} => 2 @[1622720202.092]
+```
+> In this case prometheus took all the up metrics, discarded all the tags and summed their values - the result is 2.
+
+You can do a job-by-job breakdown:
+```bash
+./promtool query instant http://localhost:9090/ "sum by (job) (up)"
+{job="app"} => 1 @[1622720257.153]
+{job="prometheus"} => 1 @[1622720257.153]
+```
+> In this case, prometheus took the up metric, grouped them by `job` tag and summed up the values in each group. Since we have only one metric in each group (`app` and `prometheus`), the values are identical to the original ones.
+
+**Working with Functions in Prometheus**
+
+The `rate` function takes a range vector as input and then performs a simple conversion - it takes the difference between the last and the first value and divides it by the number of seconds in the interval - so you get the counter growth rate. This function works only with the counter data type. Let's look at an example:
+```bash
+./promtool query instant http://localhost:9090/ "prometheus_http_requests_total{}"
+
+prometheus_http_requests_total{code="200", handler="/api/v1/query", instance="localhost:9090", job="prometheus"} => 27 @[1622721465.532]
+prometheus_http_requests_total{code="200", handler="/metrics", instance="localhost:9090", job="prometheus"} => 366 @[1622721465.532]
+prometheus_http_requests_total{code="400", handler="/api/v1/query", instance="localhost:9090", job="prometheus"} => 9 @[1622721465.532]
+
+ ./promtool query instant http://localhost:9090/ "rate(prometheus_http_requests_total{}[2m])"
+
+{code="200", handler="/api/v1/query", instance="localhost:9090", job="prometheus"} => 0 @[1622721473.43]
+{code="200", handler="/metrics", instance="localhost:9090", job="prometheus"} => 0.06666666666666667 @[1622721473.43]
+{code="400", handler="/api/v1/query", instance="localhost:9090", job="prometheus"} => 0 @[1622721473.43]
+```
+> The first time we just asked for our metrics and the second time we asked prometheus to calculate the average number of requests for the last two minutes. Prometheus took the current value of the `prometheus_http_requests_total` metric and then subtracted the value of the `prometheus_http_requests_total` metric that was 2 minutes ago and then divided the obtained value by 120 seconds (2 minutes). Thus we got the average number of requests per second.
+
+We can also use the `sum` operator to summarize the number of requests for all the same instances:
+```bash
+./promtool query instant http://localhost:9090/ "sum by (instance) (rate(prometheus_http_requests_total{}[2m]))"
+
+{instance="localhost:9090"} => 0.06666666666666667 @[1622721815.76]
+```
+> Everything is the same here - we got the number of requests per second using rate, and after that we added up our metrics by instance tag - all those who had it matched were added up. In this way you can output, for example, the number of requests per second on all `dev` and `prod` servers with a simple query.
+
+In addition to the rate function, there is the `irate` function - it does the same thing, but it takes the difference of the last and penultimate value instead of the first and last value. That is, it does not care what interval you specify - `[2m]` or `[10m]` - it will take the last and penultimate values for calculation
+
+
+The next function in our list is `delta`. It works only with the gauge metrics type and calculates the difference of the first and the last value in the range vector. For example:
+```bash
+./promtool query instant http://localhost:9090/ "delta(prometheus_tsdb_blocks_loaded[2m])"
+
+{instance="localhost:9090", job="prometheus"} => 0 @[1622722060.54]
+```
+> So `delta` will take the last value of the `prometheus_tsdb_blocks_loaded` metric and subtract from it the value of the `prometheus_tsdb_blocks_loaded` metric from 2 minutes ago.
+
+Another interesting function for gauge metrics is `predict_linear` - it predicts the value of a metric for a given number of seconds ahead. Linear regression is used. That is, in essence, a straight line is drawn using the average values in the past and future values are predicted on its basis:
+```bash
+./promtool query instant http://localhost:9090/ "predict_linear(prometheus_tsdb_blocks_loaded[120m], 120)"
+
+{instance="localhost:9090", job="prometheus"} => 1.0048419915591933 @[1622722310.225]
+```
+> In this case we took the value of `prometheus_tsdb_blocks_loaded` metric for the last 2 minutes and tried to predict the value for 120 seconds in the future. This function is very useful to use with the available disk space - it will be able to predict when the disk space will end.
+
+let's take a look at the function that is designed to work with histograms. Since summaries are counted immediately on the client, this function does not apply to summaries. Let's try to calculate 85% persistence for prometheus' http response time:
+```bash
+./promtool query instant http://localhost:9090/ "histogram_quantile(0.85, prometheus_http_request_duration_seconds_bucket)"
+
+{handler="/metrics", instance="localhost:9090", job="prometheus"} => 0.085 @[1622722586.628]
+{handler="/api/v1/query", instance="localhost:9090", job="prometheus"} => 0.085 @[1622722586.628]
+```
+In this case, we use the histogram_quantile function with a parameter of 0.85 (that's 85%) and specifying the histogram metric to use - `prometheus_http_request_duration_seconds_bucket`. You can also calculate the value on a time segment by adding the rate function:
+
+```bash
+root@prom-test:/opt/prometheus# ./promtool query instant http://localhost:9090/ "histogram_quantile(0.85, rate(prometheus_http_request_duration_seconds_bucket[10m]))"
+
+{handler="/api/v1/query", instance="localhost:9090", job="prometheus"} => 0.085 @[1622722648.458]
+{handler="/metrics", instance="localhost:9090", job="prometheus"} => 0.085 @[1622722648.458]
+```
+> This calculates the same metric, but over a 10 minute interval.
+
+
+
+
+
+## Alertmanager
+
+
+### Customizing alerts in Prometheus
+
+To configure alerts in promethues you will need to specify the `rule_files` parameter in the main config file `prometheus.yml`, which is responsible for which file prometheus will look for alerting rules. 
+```bash
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager:9093
+
+rules_files:
+  - "alerts.yml"
+```
+
+After that we can create an `alerts.yml` file (it should be in the same directory as prometheus.yml) with our host availability alert:
+
+```bash
+nano alerts.yml
+```
+```yml 
+groups:
+- name: instances
+  interval: 10s
+  rules:
+  - alert: InstanceDown
+    expr: up == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Instance {{ $labels.instance }} down"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for 1 minute."
+```
+> here we use go-template https://pkg.go.dev/text/template
+
+> for more alerts can take for here https://samber.github.io/awesome-prometheus-alerts/
+
+
+Let's turn off our application that was polled by prometheus and look at the current alerts:
+
+```bash
+./promtool query instant http://localhost:9090/ "ALERTS{}"
+
+ALERTS{alertname="InstanceDown", alertstate="firing", instance="localhost:8080", job="app", severity="critical"} => 1 @[1622757949.277]
+```
+>  there is a special ALERTS metric in prometheus that allows you to see all current alerts. In our case we can see alert `alertname=InstanceDown` and its tags. Please note that all tags of the triggered metric are added to the alert
+
+
+### Testing of alerting rules
+
+
+```bash
+# Путь к файлу с алертами
+rule_files:
+    - alerts.yml
+
+# Как часто будут выполняться запросы из тестовых правил
+evaluation_interval: 10s
+
+tests:
+    - interval: 15s # Как часто собираются данные по нашей метрике
+      input_series: # Тестовая метрика
+          - series: 'up{job="prometheus", instance="localhost:9090"}' # Название и теги тестовой метрики
+            values: '0 0 0 0 0 0 0 0 0 0 0 0 0 0 0' # Значения тестовой метрики - каждое значение по факту будет с
+                                                    # обираться каждые interval секунд. То есть в нашем примере
+                                                    # interval 15 sec, значит при тестах первое значение - ноль
+                                                    # - будет собрано в самом начале, когда прошло 0 секунд, 
+                                                    # второе значение - ноль - будет собрано в 15 секунд, 
+                                                    # третье значение - ноль - появится в 30 секунд и так 
+                                                    # далее. Это важно, поскольку вам так же захочется 
+                                                    # тестировать крайние случаи - когда for и evaluation_interval
+                                                    # и scrape_interval отличаются и алерт может не сработать.
+
+      # Тестовые правила
+      alert_rule_test:
+          - eval_time: 5m # Время прошедшее с момента запуска теста - за это 
+                          # время тесты соберут все значения метрики
+                          # (раз в 15 секунд, а так же будут раз в 10 секунд
+                          # выполнять наши правила алертинга)
+            alertname: InstanceDown # Названия алерта, которое тестируем
+            exp_alerts: # что ожидаем получить на выходе
+                - exp_labels: # Какие лейблы должны быть у алерта
+                      severity: critical
+                      instance: localhost:9090
+                      job: prometheus
+                  exp_annotations: # Какие аннотации должны быть у алерта
+                      summary: "Instance localhost:9090 down"
+                      description: "localhost:9090 of job prometheus has been down for 1 minute."
+```
+Try running our tests:
+```bash
+root@prom-test:/opt/prometheus# ./promtool test rules test.yaml
+
+Unit Testing:  test.yaml
+  SUCCESS
+```
 
 
 
@@ -1271,6 +1671,239 @@ Go on Prometheus Website `localhost:9090` Status => Server Discovery
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## LDAP Authentication
+
+
+
+
+
+
+
+##  Configuring Nginx Reverse Proxy for Grafana SSL
+
+
+![prometheus5](images/prometheus5.svg)
+
+
+
+
+**Data filtering**
+
+```bash
+mkdir -p /home/certs/prometheus
+```
+
+```bash
+cd /home/certs/prometheus
+```
+
+```bash
+sudo openssl req -newkey rsa:4096 -nodes -x509 -keyout prometheus.key -out prometheus.crt 
+```
+
+записать все поля 
+
+
+
+```bash
+sudo nano /etc/nginx/nginx.conf 
+```
+Edit conf
+```conf
+server {
+    listen              443 ssl;
+    server_name         www.example.com;
+    ssl_certificate     home/certs/prometheus.crt;
+    ssl_certificate_key home/certs/prometheus.key;
+    location / {
+        proxy_pass http://localhost:3000/;
+    }
+}
+```
+```bash
+systemctl restart nginx
+```
+```bash
+systemctl stop nginx
+```
+```bash
+sudo prometheus \
+--config.file=/etc/prometheus/prometheus.yml \
+--web.external-url=https://prometheus.do.rbr-grafana.com \
+--web.route-prefix="/" 
+```
+
+
+##
+
+sudo apt-get install apache2-utils 
+
+sudo htpasswd -c .htpasswd admin 
+
+```bash
+sudo nano /etc/nginx/nginx.conf 
+```
+Edit conf
+```conf
+server {
+    listen              443 ssl;
+    server_name         www.example.com;
+    ssl_certificate     home/certs/prometheus.crt;
+    ssl_certificate_key home/certs/prometheus.key;
+    location / {
+        proxy_pass http://localhost:3000/;
+        auth_basic           "Prometheus";
+        auth_basic_user_file /home/user.htpasswd;            
+    }
+}
+```
+```bash
+systemctl restart nginx
+```
+
+curl -u admin -k https://prometheus.do.rbr-grafana.com:443/metrics
+
+
+
+On grafana 
+
+Configuration => Data source => Add data source => Select Prometheus 
+
+```
+HTTP
+URL : https://prometheus.do.rbr-grafana.com
+Basic Auth [x]
+Skip TLS verify [x]
+with Credentials [x]
+User: admin 
+Password: *********
+```
+[Save & Test]
+
+
+
+## Configuring Nginx Reverse Proxy for Grafana
+
+
+Create an Nginx config file for Grafana. To do this, type the following command:
+```bash
+nano /etc/nginx/sites-enabled/my-grafana.conf
+```
+A text editor opens. Let's fill in the nginx configuration file:
+```conf
+server {
+    listen 80;
+    listen [::]:80;
+    server_name  my-grafana;
+
+    location / {
+        proxy_pass http://localhost:3000/;
+    }
+}
+```
 
 
 

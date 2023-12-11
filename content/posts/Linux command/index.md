@@ -435,28 +435,28 @@ gpg --export -a "dan@local" > public.key
 
 
 see version linux or `uname -a` uname take information from:
-```
+```bash
 cat /proc/version
 ```
 
 see cpu info
-```
+```bash
 cat /proc/cpuinfo
 ```
 see time online
-```
+```bash
 cat /proc/uptime 
 ```
 see devices
-```
+```bash
 cat /proc/devices
 ```
 see what filesystems support 
-```
+```bash
 cat /proc/filesystems
 ```
 see all mounts 
-```
+```bash
 cat /proc/mounts
 ```
 
@@ -465,22 +465,22 @@ cat /proc/mounts
 &nbsp;
 
 see mem and swap ram 
-```
+```bash
 free -h
 ```
 oom killer score s
-```
+```bash
 cat /proc/13/oom_score_adj
 ```
 iftop to see internet traffic
-```
+```bash
 iftop
 ```
 
 ### Ports 
 
-see if port 8080 open
-```
+see if port `8080` open
+```bash
 netstat -lptun | grep 8080
 ```
 
@@ -635,33 +635,108 @@ sudo pstree
 
 
 
-1, System_Commands →
-# ls — list the file/folder in the current directory.
-# ls -larth — list files/folders in a current directory in detailed format.
-# stat <fileName/dirName> — shows detailed information about the file or directory.
-# cal — view calendar.
-# hostname — shows the name of the system host.
-# hostid — shows the host id of the system assigned by the OS.
-# date — shows the current date and time in UTC format.
-# whoami — shows the currently logged-in username of the terminal.
-# uptime — shows the elapsed time duration since the machine logged in.
-# uname — unix name.
-# clear — clears the screen.
-# history — lists all the commands executed until now.
-# sudo -i — Super User Do
-# echo $? — shows the exit status of the last executed command (0 — success, 1–255 — error/failure).
-# shutdown -r now — restart the machine immediately (-r restart).
-# printenv — displays all the environment variables of the Linux system.
-# last — shows previous logins in the Linux system.
-2, Directory Commands →
-# pwd — shows the present working directory (abbr. Print Working Directory).
-# cd — change directory.
-# cd .. — changes to its parent directory (i.e.) one level up.
-# cd <dirName> — change to the directory mentioned.
-# cd ~ or cd — changes to the currently logged-in user’s home directory.
-# cd ../.. — changes the directory two levels up.
-# cd — — changes to the last working directory.
-# mkdir <dirName> — creates the directory.
+## System_Commands
+
+List the file/folder in the current directory.
+```bash
+ls 
+```
+List files/folders in a current directory in detailed format.
+```bash
+ls -larth
+```
+Shows detailed information about the file or directory.
+```bash
+stat <fileName/dirName>
+```
+View calendar.
+```bash
+cal
+```
+Shows the name of the system host.
+```bash
+hostname
+```
+Shows the host id of the system assigned by the OS.
+```bash
+hostid
+```
+Show the current data and time in UTC format
+```bash
+date 
+```
+Shows the currently logged-in username of the terminal.
+```bash
+whoami
+``` 
+Shows the elapsed time duration since the machine logged in.
+```bash
+uptime
+```
+Unix name.
+```bash
+uname
+``` 
+Clears the screen.
+```bash
+clear
+``` 
+Lists all the commands executed until now.
+```bash
+history
+``` 
+Super User Do
+```bash
+sudo -i
+```
+Shows the exit status of the last executed command (0 — success, 1–255 — error/failure).
+```bash
+echo $?
+```
+Restart the machine immediately (-r restart).
+```bash 
+shutdown -r now
+```
+Displays all the environment variables of the Linux system.
+```bash
+printenv
+```
+Shows previous logins in the Linux system.
+```bash 
+Last
+```
+## Directory Commands 
+
+Shows the present working directory (abbr. Print Working Directory).
+```bash 
+pwd
+```
+Change directory.
+```bash
+cd
+```
+Changes to its parent directory (i.e.) one level up.
+```bash
+cd ..
+```
+Change to the directory mentioned.
+```bash
+cd <dirName>
+```
+Changes to the currently logged-in user’s home directory.
+```bash
+cd ~ or cd
+```
+Changes the directory two levels up.
+```bash
+cd ../..
+```
+Changes to the last working directory.
+```bash
+cd —
+``` 
+
+mkdir <dirName> — creates the directory.
 # mkdir -p <pathOftheDir> — creates a directory with its parent directories if it does not exist (-p parent).
 3, File Commands →
 # touch — creates an empty file or updates the timestamp of the existing file.
@@ -774,8 +849,37 @@ Find Commands →
 11, Archiving File Commands →
 # tar — tape archive.
 # tar -cvf <fileName> <directory> — creates the tar file with the fileName for the directory mentioned (-c create, -v verbose, -f output file name).
-# tar -xvf <sourceTarFileName> -C <destinationDir> — puts the extracted files into the destination directory (-x extract, -v verbose, -f source tar file name, -C change the folder and download to destination dir).
-Package Manager — LINUX DISTROS →
+# tar -xvf <sourceTarFileName> -C <destinationDir> — pand download to destination dir).
 
-apt — Package Manager for Debian-based Linux distributions Eg: Ubuntu.
-yum — Package Manager for Redhat-based Linux distributions Eg: Amazon_Linux.
+## Package Manager — LINUX DISTROS 
+
+- apt — Package Manager for Debian-based Linux distributions Eg: Ubuntu.
+- yum — Package Manager for Redhat-based Linux distributions Eg: Amazon_Linux.
+
+
+
+
+
+
+
+
+
+
+
+## Repository
+
+Disable
+```bash
+sudo apt-get update --allow-unauthenticated
+```
+
+```bash
+sudo apt-get update --allow-insecure-repositories
+```
+
+
+
+
+
+
+
