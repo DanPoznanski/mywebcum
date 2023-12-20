@@ -2984,13 +2984,13 @@ server {
 >> In a production environment, SSL (and HTTPS connection) must be used.
 
 
-## Basic Authentication
+### Basic Authentication
 
 Basic Authentication is basic authentication using a login/password pair.
 
 
 
-## LDAP Authentication
+### LDAP Authentication
 
 LDAP Authentication is an authentication method that uses the LDAP protocol and access to a directory service.
 
@@ -3041,21 +3041,58 @@ To find out the exact `bind_dn`, you need to run the cmdlet on a Windows server 
 ```ps1
 Get-ADUser grafana -Properties *
 ```
+or
 ```bash
-
+(Get-ADUser -Identity "grafana").DistinguishedName
 ```
+> In this data you need to find the `DistinguishedName` attribute - this is the `bind_dn`.
+
+Enter the password for the grafana user in `bind_password`.
+
+Filling in:
 ```bash
-
+search_base_dns = ["dc=MRS,DC=CONTOSO,DC=COM"]
 ```
+Restart Grafana
 ```bash
-
+sudo systemctl restart grafana-server
 ```
+> Go to the Grafana web interface, log in as admin. Go to Server Admin - LDAP.
+
+In test user mapping you can enter any user from AD. If it exists, Grafana will show its status. You can now log in with a Grafana account.
+
+> https://grafana.com/docs/grafana/latest/setup-grafana/configure-security/configure-authentication/ldap/
+
+### GitLab OAuth
+
+If your team works in GitLab and has a workspace configured there, you can use authorization with Gitlab.
+
+To do this, go to the Grafana home directory and open the configuration file.
 ```bash
-
+sudo nano /etc/grafana/grafana.ini
 ```
+
+Go down to the bottom and find the [auth.gitlab] parameter group. If there is no parameter group in the configuration file, add them. If the parameters are present but commented out, remove the comment characters and replace the enabled parameter with true, then fill in the other parameters according to the authorization provider's settings.
+
+It should go something like this:
 ```bash
-
+[auth.gitlab]
+enabled = true
+allow_sign_up = true
+client_id = some_id
+client_secret = some_secret
+scopes = api
+auth_url = https://gitlab.com/oauth/authorize
+token_url = https://gitlab.com/oauth/token
+api_url = https://gitlab.com/api/v4
+allowed_domains =
+allowed_groups =
 ```
+> ...where the `auth_url`, `token_url`, `api_url` parameters should be changed to your GitLab repository parameters.
+
+
+
+
 ```bash
 
 ```
