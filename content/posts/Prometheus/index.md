@@ -179,7 +179,7 @@ rate(prometheus_http_requests_total[1m])
 ---
 
 
-### User for Systemd and Prometheus 
+###  Configurate Prometheus for Systemd 
 
 ```bash
 useradd -s /sbin/nologin -d /opt/prometheus prometheus
@@ -187,7 +187,7 @@ useradd -s /sbin/nologin -d /opt/prometheus prometheus
 ```bash
 chown -R prometheus:prometheus /opt/prometheus
 ```
-copy && past
+Copy && Past
 ```bash
 nano /etc/systemd/system/prometheus.service
 ```
@@ -422,7 +422,7 @@ tar -xvf redis_exporter-v1.55.0.linux-amd64.tar.gz
 ```
 Remove archive `tar.gz`
 ```bash
-rm -f redis_exporter-v1.55.0.linux-amd64.tar.gz 
+rm -rf redis_exporter-v1.55.0.linux-amd64.tar.gz 
 ```
 Rename name to Redis-Exporter 
 ```bash
@@ -452,6 +452,7 @@ Copy && Past
 ```bash
 nano /etc/systemd/system/redis_exporter.service
 ```
+
 ```bash
 [Unit]
 Description=Redis Exporter
@@ -488,6 +489,7 @@ systemctl status redis_exporter.service
 ```
 
 ### Connect Redis_Exporter to Prometheus
+
 Edit `prometheus.yml`
 ```yml
 global:
@@ -608,7 +610,7 @@ Run Postgres_exporter (localhost:9187/mertics)
 DATA_SOURCE_NAME=postgresql://postgres_exporter:password@localhost:5432/postgres?sslmode=disable ./postgress_exporter
 ```
 
-**Configuring postgres_exporter**
+**Configuring Postgres Exporter**
 
 I this step, you'll configure the `postgres_exporter` to gather PostgreSQL metrics, and this can be done by defining the PostgreSQL user and password. You'll also set up and configure the systemd service for the `postgres_exporter`.
 
@@ -638,7 +640,7 @@ Save the file and exit the editor when you're finished.
 
 
 
-### Configure Postgres_Exporter for Systemd
+### Configurate Postgres_Exporter for Systemd
 
 Create a new system user `postgres_exporter` 
 ```bash
@@ -947,7 +949,7 @@ rm -rf pushgateway-1.6.2.linux-arm64.tar.gz
 
 Rename 
 ```bash
-mv pushgateway-1.6.2.linux-arm64.tar.gz pushgateway
+mv pushgateway-1.6.2.linux-arm64 pushgateway
 ```
 
 Run (default port `127.0.0.1:9091`)
@@ -1560,11 +1562,11 @@ root@prom-test:/opt/prometheus# ./promtool query instant http://localhost:9090/ 
 
 
 
-## Alertsmanager 
 
-## Before install Alertmanager
 
-### Customizing alerts in Prometheus
+## Before install Alertmanager (Alerts of Prometheus)
+
+### Customizing  Rules Alerts in Prometheus
 
 To configure alerts in promethues you will need to specify the `rule_files` parameter in the main config file `prometheus.yml`, which is responsible for which file prometheus will look for alerting rules. 
 ```bash
@@ -1579,7 +1581,6 @@ rules_files:
 ```
 
 After that we can create an `alerts.yml` file (it should be in the same directory as prometheus.yml) with our host availability alert:
-
 ```bash
 nano alerts.yml
 ```
@@ -1603,7 +1604,6 @@ groups:
 
 
 Let's turn off our application that was polled by prometheus and look at the current alerts:
-
 ```bash
 ./promtool query instant http://localhost:9090/ "ALERTS{}"
 
@@ -1612,7 +1612,7 @@ ALERTS{alertname="InstanceDown", alertstate="firing", instance="localhost:8080",
 >  there is a special ALERTS metric in prometheus that allows you to see all current alerts. In our case we can see alert `alertname=InstanceDown` and its tags. Please note that all tags of the triggered metric are added to the alert
 
 
-### Testing of alerting rules
+### Testing of Alerting Rules
 
 
 ```bash
@@ -1664,8 +1664,7 @@ Unit Testing:  test.yaml
 ### Standard alerts for systems
 
 The example will be about disk space:
-
-```bash
+```yml
 - alert: HostOutOfDiskSpace
     expr: (node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10 and ON (instance, device, mountpoint) node_filesystem_readonly == 0
     for: 2m
@@ -1675,8 +1674,9 @@ The example will be about disk space:
       summary: Host out of disk space (instance {{ $labels.instance }})
       description: "Disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 ```
+
 Same example with disk space, but only using the `predict_linear` function, which predicts the value in 24 hour
-```bash
+```yml
  - alert: HostDiskWillFillIn24Hours
     expr: (node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10 and ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly == 0
     for: 2m
@@ -1686,8 +1686,9 @@ Same example with disk space, but only using the `predict_linear` function, whic
       summary: Host disk will fill in 24 hours (instance {{ $labels.instance }})
       description: "Filesystem is predicted to run out of space within the next 24 hours at current write rate\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 ```
+
 The following alert will help you quickly locate heavily loaded servers:
-```bash
+```yml
 - alert: HostHighCpuLoad
     expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
     for: 0m
@@ -1697,8 +1698,9 @@ The following alert will help you quickly locate heavily loaded servers:
       summary: Host high CPU load (instance {{ $labels.instance }})
       description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 ```
+
 The amount of free memory:
-```bash
+```yml
 - alert: HostOutOfMemory
     expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
     for: 2m
@@ -1708,8 +1710,9 @@ The amount of free memory:
       summary: Host out of memory (instance {{ $labels.instance }})
       description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 ```
+
 This example, the alert is triggered if the network interface receives more than 100 mb of traffic per second. You can always adjust this value to suit your requirements.
-```bash
+```yml
   - alert: HostUnusualNetworkThroughputIn
     expr: sum by (instance) (rate(node_network_receive_bytes_total[2m])) / 1024 / 1024 > 100
     for: 5m
@@ -1720,83 +1723,1354 @@ This example, the alert is triggered if the network interface receives more than
       description: "Host network interfaces are probably receiving too much data (> 100 MB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 ```
 
+## Alertsmanager 
 
-## Alertsmanager from Binary
+### Alertsmanager from Binary
 
+```bash
+cd /opt
+wget https://github.com/prometheus/alertmanager/releases/download/v0.26.0/alertmanager-0.26.0.linux-amd64.tar.gz
+```
+Unpack
+```bash
+tar zxf alertmanager-0.26.0.linux-amd64.tar.gz
+```
+Rename
+```bash
+mv alertmanager-0.26.0.linux-amd64 alertmanager
+```
+```bash
+rm -rf alertmanager-0.26.0.linux-amd64.tar.gz
+```
+Move to alermanager directory 
+```bash
+cd alertmanager
+```
+Run (default port `localhost:9093`)
+```bash
+./alertmanager
+```
+```bash
+./alertmanager --config.file=alertmanager.yml
+```
+
+### Alertmanager Systemd 
+
+
+```bash
+useradd -s /sbin/nologin -d /opt/alertmanager alertmanager
+```
+Change ownership
+```bash
+chown alertmanager:alertmanager -R /opt/alertmanager
+```
+Create systemd unit file
+```bash
+nano /etc/systemd/system/alertmanager.service
+```
+
+```ini
+[Unit]
+Description=Alertmanager
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=alertmanager
+Group=alertmanager
+Type=simple
+WorkingDirectory=/opt/alertmanager/
+ExecStart=/opt/alertmanager --config.file=/opt/alertmanager/alertmanager.yml --web.external-url http://0.0.0.0:9093
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Run service (website on localhost:9093 => `Alerts`)
+```bash
+systemctl daemon-reload
+```
+website on localhost:9093 => `Alerts`
+```bash
+systemctl start alertmanager
+```
+```bash
+systemctl enable alertmanager
+```
+```bash
+systemctl status alertmanager
+```
+
+### Basic Alertmanager Configuration
+
+
+
+That's actually the whole installation. Now let's discuss the main features of alertmanager in more detail:
+
+- Grouping. This is a very important point - imagine that one node on your network crashed. And a bunch of alerts were triggered on it at once - node_exporter unavailability, mysql unavailability and so on. With the help of grouping you can group alerts into one group and send only one notification, not dozens or hundreds.
+
+- Inhibition. One more important thing about alertmanager is that it allows you not to send a new group of alerts if some of the specified alerts have already been sent. From the example above - you may not send a new alert that the site is unavailable, if you already have an alert that the database is unavailable - because most likely it is the root of all problems.
+
+- Silences. The ability to stop sending alerts for a period of time - for example, a weekend for a dev server or all alerts for a period of system maintenance.
+
+- High Availability - alertmanager can be run in cluster mode to ensure high availability. Prometheus will send information about alerts to all available alertmanagers, and they in turn will select a leader that will directly handle them. In case of leader's failure - he will be replaced by another available alertmanager. This way you will not miss any alert.
+
+
+
+
+
+
+
+
+
+Create `alertmanager.yml` file
+```bash
+nano /opt/alertmanager/alertmanager.yml
+```
+Pagerduty and Slack
+```yml 
+route:
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  receiver: 'web.hook'
+  routes:
+  - receiver: 'pagerduty-critical'
+    group_wait: 10s
+    matchers:
+    - severity="critical"
+  - receiver: 'slack-warning'
+    group_wait: 60s
+    matchers:
+    - severity="warning"
+
+receivers:
+- name: 'web.hook'
+  webhook_configs:
+  - url: 'http://127.0.0.1:5001/'
+- name: 'pagerduty-critical'
+  pagerduty_configs:
+  - routing_key: 'test'
+    service_key: 'md5-hash'
+- name: 'slack-warning'
+  slack_configs:
+  - api_url: 'https://hooks.slack.com/services/TOKEN'
+    channel: '#warnings'
+
+
+inhibit_rules:
+  - source_matchers:
+    - severity="critical"
+    target_matchers:
+    - severity="warning"
+    equal: ['instance']
+```
+
+### Test Configuration of Alertmanager
+
+Here it is worth mentioning an interesting utility `amtool` - it allows, for example, to check the alertmanager configuration for correctness. In fact, it is similar to the `promtool` utility for prometheus. examples:
+
+```bash
+./amtool check-config alertmanager.yml
+Checking 'alertmanager.yml'  SUCCESS
+Found:
+ - global config
+ - route
+ - 1 inhibit rules
+ - 3 receivers
+ - 0 templates
+```
+Test routing for your Alerts:
+```bash
+amtool config routes --config.file alertmanager.yml
+
+Routing tree:
+.
+└── default-route  receiver: web.hook
+    ├── {severity="critical"}  receiver: pagerduty-critical
+    └── {severity="warning"}  receiver: slack-warning
+```
+```bash
+./amtool config routes test severity="warning" --config.file alertmanager.yml
+
+slack-warning
+```
+```bash
+./amtool config routes test severity="info" --config.file alertmanager.yml
+
+web.hook
+```
+
+### Connect Alertmanager to Prometheus
+
+The only need change prometheus `prometheus.yml`:
+
+```yml
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - localhost:9093
+```
+
+
+
+
+### Connecting Notifications in Telegram
+
+In fact, from alertmanager's point of view everything is simple - we just need to send a **Webhook** to **Telegram Api** to send notification. But on the telegram side, we have a few steps to take. Let's go through them all:
+
+- First, you need to create a new bot. To do this, you should turn to the bot `@BotFather`. Directly type this nickname in the Telegram search and then type the command `/newbot`. Specify its name - for example `rebrainme_notify`, its nickname (it must end with bot) - `rebrainme_notify_bot`. In response `botFather` will give you an API key to access the bot using API. Save this token - we will use it further as `$TOKEN`.
+
+- Find your bot by searching for the nickname - `rebrainme_notify_bot` and send it a message - to do this, first press the start command and then write anything. Yes, it won't reply, but we don't need to - we just need to know our `chat_id`, which appeared when we sent it a message.
+
+
+To find out the `chat_id`, you can send an http request using curl:
+```bash
+$ curl -s https://api.telegram.org/bot$TOKEN/getUpdates | jq .
+{
+  "ok": true,
+  "result": [
+    {
+      "update_id": 736752606,
+      "message": {
+        "message_id": 2,
+        "from": {
+          "id": 113317645,
+          "is_bot": false,
+          "first_name": "Vasiliy",
+          "last_name": "Ozerov",
+          "username": "vasiliyozerov",
+          "language_code": "en"
+        },
+        "chat": {
+          "id": 113317645,
+          "first_name": "Vasiliy",
+          "last_name": "Ozerov",
+          "username": "vasiliyozerov",
+          "type": "private"
+        },
+        "date": 1623194263,
+        "text": "gfhjkm"
+      }
+    }
+  ]
+}
+```
+> nstead of `$TOKEN` you need to substitute your token, which was given to you by botFather in the first step. And you can get your `chat_id` - in our case it is `113317645`.
+
+
+Now you can send messages through the bot using api requests, using the bot's `$TOKEN` and the `chat_id` obtained in the previous step. Let's try sending a test message:
+
+```bash
+curl -s 'https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=113317645&text=Heya'
+
+{"ok":true,"result":{"message_id":3,"from":{"id":1765727458,"is_bot":true,"first_name":"rebrainme_notify","username":"rebrainme_notify_bot"},"chat":{"id":113317645,"first_name":"Vasiliy","last_name":"Ozerov","username":"vasiliyozerov","type":"private"},"date":1623194449,"text":"Heya"}}
+```
+
+### Configure alertmanager
 
+The official configuration documentation is on https://prometheus.io/docs/alerting/latest/configuration
 
+For my tests, I added these 2 snippets.
+```bash
+route:
+  - match:
+      severity: test
+    receiver: test-telegram
+receivers:
+ 
+- name: 'test-telegram'
+  telegram_configs:
+  - bot_token: YOUR_BOT_TOKEN
+    api_url: https://api.telegram.org
+    chat_id: YOUR_CHAT_ID
+    parse_mode: ''
+```
+If you need a proxy, add the `http_config` section below:
 
+```bash
+receivers:
+- name: 'stardata-telegram'
+  telegram_configs:
+  - bot_token: YOUR_BOT_TOKEN
+    api_url: https://api.telegram.org
+    chat_id: YOUR_CHAT_ID
+    parse_mode: ''
+    http_config:
+      proxy_url: 'http://your-proxy-server-if-required:3128'
+```
 
+**Test the configuration**
 
+To create a temporary alert to test the configuration, run 
+```bash
+amtool --alertmanager.url=http://localhost:9093/ alert add alertname="test123" severity="test-telegram" job="test-alert" instance="localhost" exporter="none" cluster="test"
+```
+
+
+
+
+
+
+## Prometheus Federation
+
+**High Availability**
+First things first, let’s tackle the question of high availability.
+Unlike Alertmanager, which allows clustering and communication between multiple instances, Prometheus doesn’t extend the same privilege. However, the truth is, clustering Prometheus is not needed to achieve high availability. This tool has been ingeniously engineered to maintain high availability without requiring server communication.
+
+In fact, setting up a highly available Prometheus system is a breeze just by running multiple Prometheus servers with identical configurations.
+![prometheus8](images/prometheus8.svg)
+
+Without further ado, I’ll explain how to set up this HA in a few steps, if you don’t mind.
+
+Let’s assume that we have two Prometheus servers, `Prometheus_DC1` and `Prometheus_DC2`.
+
+To set up the HA, we have to copy all Prometheus configurations from Prometheus_DC1 to Prometheus_DC2 :
 
+- Copy the Prometheus configuration file `/etc/prometheus/prometheus.yml` from the `Prometheus_DC1` to `Prometheus_DC2`.
+
+- Copy the rules configuration `/etc/prometheus/rules/rules.yaml` from the `Prometheus_DC1` to `Prometheus_DC2`
 
+- On `Prometheus_DC2`, enable the Prometheus service, and start it.
+```
+sudo systemctl enable prometheus
+sudo systemctl start prometheus
+```
+
+And that’s it. We don’t need anything else to configure HA at the Prometheus level. If we wish, we can add a load balancer configured in round-robin. It can be helpful if we’re using Grafana.
+
+
+
+**Federation**
 
+When we start monitoring with Prometheus, we typically begin with one server per datacenter or environment, which is sufficient due to its efficiency and lower failure rates. However, as operational overhead and performance issues arise, it may be necessary to split the Prometheus server into separate servers for network, infrastructure, and application monitoring, known as vertical sharding. Teams can also run their own Prometheus servers for greater flexibility and control over target labels and scrape intervals. Social factors often lead to Prometheus servers being split before performance concerns arise.
+
+But how do we aggregate all this data?
+To perform global aggregations, federation allows for a global Prometheus server to pull aggregated metrics from datacenter Prometheus servers. This ensures reliability and simplicity in monitoring systems, particularly for graphing and alerting purposes.
+
+We can easily share our metric data with Federation across different Prometheus servers.
+
+For informational purposes, there are two types of Federation
+
+- Hierarchical Federation
+This means we have bigger Prometheus servers that collect time-series data from smaller ones. We have a top-down approach where data is gathered from different levels.
+
+
+![prometheus7](images/prometheus7.svg)
+
+- Cross-Service Federation
+
+This method involves one Prometheus server monitoring a particular service or group of services, gathering specific time-series data from another server that is monitoring a different set of services.
+By doing this, we can run queries and alerts on the merged data from both servers.
+
+
+
+![prometheus9](images/prometheus9.svg)
+
+
+**Implementing a hierarchical Federation**
+
+For this blog, we will assume a configuration with two servers to be monitored – one in Basel and the other in Zurich, each hosting a node_exporter.
+These servers will be monitored by dedicated Prometheus servers named dc1 and dc2, respectively. Finally, the metrics from these two Prometheus servers will be aggregated by a federation server.
+
+![prometheus](images//prometheus10.svg)
+
+From the Prometheus user interface, we can observe that the “Office Server” jobs gather metrics from the Basel and Zurich servers through their respective endpoints `http:/dbi-basel-srv1:9100/metrics` and `http:/dbi-zurich-srv1:9100/metrics`, via the Prometheus servers `DC1` and `DC2`.
+
+Prometheus DC1:
+![prometheus11](images/prometheus11.png)
+
+
+Prometheus DC2:
+![prometheus12](images/prometheus12.png)
+
+Now, we can log in to our third Prometheus server (the Federate one) and edit the Prometheus configuration file `/etc/prometheus/prometheus.yml`.
+
+Add the following block at the bottom of the file, just after the static configuration of the “Prometheus” job name.
+```bash
+# Federation configuration
+  - job_name: 'federation'
+    scrape_interval: 15s
+    
+    honor_labels: true
+    metrics_path: '/federate'
+    
+    params:
+      'match[]':
+        - '{job!~"prometheus"}'
+        - '{__name__=~"job:.*"}'
+    
+    static_configs:
+    - targets:
+      - 'prometheus-dc-1:9090'
+      - 'prometheus-dc-2:9090'
+```
+check config
+```bash
+./promtool check config ./prometheus.yml
+```
+Once configured, we enable the Federal Prometheus Server
+```bash
+sudo systemctl enable prometheus
+```
+And start Prometheus
+```bash
+sudo systemctl start prometheus
+```
+> We can access Federal Prometheus Server through the web UI at http://<Federated Prometheus Server Public IP>:9090.
+
+Then, click on status and finally on target.
+
+![prometheus12](images/prometheus13.png)
+
+
+
+
+### Creating new metrics via recording rules
+Let's look at a simple example. First, let's configure the aggregation rules on the local prometheus host. We haven't analyzed the aggregation rules with you, but in fact they are very similar to alerting rules - they will be executed once in a given interval and will essentially generate a new metric based on your request. This way you can create new metrics that will be stored in prometheus.
+
+So we have a local prometheus that collects data from all nodes in the datacenter via a simple node_exporter. Let's take a look at its configuration:
+
+So we have a local prometheus that collects data from all nodes in the datacenter via a simple `node_exporter`. Let's take a look at its configuration:
+```yml
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+  external_labels:
+    datacenter: dc1
+
+rule_files:
+  - "rules.yml"
 
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
 
+  - job_name: 'node'
+    static_configs:
+    - targets: ['localhost:9100']
+```
+Check config
+```bash
+./promtool check config ./prometheus.yml
+```
 
+> In addition to `external_labels`, we specified a file with rules - `rules.yml`. In fact, we already did this when we added the rules for alerting, but now we will add the rules for creating new metrics. So, let's have a look at rules.yml:
 
+rules.yml
+```yml
+groups:
+  - name: globaldc
+    interval: 5s
+    rules:
+    - record: job:node_memory_MemTotal_bytes:sum
+      expr: sum without(instance)(node_memory_MemTotal_bytes{job="node"})
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```bash
+systemctl restart prometheus
+```
+
+test new metric
+```bash
+./promtool query instant http://localhost:9090/ 'job:node_memory_MemTotal_bytes:sum'
+```
+
+
+## Long Term Storage for Prometheus
+
+### How TSDB works (short time storage)
+All metrics that prometheus receives from exporters are grouped into two-hour blocks and saved to disk. One block is a separate directory, which contains the data itself (chunks), a metadata file, and an index file, which contains information on all metrics available for a given time period, as well as all labels of these metrics. The metrics themselves within the chunks directory are grouped into files up to 512 MB in size
+
+```bash
+root@prom-test:/opt/prometheus/data# ls -la
+total 24
+drwxr-xr-x 5 prometheus prometheus  4096 Jun 16 07:52 .
+drwxr-xr-x 5 prometheus prometheus  4096 Apr 30 08:03 ..
+drwxr-xr-x 3 prometheus prometheus  4096 Jun 16 07:52 01F89WWE7DY9X2X3Q2E47VAA8C
+drwxr-xr-x 2 prometheus prometheus  4096 Jun 16 07:52 chunks_head
+-rw-r--r-- 1 prometheus prometheus     0 Apr 30 08:03 lock
+-rw-r--r-- 1 prometheus prometheus 20001 Jun 16 07:51 queries.active
+drwxr-xr-x 2 prometheus prometheus  4096 Jun 16 07:52 wal
+root@prom-test:/opt/prometheus/data# ls -la 01F89WWE7DY9X2X3Q2E47VAA8C/
+total 68
+drwxr-xr-x 3 prometheus prometheus  4096 Jun 16 07:52 .
+drwxr-xr-x 5 prometheus prometheus  4096 Jun 16 07:52 ..
+drwxr-xr-x 2 prometheus prometheus  4096 Jun 16 07:52 chunks
+-rw-r--r-- 1 prometheus prometheus 45866 Jun 16 07:52 index
+-rw-r--r-- 1 prometheus prometheus   272 Jun 16 07:52 meta.json
+-rw-r--r-- 1 prometheus prometheus     9 Jun 16 07:52 tombstones
+root@prom-test:/opt/prometheus/data#
+```
+The metrics that prometheus currently receives from exporters do not immediately get to disk - they are stored in memory for some time. To protect against unexpected termination, write ahead log is used, thanks to which prometheus can run the history of metrics retrieval again at startup and save them to disk in the necessary directory. WAL logs are stored in the wal directory and occupy a maximum of 128 MB of space each:
+```bash
+root@prom-test:/opt/prometheus/data# ls -la wal/
+total 100
+drwxr-xr-x 2 prometheus prometheus  4096 Jun 16 07:52 .
+drwxr-xr-x 5 prometheus prometheus  4096 Jun 16 07:52 ..
+-rw-r--r-- 1 prometheus prometheus 32768 Apr 30 08:03 00000000
+-rw-r--r-- 1 prometheus prometheus 32768 Jun 16 07:52 00000001
+-rw-r--r-- 1 prometheus prometheus 25704 Jun 16 07:55 00000002
+```
+After writing to wal, prometheus performs a compaction operation in the background and stores the resulting metrics into the desired data blocks. In addition, initial two-hour data blocks can be grouped into larger blocks - usually up to 10% of retention time. That is, if you set 30 days to store metrics, the blocks may contain 3 days of data.
+
+The only limitation of this storage is that it cannot be clustered or replicated, but it is very fast. The developers claim that you will be able to store a year's worth of metrics in this engine. It is worth noting that you should take care of prometheus failover by using a raid array or migrated virtual machines, otherwise you may lose all your data if a hard disk fails.
+
+
+Basic TSBD settings
+
+- `--storage.tsdb.path` - path where tsdb data will be located. If you run prometheus in docker, it makes sense to mount this directory on the host system.
+
+- `--storage.tsdb.retention.time` - storage time of collected metrics. By default metrics are retained for 15 days.
+
+- `--storage.tsdb.retention.size` - experimental function to clean up metrics based on the size they take.
+
+- `--storage.tsdb.wal-compression` - enable wal archive compression. Enabled by default since version 2.20.
+
+- `--storage.tsdb.no-lockfile` - do not create lockfile in data directory. It will allow to run the second prometheus on the same data. But data consistency cannot be guaranteed anymore.
+
+
+### Settings Long Term Storage.
+
+This magic works thanks to the standardized API offered by prometheus. In fact, the scheme works as follows - prometheus accesses an external application using its api, which in turn converts the request into the required format and sends the request to the storage - for example, to postgresql or clickhouse. Then it receives the response, converts it back into prometheus format and sends it back. Thus the whole scheme is very similar to the scheme with exporters. Prometheus contacts the adapter, and the adapter already interacts with the storage. An example of such an adapter can be seen here(https://github.com/prometheus/prometheus/tree/release-2.27/documentation/examples/remote_storage/example_write_adapter).
+
+
+https://prometheus.io/docs/operating/integrations/#remote-endpoints-and-storage
+
+
+
+
+
+### Kafka
+
+So, let's start by installing zookeeper, since kafka uses it:
+
+```bash
+apt-get install zookeeper zookeeper-bin zookeeperd
+```
+
+Now we can configure it and add the id of our first zookeeper:
+
+```bash
+echo 1 > /etc/zookeeper/conf/myid
+```
+```bash
+systemctl start zookeeper
+```
+
+```bash
+systemctl status zookeeper
+```
+```bash
+zookeeper.service - LSB: centralized coordination service
+     Loaded: loaded (/etc/init.d/zookeeper; generated)
+     Active: active (running) since Wed 2021-06-16 08:24:11 UTC; 18s ago
+       Docs: man:systemd-sysv-generator(8)
+      Tasks: 17 (limit: 2345)
+     Memory: 37.2M
+     CGroup: /system.slice/zookeeper.service
+             └─11859 /usr/bin/java -cp /etc/zookeeper/conf:/usr/share/java/jline.jar:/usr/share/java/log4j-1.2.jar:/usr/share/java/xercesImpl.jar:/usr/share/java/xmlParserAPIs.j>
+```
+
+Install Kafka from binary 
+```bash
+cd /opt/
+wget https://downloads.apache.org/kafka/3.6.1/kafka_2.13-3.6.1.tgz
+```
+Unpack
+```bash
+tar zxf kafka_2.13-3.6.1.tgz
+```
+```bash
+mv afka_2.13-3.6.1 kafka
+```
+```bash
+rm -rf kafka_2.13-3.6.1.tgz
+```
+```bash
+cd kafka/
+```
+run kafka 
+```bash
+./bin/kafka-topics.sh --list --zookeeper localhost:2181
+```
+
+So, Kafka is installed - now we just need to get prometheus to write to it.
+
+Great, we just need to check that everything works as it should - for this purpose we will create a new topic:
+```bash
+./bin/kafka-topics.sh --zookeeper localhost:2181 --topic "test" --create --partitions 5 --replication-factor 1
+Created topic test.
+./bin/kafka-topics.sh --list --zookeeper localhost:2181
+test
+```
+
+
+### Configuring Prometheus to Write to Remote Storage
+
+To connect prometheus, we need to run an adapter that will receive messages from prometheus and send them to kafka. To do this, let's use the officially recommended adapter - prometheus-kafka-adapter. It will accept messages from prometheus in its format, convert it to json and save it to kafka.
+
+So, before installing the adapter, we will need to install the `librdkafka` dependencies. The official repositories contain an outdated version, so we will have to add a new repository:
+```bash
+wget -qO - https://packages.confluent.io/deb/6.2/archive.key | sudo apt-key add -
+```
+
+```bash
+sudo add-apt-repository "deb [arch=amd64] https://packages.confluent.io/deb/6.2 stable main"
+```
+
+```bash
+echo "deb http://security.ubuntu.com/ubuntu bionic-security main" | sudo tee -a /etc/apt/sources.list.d/bionic.list
+```
+
+```bash
+ apt-get install librdkafka-dev librdkafka1 zlib1g zlib1g-dev libcrypto++-dev libcrypto++6 libssl-dev
+```
+
+install prom-kafka-adapter:
+```bash
+cd /opt/
+wget https://go.dev/dl/go1.21.5.linux-amd64.tar.gz
+```
+
+
+```bash
+ 
+export GOROOT=/opt/go
+export PATH=/opt/go/bin:$PATH
+go version
+go version go1.21.5 linux/amd64
+```
+
+```bash
+mkdir prom-kafka-adapter
+```
+```bash
+cd prom-kafka-adapter/
+```
+```bash
+export GOPATH=`pwd`
+```
+```bash
+go get github.com/Telefonica/prometheus-kafka-adapter@1.9.0
+```
+
+check that everything works:
+```bash
+KAFKA_BROKER_LIST=localhost:9092 ./bin/prometheus-kafka-adapter
+```
+
+Only left to configure prometheus. For this we add to `prometheus.yml`:
+```yml
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+remote_write:
+  - url: "http://localhost:8080/receive"
+```
+
+
+```bash
+systemctl restart prometheus
+```
+
+```bash
+./bin/kafka-topics.sh --list --zookeeper localhost:2181
+```
+```bash
+./bin/kafka-console-consumer.sh --from-beginning --bootstrap-server localhost:9092 --topic metrics
+```
+> Prometheus throws all our metrics into prom-kafka-adapter, and that in turn into kafka, in json format. 
+
+
+
+
+
+
+
+
+## Firewall and SSL/TCL
+
+iptables firewall for prometheus
+```bash
+cat /etc/iptables/rules.v4
+# Generated by iptables-save v1.4.21 on Tue Jun 23 15:46:13 2020
+*nat
+:PREROUTING ACCEPT [17566285:1114295190]
+:INPUT ACCEPT [8292701:445269860]
+:OUTPUT ACCEPT [12857064:888777529]
+:POSTROUTING ACCEPT [12857064:888777529]
+COMMIT
+*filter
+:INPUT DROP [4:176]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [67101:106192188]
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+COMMIT
+```
+
+### Configuring Prometheus SSL
+
+In our example we will use a self-signed certificate. First we need to generate the root key and certificate so that we can issue certificates for prometheus and node_exporter. This can be done using the openssl utility:
+
+
+```bash
+cd /opt/
+mkdir ssl
+```
+```bash
+cd ssl
+```
+```bash
+openssl genrsa -out ca.key 4096
+```
+```bash
+openssl req -new -x509 -days 720 -key ca.key -out ca.crt
+Country Name (2 letter code) [AU]:IL
+State or Province Name (full name) [Some-State]:Center
+Locality Name (eg, city) []:Moscow
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Mycompany
+Organizational Unit Name (eg, section) []:IT
+Common Name (e.g. server FQDN or YOUR name) []:myweb.com
+Email Address []:admin@myweb.com
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+```
+```bash
+ls -la
+```
+> Here we created a private key `ca.key`, as well as a certificate `ca.crt`, in which we added general information about us.
+
+Now all that's left is to generate a server certificate and key for Prometheus, and then sign it with the root certificate:
+```bash
+openssl genrsa -out server.key 4096
+
+Country Name (2 letter code) [AU]:IL
+State or Province Name (full name) [Some-State]:Center
+Locality Name (eg, city) []:Tel-aviv
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Mycompany
+Organizational Unit Name (eg, section) []:IT
+Common Name (e.g. server FQDN or YOUR name) []:mywebsite.com
+Email Address []:admin@mywebsite.com
+
+```
+```bash
+openssl x509 -req -days 365 -in server.csr -CA ca.crt -CAkey ca.key -set_serial 1 -out server.crt
+```
+
+
+> We should end up with a `server.key` and a `server.crt` certificate
+
+
+Now we can describe the TLS and basic auth settings in the `/opt/prometheus/web.config` file for our prometheus server:
+```bash
+tls_server_config:
+  cert_file: /opt/ssl/server.crt
+  key_file: /opt/ssl/server.key
+
+http_server_config:
+  http2: true
+
+basic_auth_users:
+  dan: $2a$10$j6bz1OjUBADJ.dx5CxZGA.KVMAsNvAEEmJdrk0W1LHlxQDyqXGte.
+```
+> In this example, we simply specified the server key and certificate, and enabled `http2` support and also set a login/password for our user dan. We obtained the password using `htpasswd`. You must use bcrypt encryption:
+
+install htpasswd 
+```bash
+apt install apache2-utils
+```
+Generate password for `auth_users`:
+```bash
+htpasswd -bnBC 10 "" password | tr -d ':\n' | sed 's/$2y/$2a/'
+```
+
+Now let's assign permissions to our certificates, since prometheus is running under the prometheus user:
+```bash
+chown prometheus:prometheus /opt/ssl/server.*
+```
+Now let's add a new parameter to start (`--web.config.file`) where we describe our web.config in `/etc/systemd/system/prometheus.service`:
+```ini
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+ExecStart=/opt/prometheus/prometheus \
+    --config.file=/opt/prometheus/prometheus.yml \
+    --storage.tsdb.path=/opt/prometheus/data \
+    --web.console.templates=/opt/prometheus/consoles \
+    --web.console.libraries=/opt/prometheus/console_libraries \
+    --web.config.file=/opt/prometheus/web.config
+
+[Install]
+WantedBy=default.target
+```
+
+Now you can reboot systemd and run prometheus:
+
+```bash
+systemctl daemon-reload
+```
+```bash
+systemctl restart prometheus
+```
+```bash 
+systemctl status prometheus
+```
+
+let's try to address prometheus:
+```bash
+curl -D - -u dan:password --cacert /opt/ssl/ca.crt --resolve mywebsite.com:9090:127.0.0.1 https://mywebsite.com:9090
+```
+> Let's deal with these parameters. The first parameter `-D` will cause curl to display all the headers on the screen. 
+
+> The second parameter `--cacert /opt/ssl/ca.crt` specifies the path to our root certificate, which will allow us to check its validity, since it is the one that the prometheus server certificate is signed with.
+
+> >The third parameter `--resolve prom.kis.im:9090:127.0.0.1` - since we don't have a DNS entry for `mywebsite.com` with this parameter we force curl to define `mywebsite.com:9090` as `127.0.0.1`. And so when we specify the url `https://mywebsite.com:9090` at the end, curl will not go to DNS, but will go straight to `127.0.0.1:9090`. This is required for curl to be able to verify the server name mywebsite.com in our server certificate. And actually we got a valid response from prometheus: `302 Found`.
+
+
+
+### Configuring Node_Exporter with Nginx Proxy
+
+Let's try to implement the scheme with tls and basic auth for `node_exporter`.
+So, let's start by generating a key and certificate for node_exporter, similar to prometheus:
+
+So, let's start by generating a key and certificate for `node_exporter`, similar to prometheus (on machine prometheus):
+```bash
+openssl genrsa -out node_exporter.key 4096
+```
+```bash
+cat > req.conf << EOF
+```
+```ini
+[req]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_req
+prompt = no
+[req_distinguished_name]
+C = IL
+ST = Telaviv
+L = Telaviv
+O = Mycompany
+OU = IT
+CN = node_exporter.mywebsite.com
+[v3_req]
+keyUsage = keyEncipherment, dataEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+[alt_names]
+DNS.1 = node_exporter.mywebsite.com
+EOF
+```
+```bash
+openssl req -new -key node_exporter.key -out node_exporter.csr -config req.conf -extensions 'v3_req'
+```
+
+```bash
+openssl x509 -req -days 365 -in node_exporter.csr -CA ca.crt -CAkey ca.key -set_serial 1 -extensions 'v3_req' -extfile req.conf -out node_exporter.crt
+```
+> After these steps, we will get the files `node_expoter.key` - the key and `node_exporter.crt` - the certificate for our exporter. 
+
+> We used the `req.conf` configuration where we described all the fields we need, as well as additional SAN names for our host. This is important, because if we make an old certificate (without SAN names), prometheus will get an error like this: 
+
+> Get "https://127.0.0.1:9100/metrics": x509: certificate relies on legacy Common Name field, use SANs or temporarily enable Common Name matching with GODEBUG=x509ignoreCN=0
+
+
+Now let's install Nginx and make a configuration for it:
+```bash
+apt-get install nginx
+```
+We place the configuration in `/etc/sites-enabled/node_exporter.conf`:
+```bash
+server {
+  listen 9100 ssl;
+
+  ssl_certificate /opt/ssl/node_exporter.crt;
+  ssl_certificate_key /opt/ssl/node_exporter.key;
+
+  server_name node_exporter.mywebsite.com;
+
+  location / {
+    proxy_pass http://127.0.0.1:9100/;
+    auth_basic "Restricted!";
+    auth_basic_user_file .htpasswd;
+  }
+}
+```
+> Here everything is quite simple - we use the generated certificate and key for `node_exporter` and also enable basic authentication for requests. We listen on port 9100 with ssl enabled. 
+
+
+Now we can create htpasswd file and Restart Nginx:
+```bash
+htpasswd -n dan
+```
+```bash
+echo 'dan:$apr1$P1sF6Xzd$4rCqbl8FN.Fk9DqmUSEeb0' > /etc/nginx/.htpasswd
+```
+reload nginx
+```bash
+/etc/init.d/nginx  reload
+```
+
+
+```bash
+./node_exporter --web.listen-address="127.0.0.1:9100"
+```
+> In this case we just run node_exporter in tmux, although it is better to run it through systemd. The main thing is that we added the `--web.listen-address=127.0.0.0.1:9100` parameter, so it will only listen for connections on the loopback interface and can only connect to it via nginx. Let's check if everything works:
+
+
+```bash
+curl -D - -u dan:password --cacert /opt/ssl/ca.crt --resolve node_exporter.mywebsite.com:9100:127.0.0.1 https://node_exporter.mywebsite.com:9100
+```
+> All parameters are taken from the previous command, so there is no point in parsing them here - the only thing we have changed is the server name to `node_exporter.mywebsite.com`, as it is specified in our certificates and port 9100, on which nginx listens.
+
+Connect this exporter to prometheus:
+```bash
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+    - targets: ['localhost:9090']
+
+  - job_name: node_Wexporter
+    static_configs:
+    - targets: ['127.0.0.1:9100']
+    scheme: https
+    tls_config:
+      ca_file: /opt/ssl/ca.crt
+      server_name: node_exporter.mywebsite.com
+    basic_auth:
+      username: dan
+      password: password
+```
+> In this case we have defined a new task `node_exporter`, which connects to our nginx at 127.0.0.1:9100 via https: scheme: https. Then we specify the path to the root certificate so that prometheus can make sure that it connects to the right host, as well as the server name we set in the certificate - node_exporter.mywebsite.com. In addition, we add authentication rules - basic_auth. After this configuration we can restart prometheus and make sure that all metrics are successfully collected.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Prometheus Useful Cases
+
+Case 1 is an active prometheus replica.
+
+TSDB works only locally and cannot be configured to replicate or work in a cluster. But it is much simpler than you think. Since prometheus works on the pull model you can simply put a second virtualization next to prometheus, thus providing reservation. Do the same configuration and prometheus starts pulling metrics from the same sources in parallel. If one server die, you can easily start using a reserve server.
+
+
+Case 2 - prometheus backup.
+
+How to backup prometheus. It's really simple - you just need to backup the data directory (`/opt/prometheus/data`). Although there is an interesting dump command in promtool, but it just outputs a list of all metrics from the data directory:
+```bash
+./promtool tsdb dump /opt/prometheus/data | head -2
+```
+> It can output them, but you can't import them :) Prometheus even has an issue on this topic
+
+But promtool allows you to import data in openmetrics format:
+```bash
+./promtool tsdb create-blocks-from openmetrics <input file> [<output directory>]
+```
+back to backups - you can use the API to create a snapshot of tsdb roughly like this:
+```bash
+curl -XPOST -D - -s http://localhost:9090/api/v1/admin/tsdb/snapshot
+```
+> That is, we just send a POST request to a specific URL. By the way, this url is not available by default and to enable it you need to add the `--web.enable-admin-api` option when starting prometheus. After running this command we will get a snapshot in the `/opt/prometheus/data/snapshots` directory:
+```bash
+ls -la /opt/prometheus/data/snapshots/
+```
+
+Case 3 - how to monitor prometheus itself.
+
+If prometheus goes down, nobody will even notice it, because prometheus will not be able to send alerts to alertmanager. and alertmanager will probably die with prometheus.
+
+To solve this problem we use a very simple method - "Dead Man's Switch". Its essence is the following - you set up an alert like this inside prometheus:
+```bash
+     - alert: DeadMansSwitch
+       annotations:
+         description: This is a DeadMansSwitch meant to ensure that the entire Alerting
+           pipeline is functional.
+         summary: Alerting DeadMansSwitch
+       expr: vector(1)
+       labels:
+         severity: none
+```
+Since the vector(1) expression is used, this alert will essentially always be active. Next, you configure the alertmanager roughly as follows:
+
+```bash
+global:
+ ...
+route:
+ ...
+    routes:
+    - match:
+        alertname: DeadMansSwitch
+        receiver: 'cole'
+        group_wait: 0s
+        group_interval: 1m
+        repeat_interval: 50s
+receivers:
+- name: 'cole'
+webhook_configs:
+- url: 'https://nosnch.in/c2354d53d2'
+    send_resolved: false
+```
+> This url can be obtained from deadmanssnitch.com service. Thus prometheus will constantly send alerts to alertmanager, and alertmanager in turn to deadmanssnitch.If your prometheus or alertmanager is down, the alerts will also be lost, which means something went wrong. Alerts can be configured in the deadmanssnitch itself. same functionality is offered by pagerduty. https://www.pagerduty.com/docs/guides/dead-mans-snitch-integration-guide/
+
+
+
+
+
+
+## Grafana
+
+
+### Install Grafana from Binary
+```bash
+cd /opt/
+wget https://dl.grafana.com/enterprise/release/grafana-enterprise-10.2.2.linux-amd64.tar.gz
+```
+```bash
+tar -zxvf grafana-enterprise-10.2.2.linux-amd64.tar.gz
+```
+
+```bash
+mv grafana-enterprise-10.2.2.linux-amd64 grafana
+```
+
+
+
+```
+[Unit]
+Description=Grafana instance
+Documentation=http://docs.grafana.org
+Wants=network-online.target
+After=network-online.target
+After=postgresql.service mariadb.service mysql.service influxdb.service
+
+[Service]
+EnvironmentFile=/etc/default/grafana-server
+User=grafana
+Group=grafana
+Type=simple
+Restart=on-failure
+WorkingDirectory=/usr/share/grafana
+RuntimeDirectory=grafana
+RuntimeDirectoryMode=0750
+ExecStart=/usr/share/grafana/bin/grafana server                                     \
+                            --config=${CONF_FILE}                                   \
+                            --pidfile=${PID_FILE_DIR}/grafana-server.pid            \
+                            --packaging=deb                                         \
+                            cfg:default.paths.logs=${LOG_DIR}                       \
+                            cfg:default.paths.data=${DATA_DIR}                      \
+                            cfg:default.paths.plugins=${PLUGINS_DIR}                \
+                            cfg:default.paths.provisioning=${PROVISIONING_CFG_DIR}
+
+LimitNOFILE=10000
+TimeoutStopSec=20
+CapabilityBoundingSet=
+DeviceAllow=
+LockPersonality=true
+MemoryDenyWriteExecute=false
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectClock=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectHostname=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectProc=invisible
+ProtectSystem=full
+RemoveIPC=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+SystemCallArchitectures=native
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+Nginx configuration example
+
+upstream grafana {
+  server localhost:3000;
+}
+
+server {
+    listen 80;
+    #listen 443 ssl;
+
+    root /var/www/grafana;
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name grafana.localhost;
+
+    #ssl_certificate     /etc/letsencrypt/live/grafana.localhost/fullchain.pem;
+    #ssl_certificate_key /etc/letsencrypt/live/grafana.localhost/privkey.pem;
+
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_pass http://grafana;
+    }
+}
+
+
+
+
+Reload the NGINX configuration via the command line:
+
+/etc/init.d/nginx reload
+
+
+
+
+
+
+
+### Grafana from repository
+
+
+Install the Grafana repository authentication key:
+```bash
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add
+```
+Add a repository with the command:
+```bash
+sudo add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+```
+Update the list of packages in the repositories:
+```bash
+sudo apt update
+```
+Installation:
+```bash
+sudo apt install grafana
+```
+After installation, reboot of the daemons:
+```bash
+sudo systemctl daemon-reload
+```
+After installation, enable autoloader and start the Grafana daemon:
+```bash
+sudo systemctl start grafana-server
+```
+After installation, enable autoloader and start the Grafana daemon:
+```bash
+sudo systemctl enable grafana-server
+```
+Start Grafana 
+```bash
+sudo systemctl start grafana-server
+```
+> Grafana is up and running and ready to accept incoming connections on port 3000.
+> Login and password for login: admin/admin
+
+
+
+### Config file and Environment Variables
+
+By default, the config file with Grafana settings is located in the working directory of the OS. For Ubuntu, this is `/etc/grafana/grafana.ini`. You can override the location of the file by using the `--config <path>` flag.
+
+The `.ini` configuration file consists of sections labeled with square brackets.
+```ini
+# default section
+instance_name = ${HOSTNAME}
+
+[security]
+admin_user = admin
+
+[auth.google]
+client_secret = 0ldS3cretKey
+
+[plugin.grafana-image-renderer]
+rendering_ignore_https_errors = true
+```
+> A detailed description of the parameters can be found in the official documentation: `https://grafana.com/docs/grafana/latest/administration/configuration/`.
+
+You can also use environment variables to customize Grafana. The name of the environment variables is always given in capital letters and is built from the section name and parameter name in the configuration file: GF_<SectionName>_<KeyName>.
+```bash
+export GF_DEFAULT_INSTANCE_NAME=my-instance
+export GF_SECURITY_ADMIN_USER=owner
+export GF_AUTH_GOOGLE_CLIENT_SECRET=newS3cretKey
+export GF_PLUGIN_GRAFANA_IMAGE_RENDERER_RENDERING_IGNORE_HTTPS_ERRORS=true
+```
+> Using environment variables can be particularly useful when using a Docker container or for testing a new parameter configuration.
+
+As with a configuration file, Grafana needs to be restarted for changes to take effect
+
+
+### Configuring Nginx Reverse Proxy for Grafana
+
+Install nginx
+```bash
+sudo apt install nginx
+```
+Check nginx status
+```bash
+sudo service nginx status
+```
+> If you see Active status, it means that nginx is installed and working correctly.
+
+> Best practice:
+>>Before starting nginx, you may need to first stop another web server, Apache2, and remove it from autoloading. To do this, run the following commands in sequence:
+>>```bash
+>>sudo systemctl disable apache2
+>>sudo systemctl status apache2
+>>```
+
+Go to the IP address of our server (or localhost if you execute commands locally). Note that this time port 3000 should not be specified! The browser should display the nginx start page.
+ 
+Create an nginx config file for Grafana.:
+```bash
+nano /etc/nginx/sites-enabled/my-grafana.conf
+```
+A text editor will open. Let's fill in the nginx configuration file
+```bash
+server {
+    listen 80;
+    listen [::]:80;
+    server_name  my-grafana;
+
+    location / {
+        proxy_pass http://localhost:3000/;
+    }
+}
+```
+> Where my-grafana is the domain name you plan to use to access Grafana.
+>> Note: that port 80 is specified in the nginx configuration as an example only. 
+>> In a production environment, SSL (and HTTPS connection) must be used.
+
+
+## Basic Authentication
+
+Basic Authentication is basic authentication using a login/password pair.
+
+
+
+## LDAP Authentication
+
+LDAP Authentication is an authentication method that uses the LDAP protocol and access to a directory service.
+
+LDAP is most often encountered in the case of Windows domain authorization. Let's take a closer look at the LDAP configuration process in Grafana.
+
+Before configuring Grafana itself, we need to go to the Windows server where we have the domain controller configured and create a grafana user. 
+
+With this technical account we will "go" to LDAP and fetch users from there when they try to log in.
+
+- To do this, go to `Active Directory` `Users and Computers`. Open our DC and in the `Users group` right-click New and User.
+
+- Fill in the parameters of the new user.
+
+- On the "Account" tab, enter the name "grafana" in the "User Login Name" field.
+
+
+Next, log in to our server with Grafana and go to the home directory of the service.
+```bash
+cd /etc/grafana
+```
+Open the grafana.ini file
+```bash
+sudo nano grafana.ini
+```
+Go down to the [auth.ldap] parameter group.
+
+Set enabled = true and remove the semicolons to make it work:
+```bash
+[auth.ldap]
+enabled = true
+config_file = /etc/grafana/ldap.toml
+allow_sign_up = true
+```
+Open the file ldap.toml
+```bash
+sudo nano ldap.toml
+```
+Replace the parameters with the ones shown below.
+```bash
+host = "192.168.67.138"
+```
+> ...where host IP is the address of your Windows server raised as a Domain Controller.
+
+```bash
+bind_dn = "cn=grafana LDAP,cn=users,dc=MRS,DC=CONTOSO,DC=COM"
+```
+To find out the exact `bind_dn`, you need to run the cmdlet on a Windows server in PowerShell:
+```ps1
+Get-ADUser grafana -Properties *
+```
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
 
 
 
@@ -1822,6 +3096,18 @@ This example, the alert is triggered if the network interface receives more than
 
 
 ## LDAP Authentication
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1959,41 +3245,6 @@ server {
 
 
 
-### Install Alertmanager from Website
-![prometheus](images/prometheus4.png)
-
-download `alertmanager-0.21.0.linux-amd64.tar.gz` 
-
-create new folder `mkdir monitoring` and copy past in folder
-unzip him
-```
-tar -xvf alertmanager-0.21.0.linux-amd64.tar.gz  
-```
-run alermanager
-```
-./alertmanager
-```
-
-
-`alertrules.yml` in prometheus server not in endpoint
-```
-groups:
- - name: AllInstances
-   rules:
-   - alert: InstanceDown
-     expr: up==0
-     for: 30s
-```
-prometheus.yml add 
-```
-rule_files:
-  - alertrules.yml
-alerting:
-  alertmanagers:
-    - static_configs:
-      - targets:
-        - localhost: 9093
-```
 restart all and test on localhost:9090 => `Alerts`
 
 
