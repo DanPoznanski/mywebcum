@@ -3093,69 +3093,133 @@ allowed_groups =
 
 
 
+### Basic Authorization without reverse proxy
+
+Let's install dependencies to create an encrypted version of the password.
+
 ```bash
-
+sudo apt install python3-bcrypt
 ```
+Create a Python script that asks for a password and returns an encrypted version of it:
 ```bash
-
+nano gen-pass.py
 ```
+Script code:
+```py
+import getpass
+import bcrypt
+
+password = getpass.getpass("password: ")
+hashed_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+print(hashed_password.decode())
+```
+Run the created utility:
 ```bash
-
+python3 gen-pass.py
 ```
+Enter the password and copy the output result - you will need it to configure Prometheus.
+
+Let's create an additional configuration file for storing authentication settings.
 ```bash
-
+sudo nano /opt/prometheus/web.yml
 ```
+Let's create a `basic_auth` section and fill in the information about our user.
+
 ```bash
+basic_auth_users:
+    admin: $2b$12$8aGxV85H8Ukkcft4e2X6XuCKATuPU8Fywokq.QlZuS/Dms6.HyJMe
+```
+To add more users, repeat the previous steps by adding other users in the same configuration section under the admin user.
 
+```bash
+basic_auth_users:
+    admin: $2b$12$8aGxV85H8Ukkcft4e2X6XuCKATuPU8Fywokq.QlZuS/Dms6.HyJMe
+    bob: $2b$12$oLA0.oCvRGe7gN1WhvdomOF34143UqBzd8jr/hFT1c8dqXf/TcuQa
 ```
 
+If Prometheus was launched as a service, we need to adjust the startup settings. To do this, let's find out where the file of our service is located:
+```bash
+sudo systemctl status prometheus
+```
+In the line with Loaded we will see the path to the file with the extension .service. Edit this file by adding a new flag to the ExecStart line `--web.config.file=/opt/prometheus/web.yml`.
 
 
 
+### Configuring Nginx Reverse Proxy for Grafana SSL
 
+For security purposes, every exporter and solution you install on the host should be closed from the outside world. Access to metrics should be strictly limited, and all ports that provide information about the host system should be secured.
 
+Using HTTPS encrypts the requests sent to the server, but most importantly, it encrypts the server responses containing all the metrics.
 
+Since Prometheus originally did not support TLS authentication and encryption, it is common practice to use reverse proxy and TLS at the proxy level to provide protection between clients and the Prometheus server. NGINX will be used in this capacity.
 
+**Workflow**
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## LDAP Authentication
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Configuring Nginx Reverse Proxy for Grafana SSL
-
+Let's configure Prometheus to run behind an nginx server available in a domain named `example.com`:
 
 ![prometheus5](images/prometheus5.svg)
+
+In the example Prometheus is installed on the same host as nginx.
+
+> Note: In the example, Ubuntu is installed on the host. For other OS versions nix commands may be different
+
+Setting up the working directory
+
+Let's create a directory where our keys will be stored and navigate to it:
+```bash
+sudo mkdir -p /opt/prometheus-certs
+```
+```bash
+cd /opt/prometheus-certs
+```
+**Creating TLS certificates**
+
+```bash
+sudo openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout prometheus.key -out prometheus.crt -subj "/C=IL/ST=Telaviv/L=Telaviv/O=Mycompany/CN=<dns_record>" -addext "subjectAltName = DNS:<dns_record>"
+```
+> ...where <dns_record> is a DNS record.
+
+Detailed description of the command
+
+`openssl` - command to start OpenSSL.
+
+`req` - OpenSSL utility for creating CSRs.
+
+`-newkey rsa:4096` - tells OpenSSL to create a new 4096-bit RSA private key.
+
+`-nodes` - tells OpenSSL to create a UNencrypted key.
+
+`-x509` - creates a new self-signed certificate.
+
+`-keyout prometheus.key` - indicates where to save the private key file.
+
+`-out prometheus.crt` - indicates where to save the CSR.
+
+Example output of the command
+
+```bash
+root@prometheus:~/certs/prometheus# openssl req -newkey rsa:4096 -nodes -x509 -keyout prometheus.key -out prometheus.crt
+Generating a RSA private key
+....................................++++
+..................++++
+writing new private key to 'prometheus.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:IL
+State or Province Name (full name) [Some-State]:Center
+Locality Name (eg, city) []:Israel
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:mycompany
+Organizational Unit Name (eg, section) []:-
+Common Name (e.g. server FQDN or YOUR name) []:prometheus
+Email Address []:example@mail.com
+```
+
 
 
 

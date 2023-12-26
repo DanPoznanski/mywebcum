@@ -733,41 +733,128 @@ cd ../..
 ```
 Changes to the last working directory.
 ```bash
-cd —
+cd 
 ``` 
+Creates the directory.
+```bash
+mkdir <dirName>
+```
+Creates a directory with its parent directories if it does not exist (-p parent).
+```bash
+mkdir -p <pathOftheDir> 
+```
 
-mkdir <dirName> — creates the directory.
-# mkdir -p <pathOftheDir> — creates a directory with its parent directories if it does not exist (-p parent).
-3, File Commands →
-# touch — creates an empty file or updates the timestamp of the existing file.
-# touch <fileName> — creates a single empty file.
-# touch <file1> <file2> — creates file1, file2 empty files.
-# cat — concatenates and displays the contents of files.
-# cat <fileName> — displays the contents of the file.
-# cat > <fileName> — creates a new file, allows to input content interactively and redirects inputted content to the created file (> redirection operator).
-# head <fileName> — displays first 10 lines of the file by default.
-# head -n 5 <fileName> — displays first 5 lines of the file (-n number)
-# tail <fileName> — displays the last 10 lines of the file by default.
-# tail -n 5 <fileName> — displays last 5 lines of the file (-n number).
-tail -F <fileName> — displays contents of the file in real-time even when the file is rotated or replaced (used for log file monitoring).
-# less <fileName> — used to view large files (log files) in a paginated manner.
-rm — remove commands
-# rm <fileName> — removes the file.
-# rm -r <dirName> — removes files & folders of directory recursively (-r recursive).
-# rm -rf <dirName> — force remove the files & folders of directory recursively (-f force).
+## File Commands →
+
+Creates an empty file or updates the timestamp of the existing file.
+```bash
+touch
+```
+Creates a single empty file.
+```bash
+touch <fileName>
+```
+Creates file1, file2 empty files.
+```bash
+touch <file1> <file2>
+```
+Concatenates and displays the contents of files.
+```bash
+cat
+```
+Displays the contents of the file.
+```bash
+cat <fileName>
+```
+Creates a new file, allows to input content interactively and redirects inputted content to the created file (> redirection operator).
+```bash
+cat > <fileName>
+```
+Displays first 10 lines of the file by default.
+```bash
+head <fileName>
+```
+Displays first 5 lines of the file (-n number)
+```bash
+head -n 5 <fileName>
+```
+Displays the last 10 lines of the file by default.
+```bash
+tail <fileName>
+```
+Displays last 5 lines of the file (-n number).
+```bash
+tail -n 5 <fileName>
+```
+Displays contents of the file in real-time even when the file is rotated or replaced (used for log file monitoring).
+```bash
+tail -F <fileName> 
+```
+Used to view large files (log files) in a paginated manner.
+```bash
+less <fileName>
+```
+rm — remove commands 
+
+Removes the file.
+```bash
+rm <fileName> 
+```
+Removes files & folders of directory recursively (-r recursive).
+```bash
+rm -r <dirName>
+```
+Force remove the files & folders of directory recursively (-f force).
+```bash
+rm -rf <dirName> 
+```
 cp — copy commands
-# cp <source> <destination> — copy the files and folders from source to destination.
-cp -r <dir1> <dir2> — copy dir1 directory to dir2 directory recursively (-r recursive).
-mv — move or rename commands
+
+Copy the files and folders from source to destination.
+```bash
+cp <source> <destination>
+```
+Copy dir1 directory to dir2 directory recursively (-r recursive).
+```bash
+cp -r <dir1> <dir2> 
+```
+Move or rename commands
+```bash
+mv
+```
+```bash
 mv <fileName> <newFileName> — renames the file to a new name.
-mv <oldFilePath> <newFilePath> — moves the file to new path.
-4, File Permission Commands →
-chmod <octalNumber> <fileName> — changes mode/permissions of the file.
-chmod <octalNumber> -R <dirName> — changes mode/permissions of the directory recursively.
-chown <newUser> <fileName> — changes the user ownership of a file.
-chown <newUser>:<newGroup> <fileName> — changes the user & group ownerships of a file.
-chgrp <groupName> <fileName/dirName> — updates the group name for file/directory.
-getfacl <fileName/dirName> — shows the file/directory access control list.
+```
+Moves the file to new path.
+```bash
+mv <oldFilePath> <newFilePath> 
+```
+## File Permission Commands
+
+Changes mode/permissions of the file.
+```bash
+chmod <octalNumber> <fileName>
+```
+Changes mode/permissions of the directory recursively.
+```bash
+chmod <octalNumber> -R <dirName>
+```
+Changes the user ownership of a file.
+```bash
+chown <newUser> <fileName>
+```
+Changes the user & group ownerships of a file.
+```bash
+chown <newUser>:<newGroup> <fileName> 
+```
+Updates the group name for file/directory.
+```bash
+chgrp <groupName> <fileName/dirName>
+```
+Shows the file/directory access control list.
+```bash
+getfacl <fileName/dirName> 
+```
 setfacl -m u:<userName>:rwx <fileName/dirName> — modifies the current acl of the file/directory.
 setfacl -x u:<userName>: <fileName/dirName> — removes the acl permissions for the file/directory.
 setfacl -m g:<groupName>:rwx <fileName/dirName> — modifies the group acls for the file/directory.
