@@ -3224,6 +3224,62 @@ Email Address []:example@mail.com
 > Two files will be created in the directory: `prometheus.crt` and `prometheus.key`.
 
 
+Configuring TLS at nginx level
+
+In this step, enable the TLS protocol in our nginx instance.
+
+Let's go to the nginx configuration files directory.
+```bash
+cd /etc/nginx/sites-enabled
+```
+Let's create and fill in the configuration file for Prometheus.
+```bash
+sudo nano prometheus
+```
+```bash
+server {
+    listen              443 ssl;
+    server_name         example.com;  # DNS record
+    ssl_certificate     /opt/prometheus-certs/prometheus.crt;  # path to crt
+    ssl_certificate_key /opt/prometheus-certs/prometheus.key;  # path to key
+
+    location / {
+        proxy_pass http://localhost:9090/;  # local address Prometheus
+    }
+}
+
+```
+We have configured the HTTPS server by enabling the ssl parameter in the server block, and specifying the location of the server certificate and secret key files.
+
+Also in this configuration nginx will proxy all connections to / endpoint to the Prometheus server running on the same host (localhost).
+
+Let's check that the configuration file is correct.
+```bash
+sudo nginx -t
+```
+Let's restart nginx to apply the configuration:
+```bash
+sudo systemctl restart nginx
+```
+> Port binding errors may happen when restarting nginx:
+```
+Aug 08 21:33:00 prometheus nginx[20782]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+
+Aug 08 21:33:00 prometheus nginx[20782]: nginx: [emerg] bind() to [::]:80 failed (98: Address already in use)
+
+ Aug 08 21:33:00 prometheus nginx[20782]: nginx: [emerg] bind() to 0.0.0.0:443 failed (98: Address already in use)
+
+ Aug 08 21:33:00 prometheus nginx[20782]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+
+Aug 08 21:33:01 prometheus nginx[20782]: nginx: [emerg] still could not bind()
+```
+> Solution: Kill the nginx process and try restarting the service again:
+
+```bash
+ sudo pkill -f nginx & wait $!
+ sudo systemctl start nginx
+```
+
 
 
 **Data filtering**
