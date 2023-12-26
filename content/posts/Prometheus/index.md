@@ -3219,7 +3219,9 @@ Organizational Unit Name (eg, section) []:-
 Common Name (e.g. server FQDN or YOUR name) []:prometheus
 Email Address []:example@mail.com
 ```
+> Fill in the appropriate information in the prompts in English and without using wildcards. Be sure to enter the correct DNS record in Common Name.
 
+> Two files will be created in the directory: `prometheus.crt` and `prometheus.key`.
 
 
 
