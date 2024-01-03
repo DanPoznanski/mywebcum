@@ -855,34 +855,104 @@ Shows the file/directory access control list.
 ```bash
 getfacl <fileName/dirName> 
 ```
-setfacl -m u:<userName>:rwx <fileName/dirName> — modifies the current acl of the file/directory.
-setfacl -x u:<userName>: <fileName/dirName> — removes the acl permissions for the file/directory.
-setfacl -m g:<groupName>:rwx <fileName/dirName> — modifies the group acls for the file/directory.
-setfacl -x g:<groupName>: <fileName/dirName> — removes the group acl permissions for the file/directory.
-File Permission Octal Numbers
-read (r) — 4, write (w)- 2, execute (x) — 1 => chmod 777 < file /folder_name >
+Modifies the current acl of the file/directory.
+```bash
+setfacl -m u:<userName>:rwx <fileName/dirName>
+```
+Removes the acl permissions for the file/directory.
+```bash
+setfacl -x u:<userName>: <fileName/dirName>
+```
+Modifies the group acls for the file/directory.
+```bash
+setfacl -m g:<groupName>:rwx <fileName/dirName>
+```
+Removes the group acl permissions for the file/directory.
+```bash
+setfacl -x g:<groupName>: <fileName/dirName>
+```
+> File Permission Octal Numbers
+> read (r) — 4, write (w)- 2, execute (x) — 1 => chmod 777 < file /folder_name >
 
-5, User Management Commands →
-useradd — creates a user account.
-useradd <userName> — creates user account without home & mail spool directories.
-useradd -m <userName> — creates user account with home & mail spool directories.
-passwd <userName> — creates a password for the user and stores it in /etc/shadow file.
-userdel — user delete.
-userdel <userName> — deletes the user from the system.
-userdel -r <userName> — deletes the user from the system along with home and mail spool directories (-r remove).
-/etc/passwd — stores information about user accounts.
-cat /etc/passwd — displays the complete list of users on that machine.
-/etc/shadow — stores the password for users in an encrypted format.
-cat /etc/shadow — displays the complete list of user passwords on that machine.
-su — substitute user.
-su <userName> — switches to the user mentioned.
-exit — to log out from that user.
-usermod — modify user.
-usermod -aG <groupName> <userName> — adds the user to another group (-aG append the user to the group without removing from other groups).
-chsh — change shell.
-chsh -s /bin/bash <user> — changes the shell to bash for the user.
-chsh -s /bin/sh <user> — changes the shell to sh for the user.
-6, Group Management Commands →
+### User Management Commands →
+Creates a user account.
+```bash
+useradd
+```
+Creates user account without home & mail spool directories.
+```bash
+useradd <userName>
+```
+Creates user account with home & mail spool directories.
+```bash
+useradd -m <userName> 
+```
+Creates a password for the user and stores it in `/etc/shadow` file.
+```bash
+passwd <userName>
+```
+User delete.
+```bash
+userdel
+```
+Deletes the user from the system.
+```bash
+userdel <userName>
+```
+Deletes the user from the system along with home and mail spool directories (-r remove).
+```bash
+userdel -r <userName>
+```
+Stores information about user accounts.
+```bash
+/etc/passwd
+```
+Displays the complete list of users on that machine.
+```bash
+cat /etc/passwd
+```
+Stores the password for users in an encrypted format.
+```bash
+/etc/shadow 
+```
+Displays the complete list of user passwords on that machine.
+```bash
+cat /etc/shadow 
+```
+Substitute user.
+```bash
+su
+```
+Switches to the user mentioned.
+```bash
+su <userName>
+```
+To log out from that user.
+```bash
+exit 
+```
+Modify user.
+```bash
+usermod 
+```
+Adds the user to another group (-aG append the user to the group without removing from other groups).
+```bash
+usermod -aG <groupName> <userName>
+```
+Change shell.
+```bash
+chsh
+```
+Changes the shell to bash for the user.
+```bash
+chsh -s /bin/bash <user>
+```
+Changes the shell to sh for the user.
+```bash
+chsh -s /bin/sh <user>
+```
+### Group Management Commands →
+
 groupadd <groupName> — creates the group.
 groupdel <groupName> — delete the group.
 /etc/group — stores the information of the groups.
