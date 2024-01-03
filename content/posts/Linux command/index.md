@@ -1068,20 +1068,44 @@ Tests the reachability & responsiveness of the remote host.
 ```bash
 ping <hostName>
 ```
+Shows DNS information of the domain.
+```bash
+dig <domainName>
+```
+Used to retrieve/download files from the internet.
+```bash
+wget <url>
+```
+Used to retrieve/download files from the internet.
+```bash
+curl <url>
+```
+Display available network interfaces.
+```bash
+ifconfig
+```
+Display and manipulate network interface info.
+```bash
+ip addr 
+```
+Shows the public IP address of the machine.
+```bash
+curl ifconfig.me
+```
+Shows all TCP open ports (-a all, t-tcp, n-active, p protocol).
+```bash
+netstat -antp
+```
+Traces the route using packets from source to destination host.
+```bash 
+traceroute <url>
+``` 
+### Process Info Commands →
+
+ps — process status.
 
 
 
-dig <domainName> — shows DNS information of the domain.
-# wget <url>- used to retrieve/download files from the internet.
-# curl — client URL.
-# curl <url> — used to retrieve/download files from the internet.
-# ifconfig — display available network interfaces.
-# ip addr — display and manipulate network interface info.
-# curl ifconfig.me — shows the public IP address of the machine.
-# netstat -antp- shows all TCP open ports (-a all, t-tcp, n-active, p protocol).
-# traceroute <url> — traces the route using packets from source to destination host.
-10, Process Info Commands →
-# ps — process status.
 # ps — shows the currently running process.
 # ps -u <userName>- shows the process of the username
 # ps -ef — shows all the processes of the system.
