@@ -953,25 +953,68 @@ chsh -s /bin/sh <user>
 ```
 ### Group Management Commands →
 
-groupadd <groupName> — creates the group.
-groupdel <groupName> — delete the group.
-/etc/group — stores the information of the groups.
-cat /etc/group — displays the complete list of groups on that machine.
-gpasswd <groupName> — creates a password for the group.
-gpasswd -a <userName> <groupName> — adds the user to the group.
-gpasswd -d <userName> <groupName> — removes the user from the group.
-gpasswd -M <userName1>,<userName2>,<userName3> <groupName> — adds multiple users to the group and removes the existing ones of the group.
-7, Searching Commands →
-locate — used to search for files/directories based on names.
-sudo updatedb — updates the database so the results are up-to-date.
-locate <fileName/dirName> — locates the file/directory and displays the path.
-GREP Command s— Global Regular Expression Print →
+Creates the group.
+```bash
+groupadd <groupName>
+```
+Delete the group.
+```bash 
+groupdel <groupName> 
+```
+Stores the information of the groups.
+```bash
+/etc/group
+```
+Displays the complete list of groups on that machine.
+```bash
+cat /etc/group 
+```
+Creates a password for the group.
+```bash
+gpasswd <groupName>
+```
+Adds the user to the group.
+```bash
+gpasswd -a <userName> <groupName> 
+``` 
+Removes the user from the group.
+```bash
+gpasswd -d <userName> <groupName> 
+```
+Adds multiple users to the group and removes the existing ones of the group.
+```bash
+gpasswd -M <userName1>,<userName2>,<userName3> <groupName>
+```
+
+### Searching Commands →
+
+Used to search for files/directories based on names.
+```bash
+locate
+```
+Updates the database so the results are up-to-date.
+```bash
+sudo updatedb 
+```
+Locates the file/directory and displays the path.
+```bash
+locate <fileName/dirName> 
+```
+
+### GREP Command s— Global Regular Expression Print →
+
+
 grep <textToSearch> <fileName> — used to find text patterns within files.
 grep -i <textToSearch> <fileName> — used to find text patterns within the file ignoring the case (-i ignore case).
 grep -v <textToSearch> <fileName> — used to find non matching lines of text patterns (-v invert-match).
 grep -l <textToSearch> <fileNames> — used to display the matching string file names.
-Find Commands →
-# find. -name <fileName> — finds the mentioned file if available in the current directory (.(period) represents current directory).
+
+### Find Commands →
+
+Finds the mentioned file if available in the current directory (.(period) represents current directory).
+```bash
+find. -name <fileName> 
+```
 # find <dirName> -name <fileName> — finds the mentioned file in the directory.
 # find <dirName> -perm 754 — finds the files in the directory having 754 permission.
 8, Hardware Commands →
