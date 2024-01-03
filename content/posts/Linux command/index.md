@@ -1002,12 +1002,23 @@ locate <fileName/dirName>
 ```
 
 ### GREP Command s— Global Regular Expression Print →
+Used to find text patterns within files.
+```bash
+grep <textToSearch> <fileName>
+```
 
-
-grep <textToSearch> <fileName> — used to find text patterns within files.
-grep -i <textToSearch> <fileName> — used to find text patterns within the file ignoring the case (-i ignore case).
-grep -v <textToSearch> <fileName> — used to find non matching lines of text patterns (-v invert-match).
-grep -l <textToSearch> <fileNames> — used to display the matching string file names.
+Used to find text patterns within the file ignoring the case (-i ignore case).
+```bash
+grep -i <textToSearch> <fileName>
+```
+Used to find non matching lines of text patterns (-v invert-match).
+```bash
+grep -v <textToSearch> <fileName>
+```
+Used to display the matching string file names.
+```bash
+grep -l <textToSearch> <fileNames> 
+```
 
 ### Find Commands →
 
@@ -1015,18 +1026,52 @@ Finds the mentioned file if available in the current directory (.(period) repres
 ```bash
 find. -name <fileName> 
 ```
-# find <dirName> -name <fileName> — finds the mentioned file in the directory.
-# find <dirName> -perm 754 — finds the files in the directory having 754 permission.
-8, Hardware Commands →
-# free -h — shows systems memory information ( -h human-readable format).
-# df -h — shows the disk space usage of mounted file systems.
-# du — disk usage.
-# du -h — displays disk usage information (-h human-readable format).
-# du -sh — displays the total size of the directory instead of individual files in human-readable format (-s summarize).
-# du -sh <fileName/dirName> — displays the total size of the file/directory.
-9, Network Commands →
-# ping <hostName> — tests the reachability & responsiveness of the remote host.
-# dig <domainName> — shows DNS information of the domain.
+Finds the mentioned file in the directory.
+```bash 
+find <dirName> -name <fileName>
+```
+Finds the files in the directory having 754 permission.
+```bash
+find <dirName> -perm 754
+```
+
+### Hardware Commands →
+
+Shows systems memory information ( -h human-readable format).
+```bash
+free -h  
+```
+Shows the disk space usage of mounted file systems.
+```bash
+df -h 
+```
+Disk usage.
+```bash
+du
+``` 
+Displays disk usage information (-h human-readable format).
+```bash 
+du -h 
+```
+Displays the total size of the directory instead of individual files in human-readable format (-s summarize).
+```bash
+du -sh 
+```
+Displays the total size of the file/directory.
+```bash 
+du -sh <fileName/dirName>
+```
+
+### Network Commands →
+
+Tests the reachability & responsiveness of the remote host.
+```bash
+ping <hostName>
+```
+
+
+
+dig <domainName> — shows DNS information of the domain.
 # wget <url>- used to retrieve/download files from the internet.
 # curl — client URL.
 # curl <url> — used to retrieve/download files from the internet.
