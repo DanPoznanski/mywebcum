@@ -1104,25 +1104,59 @@ traceroute <url>
 
 ps — process status.
 
+Shows the currently running process.
+```bash
+ps
+```
+Shows the process of the username
+```bash
+ps -u <userName>
+```
+Shows all the processes of the system.
+```bash
+ps -ef 
+```
+Shows the real-time, dynamic view of the running processes of a system.
+```bash
+top
+```
+Gracefully terminates the process pid.
+```bash
+kill <pid>
+```
+Shows process ID of processes based on name/other criteria.
+```bash
+pgrep <processName>
+```
+Background, sends the process to the background & continues execution without interruption.
+```bash
+bg 
+```
+foreground, brings the process to the foreground and makes it an active process.
+```bash
+fg
+```
+No hangup, runs command/script in the background even after the terminal is closed or the user logs out.
+```bash
+# nohup 
+```
 
-
-# ps — shows the currently running process.
-# ps -u <userName>- shows the process of the username
-# ps -ef — shows all the processes of the system.
-# top — shows the real-time, dynamic view of the running processes of a system.
-# kill <pid> — gracefully terminates the process pid.
-# pgrep <processName> — shows process ID of processes based on name/other criteria.
-# bg — background, sends the process to the background & continues execution without interruption.
-# fg — foreground, brings the process to the foreground and makes it an active process.
-# nohup — no hangup, runs command/script in the background even after the terminal is closed or the user logs out.
-11, Archiving File Commands →
-# tar — tape archive.
-# tar -cvf <fileName> <directory> — creates the tar file with the fileName for the directory mentioned (-c create, -v verbose, -f output file name).
-# tar -xvf <sourceTarFileName> -C <destinationDir> — pand download to destination dir).
-
+### Archiving File Commands →
+Tape archive.
+```bash
+tar 
+```
+Creates the tar file with the fileName for the directory mentioned (-c create, -v verbose, -f output file name).
+```bash
+tar -cvf <fileName> <directory>
+```
+```bash
+tar -xvf <sourceTarFileName> -C <destinationDir>
+```
 ## Package Manager — LINUX DISTROS 
 
 - apt — Package Manager for Debian-based Linux distributions Eg: Ubuntu.
+
 - yum — Package Manager for Redhat-based Linux distributions Eg: Amazon_Linux.
 
 
