@@ -7,3 +7,9 @@ type: post
 tags: ["Virtualization"]
 showTableOfContents: true
 --- 
+
+
+
+## Compobility
+
+https://www.vmware.com/resources/compatibility/search.php
