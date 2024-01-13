@@ -26,8 +26,7 @@ A brief overview of components in Loki architecture:
 
 
 
-# Download and Install Loki Binary
-T
+# Download and Install Loki localy
 o keep this as simple as possible, we will install the Loki binary as a service on our existing Grafana server.
 
 To check the latest version of Grafana Loki, visit the Loki releases page. https://github.com/grafana/loki/releases/
@@ -35,7 +34,7 @@ To check the latest version of Grafana Loki, visit the Loki releases page. https
 ```bash
 cd /usr/local/bin
 
-curl -O -L "https://github.com/grafana/loki/releases/download/v2.4.1/loki-linux-amd64.zip"
+curl -O -L "https://github.com/grafana/loki/releases/download/v2.9.3/loki-linux-amd64.zip"
 ```
 ```bash
 unzip "loki-linux-amd64.zip"
@@ -47,9 +46,9 @@ chmod a+x "loki-linux-amd64"
 ```bash
 mv loki-linux-amd64 loki
 ```
-Create the Loki config
+Download or create the Loki config
 ```bash
-sudo nano config-loki.yml
+wget https://raw.githubusercontent.com/grafana/loki/main/cmd/loki/loki-local-config.yaml
 ```
 And add this text.
 ```yaml
@@ -60,25 +59,49 @@ server:
   grpc_listen_port: 9096
 
 common:
+  instance_addr: 127.0.0.1
   path_prefix: /tmp/loki
   storage:
     filesystem:
       chunks_directory: /tmp/loki/chunks
       rules_directory: /tmp/loki/rules
   replication_factor: 1
-  ring:    
+  ring:
     kvstore:
       store: inmemory
+
+query_range:
+  results_cache:
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
 
 schema_config:
   configs:
     - from: 2020-10-24
-      store: boltdb-shipper
+      store: tsdb
       object_store: filesystem
-      schema: v11
+      schema: v12
       index:
         prefix: index_
         period: 24h
+
+ruler:
+  alertmanager_url: http://localhost:9093
+
+# By default, Loki will send anonymous, but uniquely-identifiable usage and configuration
+# analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/
+#
+# Statistics help us better understand how Loki is used, and they show us performance
+# levels for most users. This helps us prioritize features and documentation.
+# For more information on what's sent, look at
+# https://github.com/grafana/loki/blob/main/pkg/analytics/stats.go
+# Refer to the buildReport method to see what goes into a report.
+#
+# If you would like to disable reporting, uncomment the following lines:
+#analytics:
+#  reporting_enabled: false
 ```
 ruler:
   alertmanager_url: http://localhost:9093
@@ -104,7 +127,7 @@ After=network.target
 [Service]
 Type=simple
 User=loki
-ExecStart=/usr/local/bin/loki -config.file /usr/local/bin/config-loki.yml
+ExecStart=/usr/local/bin/loki -config.file /usr/local/bin/config-loki.yaml
 
 [Install]
 WantedBy=multi-user.target
@@ -126,28 +149,14 @@ sudo service loki status
 > Warning: If you reboot your server, the Loki Service may not restart automatically.
 > You can set the Loki service to auto restart after reboot by entering, `sudo systemctl enable loki.service`
 
+Run
+```bash
+./loki --config.file=config-loki.yaml
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+---
 
 ## Install from docker-compose with traefik
 
@@ -395,34 +404,121 @@ Go to grafana `logs.pdan.dev` Configuration > Data Sources > (double-click)loki-
 
 
 
+## tweaks
 
+### Grafana:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# tweaks
-
-## grafana:
-
-1. backup
-
+1. Backup
 ```bash
 docker run --rm --volumes-from grafana -v $(pwd)/data/grafana/backup:/backup alpine tar cfv /backup/grafana-backup.tgz /var/lib/grafana
 ```
 
-2. restore
-
+2. Restore
 ```bash
 docker run --rm --volumes-from grafana -v $(pwd)/data/grafana/backup:/backup ubuntu bash -c "cd /var/lib/grafana && tar xvf /backup/grafana-backup.tgz --overwrite --strip-components 1"
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Promtail from source
+
+
+```bash
+curl -O -L "https://github.com/grafana/loki/releases/download/v2.9.3/promtail-linux-amd64.zip"
+```
+
+```bash
+unzip "loki-linux-amd64.zip"
+```
+
+```bash
+chmod a+x "promtail-linux-amd64"
+```
+
+```bash
+mv "promtail-linux-amd64" promtail
+```
+
+
+```bash
+wget https://raw.githubusercontent.com/grafana/loki/main/clients/cmd/promtail/promtail-local-config.yaml
+```
+```bash
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://localhost:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: system
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: varlogs
+      __path__: /var/log/*log
+```
+
+
+
+
+Configure Promtail to run as a service
+Now we will configure Promtail to run as a service so that it stays running in the background.
+
+Create a user specifically for the Promtail service
+```bash
+sudo useradd --system promtail
+```
+Create a file called promtail.service
+```bash
+sudo nano /etc/systemd/system/promtail.service
+```
+Add the script and save
+```ini
+[Unit]
+Description=Promtail service
+After=network.target
+
+[Service]
+Type=simple
+User=promtail
+ExecStart=/usr/local/bin/promtail -config.file /usr/local/bin/promtail-local-config.yaml
+
+[Install]
+WantedBy=multi-user.target
+```
+Now start and check the service is running.
+```bash
+sudo service promtail start
+sudo service promtail status
+```
+
+
+If you ever need to stop the new Promtail service, then type
+```bash
+sudo service promtail stop
+sudo service promtail status
+```
+
+> Warning: If you reboot your server, the Promtail Service may not restart automatically.
+> You can set the Promtail service to auto restart after reboot by entering, `sudo systemctl enable promtail.service`
+
+Run promtail (promtail on `localhost:9080`)
+```bash
+./promtail --config.file=promtail-local-config.yaml
 ```
