@@ -11,8 +11,9 @@ showTableOfContents: true
 
 
 
-## Create Active Directory
 
+
+## Before  
 
 Server Manager > Local Server > Computer name > Change > `YOUR_NAME` > [OK]
 
@@ -28,17 +29,7 @@ Default gateway: 192.168.1.1
 
 DNS: 8.8.8.8
 
-
-## Hyper-V Settings for LABPC
-
-Server:
-
-Enhanced Session Mode Policy > Use enhanced session mode [x]
-
-User:
-
-Enhanced Session Mode Policy > Use enhanced session mode [x]
-
+### Create Active Directory
 
 
 Manage > Add Roles and Features Wizard > 
@@ -133,4 +124,54 @@ End IP address: 192.168.1.254
 
                   [Next] > [Next] > 
                                     [x] Yes, I Want to active this scope now
+
+
+
+
+
+## Add Host to DNS 
+
+DNS > (Right Click) Server name > DNS Manager > DC.mydomain.local > Forward Lookup Zones > mydomain.local > dc Host (A) > (Right-Click) on Blank > New Host > 
+
+```
+Name (uses parent domain name if blank): MyNameofHost
+
+IP Address: 192.168.1.3
+```
+
+
+
+## Add disk ISCSI
+
+```
+File and Storage Services > iSCSI > to install iSCSI Target Server, start the Add Roles and Features Wizard
+
+[x] iSCSI Target Server
+
+[x] File Server 
+
+Next > Next > Install 
+```
+
+To create an iSCSI virtual disk, start the New iSCSI Virtual Disk Wizard.
+```
+
+Select iSCSI Virtual Disk Location 
+[Next] > 
+iSCSI Virual Disk Name 
+[Next] > 
+iSCSI Target > New iSCSI Target >  
+[Next] > 
+Target Name Access > 
+[Next] > 
+Access Servers > [Add] > 
+[x] Enter a Value for selected type >
+
+[IP Address] Value: 192.168.1.5 (ip access hosts ) 
+
+[Next] > [Next] > [Create] 
+```
+> Add Static IP Address to new Network Adapter and Restart
+---
+
 
