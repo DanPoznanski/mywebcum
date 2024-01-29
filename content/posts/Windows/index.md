@@ -69,3 +69,10 @@ need external disk image capture to `d:\`
 ```
 e:\imagex.exe /capture c: d:\install.wim "my windows 7 install" /compress fast /verify
 ```
+
+
+## Godmod
+
+```
+.{ED7BA470-8E54-465E-825C-99712043E01C}.
+```

@@ -46,4 +46,5 @@ wget -c "https://github.com/Castro-Fidel/PortWINE/raw/master/portwine_install_sc
 8. Returning "Read-Only" mode
 ```bash
 sudo steamos-readonly enable
-```
+``` 
+
