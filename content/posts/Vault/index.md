@@ -8,7 +8,7 @@ tags: ["Vault"]
 showTableOfContents: true
 --- 
 
-## VLT 01: Vault Overview. Use-cases. Architecture Basics
+## Vault Overview. Use-cases. Architecture Basics
 
 ### **Description**
 
@@ -444,19 +444,21 @@ You will need to perform this procedure only in the first task; in the future, a
 
 
 ### Install from package Ubuntu
+```
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 
- wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
- echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
- sudo apt update && sudo apt install vault
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 
+sudo apt update && sudo apt install vault
+```
 
  ### Install Binary
 
 
 Systemd
 
- ```ini
- [Unit]
+```ini
+[Unit]
 Description=Vault Agent
 Requires=consul-online.target
 After=consul-online.target
@@ -476,3 +478,306 @@ LimitMEMLOCK=infinity
 [Install]
 WantedBy=multi-user.target
 ```
+
+
+## KV Secret Engine
+
+Vault in developer mode
+
+By running the command  `vault server -dev`, you can quickly set up a test server for “playing around”
+
+> It cannot be used in production! (data is stored in RAM)
+
+ launch it `vault server -dev`, and the server automatically starts up. One **Unseal Key** and **Root Token** are generated.
+
+ > If you already have some kind of configured production cluster in Vault, but you don’t want to experiment with it, you don’t need to deploy a separate instance. You can install Vault on your local machine, run this command and check the operation of the program, experiment with it.
+
+
+ ### Key-Value Secret Engine
+
+ More about KV
+
+ There are two versions of KV:
+
+- v1 Can be used if passwords and tokens rarely change.
+
+- v2 If everything is actively rotating, there are many secrets, then you need to download the second version.
+
+
+An important feature of v2 is versioning. As shown in the diagram below, if you write something in the first version and then add a new one, the first version will not be deleted - Vault saves both versions. If you need to remove something, you can do it on purpose.
+
+![vault16](images/16.png)
+
+> The path to the secret data in v2 is different, now it is accessible through: /[mount_point]/data/[secret_name]
+
+### KV v2: metadata
+Metadata is:
+
+Service (main):
+- `cas_required` (bool) - Check-and-Set operation flag.
+
+- `delete_version_after` (string) - time (hours, minutes, seconds) after which the secret version will be deleted. This is useful for self-destructing secrets. You can use Vault as a temporary exchange for secret data.
+
+- `max_versions` (integer) - the maximum number of versions that will be stored.
+
+Custom Custom fields that can be added if necessary:
+
+`custom_metadata` - key-value map for metadata. For example, created_by: `my-python-app`
+
+
+
+KV v2: Check-and-Set
+
+When multiple services work with the Secret Engine, there is a risk that the secrets will not match the versions. To prevent this from happening, you need to enable the option  `cas`.
+
+- The cas parameter is a pointer to the current version that you specify in the write request.
+
+- If cas is not equal to the current version in Vault, then writing will be denied.
+```
+------- Metadata -------
+Key                Value
+---                -----
+created_time       2022-07-31T13:28:09.673358251Z
+custom_metadata    <nil>
+deletion_time      n/a
+destruyed          false
+version            8
+oem@virtual-ubuntu:~$ vault kv put -mount=kv-v2 -cas 6 users/student id=123 password=qwerty1237
+Error writing data to kv-v2/data/users/student: Error making API request.
+
+URL: PUT http://127.0.0.1:8200/v1/kv-v2/data/users/student
+Code: 400. Errors:
+
+*** check-and-set parameter did not match the current version**
+```
+
+You need to first read the number of versions from the metadata and write this number to a parameter when executing the request. If you specify an incorrect parameter, Vault will not complete the request.
+
+### Practice: enabling KV v2
+
+see keys:
+```bash
+cat vaults-keys
+```
+Print out Vault ( `vault operator unseal`) and turn on the engine:  
+
+`vault secrets enable -path=kv-v2 -version=2 kv`
+
+To work with the secrets engine in KV v2, Vault has a separate KV command space.
+
+Adding a secret: 
+```bash
+vault kv put -mount=kv-v2 users/student id=123 passwird=qwerty
+```
+In the second version, all main actions will be performed with  kv.
+```bash
+vault kv put -mount kv-v2 test login=user
+```
+The secret has been recorded. We will get back its metadata, which was not present in the first version of Key-Value.
+
+If we write another request, the version counter will be updated.
+```bash
+vault kv put -mount kv-v2 test login=user2 
+```
+
+You can view all versions using the get command.
+```bash
+vault kv metadata get -mount kv-v2 test
+```
+This way we can get all the metadata and all the versions that we recorded at once.
+
+Now let's look at the operation of the flag `cas`, which should limit overwriting the current version without specifying.
+
+- Add metadata: `vault kv metadata put -mount=kv-v2 -custom-metadata=created-by=cli -custom-metadata comment=”temp user” users/student`
+
+We update the metadata and write a request with cas:
+```bash
+vault kv metadata put -cas-required=true -mount kv-v2 test
+```
+We wrote metadata to the test secret.
+
+Now the flag  `cas_required` is enabled (equal to true).
+
+![vault17](images/17.png)
+
+If you write something down, Vault will remind you of the current version so you don’t mindlessly write extra versions.
+
+Before you write something down, you should always indicate  `cas` the current version number. This makes it easy to synchronize the entry if multiple services have the same key in their secrets.
+
+
+
+## ACL Tokens
+
+### Basic parameters of tokens
+
+There are two types:
+
+- **Service Token** - is a state full token. When it is issued, Vault creates a list (lease) and stores some meta information about this token.
+
+- **Batch Token** -  is a state list token. It is a binary object in which all the information necessary for Vault is already encoded. Batch Token is usually used for replication because it is much easier to replicate a state list token between clusters than a Service Token.
+
+All tokens have a time to live (TTL), after which they can no longer be used.
+
+> There is an exception: Root Service Token lives forever.
+
+You can create as many Root Service Tokens as you like.
+```bash
+vault token create
+```
+And after creation it is clear that  `token_duration` it is equal to infinity.
+
+![vault18](images/18.png)
+
+This is bad practice. This should be used only in the most extreme cases, when you cannot get into the cluster. In all other cases, it is better to configure some normal authentication method.
+
+### Token Accessor
+
+Accessor can be compared to a unique token identifier.
+
+The accessor of the token allows you to perform some "secure" operations with this token:
+
+- lookup (view information)
+
+- renew (extend the validity period of the token)
+
+- revoke (recall)
+
+```
+Key                   Value
+---                   -----
+token                 hvs.CAESII7KQaA6tTz30uRBhcbCuhppjOiYerg0dAm2hMBrpZ0bGh4KHGh2cy52dm5zSTVNTTRzUG1FMmFnYkcxYnVFVms
+token_accessor        7Dgc4Tr0IeTtyIyI71xp9kI0fp
+token_duration        1h
+token_renewable       true
+token_policies        ["default"
+indentufy_policies    []
+policies              ["default"]
+```
+
+```
+vault token renew -accessor 7Dgc4Tr0IeTtyIyI71xp9kI0fp
+Key                   Value
+---                   -----
+token                 n/a
+token_accessor        7Dgc4Tr0IeTtyIyI71xp9kI0fp
+token_duration        1h
+token_renewable       true
+token_policies        ["default"]
+indentufy_policies    []
+policies              ["default"]
+```
+
+```
+vault token renew
+Key                   Value
+---                   -----
+token                 hvs.CAESII7KQaA6tTz30uRBhcbCuhppjOiYerg0dAm2hMBrpZ0bGh4KHGh2cy52dm5zSTVNTTRzUG1FMmFnYkcxYnVFVms
+token_accessor        7Dgc4Tr0IeTtyIyI71xp9kI0fp
+token_duration        1h
+token_renewable       true
+token_policies        ["default"]
+indentufy_policies    []
+policies              ["default"]
+```
+The Accessor is needed to avoid revealing the secret token, for example, when we set up an audit. When setting up, all actions with the token will be logged not with the secret token, but with the accessor value.
+
+
+### Token hierarchy
+
+![vault19](images/19.png)
+
+You can delegate the rights to issue tokens to someone and revoke at any time all the tokens issued to them with one command.
+
+If your Kubernetes cluster is temporary, you won't need to separately revoke all of the child tokens that were created to shut it down. It is enough to revoke only the parent one.
+
+If you want to create tokens that do not support this mechanism, specify orphaned. Then each service will have its own independent token.
+
+
+### TTL
+
+- TTL is the time during which the token can be used.
+
+- During this time, the token can be renewed (but not an infinite number of times).
+
+- If the TTL is expired, the token is revoked (it can no longer be renewed).
+
+- Real life example - Dead Man Switch. During operation, the system needs to understand that the operator is alive and active by periodically pressing the button. You also need to do something with the token to show that it is in use. If a token is not used, Vault considers it abandoned, so it can revoke it.
+
+- You won't be able to log into Vault with an expired token (error 403 - access denied).
+
+### Max TTL
+
+The maximum TTL extension time depends on the following factors:
+
+`system max ttl` - is set in the config of Vault itself on the server. Default: 32 days.
+
+`mount max ttl` - max ttl, which is set when mounting AuthMethod\SecretEngine. You can make the period more or less than 32 days.
+
+`AuthMethod entity max ttl` - for example, in the userpass method we can assign max TTL for each user ( but not more than mount max TTL! )
+
+You can set max ttl for a specific token -  `explicit max ttl`. Explicit max ttl does not depend on either system max ttl or mount max ttl.
+
+In the config, max ttl is set by default (default list token ttl parameter) to 32 days.
+
+#### Practice
+
+Let's see how this is set in the config:
+```
+cd /etc/vault.d
+ls
+nano vault.hcl
+```
+There is a parameter here  `default_lease_ttl`.
+
+> Let's set this parameter for 24 hours (24h):  `default_lease_ttl = "24h"`. Now all tokens will have this ttl by default.
+
+
+Create a token:
+```bash
+vault token create
+```
+
+To change the token policy, use the key  -policy:
+```bash
+vault token create -policy=user
+```
+The policy we specify does not have to exist; it can be defined later.
+
+Let's set it  `max_lease_ttl` for 48 hours:  `max_lease_ttl = "48h"`.
+
+To extend the ttl of a token, you can run the following command:
+```bash
+vault token renew *hvs.CAESIJ5BkedKr8zoHf0vXOv83BxUsEd7d-ddJlbLlxQoTA-zGh4KHGh2cy5vbVBNcUJqMFF0UTZ3aHBjU2l1cTlBU3k*
+```
+
+Now let's look at max ttl and how the user/pass engine is turned on.
+```bash
+vault auth method enable -path userlogin userpass
+vault write auth/userlogin/user password=12345
+vault login -path userlogin -method userpass username=user
+```
+If you log in with the command  `vault login`, you can see that the token will be received for 24 hours. However there should now be a max ttl since this token was created via  `-method`.
+
+If we try to renew the token for more than 48 hours, an error will appear, since it is impossible to set an expiration date greater than max ttl.
+
+Let's try to set max ttl for a shorter period:
+
+```bash
+vault auth disable=userlogin
+vault auth enable -max-lease-ttl 10h -path userlogin userpass
+```
+
+Max ttl changed to 10 hours.
+
+![vault20](images/20.png)
+
+Now it turns out that the default ttl is 24 hours, and the maximum is 10.
+
+Let's try to renew the token, but only within the max ttl. If we want to set the TTL of a token for a specific user, we can set it to a period of 1 hour.
+
+```bash
+vault write auth/userlogin/users/user password=12345 token_max_ttl=1h
+vault login -path userlogin -method userpass username=user
+```
+It is no longer possible to update this period, because the priority of max ttl for this user is much higher than for mount max ttl, and even more so system max ttl.
+
