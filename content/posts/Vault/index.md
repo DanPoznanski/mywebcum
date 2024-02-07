@@ -745,7 +745,7 @@ The policy we specify does not have to exist; it can be defined later.
 
 Let's set it  `max_lease_ttl` for 48 hours:  `max_lease_ttl = "48h"`.
 
-To extend the ttl of a token, you can run the following command:
+Extend the ttl of a token, you can run the following command:
 ```bash
 vault token renew *hvs.CAESIJ5BkedKr8zoHf0vXOv83BxUsEd7d-ddJlbLlxQoTA-zGh4KHGh2cy5vbVBNcUJqMFF0UTZ3aHBjU2l1cTlBU3k*
 ```
