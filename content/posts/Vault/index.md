@@ -37,7 +37,7 @@ Vault is designed to store technical secrets that are used by applications.
 
 Below is a microservice architecture, where each of the services uses some other services (for example, their databases).
 
-![vault1](images/1.png)
+![vault1](images/1.webp)
 In each of the services you must log in using a password or token. All this information is stored securely using Vault.
 
 **Problems when working with secrets**
@@ -60,7 +60,7 @@ In each of the services you must log in using a password or token. All this info
 
 - Access any secret via a temporary API token. Each token is bound to policies (ACL)
 
-![vault2](images/2.png)
+![vault2](images/2.webp)
 
 Vault can be divided into three parts:
 
@@ -70,7 +70,7 @@ Vault can be divided into three parts:
 
 - backend (storage backend).
 
-![vault3](images/3.png)
+![vault3](images/3.webp)
 
 The first thing we need to do after installing Vault is to initialize.
 
@@ -80,7 +80,7 @@ The first thing we need to do after installing Vault is to initialize.
 
 - Vault supports many storage backends (pictured below)
 
-![vault5](images/5.png)
+![vault5](images/5.webp)
 
 
 **Еncryption Key&Root Key**
@@ -89,7 +89,7 @@ After initialization, Vault generates two keys - Root Key and Encryption Key.
 
 Encryption key deals with encryption of secrets. This is the encryption key of the symmetric algorithm.
 
-![vault6](images/6.png)
+![vault6](images/6.webp)
 
 To securely store the Encryption Key, a two-key concept is used.
 
@@ -160,7 +160,7 @@ AuthMethod has two groups of methods:
 The diagram below shows that after setting up the authentication process, the user transfers his account information to Vault upon login. In Vault, the administrator pre-configures work with an external provider (for example, GitHub). Thus, the validity of the token or user account will be checked on an external resource
 
 
-![vault10](images/10.png)
+![vault10](images/10.webp)
 
 After confirming the user's validity, the authorization process takes place. Vault assigns a policy to the token it issues to a specific user. Vault then gives the token to the user.
 
@@ -192,7 +192,7 @@ Auth Method and Secret Egine (the part of Vault that is responsible for data) su
 
 You can mount the same AuthMethod\SecretEngine with different configurations.
 
-![vault11](images/11.png)
+![vault11](images/11.webp)
 
 Policy
 ACL - Access Control List. Access control list.
@@ -223,7 +223,7 @@ Sudo allows you to access some system settings. If we want to grant access to a 
 
 Secret Engine is the code that deals with working with secrets. Contains the logic for working with secrets (generation, recording, encryption).
 
-![vault12](images/12.png)
+![vault12](images/12.webp)
 
 ### Dynamic secrets
 
@@ -237,7 +237,7 @@ Dynamic secrets are secrets created by Vault on the fly.
 
 ### Subtotal
 
-![vault13/13.png]
+![vault13](images/13.png)
 
 1.Vault initialization and partition key.
 
@@ -298,13 +298,13 @@ We enter all three keys - now Vault tells us that it has been printed.
 
 We go to the admin panel, where Vault prompts you to log in:
 
-![vault13](images/13.png)
+![vault13](images/13.webp)
 
 For now, only Method Token is available for login.
 
 After authorization, the following window will open (in the image below). Here will be a list of our Secret Engines. While only cubbyhole (Secret Engine for a specific token) is available, it is enabled by default.
 
-![vault14](images/14.png)
+![vault14](images/14.webp)
 
 We turn on the KV Secret Engine:
 ```
@@ -323,7 +323,7 @@ vault write kv/test data=123
 ```
 It appears in Vault:
 
-![vault15](images/15.png)
+![vault15](images/15.webp)
 
 This secret is also available in JSON:
 ```
@@ -506,7 +506,7 @@ By running the command  `vault server -dev`, you can quickly set up a test serve
 
 An important feature of v2 is versioning. As shown in the diagram below, if you write something in the first version and then add a new one, the first version will not be deleted - Vault saves both versions. If you need to remove something, you can do it on purpose.
 
-![vault16](images/16.png)
+![vault16](images/16.webp)
 
 > The path to the secret data in v2 is different, now it is accessible through: /[mount_point]/data/[secret_name]
 
@@ -598,7 +598,7 @@ We wrote metadata to the test secret.
 
 Now the flag  `cas_required` is enabled (equal to true).
 
-![vault17](images/17.png)
+![vault17](images/17.webp)
 
 If you write something down, Vault will remind you of the current version so you don’t mindlessly write extra versions.
 
@@ -626,7 +626,7 @@ vault token create
 ```
 And after creation it is clear that  `token_duration` it is equal to infinity.
 
-![vault18](images/18.png)
+![vault18](images/18.webp)
 
 This is bad practice. This should be used only in the most extreme cases, when you cannot get into the cluster. In all other cases, it is better to configure some normal authentication method.
 
@@ -684,7 +684,7 @@ The Accessor is needed to avoid revealing the secret token, for example, when we
 
 ### Token hierarchy
 
-![vault19](images/19.png)
+![vault19](images/19.webp)
 
 You can delegate the rights to issue tokens to someone and revoke at any time all the tokens issued to them with one command.
 
