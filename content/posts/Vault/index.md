@@ -781,3 +781,273 @@ vault login -path userlogin -method userpass username=user
 ```
 It is no longer possible to update this period, because the priority of max ttl for this user is much higher than for mount max ttl, and even more so system max ttl.
 
+This is how you can view the policy for a user.
+```bash
+vault write auth/userlogin/users/user password=12345 token_max_ttl=1h policies=users
+
+vault login -path userlogin -method userpass username=user policies=user-policy
+```
+
+In addition to the default one, there is also a users policy for the user. Moreover, policies do not depend on tokens.
+
+Let's say the user will have a ttl of 30 minutes and a max ttl of 1 hour. When we log in, by default Vault will issue a token for 30 minutes. During these 30 minutes we must confirm our activity. If we write  vault token renew, then ttl will reach the limit (1 hour). Thus, within an hour we can renew the token. If we forget to update it after 30 minutes, Vault will revoke this token.
+
+***Periodic tokens***
+
+Periodic Token (periodic) - a token created for a time, but with the ability to extend it indefinitely. It is released for some service. Periodic token does not have a max ttl. The service itself will update this token, indicating activity.
+
+
+Create a token with a period of 30 seconds:
+```bash
+vault token create -period=30s -policy=policy
+```
+You need to have time to write  `renew` for this token so that it is not deleted. If you fail to do so, the token is automatically revoked and information about it is deleted
+
+For periodic token, you can execute the command  `renew` an infinite number of times.
+
+When we deploy a service that cannot be rebooted, it makes sense to issue a periodic token for it.
+
+It is believed that one of the safest ways to work with sensitive information is to change passwords frequently. This leaves a very small window for attackers to attack. Even if a token with a 1-minute lifetime is stolen, the attacker will have virtually no time left to do anything malicious. If the hacker does not have access to the system that issues the tokens, then the stolen token will be useless.
+
+***Token with a limited number of uses***
+
+In addition to TTL, you can limit the number of API calls with a specific token. The parameter is responsible for this  `num_uses`.  `num_uses` does not replace TTL. This feature can provide a new level of system security.
+```bash
+vault token create -period=30s -use-limit 3 -policy=policy
+```
+After three operations are completed, the token will be considered invalid.
+
+**Token role**
+
+You can also group common parameters for tokens into a role, which is useful for services
+
+For example:
+```bash
+vault write auth/token/roles/my-role \
+allowed_policies="policy1, policy2, policy3" \
+period=8h
+```
+To issue tokens with an already defined set of policies, you need to include the parameters necessary for the token in the role.
+
+The Token Role settings have allowed and denied policies.
+
+We are interested in the limit on the number of uses ( `token_num_uses`).
+
+Let's create a simple role that will issue tokens with a period of 1 hour:
+```bash
+vault write auth/token/roles/test-role period=1h policies="policy1","policy2"
+```
+Now we can create a token from this role:
+```bash
+vault token create -role test-role -policy=1
+```
+Moreover, the role should prohibit the creation of tokens with policies that are not specified in  `allowed_policies`.
+
+**Batch Tokens**
+
+Batch Tokens are “lightweight” tokens. When creating a token, Vault does not create an accessor for it. The token contains all the information “in itself” (encrypted blob). Used in the Enterprice version due to support for cross-cluster replication.
+```
+Key                   Value
+---                   -----
+token                 hvb.AAAAAQIvMowYqAH_YHAeuOBdxm3U4jkQInC2ktGHA29-RHr2L0r7iIx
+Wmv2Z3_LjE7b5ty-pCfJcZ_yXLsNYq65FDV5bhvjqg8TnFeAuth3_AZy7qORMbvXKoGr3DQLumB5ba9h
+-5D32HrJU9JLJt4Ryz8NbElUKOE6hFxDKBgFKOJ6Jl4-hSZbJ2_3omtBQANXJ
+token_accessor        n/a
+token_duration        1m
+token_renewable       false
+```
+
+When creating such a token, we write the following:
+```bash
+vault token create -type=batch -policy=1234
+```
+At the beginning of the Batch token name is written  `hvb`, not  `hvs`.
+
+You can use Batch Token if Vault works with very heavy loads.
+
+Examples of cases
+
+Case 1
+
+The developer needs to perform some operation on the database. ETA - 2 hours. The maximum time is 8 hours (we assume that if a task takes more than a working day, then something is wrong).
+
+The DBA issues a token with token_ttl=2h token_max_tl=8h
+If the developer does it in 2 hours - no problem
+If the developer understands that after 1.5 hours of work there is no way he can meet 2 hours, he renews his token for some more time
+If the developer does not meet the deadline within 8 hours, the token is revoked and no renew is accepted.
+This allows you to give access to some very secret systems for a specified time.
+
+Case 2
+
+The developers have made a new service that works with the database. The service is not critical, it allows interruptions of up to 10 minutes.
+
+The DBA issues a token with  token_period_ttl <= token_max_ttl, for example, 20 minutes. The business policy of the service is to update the token every minute
+If the service has fallen, then it must be raised within a time that does not exceed 20 minutes
+If the service is “deprecated”, then after 20 minutes the token will be revoked, because it is not updated in a timely manner
+
+
+
+
+### ACL policies
+Tokens are useless without policies. A policy in Vault is an ACL (access control list) like:
+```bash
+# Allow tokens to look up their own properties
+path "auth/token/lookup-self" { Путь API
+    capabilities = ["read"] Список разрешенных действий
+}
+
+# Allow tokens to renew themselves
+path "auth/token/renew-self" {
+    capabilities = ["update"]
+}
+
+# Allow tokens to revoke themselves
+path "auth/token/revoke-self" {
+    capabilities = ["update"]
+}
+```
+
+The token only helps with authentication. For authorization, some kind of policy is already needed. A policy in Vault consists of blocks that contain the API path.
+
+Capabilities are capabilities, permitted actions.
+
+The policy is written in HCL (HasiCorp's own development) or JSON (useful for auto-configuring policies).
+
+List of actions:
+
+- Standard CRUD (create, read, update, delete)
+
+- list - display a list of something (roles, users, etc.)
+
+- patch - partial update of the config (for example, individual AuthMethod fields)
+
+- sudo - access to "admin" things (mainly sys/)
+
+- deny - deny access. Always takes precedence over resolution.
+
+### Advanced ACL capabilities
+
+Advanced ACL features:
+
+- glob. Allows you to assign allowed actions for all nesting levels, starting from some (*)
+
+- template
+```bash
+# Permit reading only "secret/foo". An attached token cannot read "secret/fod"
+# or "secret/foo/bar".
+path "secret/foo" {
+  capabilities = ["read"]
+}
+
+# Permit reading everything under "secret/bar". An attached token could read
+# "secret/bar/zip", "secret/bar/zip/zap", but not "secret/bars/zip".
+path "secret/bar/*" {
+  capabilities = ["read"]
+}
+
+# Permit reading everything prefixed with "zip". An attsched token could read
+# "secret/zip-zap" or "secret/zip-zap/zong", but not "secret/zip-zap
+path "secret/zip-*" {
+  capabilities = ["read"]
+}
+```
+
+Glob(*) is useful when we want to allow an action for all secrets in some directory.
+
+- An asterisk (*) is only allowed at the very end
+
+- If you need to grant rights to the entire nesting level somewhere in the middle, use plus (+)
+```bash
+# Permit reading the "teamb" path under any top-level path under secret/
+path "secret/+/teamb" {
+  capabilities = ["read"]
+}
+
+# Permit reading secret/foo/bar/teamb, secret/bar/foo/teamb, etc.
+path "secret/+/+/teamb" {
+  capabilities = ["read"]
+}
+```
+Plus allows actions at one nesting level, as in the example.
+
+**Policy connection rules**
+
+- If one policy has narrower rights and another has broader rights, then the broader ones apply
+
+- deny always wins
+
+- Additional rules for glob
+
+When several policies are issued for one token, they partially overlap each other. Vault always takes broader rights into account.
+
+- template - runtime value substitution
+
+- For example, we want to allow each user access to only the secrets in their "directory" (entity.id will be assigned to the token when creating it via AuthMethod)
+
+```
+path "secret/data/{{indentity.entity.id}}/*" {
+  capabilities = ["create", "update", "patch", "read", "delete"]
+}
+```
+When a token is issued with some AuthMethod, it is appended with the name of the user for whom the token was issued.
+
+#### Practice. We write policies
+
+Let's write a policy.
+
+```bash
+vault -output-policy
+vault kv get -output-policy kv-v2/test
+```
+After this command, Vault will tell you which policy is needed.
+
+To apply it, you need to copy it.
+
+```bash
+path "kv-v2/data/test" {
+  capabilities = ["read"]
+}
+```
+After copying, paste into the desired file.
+
+Next, in the command, specify the name of the copied policy.
+```bash
+vault policy write test-policy ./test-policy.hcl
+```
+After recording the policy, you can view it in the ACL Policies section:
+
+
+
+You can edit it there.
+
+Next, we create a token with a written policy:
+
+```bash
+vault token create -policy=test-policy
+```
+This policy will already work and reveal permitted secrets.
+
+We will also make a more complex policy that will template our user’s name. This will be a case in which each user needs to be given access to some kind of KV directory.
+
+Let's create a user and log in with him.
+```bash
+vault login -path user -auth -method=userpass username=test-user
+```
+Let's write a policy that will give access to the engine. Let's make a template by name. Let's call the policy user-policy.
+```bash
+path "kv-v2/data/{{indentity.entity.metadata.username}}/*" {
+  capabilities = ["read", "create", "update", "delete"]
+}
+```
+All the secrets that are in the directory, this user will be able to read, change, etc.
+
+```bash
+vault kv put -mount kv-v2 test-user/secret data=123
+```
+We were able to record the secret along the path that corresponds to the login.
+
+This policy is universal. If we change the user, he will also be able to write secrets to his directory.
+
+![vault21](images/21.webp)
+
+
