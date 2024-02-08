@@ -769,7 +769,7 @@ vault auth enable -max-lease-ttl 10h -path userlogin userpass
 
 Max ttl changed to 10 hours.
 
-![vault20](images/20.png)
+![vault20](images/20.webp)
 
 Now it turns out that the default ttl is 24 hours, and the maximum is 10.
 
