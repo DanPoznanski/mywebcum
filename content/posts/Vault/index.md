@@ -1350,7 +1350,51 @@ Such a system can be called two-factor: there are parts of the infrastructure - 
 
 The admin only knows the secure role_id. The orchestrator only knows the wrapped secret_id. Only the application knows the token itself.
 
+Code examples
 
+https://developer.hashicorp.com/vault/docs/auth/approle#code-example
+
+What if there is no way to rewrite the application?
+
+Vault suggests using the sidecar pattern and running a special agent next to the application that will provide a token to the application (more on this in future webinars)
+The disadvantage of this scheme is that you have to do a little coding. The link above has a Code Example in Go and C#.
+
+### Practice
+
+Enable AuthMethod:
+```bash
+vault auth enable approle
+```
+Create a role:
+```bash
+vault write auth/approle/role/service1 token_policies=test token_period=1h
+```
+Let's get role_id:
+```bash
+vault read auth/approle/role/service1/role_id
+```
+Next you need to get secret_id. We send a request with an empty body.
+
+The key  `-f` means that we are not transmitting any data.
+
+If the application does not meet the specified ttl, the token will be destroyed.
+```bash
+vault write -f -wrap-ttl=1m auth/approle/role/service1/role_id
+```
+We were given a wrapper token that will be valid for 1 minute. It contains all the necessary information to decrypt the secret_id.
+
+On the plus side, it’s a safe concept.
+
+The downside is the need to change the business logic of the application when abandoning Vault.
+
+**Useful materials**
+
+You can read the documents on integration using the links:
+
+
+[Approle](https://www.hashicorp.com/blog/how-and-why-to-use-approle-correctly-in-hashicorp-vault)
+
+[GitLab JWT](https://docs.gitlab.com/ee/ci/examples/authenticating-with-hashicorp-vault/)
 
 
 
