@@ -8,6 +8,10 @@ tags: ["Vault"]
 showTableOfContents: true
 --- 
 
+![vault0](images/0.svg)
+
+
+
 ## Vault Overview. Use-cases. Architecture Basics
 
 ### **Description**
@@ -792,9 +796,11 @@ In addition to the default one, there is also a users policy for the user. Moreo
 
 Let's say the user will have a ttl of 30 minutes and a max ttl of 1 hour. When we log in, by default Vault will issue a token for 30 minutes. During these 30 minutes we must confirm our activity. If we write  vault token renew, then ttl will reach the limit (1 hour). Thus, within an hour we can renew the token. If we forget to update it after 30 minutes, Vault will revoke this token.
 
-***Periodic tokens***
+### Periodic tokens
 
 Periodic Token (periodic) - a token created for a time, but with the ability to extend it indefinitely. It is released for some service. Periodic token does not have a max ttl. The service itself will update this token, indicating activity.
+
+![vault22](images/vault22.svg)
 
 
 Create a token with a period of 30 seconds:
@@ -809,7 +815,7 @@ When we deploy a service that cannot be rebooted, it makes sense to issue a peri
 
 It is believed that one of the safest ways to work with sensitive information is to change passwords frequently. This leaves a very small window for attackers to attack. Even if a token with a 1-minute lifetime is stolen, the attacker will have virtually no time left to do anything malicious. If the hacker does not have access to the system that issues the tokens, then the stolen token will be useless.
 
-***Token with a limited number of uses***
+**Token with a limited number of uses**
 
 In addition to TTL, you can limit the number of API calls with a specific token. The parameter is responsible for this  `num_uses`.  `num_uses` does not replace TTL. This feature can provide a new level of system security.
 ```bash
@@ -1016,6 +1022,7 @@ vault policy write test-policy ./test-policy.hcl
 ```
 After recording the policy, you can view it in the ACL Policies section:
 
+![vault21](images/21.webp)
 
 
 You can edit it there.
@@ -1048,6 +1055,355 @@ We were able to record the secret along the path that corresponds to the login.
 
 This policy is universal. If we change the user, he will also be able to write secrets to his directory.
 
-![vault21](images/21.webp)
 
+see tocken lifetime
+```bash
+vault token lookup hvs.<token>
+
+```
+
+## JWT
+
+- JWT — JSON Web Token.
+
+- Basic idea : after authentication, the server issues a token in JSON format with encoded fields with a structure (username, email, etc.). The server generates a key pair, signs the token with the private key, and publishes its public key.
+
+- With each subsequent request to the server, it validates this token (checks the signature) and grants access based on the parameters encoded in the token.
+
+JWT is easy to check: download the public key, decrypt the digital signature and check its validity.
+
+JWT is just a token that contains signed information and cannot be changed. If the information changes, the token will be invalid.
+
+### JWT structure
+
+- **header**  contains two fields: token type and signature algorithm
+
+- **payload**  - body. Any fields are recorded in it, but among them there are several service ones (for example, iat - timestamp, sub - identifier of the server that issued the token)
+
+- **signature**  - digital signature (usually HS256 or RS256 is used)
+
+```
+#HEADER: ALGORITHM & TOKEN TYPE
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+
+#PAYLOAD: DATA
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022
+}
+
+#VERIFY SIGNATURE
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  **your-256-bit-secret**
+)   secret base64 encoded
+```
+The text colors on the left correspond to the JSON parts:
+
+![vault30](images/30.webp)
+
+In PAYLOAD we can encode any fields. For example, let's add email:
+```
+{
+  "sub": "1234567890",
+  "name": "John Doe",
+  "iat": 1516239022
+  "email": "test@mail.com" # в части Encoded допишется закодированный email
+}
+```
+
+### JWT Flow
+
+There is a certain server that generates its key pair using asymmetric encryption (private and public key). If something is encrypted with a private key, it can be decrypted with a public key, and vice versa.
+
+Under the private key, the server signs the JSON structure and returns a base64 JWT token. Now you can use it to log in to the server, which will check its validity.
+
+![vault31](images/31.webp)
+
+Next we will work with the server using JWT.
+
+- JWT does not have to be used to make requests to the same server that issued it.
+
+- To verify the JWT, the App Server will send a request to the JWKS endpoint to obtain public keys to verify the digital signature
+
+In the infrastructure, you can allocate a separate JWT server that will distribute JWT to other servers.
+
+Let's say there is an Auth Server and an App Server (where some service is running). We can use the resulting JWT on the Auth Server by passing it through the App Server. The App Server will go to the Auth Server instead of us and check that the JWT was issued by this service.
+
+![vault32](images/32.webp)
+> Vault does not issue JWTs themselves, it only validates them
+
+
+### JWT AuthMethod
+
+Configured with the command: `vault write auth/jwt/config jwks_url=”http://example.com/jwks” bound_issuer=”example.com”`
+
+`jwks_url` - URL where public keys are available
+
+`bound_issuer` is a field hardwired into the token to check the validity of the token for a specific domain. Accepts only those keys that have this domain written in the iss service field.
+
+To bind specific JWTs to Vault policies, you need to create roles:
+```
+$ vault write auth/jwt/role/myproject
+<<EOF
+{
+ "role_type": "jwt",
+ "policies": ["myproject"],
+ "token_max_ttl": 60,
+ "user_claim": "user_email",
+ "bound_claims_type": "string",
+ "bound_claims": {
+  "group": "admin"
+ }
+}
+EOF
+```
+
+- role_type — role type: oidc or jwt.
+
+- user_claim is the jwt token field to which Vault binds. You can see in the metadata of this token that it is used for a specific user's JWT.
+
+- bound_claim_type - how to interpret field values ​​in bound_claims (string or glob)
+
+ - bound_claims - specific values ​​of the token fields that must match. For example, there is a “group” field. We can require that all tokens with which we authorize have “admin” in this field. Then the admin policy will be assigned.
+
+### Vault and Gitlab Cl\CD integration
+
+Let's configure the Gitlab Cl\CD pipline to receive secrets from Vault using one-time JWT tokens (issued for each pipeline).
+
+Gitlab is an AuthServer. For each pipline, it issues its own JWT token and writes it to the CI_JOB_JWT variable.
+
+![vault33](images/33.webp)
+
+Gitlab publishes its public key.
+
+![vault34](images/34.webp)
+
+There are different parameters here, but we are interested in the key that Vault will parse. He will verify the digital signature with this key.
+
+### Practice: Gitlab JWT
+
+- Let's enable secret engine v1 and configure two secret directories frontend/ and backend/
+
+- Let's write the appropriate policies
+
+- Let's enable AuthMethod JWT and configure it to work with GitLab tokens
+There are two projects on Gitlab: frontend and backend.
+
+![vault35](images/35.webp)
+
+The backend has the simplest pipeline:
+```
+read_secrets:
+  image: vault:latest
+  variables:
+    VAULT_ADDR: http://84.201.178.53:8200/
+    VAULT_SKIP_VERIFY: "true"
+  script:
+    - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=backend jwt=$CI_JOB_JWT)"
+    - echo $VAULT_TOKEN
+```
+This pipeline performs authorization in Vault using  `auth/jwt/login`. We indicate the role we want to enter and what rights are needed (`role=backend`).
+
+Gitlab will automatically add the variable  `$CI_JOB_JWT` when pipline is launched.
+
+Vault:latest is used as image only because there is a Vault binary later in the request.
+
+When I tried to log in, nothing happened (403 error) because there was no configuration.
+
+First of all, you need to enable Auth JWT and write down the config:
+```
+vault auth enable jwt
+vault write auth/jwt/config jwks_url="http://gitlab.com/-/jwkks" bound_issuer="gitlab.com"
+```
+Let's write down the role:
+```
+vault write auth/jwt/role/backend - <<EOF
+{
+"role_type": "jwt",
+"policies": "backend",
+"user_claim": "user_email",
+"bound_claims_type": "string",
+"bound_claims": {
+ "project_id": "38864322"
+ }
+}
+```
+Let's try to read:
+```
+vault read auth/jwt/role/backend
+```
+Everything was recorded. Authorization has passed.
+
+We have received a token, let's look at the information about it:
+```
+vault token lookup hvs.CAESIEjk3ABmdFbnztALl0Z_0wIP9dKLbGwMvJNvDC3RjvtnGh4KHGh2cy5ucXVBNlZTb2VuNnBpNThmSjNpZDU5UlE
+```
+![vault36](images/36.webp)
+
+The field  `display_name` contains the expert's email address.
+
+Only the backend works, the frontend should not work.
+
+Let's configure the frontend with the same settings as the backend.
+
+Plug-in KV engine:
+```bash
+vault secrets enable -path=kv-v2 -version 2 kv
+```
+Let's write down the test secret:
+```bash
+vault kv put -mount=kv-v2 db login=test
+```
+Now let's see what policy is needed for it:
+```bash
+vault kv get -output-policy -mount=kv-v2 db
+```
+Thus, a valid policy will be automatically generated.
+
+Let's change the role so that it outputs  `policies` not  `backend`, but  `backend-kv`.
+```bash
+vault policy write backend-kv ./policy.hcl
+```
+### AppRole AuthMethod
+
+
+We successfully logged in and received the loan.
+
+#### Authorization in “complex” systems
+
+Before AppRole, authorization was possible only through a hierarchy of tokens.
+
+![vault37](images/37.webp)
+
+Vault tries to minimize the risk that you will delete something and forget to remove the token, which will then appear in the logs. Such tokens are often used to carry out attacks on existing systems.
+
+According to the hierarchy, the parent token is launched first, and children are created from it. If we delete the parent one, the others will also be deleted.
+
+The main disadvantage is that the token is transferred to several intermediate entities and can be compromised along the way.
+
+There is Vault. There is a CI/CD that receives a token. Next, CI/CD transfers it to Runner, which transfers it to the APP.
+
+
+![vault38](images/38.webp)
+
+The token floats open everywhere, which is not very good.
+
+Another drawback is that the only way to track issued tokens is to view their entity in the general “list” (each application instance needs a token).
+
+For cloud platforms, as a rule, an option with separate authorization via IAM is used (for example, each application has its own Service Account in the cuber). Thus, RBAC control is outside of Vault.
+
+![vault39](images/39.webp)
+
+
+### AppRole concept
+
+- The secret consists of two parts: role_id (“login”) and secret_id (“password”)
+
+- role_id can have several secret_ids (role_id is the application identifier, secret_id is the “password”, unique for each instance)
+
+![vault40](images/40.webp)
+> “Login” can be sent to colleagues in a chat, and it can be disclosed in every possible way. The "password" is secret.
+
+### AppRole concept
+
+- The main idea is that the common parts of the secret (role_id and secret_id) are transmitted in different ways
+
+- role_id is hardcoded, for example, in docker env, and the application receives secret_id at startup
+
+- IP whitelist capability
+
+- There is also a cool feature called response wrapping
+
+### Response Wrapping
+
+Instead of passing the secret_id directly, we write it to a secure storage (cubbyhole) and issue  **a one-time token**  to retrieve it.
+
+![vault41](images/41.webp)
+
+When we run the application in a trusted environment, we receive an encrypted secret_id, which is wrapped in a specific token.
+
+Thus, the orchestrator does not receive a ready-made token in the form of the token itself. That is, knowing only the encrypted token, the service can decrypt it, but does it blindly. The service then passes this encrypted token to the application. And the application itself, working with Vault, decrypts the token and receives it in its normal form.
+
+The final token is not shown in any part of the chain.
+
+
+### Cubbyhole SecretEngine
+
+- Cubbyhole is a key-value store designed for intermediate secrets (secret_id)
+
+- Main differences from KV: the lifetime of the secret is equal to the lifetime of the token. Only the token that created the secret can read it (even the root token does not have access to the cubbyhole of other tokens)
+
+Response Wrapping writes a token to the Cubbyhole. It then provides a link and decryption key for the application.
+
+
+### Subtotals
+
+![vault42](images/42.webp)
+
+Such a system can be called two-factor: there are parts of the infrastructure - role_id, wrapped secret_id (orchestrator) and vault token (application). Each part knows only its part of the secret.
+
+The admin only knows the secure role_id. The orchestrator only knows the wrapped secret_id. Only the application knows the token itself.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## AuthMethod Flow
+
+![vault23](images/23.webp)
+Vault can integrate with external providers who maintain their own database of users and service accounts.
+
+- first set up authorization in the external system using a privileged account with the rights to issue other accounts.
+
+- We set up binding on our policy.
+
+- We are launching into production. The user enters his data in the external system. Vault logs into this system and verifies credentials. If all is well, Vault issues a token with a policy.
+
+This is the standard way for all AuthMethods to work.
+
+LDAP AuthMethod. User authorization
+
+About LDAP in two words
+
+- LDAP - Lightweight Directory Access Protocol - a protocol for accessing a directory service (for example, Active Directory)
+
+- The directory server contains information about various objects (users, computers, servers, etc.)
+
+The directory has a tree structure. There is an organization with an organizational unit and servers:
+
+![vault24](images/24.webp)
+
+In this directory you can store any structured information, like in a filing cabinet.
+
+To refer to a specific object, dn (distingushed name) is used. For example, uid=vault, cn=users, dc=example, dc=com
+- dc - Domain Controller. Address of a specific domain controller
+
+- cn - Canonical Name. Directory or object name
+
+- uid - User Identifier. Specific user ID
+
+- ou - Organizational Unit. Organizational unit. Used instead of CN to denote a directory (e.g. uid=vault, ou=Users in Active Directory)
+
+There is a test directory server that was deployed by the platform developers.
+
+Admin user. The User DN line uses the full path to the object instead of the traditional login.
+
+![vault25](images/25.webp)
 
