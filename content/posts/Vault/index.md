@@ -1451,3 +1451,66 @@ Admin user. The User DN line uses the full path to the object instead of the tra
 
 ![vault25](images/25.webp)
 
+When connected, you can view the entire directory tree, as well as users and groups:
+
+![vault26](images/26.webp)
+
+The idea is to integrate Vault with LDAP. Users should be able to log into the admin panel using a regular and understandable login/password.
+
+Basic settings to configure
+
+- url=”ldaps://ipa.example.test”
+
+- userdn=”cn=users, cn=accounts, dc=example, dc=test” (the directory where user objects are located. Vault needs to know where to go to check them)
+
+- binddn=”uid=vault, cn=users, cn=accounts, dc=example, dc=test” (LDAP authentication)
+
+- bindpass=”123” (LDAP authorization)
+
+- groupdn=”cn=groups, cn=accounts, dc=example, dc=test” (Vault needs to know how to get groups in order to map policies on them)
+
+- groupattr=”cn”
+
+- userattr=”uid”
+
+- starttls=true
+
+- Mapping policies - vault write auth/ldap/groups/students policies=foobar
+
+### Practice
+
+Let's create a group students:
+
+Let's integrate Vault:
+```bash
+vault auth enable ldap
+```
+We write the config:
+```bash
+vault write auth/ldap/config \
+url="ldaps://jcqnn.rbrvault.com" \
+userdn="cn=users, cn=accounts, dc=jcqnn, dc=rbrvault, dc=com" \
+binddn="uid=admin, cn=users, cn=accounts, dc=jcqnn, dc=rbrvault, dc=com" \
+bindpass="Secret123" \
+groupdn="cn=groups, cn=accounts, dc=jcqnn, dc=rbrvault, dc=com" \
+grouppattr="cn" \
+userattr="uid" \
+starttls=true \
+tls_insecure=true
+```
+Let's log in to Vault as a user.
+
+Let's assign the backend-kv policy to our user:
+```bash
+vault write auth/ldap/groups/students policies=backend-kv
+```
+Let's log in:
+```bash
+vault login -method=ldap username=pavel
+```
+Now we can read the secret with this token:
+```bash
+vault kv get -mount=kv-v2 db
+```
+With just a couple of commands we set up integration with LDAP.
+
