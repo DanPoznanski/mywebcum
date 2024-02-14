@@ -382,6 +382,26 @@ A secret is restricted information that must be acquired by the service at start
 
 - Secret Engine is the code that deals with working with secrets. Contains the logic for working with secrets (generation, recording, encryption).
 
+### Preparation for practice
+
+Hashicorp Vault blocks access to its repositories from the Russian Federation. We have launched our mirror server, with which you can install Vault. To do this you need to do the following:
+
+Run command:
+```bash
+curl -k -L -fsSL https://178.62.251.141/gpg | sudo apt-key add -
+```
+Add line  echo "deb [arch=amd64] https://178.62.251.141 focal main to /etc/apt/sources.list
+
+Run commands:
+```bash
+sudo apt -o "Acquire::https::Verify-Peer=false" update
+sudo apt -o "Acquire::https::Verify-Peer=false" install vault
+```
+
+
+
+
+
 
 To run Vault in TLS mode with self-signed certificates, you must do the following:
 
@@ -422,7 +442,7 @@ Add a certificate to the list of trusted ones
 sudo cp selfsigned.crt /usr/local/share/ca-certificates
 sudo update-ca-certificates
 ```
-Copy the selfsigned.crt and selfsigned.key files to the folder /opt/vault/tls/
+Copy the `selfsigned.crt` and `selfsigned.key` files to the folder /opt/vault/tls/
 ```bash
 sudo cp selfsigned.crt /opt/vault/tls
 sudo cp selfsigned.key /opt/vault/tls
@@ -431,7 +451,7 @@ Change owner and group of copied files
 ```bash
 sudo chown -R vault:vault /opt/vault/tls/
 ```
-Change the path to the certificate and key in the file /etc/vault.d/vault.hcl
+Change the path to the certificate and key in the file `/etc/vault.d/vault.hcl`
 ```bash
 
 listener "tcp" {
@@ -446,6 +466,19 @@ sudo systemctl start vault
 ```
 You will need to perform this procedure only in the first task; in the future, a ready-made infrastructure will be provided, unless the task requires otherwise.
 
+```bash
+vault operator init -key-shares=1 -key-threshold=2 tls-skip-verify
+```
+
+Autocompletion
+
+The vault command features opt-in autocompletion for flags, subcommands, and arguments (where supported).
+
+Enable autocompletion by running:
+```bash
+vault -autocomplete-install
+```
+
 
 ### Install from package Ubuntu
 ```
@@ -456,27 +489,40 @@ echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://
 sudo apt update && sudo apt install vault
 ```
 
- ### Install Binary
+### Install Binary
 
 
-Systemd
+Systemd files:
 
 ```ini
 [Unit]
-Description=Vault Agent
-Requires=consul-online.target
-After=consul-online.target
+Description="HashiCorp Vault - A tool for managing secrets" Documentation=https://www.vaultproject.io/docs/
+Requires=network-online.target
+After=network-online.target ConditionFileNotEmpty=/etc/vault.d/vault.hcl StartLimitIntervalSec=60
+StartLimitBurst=3
 
 [Service]
-Restart=on-failure
-EnvironmentFile=/etc/vault.d/vault.conf
-PermissionsStartOnly=true
-ExecStartPre=/sbin/setcap 'cap_ipc_lock=+ep' /usr/local/bin/vault
-ExecStart=/usr/local/bin/vault server -config /etc/vault.d $FLAGS
-ExecReload=/bin/kill -HUP $MAINPID
-KillSignal=SIGTERM
 User=vault
 Group=vault
+ProtectSystem=full
+ProtectHome=read-only
+PrivateTmp=yes
+PrivateDevices=yes
+SecureBits=keep-caps
+AmbientCapabilities=CAP_IPC_LOCK
+Capabilities=CAP_IPC_LOCK+ep
+CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
+NoNewPrivileges=yes
+ExecStart=/usr/local/bin/vault server -config=/etc/vault.d/vault.hcl ExecReload=/bin/kill --signal HUP $MAINPID 
+KillMode=process 
+KillSignal=SIGINT 
+Restart=on-failure 
+RestartSec=5
+TimeoutStopSec=30
+StartLimitInterval=60
+StartLimitIntervalSec=60
+StartLimitBurst=3
+LimitNOFILE=65536
 LimitMEMLOCK=infinity
 
 [Install]

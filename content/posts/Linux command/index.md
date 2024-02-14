@@ -1181,8 +1181,24 @@ sudo apt-get update --allow-insecure-repositories
 ```
 
 
+## Cronetab
 
-
-
-
-
+```bash
+0 12 1 * * /opt/wordpress/tls_renew.sh >> /var/log/cron.log 2>&1
+# *  *  *  *  *
+# |  |  |  |  |
+# |  |  |  |  |
+# |  |  |  |  +-------------------- day of week [0 - 6] [Sunday=0]
+# |  |  |  +-------------------- month [1-12]
+# |  |  +--------------------- day of month [1-31]
+# |  +---------------------- hour [0-23]
+# +----------------------- min [0-59]
+```
+edit 
+```bash
+crontab -e
+```
+list
+```bash
+crontab -l
+```
