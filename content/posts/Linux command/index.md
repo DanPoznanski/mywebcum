@@ -1181,7 +1181,7 @@ sudo apt-get update --allow-insecure-repositories
 ```
 
 
-## Cronetab
+## Crontab
 
 ```bash
 0 12 1 * * /opt/wordpress/tls_renew.sh >> /var/log/cron.log 2>&1
@@ -1202,3 +1202,86 @@ list
 ```bash
 crontab -l
 ```
+edit other user `root`
+```bash
+crontab -eu root
+```
+
+
+## Systemd Timer
+
+Option
+
+`OnActiveSec=`	Defines a timer relative to the moment the timer unit itself is activated.
+`OnBootSec=`	Defines a timer relative to when the machine was booted up. In containers, for the system manager instance, this is mapped to OnStartupSec=, making both equivalent.
+`OnStartupSec=`	Defines a timer relative to when the service manager was first started. For system timer units this is very similar to OnBootSec= as the system service manager is generally started very early at boot. It's primarily useful when configured in units running in the per-user service manager, as the user service manager is generally started on first login only, not already during boot.
+`OnUnitActiveSec=`	Defines a timer relative to when the unit the timer unit is activating was last activated.
+`OnUnitInactiveSec=`	Defines a timer relative to when the unit the timer unit is activating was last deactivated.
+
+1.Create the file `/etc/systemd/system/helloworld.service` with the following content:
+```ini
+[Unit]
+Description="Hello World script"
+
+[Service]
+ExecStart=/usr/local/bin/helloworld.sh
+
+[Install]
+WantedBy=multi-user.target
+```
+2.Create the file `/etc/systemd/system/helloworld.timer` with the following content:
+```bash
+[Unit]
+Description="Run helloworld.service 5min after boot and every 24 hours relative to activation time"
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=24h
+OnCalendar=Mon..Fri *-*-* 10:00:*
+Unit=helloworld.service
+
+[Install]
+WantedBy=multi-user.target
+```
+This is the timer file that controls the activation of the respective service file.
+
+3.Verify that the files you created above contain no errors:
+```bash
+systemd-analyze verify /etc/systemd/system/helloworld.*
+```
+4.Start the timer:
+```bash
+sudo systemctl start helloworld.timer
+```
+5.Enable the timer to make sure that it is activated on boot
+```bash
+sudo systemctl start helloworld.timer
+```
+from cron to systemd
+```
+Cron     : systemd timer
+-------- : ----------------------------
+@reboot  : OnBootSec=1s
+@yearly  : OnCalendar=*-01-01 00:00:00
+@annually: OnCalendar=*-01-01 00:00:00
+@monthly : OnCalendar=*-*-01 00:00:00
+@weekly  : OnCalendar=Sun *-*-* 00:00:00
+@daily   : OnCalendar=*-*-* 00:00:00
+@hourly  : OnCalendar=*-*-* *:00:00
+```
+
+**Getting e-mail notifications when a timer fails**
+
+In the following example, we are using the **mailx** command from package mailx. It requires the Postfix e-mail server to be installed and correctly configured.
+
+Create the script `/usr/local/bin/send_systemd_email`.
+
+The script requires two parameters: $1, the e-mail address, and $2, the name of the service file for which the failure notification is received. Both parameters are supplied by the unit file running the mail script.
+```bash
+#!/bin/sh
+systemctl status --full "$2" | mailx -S sendwait\
+ -s "Service failure for $2" -r root@$HOSTNAME $1
+```
+
+
+
