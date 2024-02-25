@@ -891,5 +891,27 @@ Set-DnsServerCache –LockingPercent 70
 
 ![ws53](images/ws53.webp)
 
+### DNS Response Rate Limiting (RRL)
 
+See information about Resonse time
+```powershell
+GEt-DnsServerResponseRateLimiting
+```
 
+- `WindowInSec`: This parameter specifies the time window, in seconds, during which the DNS server collects statistics about how many requests have been received. For example, if you set WindowInSec to 7 seconds, the DNS server will collect statistics for the last 7 seconds.
+
+- `LeakRate`: This parameter specifies the rate of leakage or "leakage" in DNS server queries over a specified period of time. If the number of queries exceeds the set value, they will be filtered out or restricted.
+
+- `TruncateRate`: This parameter specifies the rate at which DNS server responses are truncated or "pruned" over a specified period of time. If the number of responses exceeds the set value, they will be truncated or limited.
+
+- `ErrorsPerSec`: This parameter specifies the maximum number of DNS errors that the server can handle per second. If the number of errors exceeds this value, they can be filtered or limited.
+
+- `ResponsesPerSec`: This setting specifies the maximum number of DNS responses that the server can send per second. If the number of responses exceeds this value, they may be filtered or limited.
+
+```powershell
+Set-DnsServerResponseRateLimiting -WindowInSec 7 -LeakRate 4 -TruncateRate 3 -ErrorsPerSec 8 -ResponsesPerSec 8
+```
+Reset RRL settings to default values
+```powershell
+Set-DnsServerResponseRateLimiting -ResetToDefault
+```
