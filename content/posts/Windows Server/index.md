@@ -1149,4 +1149,39 @@ With aging configured for the DNS zone, we can now enable DNS Scavenging on the 
 
 4. Set the **scavenging period to 3 days** for example
 
+Enable DNS scavenging
 ![ws66](images/ws66.webp)
+
+---
+
+### DNS based Authentication of Named Entities (DANE)
+
+
+**What is DANE?**
+DNS-based Authentication of Named Entities (DANE) is an Internet security protocol to allow Public Key Infrastructure X.509 (PKIX) digital certificates, commonly used for Transport Layer Security (TLS), to be bound to domain names using Domain Name System Security Extensions (DNSSEC). It is also an option to secure the DNS infrastructure to store generic verifiable information for multi-factor verification. The most common use of DANE today is the TLSA record type (Transport Layer Security Authentication), which allows users to verify the PKIX certificate received from a website by querying for its information in DNS. 
+
+**Why is DANE important?**
+DANE offers the option for clients to seek a second source of verification, in the case of TLSA, certificate information. Leveraging the authentication inherently in DNSSEC, organisations can publish the legitimate TLS certificate information in DNS, allowing clients to verify that the certificate information published over HTTPS matches the one published over DNS.
+
+**How does DANE work?**
+The client first initiates the connection to a web server, which replies with its PKIX certificate. The client then requests the corresponding TSLA record for the web server from its local recursive DNS server. The TSLA record response received from the DNS server is validated with DNSSEC. The client then computes and compares the details of the TLSA record with the PKIX certificate. A match of the two values will load the target page. A mismatch will result in a page warning and will not load the target page.
+
+High-Level Explanation
+
+1. Client initiates connection to the web server.
+
+2. Client receives PKIX certificate from the web server.
+
+3. Client requests for web server’s TLSA Record.
+
+4. Local Recursive Server validates the TSLA Record with DNSSEC.
+
+5. Local Recursive Server returns the TSLA Record to client.
+
+6. Client compares the PKIX certificate with the TSLA Record.
+
+6a. The page will load for records that match.
+
+6b. The page will not load and display a warning for a record mismatch.
+
+![ws67](images/ws67.webp)
