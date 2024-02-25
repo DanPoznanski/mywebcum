@@ -1001,8 +1001,17 @@ Block site from 4:00 to 23:00
  ```poweshell
  Add-DnsServerQueryResolutionPolicy -ZoneScope "time.com" -name "Time-Policy" -Action DENY -TimeofDay "eq,04:00-23:00"
  ```
+ Ignore site from 4:00 to 23:00 (not be work)
+ ```poweshell
+ Add-DnsServerQueryResolutionPolicy -ZoneScope "time.com" -name "Time-Policy" -Action DENY -TimeofDay "eq,04:00-23:00"
+ ``` 
 Test on Client
 ```powershell
 Resolve-DnsName test.time.com
 ```
 
+
+### DNS Tools
+
+
+![ws58](images/58.webp)
