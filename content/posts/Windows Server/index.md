@@ -930,6 +930,9 @@ Set-DnsServerResponseRateLimiting -mode Disable -force
 
 ### DNS Policy based Load Balancing
 
+![sw57](images/ws57.svg)
+
+
 Create in domain scope 
 ```powershell
 Add-DnsServerPrimaryZone -name "loadbalance.com" -ReplicationScope Domain
@@ -960,7 +963,7 @@ Create Policy
  ```powershell
  Add-DnsServerQueryResolutionPolicy -name "Our-LB-Policy" -Action ALLOW -Fqdn "EQ,*" -ZoneScope "loadbalance.com,1;Scope-Light,1;Scope-Heavy,9" -ZoneName "loadbalance.com"
 
- See Status
+ See Status Zone Policy
  ```poweshell
  Add-DnsServerQueryResolutionPolicy -ZoneScope "loadbalance.com"
  ```
@@ -971,4 +974,35 @@ Clear-DnsClientCache
 nslookup LB-WWW.loadbalance.com
 Resolve-DnsName LB-WWW.loadbalance.com
 ipconfig /displaydns
+```
+
+
+
+### DNS Time Policy
+
+```Powershell
+Add-DnsServerPrimaryZone -name "time.com" -ReplicationScope Domain
+```
+
+add subname test
+```Powershell
+Add-DnsServerResourceRecord -ZoneName "Time.com" -A -name test  -IPv4Address "10.10.10.10."
+```
+See time on server
+```Powershell
+ Get-Date -DisplayHint Time
+```
+ See Status Zone Policy
+ ```poweshell
+ Add-DnsServerQueryResolutionPolicy -ZoneScope "time.com"
+ ```
+
+Block site from 4:00 to 23:00
+ ```poweshell
+ Add-DnsServerQueryResolutionPolicy -ZoneScope "time.com" -name "Time-Policy" -Action DENY -TimeofDay "eq,04:00-23:00"
+ ```
+Test on Client
+```powershell
+Resolve-DnsName test.time.com
+```
 
