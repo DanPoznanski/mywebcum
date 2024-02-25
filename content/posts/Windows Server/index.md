@@ -913,5 +913,62 @@ Set-DnsServerResponseRateLimiting -WindowInSec 7 -LeakRate 4 -TruncateRate 3 -Er
 ```
 Reset RRL settings to default values
 ```powershell
-Set-DnsServerResponseRateLimiting -ResetToDefault
+Set-DnsServerResponseRateLimiting -ResetToDefault -force
 ```
+
+Set RRL to LogOnly mode
+```Powershell
+Set-DnsServerRRL -Mode LogOnly
+```
+
+Disable RRL 
+```powershell
+Set-DnsServerResponseRateLimiting -mode Disable -force
+```
+
+---
+
+### DNS Policy based Load Balancing
+
+Create in domain scope 
+```powershell
+Add-DnsServerPrimaryZone -name "loadbalance.com" -ReplicationScope Domain
+```
+```powershell
+Add-DnsServerPrimaryZone -ZoneName "loadbalance.com" -name "Scope-Heavy"
+```
+```powershell
+Add-DnsServerPrimaryZone -ZoneName "loadbalance.com" -name "Scope-Light"
+```
+see status of Zonescope
+```powershell
+Add-DnsServerPrimaryZone -ZoneName "loadbalance.com"
+```
+
+```powershell
+Add-DnsServerResourceRecord -ZoneName "loadbalance.com" -A -name "LB-WWW" -IPv4Address "192.168.1.10"
+```
+```powershell
+Add-DnsServerResourceRecord -ZoneName "loadbalance.com" -A -name "LB-WWW" -IPv4Address "192.168.1.20" -ZoneScope "Scope-Light"
+```
+```powershell
+Add-DnsServerResourceRecord -ZoneName "loadbalance.com" -A -name "LB-WWW" -IPv4Address "192.168.1.30" -ZoneScope "Scope-Heavy"
+```
+
+
+Create Policy 
+ ```powershell
+ Add-DnsServerQueryResolutionPolicy -name "Our-LB-Policy" -Action ALLOW -Fqdn "EQ,*" -ZoneScope "loadbalance.com,1;Scope-Light,1;Scope-Heavy,9" -ZoneName "loadbalance.com"
+
+ See Status
+ ```poweshell
+ Add-DnsServerQueryResolutionPolicy -ZoneScope "loadbalance.com"
+ ```
+
+ On Client test :
+```powershell
+Clear-DnsClientCache
+nslookup LB-WWW.loadbalance.com
+Resolve-DnsName LB-WWW.loadbalance.com
+ipconfig /displaydns
+
