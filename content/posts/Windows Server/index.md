@@ -653,4 +653,21 @@ powershell command:
 Add-DnsServerZoneDelegation -Name "west.contoso.com" -ChildZoneName "south" -NameServer "west-ns01.contoso.com" -IPAddress 172.23.90.136 -PassThru -Verbose
 ```
 
-![ws33](images/ws33.webp)
+
+### DNS Global Zone (CName)
+
+```powershell
+Set-DnsServerGlobalNameZone -AlwaysQueryServer $True
+```
+
+
+```powershell
+Set-DnsServerGlobalNameZone -Enable $True -PassThru
+```
+
+```powershell
+AddDnsServerPrimaryZone -name GlobalNames -ReplicationScope Domain
+```
+```powershell
+AddDnsServerResourceRecordCName -HostNameAlias srv.test.local -name testhost -ZoneName GlobalNames 
+```
