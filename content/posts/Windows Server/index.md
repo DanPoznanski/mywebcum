@@ -648,7 +648,7 @@ Manually enter the IP address of the DNS server that is authoritative for the de
 
 Select Finish to complete the New Delegation Wizard.
 
-powershell command:
+Powershell command:
 ```powershell
 Add-DnsServerZoneDelegation -Name "west.contoso.com" -ChildZoneName "south" -NameServer "west-ns01.contoso.com" -IPAddress 172.23.90.136 -PassThru -Verbose
 ```
@@ -671,3 +671,225 @@ AddDnsServerPrimaryZone -name GlobalNames -ReplicationScope Domain
 ```powershell
 AddDnsServerResourceRecordCName -HostNameAlias srv.test.local -name testhost -ZoneName GlobalNames 
 ```
+
+### DNS Configure Recursion (anti DDOS DNS  )
+
+disable recursion (also disables forwarders)
+```powershell
+Add-DnsServerRecusionScope -name . -EnableRecusion $false
+```
+
+Clear DNS cache
+```powershell
+Clear-DnsServerCache
+```
+
+Add scope 
+```powershell
+Add-DnsServerRecursionScope -name "OurScope" -EnableRecursion $true
+```
+
+Add Policy 
+```powershell
+Add-DnsServerQueryResolutionPolicy -name "OurRecursionPolicy" -action ALLOW -ApplyOnRecursion -RecursionScope "OurScope" -ServerInterfaceIP "EQ,192.168.1.10"
+```
+next example
+```powershell
+Add-DnsServerQueryResolutionPolicy -name "Allow anly facebook" -action ALLOW -ApplyOnRecursion -RecursionScope "OurScope" -Fqdn "EQ,*.facebook"
+```
+
+
+Delete my policy  `OurRecursionPolicy`
+```powershell
+Remove-DnsServerQueryResolutionPolicy -name "OurRecursionPolicy"
+```
+
+Delete my scope `QutScope`
+```powershell
+Remove-DnsServerRecursionScope -name "OurScope"
+```
+
+
+### DNS Security (DNSSEC)
+
+Digital signatures (using public/private key pairs)
+
+Trust Anchors (Trust Points, storing public keys)
+
+Name Resolution Policy Table (NRPT, to force clients)
+
+KSK - Key Signing key (public/private)
+
+ZKS - Zone Signing Key (public/private)
+
+
+**Step to configure DNSSEC**
+
+1 – Open **Server Manager**,  click Tools and open **DNS Manager**.
+
+2 – In the **DNS Manager**, browse to your Domain name, then right click domain name, click **DNSSEC** and then click **Sign the Zone**.
+
+![ws33](images/ws33.webp)
+
+2 - In the **Zone Signing Wizard** interface, click **Next**.
+
+![ws34](images/ws34.webp)
+
+3 - On the Signing options interface, click **Customize zone signing parameters**, and then click **Next**.
+
+![ws35](images/ws35.webp)
+
+4 – On the Key Master interface, ensure that **The DNS server CLOUD-SERVER is selected as the Key Master**, and then click **Next**.
+
+![ws36](images/ws36.webp)
+
+5 – On the **Key Signing Key (KSK) interface**, click **Next**.
+
+![ws37](images/ws37.webp)
+
+6 – On the **Key Signing Key (KSK) interface**, click **Add**.
+
+![ws38](images/ws38.webp)
+
+7 – **On the New Key Signing Key (KSK) interface**, click **OK**.
+
+~*~ please spend some time to go through about key properties on the New Key Signing Key (KSK) interface.
+
+![ws39](images/ws39.webp)
+
+8 – On the **Key Signing Key (KSK) interface**, click Next.
+
+![ws40](images/ws40.webp)
+
+9 – On the **Zone Signing Key (ZSK) interface**, click **Next**.
+
+![ws41](images/ws41.webp)
+
+10 – On the **Zone Signing Key (ZSK) interface**, click **Add**.
+
+![ws42](images/ws42.webp)
+
+11 – On the **New Zone Signing Key (ZSK) interface**, click **OK**.
+
+![ws43](images/ws43.webp)
+
+12 – On the **Zone Signing Key (ZSK) interface**, click **Next**.
+
+![ws44](images/ws44.webp)
+
+13 – On the **Next Secure (NSEC) interface**, click **Next**.
+
+~*~ NSEC is when the DNS response has no data to provide to the client, this record authenticates that the host does not exist.
+
+![ws45](images/ws45.webp)
+
+14 – On the **Trust Anchors** (TAs) interface, **check the Enable the distribution* of trust anchors for this zone check box**, and then click **Next**.
+
+~*~ A trust anchor is an authoritative entity that is represented by a public key. The TrustAnchors zone stores preconfigured public keys that are associated with a specific zone.
+
+![ws46](images/ws46.webp)
+
+15 – On the **Signing and Polling Parameters interface**, click **Next**.
+
+![ws47](images/ws47.webp)
+
+16 – On the **DNS Security Extensions (DNSSEC) interface**, click **Next**, and then click **Finish**.
+
+![ws48](images/ws48.webp)
+
+![ws49](images/ws49.webp)
+
+17 – In the DNS console, expand **Trust Points**, expand ae, and then click your domain name.
+
+Ensure that the **DNSKEY resource records display**, and that their status is valid.
+
+![ws50](images/ws50.webp)
+
+18 – Open **Server Manager**, click Tools and open **Group Policy Management**.
+
+19 – Next, open **Group Policy Management**, expand Forest: `Windows.ae`, expand Domains, expand `Windows.ae`, right-click **Default Domain Policy**, and then click **Edit**.
+
+![ws51](images/ws51.webp)
+
+20 – In the **Group Policy Management Editor interface**, under **Computer Configuration**, expand **Policies**, expand **Windows Settings**, and then click **Name Resolution Policy**.
+
+~*~ In the right pane, under Create Rules, in the **Suffix box**, type `Windows.ae` to apply the rule to the suffix of the namespace.
+
+~*~ Select both the `Enable DNSSEC in this rule check box` and the `Require DNS clients` to check that the name and address data has been validated by the DNS server check box, and then click Create.
+
+![ws52](images/ws52.webp)
+
+
+Update Groups Policy
+```powershell
+gnupdate /force
+```
+
+see information about Groups Policy
+```powershell
+gpresult /r
+```
+show information about Groups Policy
+```powershell 
+netsh namespace show policy
+```
+See information about TrustAnchor 
+```powershell
+Get-DnsServerTrustAnchor -name test.local
+```
+
+See information about Zone Settings
+```powershell
+Get-DnsServerDnsSecZoneSettings -zonename test.local
+```
+See all Zone Settings
+```powershell
+Get-DnsServerDnsSecZone
+```
+ 
+```powershell
+Clear-DnsServerCache
+Clear-DnsClientCache
+```
+ 
+
+**Configure the DNS Socket Pool**
+
+- 2500 ports for use dns connection
+
+1 – In domain Server, open **Windows PowerShell** and type : `Get-DNSServer`
+
+~*~ This command displays the current size of the DNS socket pool (on the fourth line in the ServerSetting section). Note that the current size is 2,500.
+
+~*~ Please take note that the default DNS socket pool size is 2,500. When you configure the DNS socket pool, you can choose a size value from 0 to 10,000. The larger the value, the greater the protection you will have against DNS spoofing attacks.
+
+2 – Now lets change the socket pool size to 3,000.
+```powershell
+dnscmd /config /socketpoolsize 3000
+```
+3 – **Restart your DNS Server** for the changes to take effect.
+
+~*~ confirm that the new socket pool size now is 3000
+
+**Configure the DNS Cache Locking**
+
+- 300 second Time to Live = 100 percent (%)
+
+In Windows PowerShell, type `Get-Dnsserver`
+
+~*~ This command will displays the current percentage value of the DNS cache lock.
+
+~*~ Note that the current value is 100 percent.
+
+This changes the cache lock value to 70 percent
+```powershell
+Set-DnsServerCache –LockingPercent 70
+```
+~*~ Please take note that you configure cache locking as a percentage value.
+
+3 – Looking your DNS Manager Verify.
+
+![ws53](images/ws53.webp)
+
+
+
