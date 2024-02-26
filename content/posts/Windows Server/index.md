@@ -1185,3 +1185,186 @@ High-Level Explanation
 6b. The page will not load and display a warning for a record mismatch.
 
 ![ws67](images/ws67.webp)
+
+
+### DANE Generate Certificate
+
+1. you need buy one or generate from openssl
+
+
+
+2. put your .cert to Generate TLSA Certificate
+https://www.huque.com/bin/gen_tlsa
+
+
+3. Add to DNS Manager 
+```Powershell
+Add-DnsServerResourceRecord -CertificateAssociationData <hash_from_Generator> -CertificateUsage DomainIssuedCertificate -MatchingType Sha256Hash -Selector SubjectPublicKeyInfo -TLSA -ZoneName test.local -Name _443._tcp.ww1
+```
+
+
+---
+
+### DNS STATS 
+
+clear all statistics
+```Powershell
+Clear-DnsServerStatistics -force
+```
+Clear statistics about only zone `test.local`
+```Powershell
+Clear-DnsServerStatistics -ZoneName test.local -force
+```
+see all statistics
+```Powershell
+Get-DnsServerStatistics 
+```
+see statistic only zone `test.local`
+```Powershell
+Get-DnsServerStatistics -ZoneName test.local 
+```
+
+```Powershell
+$stats_all - Get-DnsServerStatistics 
+```
+```Powershell
+$stats_all.PacketStatistics
+```
+```Powershell
+$stats_zone_test - Get-DnsServerStatistics -ZoneName test.local
+```
+```Powershell
+$stats_zone_test.zonetrasferstatistics
+```
+```Powershell
+$stats_zone_test.zonequerystatistics
+```
+
+### 
+
+
+```Powershell
+Remove-DnsServerZone -name practice.com -force
+```
+Create new zone 
+```Powershell
+Add-DnsServerPrimeryZone -name practice.com -ReplicationScope Domain 
+```
+Create reverse zone to `practice.com`
+```Powershell
+Add-DnsServerPrimeryZone -Networkid '21.22.23.0/24' -Replication Domain
+```
+Create subdomain A - `srv5.practice.com` and create ptr (reverse dns)
+```Powershell
+Add-DnsServerResourceRecord -A -Name srv5 -IPv4Address 21.22.23.5 -ZoneName practice.com -TimeToLive 01:00:00 -CreatePtr
+```
+other method
+```Powershell
+Add-DnsServerResourceRecordA -Name srv4 -IPv4Address 21.22.23.6 -ZoneName practice.com
+```
+```Powershell
+Add-DnsServerResourceRecordPtr -Name 6 -PtrDomainName srv6.practice.com -ZoneName 23.22.21.in-addr.arpa 
+```
+```Powershell
+Add-DnsServerResourceRecordCName -name wwww -ZoneName practice.com -HostNameAlias srv6.practice.com
+```
+```Powershell
+Add-DnsServerResourceRecordAAAA -name srv7 -IPv6Address 2001:db:6783::7 -ZoneName practice.com
+```
+```Powershell
+Add-DnsServerResourceRecordMx -name smtp-mail -ZoneName practice.com -MailExchange srv5.practice.com -Preference 10
+```
+```Powershell
+Add-DnsServerResourceRecord -Srv -DomainName www.practice.com -Name web -port 80 -Priority 20 -Weight 30 -ZoneName practice.com
+```Powershell
+Add-DnsServerResourceRecord -Srv -ZoneName practice.com -Name Our_txt -DescriptiveText "Hello" 
+```
+Sea about zone 
+```Powershell
+Add-DnsServerResourceRecord -ZoneName practice.com
+```
+Sea about zone 
+```Powershell
+Add-DnsServerResourceRecord -ZoneName practice.com | Sort-Object RecordType 
+```
+see about subdomain 
+```Powershell
+Add-DnsServerResourceRecord -ZoneName practice.com -RRType A
+```
+See Aging
+```Powershell
+Get-DnsServerZoneAging practice.com -Aging $true -ScavengeServers 192.168.1.100
+```
+start Scavenging
+```Powershell
+Start-DnsServerScavenging -Force 
+```
+
+## DHCP
+
+DORA
+
+![ws68](images/ws68.webp)
+
+
+### Install DHCP
+
+Install on powershell cli
+```Powershell
+Get-WindwosFeature "dhcp"
+```
+
+```Powershell
+Add-WindowsFeature dhcp -IncludeManagementTools
+```
+
+
+**1. Using Server Manager**
+
+To start the installation process, you need to open Server Manager. From the Start Menu, open the Server Manager console.
+
+Then, click **Add Roles and Features** in the **Server Manager** window. This will cause a pop-up window to appear. On the pop-up, click **Next**
+
+![ws69](images/ws69.webp)
+
+**2. Select Installation Type**
+Once the below page is displayed, choose the **Role-Based** or **Feature-based** installation radio option and click on the **Next** button.
+
+![ws70](images/ws70.webp)
+
+**3. Choose a Server to Install DHCP Role On**
+
+Select the server you want to install the DHCP Server on from the list on the page below. After choosing the Server machine that **hosts your DHCP server**, click **Next**.
+
+![ws71](images/ws71.webp)
+
+**4. Select Server Roles**
+In this step of Configuring DHCP Server in Windows, you need to Select Server Roles.
+
+![ws72](images/ws72.webp)
+
+A pop-up window will appear when you choose the option, requesting that you add features needed by the DHCP server. If you want to add the DHCP management tools along with the DHCP role, keep the Include Management Tools checked selected. Then, click on **Add Features** and then click on the **Next** button to move on.
+
+![ws73](images/ws73.webp)
+
+**5. DHCP Server**
+On the DHCP Server, click on **Next** and continue.
+
+![ws74](images/ws74.webp)
+
+**6. Confirm Installation Selections**
+
+You are so close to finishing Configuring DHCP Server in Windows. In this step, verify that DHCP Server and other names are on the list by looking at it. Click **Install** after that. Click **Close** once everything has been installed successfully, and your DHCP server will be up and running.
+
+Let’s start the DHCP post-deployment configuration process.
+
+![ws75](images/ws75.webp)
+
+![ws76](images/ws76.webp)
+
+**Step 7. Post-deployment Config**
+
+By now, you must complete the installation process. You are ready to start Configuring DHCP Server in Windows. The option **DHCP** should now be shown on the left pane of the window when you open Server Manager. A yellow-marked warning with the words **Configuration required for DHCP Server at…** and the link **More** should appear, as seen in the picture below.
+
+![ws77](images/ws77.webp)
+
