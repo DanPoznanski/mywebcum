@@ -1187,7 +1187,7 @@ High-Level Explanation
 ![ws67](images/ws67.webp)
 
 
-### DANE Generate Certificate
+### DNS DANE Generate Certificate
 
 1. you need buy one or generate from openssl
 
@@ -1307,9 +1307,9 @@ DORA
 ![ws68](images/ws68.webp)
 
 
-### Install DHCP
+### DHCP Install
 
-Install on powershell cli
+Install on Powershell CLI
 ```Powershell
 Get-WindwosFeature "dhcp"
 ```
@@ -1367,4 +1367,6 @@ Let’s start the DHCP post-deployment configuration process.
 By now, you must complete the installation process. You are ready to start Configuring DHCP Server in Windows. The option **DHCP** should now be shown on the left pane of the window when you open Server Manager. A yellow-marked warning with the words **Configuration required for DHCP Server at…** and the link **More** should appear, as seen in the picture below.
 
 ![ws77](images/ws77.webp)
+
+The phrase “All Server Task Details and Notifications” will appear in a new window. You will see the “Post-deployment Configuration” line underneath it. As illustrated below, click on “Complete DHCP Configuration” at the end of that line. There will be an installation wizard. Choose “Next“.
 
