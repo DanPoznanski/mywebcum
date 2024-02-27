@@ -822,7 +822,7 @@ Ensure that the **DNSKEY resource records display**, and that their status is va
 
 Update Groups Policy
 ```powershell
-gnupdate /force
+gpupdate /force
 ```
 
 see information about Groups Policy
@@ -1240,7 +1240,7 @@ $stats_zone_test.zonetrasferstatistics
 $stats_zone_test.zonequerystatistics
 ```
 
-### 
+### DNS Powershell CLI
 
 
 ```Powershell
@@ -1368,5 +1368,29 @@ By now, you must complete the installation process. You are ready to start Confi
 
 ![ws77](images/ws77.webp)
 
-The phrase “All Server Task Details and Notifications” will appear in a new window. You will see the “Post-deployment Configuration” line underneath it. As illustrated below, click on “Complete DHCP Configuration” at the end of that line. There will be an installation wizard. Choose “Next“.
+The phrase **All Server Task Details and Notifications** will appear in a new window. You will see the **Post-deployment Configuration** line underneath it. As illustrated below, click on **Complete DHCP Configuration** at the end of that line. There will be an installation wizard. Choose **Next**.
 
+![ws78](images/ws78.webp)
+
+![ws79](images/ws79.webp)
+
+Three choices are offered to you on this Wizard page. You can move forward using the Administrator’s credentials, the credentials of a different user, and AD Authorization. Select the **Skip AD authorization** radio option if your server is standalone and is not a member of any Active Directory domain. If so, you should log in using the credentials listed in your AD. Click **Commit** once you’ve made a decision that works with your surroundings. Allow it to complete its task, and if it is successful, click **Close** with satisfaction.
+
+![ws80](images/ws80.webp)
+
+![ws81](images/ws81.webp)
+
+**8. Configure DHCP Server**
+
+To continue Configuring DHCP Server in Windows, return to Server Manager and select **DHCP** from the **Tools** menu. The DHCP Configuration Window will then open as displayed below.
+
+
+![ws82](images/ws82.webp)
+
+![ws83](images/ws83.webp)
+
+**9. Select New Scope**
+
+Click the drop-down arrow as indicated above, then right-click **IPv4** in the window’s left pane and select **New Scope**. As seen below, a new window for the scope wizard will open. Choose **Next**
+
+![ws84](images/ws84.webp)
