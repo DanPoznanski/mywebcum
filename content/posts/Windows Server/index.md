@@ -1394,3 +1394,75 @@ To continue Configuring DHCP Server in Windows, return to Server Manager and sel
 Click the drop-down arrow as indicated above, then right-click **IPv4** in the window’s left pane and select **New Scope**. As seen below, a new window for the scope wizard will open. Choose **Next**
 
 ![ws84](images/ws84.webp)
+
+![ws85](images/ws85.webp)
+
+**10. Name your Scope**
+
+Select **Next** after entering the new scope’s name and description.
+
+![ws86](images/ws86.webp)
+
+**11. Insert your IP Address Range**
+
+In this step, you need to input the preferred IP address range. To do this, input your start and End IPs, Length, and Subnet Mask. When you are finished, click on **Next**.
+
+![ws87](images/ws87.webp)
+
+**12. Set any IPs you Consider excluding here**
+
+At this point, you can enter any IP addresses you want to reserve for possible future use with equipment like a printer and other devices.
+
+![ws88](images/ws88.webp)
+
+**13. Lease Duration**
+
+A computer or client will receive an IP address for the lease length until the DHCP server changes it or assigns a new one when the user logs in again. Hit **Next** after setting yours.
+
+![ws89](images/ws89.webp)
+
+**14. DHCP Options**
+
+If you agree with the DHCP Options as they are shown on the page, simply click **Next** on this page.
+
+![ws90](images/ws90.webp)
+
+**15. Default Gateway**
+
+In this step of Configuring DHCP Server in Windows, you must enter the Default Gateway that will be given to the clients during the leasing period on this page. Enter it in and select **Add** next to it. Click **Next** after that.
+
+![ws91](images/ws91.webp)
+
+**16. Domain Name and DNS Servers**
+
+Previously, you got familiar with DNS Records and you know the DNS is crucial since it makes it easier to resolve FQDNs to IP Addresses. So, enter it and press **Next**
+
+![ws92](images/ws92.webp)
+
+**17. Wins Servers**
+
+This step is optional. If you want to use WINS Server in your environment, enter the information below and click **Next** to continue.
+
+![ws93](images/ws93.webp)
+
+**18. Activate Scope**
+
+Simply click **Next** to activate the scope we have set for this Step. Pick the second radio option if you want to activate it later.
+
+![ws94](images/ws94.webp)
+
+**19. Complete Scope Configuration**
+
+Configuring DHCP Server in Windows is now complete. Create additional scopes as shown above for the VLANS you have segmented in your LAN/Network, then set up your router so that it requests IP addresses from the DHCP server in accordance if you have done so.
+
+![ws95](images/ws95.webp)
+
+**20. Verify that your Scope is active and Set up**
+
+Check to see if your configs are present by opening your DHCP Configuration as in Step 9 and opening it as shown below.
+
+![ws96](images/ws96.webp)
+
+**21. Configure DHCP Client on Windows**
+
+The next step is to set up DHCP Client so that a Windows machine can request an IP address from DHCP Server after DHCP Server has been configured on our Windows server.
