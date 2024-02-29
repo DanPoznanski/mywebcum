@@ -1466,3 +1466,283 @@ Check to see if your configs are present by opening your DHCP Configuration as i
 **21. Configure DHCP Client on Windows**
 
 The next step is to set up DHCP Client so that a Windows machine can request an IP address from DHCP Server after DHCP Server has been configured on our Windows server.
+
+
+### DHCP Reservation
+
+1. Expand the **Address Leases** section;
+
+2. Find the DHCP client you need in the list (currently issued dynamic IP addresses have a lease expiration date);
+
+3. Right-click on the item and select **Add to Reservation**.
+
+![ws97](images/ws97.webp)
+
+4. The current IP address will be reserved for this device’s MAC address;
+
+5. In n the **Reservations** section, a new entry will be created for your device.
+
+You can also create a DHCP reservation manually. To do this, you will need to get the hardware (MAC) address of the device’s network adapter. On Windows you can find your MAC address with the command:
+
+```
+Ipconfig /all
+```
+In this example, the Physical Address is `08-3E-8E-AA-F3-0D`. Copy this value.
+
+![ws98](images/ws98.webp)
+
+Right-click on the Reservations section in the DHCP console and select **New Reservation**.
+
+
+Specify the new reservation settings:
+
+- **Reservation name**: type the network name of the device;
+
+- **IP address**: set the device’s IP address from your DHCP scope;
+
+- **MAC address**: paste the physical adapter address you just got;
+
+- **Descriptions**: provide a device (optional).
+
+Click the **Add** button to create a new reservation.
+
+![ws99](images/ws99.webp)
+
+If you entered the MAC address in the wrong format, an error will appear “The Unique Identifier you have entered may not be correct. Do you want to use this Identifier anyway?”. Double-check the MAC address in this case.
+
+![ws100](images/ws100.webp)
+
+You will need to reboot your device to obtain a reserved IP address. Or run the following commands to release the old IP and get a new one from DHCP server.
+
+```
+ipconfig /release
+
+ipconfig /renew
+```
+
+You can manage your reserved IP addresses from in **Reservation** section. This is where you can delete or change any of the DHCP reservation settings.
+
+
+**Managing DHCP Reservations with PowerShell**
+
+ou can also create, modify, and delete reservations on the DHCP server from the PowerShell command line.
+
+The `Add-DhcpServerv4Reservation` cmdlet is used to create DHCP reservations.
+
+The following command will reserve the leased IP address for a device that has already received an IP address from your DHCP server:
+
+```powershell
+Get-DhcpServerv4Lease -IPAddress 192.168.1.50| Add-DhcpServerv4Reservation
+```
+If you need to create a new DHCP reservation for a specific MAC address, use the command:
+
+```powershell
+Add-DhcpServerv4Reservation -ScopeId 192.168.1.0 -IPAddress 192.168.1.51 - ClientId "00-0C-29-05-8B-7E" -Description "Boss_laptop"
+```
+> Hint. You can find out the MAC address on a Windows computer using the command:
+
+> Get-NetIPConfiguration | select @{n=’ipv4address’;e={$_.ipv4address[0]}}, @{n=’macaddress’; e={$_.netadapter.macaddress}}
+
+
+to remove the specific DHCP reservation, run the command:
+```powershell
+Get-DhcpServerv4Reservation -IPAddress 192.168.50.56| Remove-DhcpServerv4Reservation
+```
+
+### DHCP Option
+
+if you create on `Server Options` all be copy to Scope level and Reservations
+
+Server Options => High level
+
+if you create on `Scope level` and `Reservations` but not copy on `Server Options`
+
+Scope Options => Medium level
+
+if you create on `Reservations` not copy on `Server Options` and `Server Options`
+
+Reservations => Low Level
+
+### DHCP Relay
+
+![ws101](images/ws101.svg)
+
+To work :
+Create Scope 
+Add Routing and Remote Access 
+Enabling DHCP relay
+The DHCP relay function is enabled by default on an routing switch. However, if DHCP has been disabled, you can re-enable it by entering the following command at the global configuration level:
+```
+HP Switch(config)# dhcp-relay
+```
+
+**Install a DHCP relay agent on Windows Server**
+
+
+![ws102](images/ws102.svg)
+
+This article shows you how to install and configure a Dynamic Host Configuration Protocol (DHCP) Relay Agent on a computer running Windows Server. A DHCP relay agent works as an intermediary between DHCP clients and DHCP servers that aren't on the same subnet or local network. The DHCP Relay Agent forwards DHCP broadcast messages from clients to remote server, letting clients obtain IP addresses and other network configuration information from a DHCP server located on a different subnet.
+
+To install the DHCP relay agent on Windows Server, you need to deploy the Remote Access server role. The DHCP relay agent is a feature of Remote Access and isn't included in the DHCP server role.
+
+Prerequisites
+Before you can install your DHCP relay agent, you must have the following prerequisites:
+
+- A computer running Windows Server in the remote subnet where you want to install the DHCP relay agent.
+
+- A DHCP server with a DHCP scope configured for the remote subnet.
+
+nstall and configure the server role
+Here's how to install and configure LAN routing as part of the Remote Access server role from the Windows desktop.
+
+1. Sign into the computer where you want to install the DHCP relay agent, then open the **Server Manager**.
+
+2. In the **Server Manager console**, select **Add roles and features**.
+
+3. In the **Add Roles and Features** menu, select **Next** until you reach the **Server Roles** page.
+
+4. Expand the **Remote Access** role by selecting the accompanying checkbox or arrow.
+
+5. In **Role Services**, select **Routing**, then **Add Features** when prompted.
+
+6. Select **Next** until you reach the **Confirm installation selections** page.
+
+7. Select **Install** to begin the installation. After the installation completes, select **Open the Getting Started Wizard**.
+
+8. In the Routing and Remote Access Microsoft Management Console (MMC), right-click the server, then select ***Configure and Enable Routing and Remote Access*** to open the Routing and Remote Access Server Setup Wizard.
+
+9. In the Welcome to the Routing and Remote Access Server Setup Wizard, select **Next**.
+
+10. In **Configuration**, select LAN routing, and then select **Next**.
+
+11. In **Custom Configuration**, select VPN access, and then select **Next** to open the Completing the Routing and Remote Access Server Setup Wizard.
+
+Select **Finish** to close the wizard, then **Start service** when prompted.
+
+
+**Configure DHCP Relay Agent**
+
+Here's how to install the DHCP Relay Agent role from the Routing and Remote Access MMC.
+
+1. In the left pane, expand the server name, then right-click **General** under **IPv4** or **IPv6**, then select **New Routing Protocol**.
+
+2. In the left pane, then right-click **DHCP Relay Agent** under **IPv4** or **IPv6**, then select **New Interface**.
+
+3. Select the network interface you want to use for the DHCP relay agent. Select **OK**.
+
+4. In the left pane, then right-click **DHCP Relay Agent** under **IPv4** or **IPv6**, then select **Properties**.
+
+5. Enter the IP address of the DHCP server you want to relay DHCP requests to, then select **Add**.
+
+6. Select **OK** to save your settings.
+
+Now the DHCP Relay Agent is installed and configured on your Windows Server.
+
+> Dont forget create scope
+
+> Dont forget confige reverse routing for DHCP to Client
+
+* DHCP Know about clients message using this line `GIADDR field` (Gateway IP Address)
+
+```
+route print
+```
+
+add route to gateway 192.168.1.11 
+```
+route add 192.168.2.0 mask 255.255.255.0 192.168.1.11 -p
+```
+
+
+### DHCP Updates to DNS Records
+
+Set for not AD account 
+
+View current A records in `test.local`
+
+```powershell
+Get-DnsServerResourceRecord -computer -srv2016 -ZoneName test.local -RRType A
+```
+Create reverse lookup zone for 192.168.2.0/24
+```powershell
+Add-DnsServerPrimaryZone -computer srv2016 -NetworkId '192.168.2.0/24' -ReplicationScope Domain
+```
+View current A and PTR records in specific zones 
+```powershell
+Get-DnsServerResourceRecord -computer srv2016 -ZoneName test.local -RRType A
+Get-DnsServerResourceRecord -computer srv2016 -ZoneName 2.168.192.in-addr.arpa -RRType Ptr
+```
+
+Set DHCP IPv4 propeties regarding dynamic updates to dns
+```powershell
+Set-DhcpServerv4DnsSetting -computer srv2016 -DynamicUpdates Always -UpdateDnsRRForOlderClients $true -DeleteDnsRRForOlderClients $true -DeleteDnsRROnLeaseExpiry $true
+```
+
+
+### DHCP PXE Support
+
+Scope Option > Right-click Configuure Options 
+
+- [X] 66 = Boot Server Host Name
+
+- [X] 67 = BootFile NameWhen the initial DHCP offer from the DHCP server contains these boot options, an attempt is made to connect to port 4011 on the DHCP server. This offer fails if the PXE server is on another computer.
+
+
+**Configuring the DHCP server for WDS**
+
+First in the line of duty is the DHCP server. Here we need to add two more scope options to tell clients where our WDS server is located, and by located I mean its IP address, and what is the boot image file name the clients need to download in order to be able to boot from network.
+
+Open your DHCP server console, locate your scope for the clients pool, and drill down to **cope Options**. Right-click this folder and choose **Configure Options**.
+
+![ws103](images/ws103.webp)
+
+What interest us here, are options **66** and **67**. Check the box next to 66 then in the **String value** box, type the IP address of your WDS server. Once you’re done with this, go and check the box next to option **67**. Here, we need to put the path for the boot file name, and we have two options: one for the x86 architecture and the other one for the x64 one. Unfortunately we cannot put both, but since most of the systems are now x64, I will just use this one.
+
+For the x64 architecture type **bootx64wdsnbp.com**
+For the x86 architecture type **bootx86wdsnbp.com**
+
+![ws104](images/ws104.webp)
+
+### DHCP Superscopes and Multicast Scopes
+
+Create Scope 1 and Scope 2
+```powershell
+Add-DhcpServerv4Scope -name Network1 -StartRange 10.0.1.1 -EndRange 10.0.1.254 -Status Active -SubnetMask 255.255.255.0
+```
+```powershell
+Add-DhcpServerv4Scope -name Network1 -StartRange 10.0.2.1 -EndRange 10.0.2.254 -Status Active -SubnetMask 255.255.255.0
+```
+
+Exclusion ip from ...1.1 to ...1.10 and ...2.1 to ...2.10
+```powershell
+Add-DhcpServerExclusionRange -Scopeid 10.0.1.0 -StartRange 10.0.1.1 -EndRange 10.0.1.10
+```
+```powershell
+Add-DhcpServerExclusionRange -Scopeid 10.0.2.0 -StartRange 10.0.2.1 -EndRange 10.0.2.10
+```
+
+add information about default gateway to scope 1 and scope 2
+```powershell
+Set-DhcpServerv4OptionValue -Scopeid 10.0.1.0 -Router 10.0.1.1
+```
+
+Super Scope union scope 1 and scope
+```powershell
+Add-DhcpServerv4Superscope -SuperscopeName Our_Superscope -ScopeId 10.0.1.0,10.0.2.0
+```
+
+
+
+
+
+# WDS
+
+Install from powershell cli
+```powershell
+Get-WindowsFeature wds*
+```
+
+Install moduls
+```powershell
+Install-WindowsFeature wds -IncludeAllSubFeature -IncludeManagementTools
+```
