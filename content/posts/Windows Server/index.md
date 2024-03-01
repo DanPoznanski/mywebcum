@@ -1726,7 +1726,7 @@ add information about default gateway to scope 1 and scope 2
 Set-DhcpServerv4OptionValue -Scopeid 10.0.1.0 -Router 10.0.1.1
 ```
 
-Super Scope union scope 1 and scope
+Super Scope union scope 1 and scope 2
 ```powershell
 Add-DhcpServerv4Superscope -SuperscopeName Our_Superscope -ScopeId 10.0.1.0,10.0.2.0
 ```
