@@ -1942,7 +1942,11 @@ ipconfig /SetClassid Ethernet
 
 
 
+### DHCP Failover 
 
+Replication parthners
+
+![ws125](images/ws125.svg)
 
 
 
