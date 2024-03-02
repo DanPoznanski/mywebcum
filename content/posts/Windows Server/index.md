@@ -1890,7 +1890,7 @@ ipconfig /SetClassid Ethernet
 
 ### DHCP Split Scopes
 
-![ws125](images/ws125.webp)
+![ws125](images/ws124.svg)
 
 
 1. **Install DHCP Role**: Ensure that the DHCP role is installed on both servers.
