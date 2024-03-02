@@ -1889,6 +1889,7 @@ ipconfig /SetClassid Ethernet
 
 ## DHCPv6
 
+[link](https//blog.pdan.dev/posts/dhcpv6/)
 
 ### Pv6 Address Types
 
@@ -1927,35 +1928,10 @@ An IPv6 address is a 128-bit network layer identifier for a single interface of 
 - Broadcast - There are no broadcast addresses in IPv6. Broadcast functionality is implemented using multicast addresses. 
 
 ![ws129](images/ws129.webp)
-
 ***Figure 2. IPv6 Address Types***
 
 
-
-- C sends a neighbor solicitation message to check if anyone else is using this address. This message has info about the destination address in the ***ethernet header***.
-
-- **33–33** is the prefix for solicited-node multicast. The last 48 bits are mapped from the destination IPv6 solicit-node multicast address (ff02::1:ffcc:cccc). This packet is only listened to by a device that shares the same last 24 bits in its MAC address (cc-cc-cc).
-
-- Looking at the **IPv6 header** in the solicited-node multicast message, the source address is unspecified (::) because DAD is in progress.
-
-- Destination IPv6 address is the solicited-node multicast address for C’s link-local address **(ff02::1:ffcc:cccc)**. This address gets mapped to the Ethernet MAC address with the device sharing the last 24 bits with C’s MAC address.
-
-- The hop limit is set to 255 by default.
-
-- Looking at the **target address** inside the ICMPv6 header is the same as C’s link-local address which needs to be checked.
-
-- C waits for a second to get any response from other devices on the network. If a duplicate is detected, C determines that the link-local address generated can’t be used and generates another random value to get a new one and checks again. If no duplication is detected the tentative address gets assigned to the device for use.
-
-> Note: Normally the chances of duplication are low unless a MAC spoofing attack is being carried out on the network.
-
-&nbsp;
-
-&nbsp;
-
 - `2000:` - Global Address (for global internet)
-
-&nbsp;
-
 
 - `3FFF:` or `FF_ _:` - Multicast Address 
 
@@ -1968,24 +1944,6 @@ Well-known multicast addresses have the prefix ff00::/12. As shown in Figure 4-1
 - ff02::5: All OSPFv3 routers
 
 - ff02::a: All EIGRP (IPv6) routers
-
-
-### Router Solicitation and Router Advertisement Messages
-
-IPv6-enabled devices can be divided into two categories, routers and hosts. Router Solicitation and Router Advertisement messages are sent between hosts and routers.
-
-- **Router Solicitation (RS) message**: When a host is configured to obtain its addressing information automatically using Stateless Address Autoconfiguration (SLAAC), the host will send an RS message to the router. The RS message is sent as an IPv6 all-routers multicast message.
-
-- **Router Advertisement (RA) message**: RA messages are sent by routers to provide addressing information to hosts using SLAAC. The RA message can include addressing information for the host such as the prefix and prefix length. A router will send an RA message periodically or in response to an RS message. By default, Cisco routers send RA messages every 200 seconds. RA messages are sent to the IPv6 all-nodes multicast address. A host using SLAAC will set its default gateway to the link-local address of the router that sent the RA.
-
-for more information
-
-https://www.networkacademy.io/ccna/ipv6/neighbor-discovery-protocol
-
-
-
-
-
 
 
 
@@ -2001,111 +1959,9 @@ Flags :
 
 - O-bit – **Other Config** Flag tells the host that there is other information the router can provide (such as DNS information defined in Stateless DHCPv6 (RFC 3736))
 
-Automatic address assignment for IPv6 works quite a bit differently than IPv4. Even so, most of the DHCP options are similar, but there are notable differences in behavior in how things are assigned and also how items like the gateway are handed off to clients. Unless otherwise noted, options of the same name work the same for DHCP and DHCPv6
 
 
 
-### SLAAC IPv6
-
-Before a host can communicate on a network, it must be configured with network parameters. The absolute minimum requirement for communication to take place is the assignment of an IP address and a subnet mask. Additional network parameters, including a default gateway and a DNS server, help expand a host’s communication capabilities.
-
-These parameters must either be manually configured or assigned using a network management protocol such as the Dynamic Host Configuration Protocol (DHCP). In the latter case, a network administrator must still set up the DHCP server and configure the host to request network parameters from the DHCP server.
-
-IPv6 has included within its mechanisms an automatic process through which an IPv6 host can obtain the absolute minimum network parameters it needs to communicate on the network with zero intervention from an administrator. This mechanism is called Stateless Address Auto-Configuration (SLAAC). 
-
-In this article, we’ll take a closer look at what SLAAC is, how it operates, and the areas where it can be most useful.
-
-**What is SLAAC, and what does it do?**
-
-Configuring a host in IPv4 requires either manual configuration or automatic configuration using a DHCP server. Stateless Address Auto-Configuration (SLAAC) can automatically configure IPv6 host parameters on an IPv6 host without the need for manual configuration or a DHCP server.
-
-The second part of the name is quite clear, indicating that SLAAC automatically configures an IPv6 address on an IPv6 host. However, what does “stateless” mean? 
-
-“Stateful” address assignment involves a server, such as one running DHCP, to actively keep a database of the addresses that have been assigned. The DHCP server assigns and manages IP addresses and lease times and keeps a mapping of the corresponding host MAC addresses. In other words, the DHCP server maintains an accurate representation of the current “state” of the network in terms of these elements of address allocation.
-
-“Stateless” refers to the fact that there is no centralized server tracking address assignments, corresponding MAC addresses, and lease times. It’s stateless in the sense that there is no entity that currently has a record of the current state of address assignments and related information.
-
-SLAAC is designed to be a simple, automatic approach to assigning IPv6 addresses. It is defined in RFC4862 and is specifically used to assign only a global unicast IPv6 address, an IPv6 prefix length, and, optionally, a default router. These are the minimum network parameters required for communication on the network.
-
-In addition, SLAAC can be used to direct a host to a DHCPv6 server, where it can obtain further network parameters such as a DNS server as well as a multitude of other DHCP options. This extra step is often essential because of how important DNS is for accessing the internet, and how costly DNS resolution failures can be, as described in this case study.
-
-The SLAAC process involves the use of the Neighbor Discovery (ND) protocol, which is used to gather some of the information required for network communication and unique address assignment. SLAAC employs ICMPv6 messages that are exchanged among IPv6 hosts and routers to complete the configuration process, including Router Solicitation (RS), Router Advertisement (RA), Neighbor Solicitation (NS), and Neighbor Advertisement (NA) messages. The Duplicate Address Detection (DAD) process is used after initial address assignment to verify that the address chosen is unique.
-
-**How does SLAAC work?**
-
-We’ll be using the following topology with the indicated IPv6 address space:
-
-![ws125](images/ws125.webp)
-Network topology of an IPv6 host connected to an IPv6 router
-
-Note that the address space being used is for demonstration purposes. You can use any valid global unicast address space.
-
-**Step 0: Link-local IPv6 address assignment**
-
-Technically, this is not actually part of the SLAAC process, but it is a prerequisite. As soon as an IPv6 host is connected to an IPv6 network, it automatically generates its own IPv6 link-local address. Link-local addresses are in the form of fe80::/64, are only locally significant, and are primarily used by various protocols for control-plane communication within a particular network segment. 
-
-Link-local addresses are generated in various ways depending on the operating system or firmware of the IPv6 device in question. For example, Cisco devices use EUI-64, which generates an address using the interface’s MAC address as part of the algorithm, while Windows computers generate them randomly.
-
-Once assigned, the node performs a duplicate address detection (DAD).  This is a process used to check and ensure that the link-local address is indeed unique on the segment. If a duplicate address is detected, the host is informed, and it attempts to choose a different link local address (if this fails, then SLAAC cannot continue). Once uniqueness is ensured and the link local address is activated on the interface, the IPv6 host is able to communicate using ND to perform all the necessary SLAAC operations to obtain a unique global unicast IPv6 address.
-
-**Step 1: Router solicitation and router advertisement**
-
-The IPv6 host sends out an RS message using its newly obtained link-local address. The RS message solicits any router that may be on the segment for an IPv6 global unicast prefix. The FF02::2 **all routers** multicast address is used as the destination of the RS message. Only IPv6 routers will receive this message because only IPv6 routers belong to this multicast group.
-
-Once the IPv6 router receives this message, it responds with an RA message, advertising its own global IPv6 prefix as well as the network prefix length. In the network topology presented above, the prefix sent would be 2001:1234:: and the prefix length would be /64. The RA uses the router’s link-local address on its Gi0/0 interface as the source IPv6 address and the **all hosts** multicast address of FF02::1 as the destination.
-
-**Step 2 - Global unicast address configuration**
-
-At this point, the IPv6 host has learned the network prefix as well as the prefix length. The only thing left is for the host to determine the right-most 64 bits of its IPv6 address. This can be done in various ways, once again, based on the operating system or the firmware of the IPv6 device. Let’s say for simplicity, that our host randomly chooses ::2 as the right-most 64 bits of its IPv6 address, thus resulting in a SLAAC assigned IPv6 address of 2001:1234::2/64 for the host.
-
-The router may specify its own address as the host’s default gateway, depending on whether we configure the router to do so or not. If it does, then it will share its own IPv6 link-local address of the Gi0/0 interface as the default gateway.
-
-**Step 3 - Duplicate address detection for the global unicast address**
-
-Finally, the last step is to run DAD again to ensure that there are no duplicate addresses on the network. If the IPv6 address passes the DAD check, then no duplicate address is found, and the host now has an IPv6 global unicast address, a prefix length, and a default router. (Because of the previous steps taken, DAD should not fail at this step; if it does, something has gone wrong, and the SLAAC process must restart with a new link-local identifier.) Once DAD passes, the host can now communicate on the network segment as well as with destinations behind the local gateway router, such as other LANs or the global internet.
-
-We can configure the router in a few different ways. So far, we’ve described a basic configuration, where the local router provides the prefix, prefix length, and default router parameters in its RA, and the host is instructed that these are the only IPv6 parameters to be configured. But other behaviors are also possible.
-
-The three primary ways that SLAAC operates involve the local IPv6 router sending out an RA that instructs the host to:
-
-- Use the prefix, prefix length, and default router contained within the RA as the only IPv6 parameters for the host. This is the process that has been described above.
-
-- Use the prefix, prefix length, and default router contained within the RA and also request a DNS server address from a DHCPv6 server.
-
-- Use a DHCPv6 server to receive all of the required network parameters by sending out a DHCP Discover message; this essentially tells the host to use DHCP instead of SLAAC.
-
-An IPv6 host is instructed to do one of the above based on the settings of the autoconfiguration flags found within a field of the RA message. Below you can see a depiction of an RA message focusing on the contents of the Autoconfig Flags field:
-
-![ws126](images/ws126.webp)
-The details of the Autoconfig Flags field found within an RA (source)
-
-- If the **Managed (M)** flag is set to 1, the host is instructed to obtain all of its IPv6 network parameters from a DHCPv6 server. If so, the value of the **Other Configuration (O)** flag has no meaning and is ignored.
-
-- If the M flag is set to 0 and the O flag is set to 1, the host is instructed to receive its prefix, prefix length, and default router information from the contents of the RA message but to request a DNS server address from a DHCPv6 server.
-
-- If M and O are set to 0, the host is instructed to simply use the prefix, prefix length, and the default router provided in the RA and nothing more.
-
-The **Default Router Preference (Prf)** is two bits in length and can have the values of 01 (high), 00 (medium), or 11 (low). (Note that the seemingly odd choices of numbers for these priorities are intentional; see RFC4191 for more details.) When a host receives RAs from multiple messages, the value of the Prf field is used to determine which router to prefer as the default router.
-
-The following is a Wireshark packet capture of an RA message:
-
-![ws126](images/ws127.webp)
-Wireshark capture of an RA message
-
-Note the following:
-
-- The source address is the link-local address of the router, while the destination address is the **all hosts** multicast address.
-
-- The message is contained within an ICMPv6 packet.
-
-- The type is set to 134, which indicates an RA.
-
-- The flags are set to M=0 and O=0, so the RA is instructing the host to use the 
-prefix, prefix length, and default router delivered by the RA only.
-
-- The Prf is set to 01, which is high.
-
-- The prefix and prefix length are 2001:db8:123:123::/64 and are contained within an ICMPv6 option called **Prefix Information**.
 
 ### DHCP Preparing for IPv6 Scopes
 
