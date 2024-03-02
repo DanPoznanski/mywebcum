@@ -1891,77 +1891,6 @@ ipconfig /SetClassid Ethernet
 
 More about DHCPv6 : [link](https://blog.pdan.dev/posts/dhcpv6)
 
-### Pv6 Address Types
-
-The IPv6 Address Space
-As we already learned, IPv6 addresses are 128-bit long, which means that there are 340 undecillion possible addresses (the exact number is shown below).
-```
-340,282,366,920,938,463,463,374,607,431,768,211,456
-```
-
-or reference, in IPv4 with its 32-bit address space, there are 4.29 billion possible addresses.
-
-The Internet Assigned Numbers Authority (IANA) allocates only a small portion of the whole IPv6 space. IANA provides global unicast addresses that start with leading leftmost bits 001. A small portion of the addresses starting with 000 and 111 are allocated for special types. All other possible addresses are reserved for future use and are currently not being allocated. 
-
-![ws128](images/ws128.webp)
-***Figure 1. IANA’s Allocation of IPv6 Address Space***
-
-Figure 1 visualizes the allocation logic. Note the following examples of Global Unicast Addresses:
-```
-2001:4::aac4:13a2
-2001:0db6:87a3::2114:8f2e:0f70:1a11
-2c0f:c20a:12::1
-```
-At present, in the Internet IPv6 routing table, all prefixes start with the hexadecimal digit 2 or 3, because IANA allocates only addresses that start with the first 3 bits 001
-
-
-### The IPv6 Address Types
-
-An IPv6 address is a 128-bit network layer identifier for a single interface of IPv6 enabled node.  There are three main types of addresses as shown in Figure 2:
-
-- **Unicast** - A network layer identifier for a **single interface** of IPv6 enabled node. Packets sent to a unicast address are delivered to the interface configured with that IPv6 address. Therefore, it is **one-to-one** communication.
-
-- **Multicast** - A network layer identifier for **a set of interfaces**, belonging to different IPv6 enabled nodes. Packets sent to a multicast address are delivered to all interfaces identified by that address. Therefore, it is **one-to-many** communication.
-
-- **Anycast** - A network layer identifier for **a set of interfaces**, belonging to different IPv6 enabled nodes.  Packets sent to an anycast address are delivered to the "closest" interface identified by that address. "Closest" typically means the one with the best routing metric according to the IPv6 routing protocol. Therefore, it is **one-to-closest** communication.
-
-- Broadcast - There are no broadcast addresses in IPv6. Broadcast functionality is implemented using multicast addresses. 
-
-![ws129](images/ws129.webp)
-***Figure 2. IPv6 Address Types***
-
-
-- `2000:` - Global Address (for global internet)
-
-- `3FFF:` or `FF_ _:` - Multicast Address 
-
-Well-known multicast addresses have the prefix ff00::/12. As shown in Figure 4-12, this means that the third hexadecimal digit, the Flag field, is always set to 0. Well-known multicast addresses are predefined or reserved multicast addresses for assigned groups of devices. These addresses are equivalent to IPv4 well-known multicast addresses in the range 224.0.0.0 to 239.255.255.255. Some examples of IPv6 well-known multicast addresses include the following:
-
-- ff02::1: All IPv6 devices
-
-- ff02::2: All IPv6 routers
-
-- ff02::5: All OSPFv3 routers
-
-- ff02::a: All EIGRP (IPv6) routers
-
-
-
-### R.A. - Router Advertisement Flags
-
-Flags :
-
-- A-bit – **Autonomous** Address Autoconfiguration Flag tells the node it should perform stateless address assignment (SLAAC RFC 4862)
-
-- L-bit – **On-Link Flag** tells the node that the prefix listed in the RA is the local IPv6 address
-
-- M-bit – **Managed** Address Config Flag tells the host if it should use stateful DHCPv6 (RFC 3315) to acquire its address and other DHCPv6 options
-
-- O-bit – **Other Config** Flag tells the host that there is other information the router can provide (such as DNS information defined in Stateless DHCPv6 (RFC 3736))
-
-
-
-
 
 ### DHCP Preparing for IPv6 Scopes
 
@@ -1979,11 +1908,11 @@ Enable Advartising Enabled
 ```powershell
 Set-NetIPInterface -AddressFamily IPv6 InterfaceAlias "ethernet" -Advertising Enabled
 ```
-
+View Route V6
 ```powershell
 Get-NetRoute -InterfaceAlias "ethernet" -AddressFamily IPv6
 ````
-
+Create network v6
 ```powershell
 new-NetRoute -DestinationPrefix 2001:db:6783::/64 -InterfaceAlias "ethernet" -Publish Yes
 ```
