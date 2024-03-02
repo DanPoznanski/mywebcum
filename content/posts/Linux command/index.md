@@ -1282,6 +1282,57 @@ The script requires two parameters: $1, the e-mail address, and $2, the name of 
 systemctl status --full "$2" | mailx -S sendwait\
  -s "Service failure for $2" -r root@$HOSTNAME $1
 ```
+Make sure the script is executable:
+```bash
+sudo chmod 755 /usr/local/bin/send_systemd_email
+```
+
+Create the file `/etc/systemd/system/send_email_to_USER@.service`.
+```bash
+[Unit]
+Description=Send systemd status information by email for %i to USER
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/send_systemd_email EMAIL_ADDRESS %i
+User=root
+Group=systemd-journal
+```
+Replace USER and `EMAIL_ADDRESS` in the file with the login and e-mail address of the user that should receive the e-mail. `%i` is the name of the service that has failed (it is passed on to the e-mail service by the `%n` parameter).
+
+Verify the service file and fix the reported issues:
+systemd-analyze verify `/etc/systemd/system/send_email_to_USER@.service`
+```
+
+Verify the service file and fix the reported issues:
+```bash
+sudo systemctl start send_email_to_USER@dbus.service
+```
+If the command returns no output, the file has passed the verification successfully.
+
+To verify the complete procedure, start the service using the dbus instance for testing. (You can use any other service that is currently running. dbus is used in this example because the service is guaranteed to run on any installation.)
+```bash
+sudo systemctl start send_email_to_USER@dbus.service
+```
+If successful, ***EMAIL_ADDRESS*** receives an e-mail with the subject Service failure for dbus containing dbus status messages in the body. (This is just a test, there is no problem with the dbus service. You can safely delete the e-mail, no action is required).
+
+If the test e-mail has been successfully sent, proceed by integrating it into your service file.
+
+To add an e-mail notification to the service, add an OnFailure option to the Unit section of the service file for which you would like to get notified in the event of failure:
+```bash
+[Unit]
+Description="Hello World script"
+OnFailure=send_email_to_USER@%n.service
+
+[Service]
+ExecStart=/usr/local/bin/helloworld.sh
+```
+The e-mail service file has the recipient's e-mail address hard-coded. To send notification e-mails to a different user, copy the e-mail service file, and replace the user login in the file name and the e-mail address within the copy.
+
+To send a failure notification to several recipients simultaneously, add the respective service files to the service file (use spaces as a separator):
 
 
+```bash
+OnFailure=send_email_to_tux@%n.service send_email_to_wilber@%n.service
+```
 

@@ -203,7 +203,7 @@ pvecm nodes
 ```
 qm list
 ```
-migrate machine (101 = id of machine), (pve2 = name of node2)
+migrate machine from node1 (101 = id of machine), to (pve2 = name of node2)
 ```
 qm migrate 101 --online pve2 --with-local-disks
 ```
