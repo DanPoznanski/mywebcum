@@ -1887,6 +1887,65 @@ ipconfig /SetClassid Ethernet
 ```
 ---
 
+
+### DHCP Split Scopes
+
+![ws125](images/ws125.webp)
+
+
+1. **Install DHCP Role**: Ensure that the DHCP role is installed on both servers.
+
+2. **Authorize DHCP Servers**: Make sure both DHCP servers are authorized in Active Directory if they're not already.
+
+3. **Open DHCP Management Console**: 
+  - Go to **Start** > **Administrative Tools** > **DHCP**.
+
+4. **Create DHCP Scope:**
+
+  - Expand your DHCP server in the DHCP Management Console.
+
+  - Right-click on **IPv4** and select **New Scope**.
+
+  - Follow the wizard to create a new DHCP scope on the first DHCP server. Specify the IP address range, subnet mask, default gateway, DNS servers, lease duration, and any exclusions as needed.
+
+5. **Configure Split Scope:**
+
+  - After creating the scope on the first DHCP server, right-click on the scope and select **Advanced** > **Split-scope.**
+
+  - Follow the wizard to configure the split scope.
+
+  - Specify the percentage of IP addresses you want to allocate to each server. Typically, this is 50% for each server, but you can adjust it based on your requirements.
+
+6. **Authorize Second DHCP Server:**
+
+  - Ensure that the second DHCP server is authorized in Active Directory.
+
+  - If it's not authorized, right-click on **IPv4** in the DHCP Management Console, select **Authorize**, and provide appropriate credentials to authorize the server.
+
+7. Create DHCP Scope on Second Server:
+
+  - Once the split scope is configured, create an identical DHCP scope on the second DHCP server, but with a non-overlapping IP address range. This ensures redundancy and load balancing.
+
+  - Make sure to exclude the IP address range that is already assigned to the first server.
+
+8. **Test the Configuration:**
+
+ - Ensure that both DHCP servers are responding to client requests.
+
+ - Test the failover by shutting down one DHCP server and confirming that the other server is still able to provide IP addresses to clients.
+
+**Monitoring and Maintenance:**
+ 
+ - Regularly monitor the DHCP servers to ensure they're functioning correctly.
+
+ - Perform maintenance tasks like updating lease durations, adjusting IP address ranges, or adding exclusions as needed.
+
+
+
+
+
+
+
 ## DHCPv6
 
 More about DHCPv6 : [link](https://blog.pdan.dev/posts/dhcpv6)
@@ -1917,7 +1976,10 @@ Create network v6
 new-NetRoute -DestinationPrefix 2001:db:6783::/64 -InterfaceAlias "ethernet" -Publish Yes
 ```
 
-
+Add DHCPv6 Scope
+```powershell
+Add-DhcpServerv6Scope -name second-ipv6-scope -Prefix 3000:beef::
+```
 
 
 
