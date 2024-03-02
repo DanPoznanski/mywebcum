@@ -1889,7 +1889,7 @@ ipconfig /SetClassid Ethernet
 
 ## DHCPv6
 
-[link](https//blog.pdan.dev/posts/dhcpv6/)
+More about DHCPv6 : [link](https://blog.pdan.dev/posts/dhcpv6)
 
 ### Pv6 Address Types
 
