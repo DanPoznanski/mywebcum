@@ -2386,6 +2386,20 @@ Invoke-IpamGpoProvisioning –Domain mylab.local –GpoPrefixName MYLAB_IPAM –
 
 28. We need to update the group policy on our domain controller. Open a command prompt and run command `gpupdate /force`.
 
+![ws175](images/ws175.webp)
+
+**Step:5 Managed Server Access Settings:**
+
+29. Right-click on the server and then click on **Edit Server**.
+
+![ws176](images/ws176.webp)
+
+30. Select Managed from the drop-down list to manage the server by the IPAM server. Click on **OK**.
+
+![ws177](images/ws177.webp)
+
+
+
 
 
 
