@@ -2368,6 +2368,19 @@ After installing the IPAM feature on windows server 2019, the next step is to co
 
 ![ws171](images/ws171.webp)
 
+To fix this, we need to run the `Invoke-IpamGpoProvisioning` cmdlet at an elevated Windows PowerShell prompt.
+
+25. On the IPAM server, open **Windows PowerShell** as administrator.
+
+![ws172](images/ws172.webp)
+
+26. Run the below cmdlet at the PowerShell.
+```powershell
+Invoke-IpamGpoProvisioning –Domain mylab.local –GpoPrefixName MYLAB_IPAM –IpamServerFqdn WS2K19-SRV02.mylab.local -DelegatedGpoUser Administrator@mylab.local
+```
+
+
+27. On Domain Controller, check the IPAM GPO’s.
 
 
 
