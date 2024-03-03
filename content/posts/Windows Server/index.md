@@ -2354,7 +2354,7 @@ After installing the IPAM feature on windows server 2019, the next step is to co
 
 **Step:3 Start Server Discovery**
 
-22. On the IPAM Overview page, click on the **Start server discovery** link to start the task to discover the server in the selected domain. It will take some time to finish.
+22. On the IPAM Overview page, click on the **Start server discovery** link to start the task to discover the server in the selected domain. It will take some time to **Complete**.
 
 ![ws169](images/ws169.webp)
 
@@ -2397,6 +2397,29 @@ Invoke-IpamGpoProvisioning –Domain mylab.local –GpoPrefixName MYLAB_IPAM –
 30. Select Managed from the drop-down list to manage the server by the IPAM server. Click on **OK**.
 
 ![ws177](images/ws177.webp)
+
+**Step:6 Retrieve Data from Managed Servers**
+
+31. Right-click the servers that are selected, and then click **Refresh Server Access** Status. This action also will take a few minutes to complete.
+
+![ws178](images/ws178.webp)
+
+32. Verify the IPAM server access status to **Unblocked**.
+
+![ws179](images/ws179.webp)
+
+33. Right-click the servers that are selected, and then click **Retrieve All Server Data**.
+
+![ws180](images/ws180.webp)
+
+34. Wait for the data collection tasks to complete. Verify All the DHCP and DNS Data in IPAM Console.
+
+![ws181](images/ws181.webp)
+
+
+
+
+
 
 
 
