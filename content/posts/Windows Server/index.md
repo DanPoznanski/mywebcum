@@ -2382,6 +2382,10 @@ Invoke-IpamGpoProvisioning –Domain mylab.local –GpoPrefixName MYLAB_IPAM –
 
 27. On Domain Controller, check the IPAM GPO’s.
 
+![ws174](images/ws174.webp)
+
+28. We need to update the group policy on our domain controller. Open a command prompt and run command `gpupdate /force`.
+
 
 
 
