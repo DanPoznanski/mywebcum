@@ -2344,7 +2344,31 @@ After installing the IPAM feature on windows server 2019, the next step is to co
 
 ![ws166](images/ws166.webp)
 
-20. Click on the Get Forests button and wait for the background task to finish. A message will appear, click on OK to close it.
+20. Click on the **Get Forests** button and wait for the background task to finish. A message will appear, click on **OK** to close it.
+
+![ws167](images/ws167.webp)
+
+21. Choose each domain that you will manage with the current IPAM server by selecting it from the drop-down list and then click on the **Add** button to add it. Click on **OK**.
+
+![ws168](images/ws168.webp)
+
+**Step:3 Start Server Discovery**
+
+22. On the IPAM Overview page, click on the **Start server discovery** link to start the task to discover the server in the selected domain. It will take some time to finish.
+
+![ws169](images/ws169.webp)
+
+**Step:4 Select or add servers to manage and verify the IPAM access**
+
+23. After the discovery process, click on the **Select or add servers to manage and verify the IPAM access** link to add servers that you want to manage using the IPAM.
+
+![ws170](images/ws170.webp)
+
+24. Notice that IPAM Access Status is **Blocked** for the server.
+
+![ws171](images/ws171.webp)
+
+
 
 
 
