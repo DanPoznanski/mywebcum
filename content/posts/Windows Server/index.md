@@ -2249,14 +2249,101 @@ IP Address Manager
 
 IPAM provides highly customizable administrative and monitoring capabilities for the IP address infrastructure on a corporate network. You can monitor, audit, and manage servers running the Dynamic Host Configuration Protocol (DHCP) and Domain Name System (DNS).
 
+Understanding Test Lab:
+
+- **WS2K19-DC01**: Active Directory Domain Controller with DNS and DHCP server role.
+
+- **WS2K19-SRV02**: Member Server for mylab.local domain.
+
+
+Install IPAM Feature in Windows Server:
+
+1. On WS2K19-SRV02, **Open Server Manager** Console.
+
+![ws148](images/ws148.webp)
+
+2. At the top of the **Server Manager**, click on **Manage** and select Add **Roles and Features**.
+
+![ws149](images/ws149.webp)
+
+3. On the Before you begin page, click **Next**.
+
+![ws150](images/ws150.webp)
+
+4. Select **Role-based or feature-based** installation and then click **Next**.
+
+![ws151](images/ws151.webp)
+
+5. **Select a server from the server pool** on which you want to install the IPAM feature, click **Next**.
+
+![ws152](images/ws152.webp)
+
+6. On select server roles page, click **Next**.
+
+![ws153](images/ws153.webp)
+
+7. On select features page, scroll down and **select IP Address Management (IPAM) Server** feature.
+
+![ws154](images/ws154.webp)
+
+8. A new window will pop up, click on **Add Features** to include required features and management tools for IPAM.
+
+![ws155](images/ws155.webp)
+
+9. Make sure that the IPAM feature is selected. Click **Next**.
+
+![ws156](images/ws156.webp)
+
+10. **Click on the Install** button to start the installation process.
+
+![ws157](images/ws157.webp)
+
+11. When the installation is complete, click the **Close** button.
+
+![ws158](images/ws158.webp)
+
+After installing the IPAM feature on windows server 2019, the next step is to configure the IPAM server. The IPAM server can manage DHCP, DNS, and Domain Controllers.
+
+#### Configure IPAM Server in Windows Server:
+
+**Step:1 Choose an IPAM Provisioning Method:**
+
+12. On the Server Manager Dashboard page, click on **IPAM** from the left pane.
+
+![ws159](images/ws159.webp)
+
+13. On the IPAM Overview page, click on **Provision the IPAM server** link to start the Provision IPAM wizard.
+
+![ws160](images/ws160.webp)
+
+14. Read the information about IPAM server at the start of the Wizard and click **Next**.
+
+![ws161](images/ws161.webp)
+
+15. Choose the database to store IPAM server data. You can use either the WID or SQL database. For testing purposes, **I will go with the Windows Internal Database (WID)**. Click **Next**.
+
+![ws162](images/ws162.webp)
+
+> Note: The provisioning method is the process of enabling required permissions, files shares, and access settings on managed servers so that the IPAM server can communicate with them.
+
+16. On select provisioning method page, **choose** either the Manual or **Group Policy Based** radio button. If you select Group Policy Based method, type a GPO prefix next to **GPO name prefix** to identify the GPOs. Click **Next**.
+
+![ws163](images/ws163.webp)
+
+17. Review your selection. When you are ready, click on **Apply**.
+
+![ws164](images/ws164.webp)
+
+18. Verify that IPAM provisioning completed successfully message is displayed, and then click **Close**.
 
 
 
 
 
 
+invoke-ipamgroprovisioning -domain test.local -groprefixname myipam
 
-
+grupdate /force
 
 
 
