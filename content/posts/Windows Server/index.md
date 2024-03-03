@@ -2242,10 +2242,12 @@ Add-DhcpServerv6Scope -name second-ipv6-scope -Prefix 3000:beef::
 IP Address Manager
 
 
+#### Install and Configure IPAM in Windows Server
 
 
+**What is IP Address Management (IPAM)?**
 
-
+IPAM provides highly customizable administrative and monitoring capabilities for the IP address infrastructure on a corporate network. You can monitor, audit, and manage servers running the Dynamic Host Configuration Protocol (DHCP) and Domain Name System (DNS).
 
 
 
