@@ -2336,8 +2336,15 @@ After installing the IPAM feature on windows server 2019, the next step is to co
 
 18. Verify that IPAM provisioning completed successfully message is displayed, and then click **Close**.
 
+![ws165](images/ws165.webp)
 
+**Step:2 Configure Server Discovery**
 
+19. On the IPAM Overview page, click on **Configure Server Discovery** link to start server discovery wizard.
+
+![ws166](images/ws166.webp)
+
+20. Click on the Get Forests button and wait for the background task to finish. A message will appear, click on OK to close it.
 
 
 
