@@ -2197,18 +2197,10 @@ Reconcile on Scope (repair beetwin dhcp and reqestry)
 ```powershell
 Reconcile-DhcpServerv4IPRecord -ScopeId 192.168.2.0
 ```
-fix dhcp scope
+Fix dhcp scope
 ```powershell
 Repair-DhcpServerv4IPRecord -ScopeId 192.168.2.0
 ```
-
-
-
-
-
-
-
-
 
 ## DHCPv6
 
@@ -2245,7 +2237,9 @@ Add-DhcpServerv6Scope -name second-ipv6-scope -Prefix 3000:beef::
 ```
 
 
+## IPAM 
 
+IP Address Manager
 
 
 
