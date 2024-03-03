@@ -1948,6 +1948,266 @@ Replication parthners
 
 ![ws125](images/ws125.svg)
 
+#### Configure a failover relationship
+
+First, configure a failover relationship using DHCP1 and DHCP2.
+
+**To configure a failover relationship**
+
+1. On DHCP2, open the DHCP console, right-click the Contoso-scope1 DHCP scope and then click **Configure failover**.
+
+![ws126](images/ws126.webp)
+
+
+2. In the **Configure Failover wizard**, click **Next**.
+
+3. In **Specify the partner server to use for failover**, next to **Partner Server**, type `dhcp1.contoso.com` and then click Next.
+
+4. In **Create a new failover relationship**, type a name next to **Relationship Name**, or accept the default name that is displayed (dhcp2.contoso.com-dhcp1.contoso.com).
+
+5. Type a shared secret for this failover relationship next to **Shared Secret** (ex: secret).
+
+6. Change the value next to **Maximum Client Lead Time** to **0** hours and **1** minute.
+
+7. Review the options available in the drop-down menu next to **Mode**. You can choose **Load balance** or **Hot standby**. By default, Load balance mode is chosen.
+
+![ws127](images/ws127.webp)
+
+8. Click **Next** and then click **Finish**.
+
+9. Verify that failover configuration was successful, and then click **Close**.
+
+![ws128](images/ws128.webp)
+
+10. On DHCP1, refresh the DHCP console and verify that the same DHCP scope configuration that is present on DHCP2 is now present on DHCP1.
+
+
+#### View or edit properties of the failover configuration
+
+After you configure a failover relationship on a DHCP server, details for the failover relationship are displayed in the DHCP console.
+
+**To view or edit properties of the failover relationship**
+
+1. On DHCP1 or DHCP2, in the DHCP console, right-click the Contoso-scope1 DHCP scope and then click **Properties**.
+
+2. Click the **Failover** tab and review the information displayed. Verify that **Normal** is displayed next to **State of this Server** and also next to **State of Partner Server**.
+
+![ws129](images/ws129.webp)
+
+3. Note that you can edit or delete the failover relationship.
+
+![ws130](images/ws130.webp)
+
+4. Click **Edit** and review properties of the failover relationship that are available to edit.
+
+5. Leave the dialog box open for the following procedure.
+
+#### Edit properties of the failover relationship and demonstrate load balancing
+
+To demonstrate dynamic load balancing properties of the failover relationship, the load balancing percentage will be changed for an active DHCP scope.
+
+**To edit properties of the failover relationship and demonstrate load balancing**
+
+1. On Client1, click **Windows PowerShell** and type the following command.
+
+2. In the command output, note the DHCP server that is currently supplying an IP address configuration to Client1. The IP address of the DHCP server is displayed next to **DHCP Server**.
+
+3. In the **View/Edit Failover Relationship** dialog box DHCP1 or DHCP2 that was opened in the previous procedure, change the values under **Load Balance Mode** next to **Local Server** and **Partner Server** so that **100%** is assigned to the DHCP server that is currently not supplying an IP address to Client1. The server that is currently supplying an IP address to Client1 will have a value assigned of **0%**.
+
+![ws131](images/ws131.webp)
+
+4. Click **OK** twice, wait until the current DHCP lease is expired on Client1, and then type `ipconfig /all` again at the **Windows PowerShell** prompt.
+
+5. Note that the DHCP server that is supplying an IP address configuration to Client1 has changed to the server that you assigned 100% weight in load balancing mode.
+
+#### Edit properties of the failover relationship and demonstrate hot standby mode
+
+o demonstrate hot standby mode, the DHCP Server service on one of the failover partners will be stopped.
+
+**To edit properties of the failover relationship and demonstrate hot standby mode**
+
+1. On DHCP1 or DHCP2, in the DHCP console, right-click the Contoso-scope1 DHCP scope and then click **Properties**.
+
+2. Click the **Failover** tab.
+
+3. Click **Edit** and then choose **Hot Standby Mode**.
+
+4. Depending on which DHCP server you are configuring, the local server will be assigned either **Active** or **Standby** status. The status is displayed next to **Role of this server**.
+
+![ws132](images/ws132.webp)
+
+> Tip
+
+> The server that is designated to be Active in hot standby mode is the server that you used to create the failover relationship.
+
+5. Click **OK** twice and then wait 2 minutes for the DHCP lease on Client1 to renew.
+
+6. On Client1, type `ipconfig /all` at the Windows PowerShell prompt and verify that the server that is assigned as Active is supplying an IP addresses configuration to Client1
+
+7. In the DHCP console on the DHCP server that is marked as Active for the hot standby failover relationship and is currently supplying an IP address to Client1, right-click the server name, point to All Tasks, and then click Stop.
+
+8. Verify that the DHCP service is stopped on the active DHCP server.
+
+![ws133](images/ws133.webp)
+
+9. Wait for the DHCP lease to renew on Client1, type `ipconfig /all` at the Windows PowerShell prompt, and verify that the standby DHCP server is supplying an IP address to Client1.
+
+### DHCP Backup & Restore
+
+Default backup folder in `C:\Windows\system32\dhcp\backup`
+
+#### Manual DHCP Backup Using DHCP Console
+
+
+In this example, I’ll be backing up the DHCP configuration on server DHCP1. Later in this tutorial, I’ll be restoring this backup to server DHCP2.
+
+#### Step 1: Create a Backup Folder
+
+I’ve created a folder on the server desktop called DHCPBackup
+
+
+![ws134](images/ws134.webp)
+
+#### Step 2: Open the DHCP Administration Console
+
+The DHCP console is located in **Start** > **Windows Administrative Tools** > **DHCP**
+
+#### Step 3: Right Click the Server and Select Backup
+
+![ws135](images/ws135.webp)
+
+**Select** the folder that was created in step 1. In my case, this was the **DHCPBackup folder** on the Desktop. Then click **OK**
+
+![ws136](images/ws136.webp)
+
+Unfortunately, there is no confirmation that the backup was completed.
+
+You can go open the folder and verify data was backed up.
+
+![ws137](images/ws137.webp)
+
+I can see that files were written to the folder, looks like the backup was completed successfully.
+
+That is it for manually backing up the DHCP server. Now, let’s move on to the restore process.
+
+#### Restore DHCP Server Using DHCP Console
+
+> **Important Tip**: You must copy the backup folder from the steps above to %SystemRoot%System32\DHCP\backup or you will get the following error saying the database was not restored correctly.
+
+![ws138](images/ws138.webp)
+
+#### Step 1: Log into the server you want to restore the DHCP backup to
+
+I’m logging into my 2nd DHCP server with the hostname of DHCP2.
+
+
+#### Step 2: Copy the backup to the correct location
+
+Now I will copy the DHCPBackup folder to `%SystemRoot%System32\DHCP\backup`
+
+![ws139](images/ws139.webp)
+
+#### Step 3: Open The DHCP Console and Select Restore
+
+On the DHCP Console, right click the server and select **Restore**
+![ws140](images/ws140.webp)
+
+Now select the DHCPBackup folder
+![ws141](images/ws141.webp)
+
+You will get a message that says the service must be stopped and restarted.
+
+Click **Yes**
+
+Restore complete
+
+![ws142](images/ws142.webp)
+
+You can go browse the scopes to verify everything restored correctly.
+
+I have a small lab but I can see the two scopes, leases, and reservations all restored.
+
+![ws143](images/ws143.webp)
+
+#### Backup DHCP Server Using PowerShell
+
+n this example, I’ll be logged in locally to the server.
+
+Use the following command to backup the DHCP configuration using PowerShell.
+```powershell
+Backup-DhcpServer -path c:\DHCPBackup
+```
+If you want to backup the DHCP server from a remote computer use this command
+```powershell
+Backup-DhcpServer -ComputerName "dhcp1" -Path "C:\DHCPBackup"
+```
+
+#### Restore DHCP Server Using PowerShell
+
+Step 1: Copy the backup folder to the correct path
+
+Remember the backup has to be copied to `C:Window\ssystem32\dhcp\backup` or you will get permission errors.
+
+Step 2: Run the following command
+```powershell
+PS C:> Restore-DhcpServer -ComputerName "dhcp2" -Path "C:Windows\system32\dhcp\backup"
+```
+
+or 
+
+```powershell
+Export-DchpServer -leases -file D:\DHCP\DHCP_Export\DHCP_Export.xml
+Import-DchpServer -leases -file D:\DHCP\DHCP_Export\DHCP_Export.xml all
+```
+
+
+### DHCP IPv4 Link Layer Filter
+
+**Configure Filters in DHCP Server**
+
+In the DHCP console, expand the server and IPv4 objects and go to the **Filters** object. Here, you’ll see two sub-folders (lists), **Allow** and **Deny**. By default, the two lists are deactivated and you can see this from the red down arrow, as shown in the figure below.
+
+![ws144](images/ws144.webp)
+
+To add a DHCP Client to the Allow list, right-click and then click **New Filter**. Next, type the client’s MAC address and a description (optional) and click the **Add** button to complete the process.
+
+![ws145](images/ws145.webp)
+
+The MAC address you type can be dashed (eg AA-BB-CC-DD-EE-FF) or without (eg AABBCCDDEEFF). You can also use the asterisk (*) as a wildcard to declare a range of MAC addresses. For example, AA-BB-*-DD-EE-FF, AA-BB-CC-*-*-*, AA-BB-*.
+
+Respectively, follow the same procedure to add clients to the Deny list.
+
+What is important to know is that the Deny list is superior to any other setting. So, if a client does not receive an IP address from a DHCP Server and the Filters are enabled, then your first action will be to check if it is in the Deny and then in Allow lists.
+
+Additionally, you can move one or more clients from one list to another by right-clicking and then choose the corresponding option.
+
+![ws146](images/ws146.webp)
+
+You can do the same for clients already in Address Leases, of course not having to type the MAC address.
+
+![ws147](images/ws147.webp)
+
+Finally, do not forget to enable or disable the Allow and Deny lists by right-clicking and then choosing the corresponding option.
+
+
+### DHCP Troubleshooting
+
+
+Reconcile on Scope (repair beetwin dhcp and reqestry)
+```powershell
+Reconcile-DhcpServerv4IPRecord -ScopeId 192.168.2.0
+```
+fix dhcp scope
+```powershell
+Repair-DhcpServerv4IPRecord -ScopeId 192.168.2.0
+```
+
+
+
+
+
+
+
 
 
 ## DHCPv6
@@ -1966,7 +2226,6 @@ ping for ipv6
 ```powershell
 ping -6 2001:db8:6783::102 
 ```
-
 Enable Advartising Enabled
 ```powershell
 Set-NetIPInterface -AddressFamily IPv6 InterfaceAlias "ethernet" -Advertising Enabled
