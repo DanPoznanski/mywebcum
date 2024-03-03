@@ -2378,7 +2378,7 @@ To fix this, we need to run the `Invoke-IpamGpoProvisioning` cmdlet at an elevat
 ```powershell
 Invoke-IpamGpoProvisioning –Domain mylab.local –GpoPrefixName MYLAB_IPAM –IpamServerFqdn WS2K19-SRV02.mylab.local -DelegatedGpoUser Administrator@mylab.local
 ```
-
+![ws173](images/ws173.webp)
 
 27. On Domain Controller, check the IPAM GPO’s.
 
