@@ -2943,22 +2943,47 @@ Next, you need to specify the IP address of the VPN server, in our case this is 
 We indicate it in the **Name or IP address of VPN server** field:
 ![ws258](images/ws258.webp)
 
-
-
+At the **Create or edit VPN entry** step, you need to configure TCP-IP properties, default route, etc.:
 ![ws259](images/ws259.webp)
 
-
-
+Click the change button, we can disable the use of IPv6:
 ![ws260](images/ws260.webp)
 
-
+On the IPv4 tab, disable the use of a VPN connection as the default gateway, so that only the traffic we need passes through the VPN, the **IP header compression can be left on** option:
 ![ws261](images/ws261.webp)
 
-
+On the **Security** tab, we must specify the protocol, for example L2TP:
 ![ws262](images/ws262.webp)
 
+For it you also need to specify **Use a shared key** in the **Advanced parameters**:
+![ws263](images/ws263.webp)
 
+Next, we use the EAP-MSCHAPv2 verification methods:
+![ws264](images/ws264.webp)
 
+To confirm the settings, click **OK** and when the wizard warns, also click **Yes**:
+![ws265](images/ws265.webp)
+
+Next, we indicate the **Shared Key for IPSec**, to increase security, you can also specify a PIN code so that no one recognizes our **Shared Key**:
+![ws266](images/ws266.webp)
+
+In the next steps of the wizard, you can specify the phone book number update server; we don’t need this for now:
+![ws267](images/ws267.webp)
+
+We also skip adding the specified phone book:
+![ws268](images/ws268.webp)
+
+In the remote network access entries, we disable insecure protocols; to do this, click edit:
+![ws269](images/ws269.webp)
+
+And on the **Security** tab, uncheck the **Password Verification Protocol (CHAP)** checkbox:
+![ws270](images/ws270.webp)
+
+Adding a route is done by adding a local file (1); for a large network, routes can be added by specifying a link to a file on the server (2):
+![ws271](images/ws271.webp)
+
+An example of the `route.txt` file:
+![ws272](images/ws272.webp)
 
 
 
