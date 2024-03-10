@@ -2903,14 +2903,59 @@ Now, a quick journey back in time. Believe it or not, CMAK has been around since
 **Installing CMAK**
 
 To check the use of SMAK, go to **Windows Server**, launch Server Manager, then select **Add roles and features**:
+![ws247](images/ws247.webp)
 
-![Alt text](ws247.webp)
+The **Add Roles and Components Wizard** opens and click **Next**:
+![ws248](images/ws248.webp)
+
+At the **Installation type** step, leave the **Installing roles or components** option selected:
+![ws249](images/ws249.webp)
+
+In the list for selecting components to install, check for the presence of the **RAS Connection Administration Package (SMAC)**:
+![ws250](images/ws250.webp)
+
+**Next**, go to the **Connection Manager Administration Package**:
+![ws251](images/ws251.webp)
+
+The **Connection Manager Administration Wizard** opens:
+![ws252](images/ws252.webp)
+
+Next, following the instructions of the wizard, we select options for our task, choosing for which OS family the package will be created.
+
+> It is important to create a SMAK package on an OS of the same bit depth as the end user's system
+
+![ws253](images/ws253.webp)
+
+The package is being created for the first time, so select **New Profile**:
+![ws254](images/ws254.webp)
+
+Next, enter the **Service Name** and **File Name**, for example, vpn:
+![ws255](images/ws255.webp)
+
+We do not add the sphere name (this is the domain name):
+![ws256](images/ws256.webp)
+
+There are no other profiles, so there’s nothing to combine with yet:
+![ws257](images/ws257.webp)
+
+Next, you need to specify the IP address of the VPN server, in our case this is the external address of our router `198.51.100.254/24`:
+
+We indicate it in the **Name or IP address of VPN server** field:
+![ws258](images/ws258.webp)
 
 
 
+![ws259](images/ws259.webp)
 
 
 
+![ws260](images/ws260.webp)
+
+
+![ws261](images/ws261.webp)
+
+
+![ws262](images/ws262.webp)
 
 
 
