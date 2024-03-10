@@ -2418,47 +2418,493 @@ Invoke-IpamGpoProvisioning –Domain mylab.local –GpoPrefixName MYLAB_IPAM –
 
 
 
+### IPAM Role Based Access Control (RBAC)
+
+
+The core concept of RBAC is what you can do and where you can do it. With RBAC you can do certain stuff but you can only do it in a specific backyard. For example we can grant permissions to only create and delete DNS records in one specific DNS zone or to only create scopes or maybe to only create specific DNS records.
+
+RBAC consists of three related components.
+
+- **ROLES** –> are collections of privileges. They specify the tasks that can be performed, in another words what user will be able to do. For example: Manage specific DNS zone, record, DHCP scope etc.
+ 
+
+ - **ACCESS SCOPES** –> determine how far and wide a particular role can go in the server. Can they go just with DNS, just with NPS, just with DHCP? Can they only do auditing? It gives you more flexibility than when just we use the local administrative groups. So if the Role is the what, the Access Scope is the where. For example: dns servers, zones dhcp server etc.
+ 
+
+- **ACCESS POLICIES** –> are the combination of roles and access scopes.
+
+
+#### Configure Role Based Access Control for IPAM on Windows Server 
+
+|TYPE |	NAME |	DESCRIPTION |
+| --- | ---- | ------------ |
+| Role |	DNS record administrator | Manages DNS resource records |
+| Role |	IP address record administrator |	Manages IP addresses but not IP address spaces, ranges, blocks, or subnets. |
+| Role	| IPAM administrator | Manages all settings and objects in IPAM |
+| Role | IPAM ASM administrator | Completely manages IP addresses |
+| Role | IPAM DHCP administrator	 | Completely manages DHCP servers |
+| Role | IPAM DHCP reservations administrator	Manages DHCP reservations |
+| Role | IPAM DHCP scope administrator | Manages DHCP scopes |
+| Role | IPAM MSM administrator | Completely manages DHCP and DNS servers |
+| Access scope | Global	| By default, all objects in IPAM are included in the global access scope. All additional scopes that are configured are subsets of the global access |
+
+
+**Adding custom role**
+
+sometimes,built-in roles won’t meet our requirements,in that case we can create custom role.
+
+Click Access Control-Right click **Add User Role**
+
+![ws182](images/ws182.webp)
+
+Enter role name and define what action can be done within that role,in this example user can create zone and invoke zone transfer and configure preferred DNS server.
+
+![ws183](images/ws183.webp)
+
+
+**Creating Access policy**
+
+Now map user to IPAM role:
+
+Right click **Access Policies** > **Add Access Policy**
+
+![ws184](images/ws184.webp)
+
+Click Add-select domain and add user (in my example this user is standard domain user with no specific privileges)
+
+![ws185](images/ws185.webp)
+
+In Access Settings click **New** and choose role
+
+![ws186](images/ws186.webp)
+
+Click **Add Settings**
+
+![ws187](images/ws187.webp)
+
+Optionally,we can specify **Access Scope**.
+
+An access scope determines the objects that a user has access to. You can use access scopes to define administrative domains in IPAM. For example, you might create access scopes based on geographical location. By default, IPAM includes an access scope of Global. All other access scopes are subsets of the Global access scope. Users or groups that are assigned to the Global access scope have access to all objects in IPAM that are permitted by their assigned role.
+
+In this example i didn’t create any access scope
+
+Testing
+
+Log in to IMAP server with user,according to role setting,user can create DNS zone,but can’t delete it
+
+ 
+![ws188](images/ws188.webp)
 
 
 
+### IPAM Find And Allocate Available IP Addresses
+
+To manage our IPAM collections, there is a variety of different tasks that are just context menu items that exist off of the individual ranges you’ve created. So let’s say, for example, that I need to go in and grab a new address for a machine that I’m putting into my server net. Well, in the old days, I’d have to take a look at spreadsheet, but now that I have my IPAM database, the process to request, and actually receive a new address, happens very simply by right clicking on the range, and choosing to find and allocate an available IP address.
+
+![ws189](images/ws189.webp)
+
+Now you’ll notice what happens here. We are taking a look at the next available address 10.52.99.61. We can see that there’s no Ping Reply, in other words, that there’s nobody using this address, and there’s no DNS record so that IP address will be good.
+
+If you see the ping reply or the DNS record, click on Find Next to check second address and this process gives us the ability to continue marching down the path to find the addresses that is available for you to use.
+
+You might be saying to yourself, well wait a minute, why do I have to go through just clicking the Find Next button over and over again until I get the next available address? If you think about the range that we’ve created, the whole point behind this range is that the addresses in that range are probably best when they’re actually managed by IPAM, and so the idea here is that with all of those addresses already managed by IPAM, you’ll need to continuously click the Find Next button won’t happen that often because IPAM will simply find the next available address according to its view of the world, and see if that address is not otherwise consumed by some other machine. The fact that you need to do this twice, or maybe three times, indicates that you have got some machines that perhaps are not managed by IPAM, and maybe don’t belong in particular subnet.
+
+![ws190](images/ws190.webp)
+
+With 10.52.99.61 I can continue by just adding in all the other information just like I did before, the MAC address, who it’s managed by, the name, the client ID, the DNS record synchronization, and all the other stuff that I would need in order to create an additional record here in my IPAM database.
+
+![ws191](images/ws191.webp)
+
+Every so often you’ll find yourself just needing to reclaim some addresses. There actually is a reclamation ability in IPAM by right clicking on range and choosing to reclaim IP addresses.
+
+![ws192](images/ws192.webp)
+
+This process allows us to go through and reclaim the IP addresses we’re no longer using, and even delete the resource records and any DHCP reservations that exist associated with those records as well.
+
+![ws193](images/ws193.webp)
+
+
+### Manage DHCP  With IPAM
+
+As I said before, one of the great things about IPAM is that you can use it as a meta management solution for all of your DHCP servers.  I will not go too much in detail, I just want to show you that you can configure everything from one pane of glass.
+
+Click on DNS and DHCP Servers.
+
+![ws194](images/ws194.webp)
+
+If I right click on the role here for example DC02 (DHCP), you’ll see there are a variety of additional configurations for DHCP, and a much smaller set of configurations for my DNS server,  that allows me to just tell that DHCP server to accomplish certain things, like configuring server properties, creating a scope, user class, or a policy, or whatever.
+
+![ws195](images/ws195.webp)
+
+
+![ws196](images/ws196.webp)
+
+If I’m experiencing a problem, I can come down to the bottom area, and do some troubleshooting by looking at the Event Catalog. These are, again, the specific events that have to do with DHCP, or DNS, so to give us a better idea of what actual activities are going on for the servers, and something that’s available that can be done here as well.
+
+![ws197](images/ws197.webp)
+
+Let’s click now on DHCP Scopes and right-click on one scope. You will see Duplicate DHCP Scope. With this option we can duplicate scope and put in on another server and this is a great way of migrating dhcp scope. Imagine that you need to decommission the dhcp server and you need to move all the scopes of that server, IPAM is a really good tool to do it.
+
+![ws198](images/ws198.webp)
+
+Let’s duplicate one of our scopes. Right-Click on the scope you would like to duplicate and select duplicate dhcp scope. I will choose Scope 4 which is on my DC02.
+
+![ws199](images/ws199.webp)
+
+In the General Proporties, I will choose my second server DC01 and type in start and end IP address.
+
+![ws200](images/ws200.webp)
+
+Scroll down and modify settings if needed and click ok.
+
+![ws201](images/ws201.webp)
+
+Here it is. Now we have Scope for on second DHCP server.
+
+![ws202](images/ws202.webp)
+
+Let’s configure DHCP failover. Right click on the scope and select Configure DHCP Failover
+
+![ws203](images/ws203.webp)
+
+Select Partner Server for the scope, give the relationship a name and create a secret
+
+![ws204](images/ws204.webp)
+
+Scroll down and choose the mode. In my case it will be Load Balance 50-50. Once done click OK
+
+![ws205](images/ws205.webp)
+
+That’s it.
+
+![ws206](images/ws206.webp)
+
+If you would like to configure Superscope you would need to mark 2 scopes and right-click on one of them and select Add to DHCP Superscope
+
+![ws207](images/ws207.webp)
+
+It is important that you play with this so that you get familiar with different options you can configure through IPAM.
+
+### Manage DNS with IPAM
+
+In a previous versions of IPAM there was not much DNS functionality. The version that comes with Windows Server 2016 builds on that. In terms of limitations there is a very limited amount you can do in terms of configuring DNS Server properties. You are very much managing things at the node level and at the record level.
+
+One of the first things you can do with IPAM which is realy useful is you can see properties of each DNS server in your organization. You can see how they are configured from a single pane of glass.
+
+Remember that IPAM can manage DNS and DHCP servers only if they are members of a domain. If you have a DNS server in a perimiter network then you will not be able to manage it with IPAM.
+
+![w208](images/ws208.webp)
+
+Let’s see for example how we can create a new zone. Click on DNS and DHCP servers node, right-click on your DNS server and select Create **DNS Zone**
+
+![ws209](images/ws209.webp)
+
+Create **DNS Zone** wizard will pop-up. In the Zone Category and Zone Type I will leave the defaults and under Zone name I will type in carrera.mehic.se. We have the Advanced Properties as well and I will leave the defaults there as well. It is very easy to configure this in IPAM. Once done, click ok
+
+![ws210](images/ws210.webp)
+
+You will notice that Zone Status will show No Data and you will see Unknown as well. That means that zone is not updated yet.
+
+![ws211](images/ws211.webp)
+
+Click on DNS and DHCP Servers, right-click on your DNS server and select Retreive Server Data.
+
+![ws212](images/ws212.webp)
+
+Go back to DNS Zones and refresh the page and you will see that the zone is updated now.
+
+![ws213](images/ws213.webp)
+
+Now we can go and configure the zone, add records, edit the zone etc. I will not go much in detail here. It is important to play with this and configure zones and records to get use to it.
+
+![ws214](images/ws214.webp)
+
+That’s it. In our last part (Part 4) we will take a look at IPAM Auditing, IPAM Database Storage and Management, IPAM Backup, Migration to SQL server etc.
 
 
 
+## NAT
+
+### Install Routing and Remote Access on Server
+
+1. Click on **Manage** and select **Add Role** and **Features**.
+
+![ws215](images/ws215.webp)
+
+2. On the Before you begin page, click **Next**.
+
+![ws216](images/ws216.webp)
+
+3. Select **Role-based or feature-based installation** and click **Next**.
+
+![ws217](images/ws217.webp)
+
+4. **Select a server** from the server pool on which you want to install the Remote Access Service role, click Next.
+
+![ws218](images/ws218.webp)
+
+5. On select server roles page, select the **Remote Access** Services checkbox. Click **Next**.
+
+![ws219](images/ws219.webp)
+
+6. On select **Features**, click **Next**.
+
+![ws220](images/ws220.webp)
+
+7. Read overview information about Remote Access Services and click **Next**.
+
+![ws221](images/ws221.webp)
+
+8. On Select **Role Service** console, select the **Routing** checkbox to install the LAN Routing role service.
+
+![ws222](images/ws222.webp)
+
+9. Click the **Add Features** button to add the required feature for LAN Routing. Click **Next** to continue.
+
+![ws223](images/ws223.webp)
+
+10. Click **Next** on Web Server role services page.
+
+11. Click **Install** and complete the installation process.
+
+12. Click **Close** to finish the installation.
+
+### Configure NAT and LAN Routing on Windows Server 2019:
+
+13. To configure NAT and LAN routing, open the Remote and Routing Access console using the Server Manager console.
+
+14. Click on **Tools** and select **Remote and Routing Access**.
+
+![ws224](images/ws224.webp)
+
+15. Select and right-click on the local server name and then select **Configure and Enable Routing and Remote Access**.
+
+![ws225](images/ws225.webp)
+
+16. On the welcome page, read the description, and click **Next**.
+
+![ws226](images/ws226.webp)
+
+17. On the Configuration page, select the **Network Address Translation (NAT)**. Click **Next**.
+
+![ws227](images/ws227.webp)
+
+18. On the **NAT Internet Connection** page, select the network interface your users will use to connect to the internet. Click **Next**.
+
+![ws228](images/ws228.webp)
+> Select the interface with connected to the internet
+
+19. Click **Finish**.
+
+![ws229](images/ws229.webp)
+
+### Verify NAT Configuration Settings:
+
+20. On **Routing and Remote Access** console, expand the local server name, expand **IPv4**. Click and Expand **NAT**.
+
+21. Double-click on the **LAN** interface. Verify Interface type is a Private interface connected to the private network.
+
+![ws230](images/ws230.webp)
+
+22. Double-click on the **INTERNET** interface. Verify Interface type is a **Public interface connected to the Internet**. Make sure that **Enable NAT on this interface** checkbox is selected.
+
+![ws231](images/ws231.webp)
 
 
-invoke-ipamgroprovisioning -domain test.local -groprefixname myipam
+---
 
-grupdate /force
+### NAT PAT Port Forwarding
+
+Port forwarding with powershell
+```powershell
+net-netnat -name ournat -InternalIPInterfaceAdressPrefix 192.168.1.0/24
+```
+```powershell
+Add-NetNatStaticMapping -NatName ournat -Protocol TCP -ExternalIPAdress 0.0.0.0 InternalIPAddress 192.168.1.0 -InternalPort 80 -ExternalPort 5666  
+```
+
+```powershell
+Get-NetNat
+```
+```powershell
+Get-NetNatStaticMapping
+```
+```powershell
+Get-NetNatSession 
+```
+
+## VPN
+
+PPTP - Point to Point Tunneling Protocol
+
+L2TP/IPsec - Layer 2 Tunneling Protocol
+
+SSTP - Secure Socket Tunneling Protocol
+
+IKEv2 - Internet Key exchange
+
+OpenVPN
+
+
+#### 1. Install Remote Access Role in Your Windows Server
+
+Launch a new Windows Powershell window in the administrative mode and enter the following commands to install the following:
+
+- Remote Access feature
+
+- Direct Access and VPN (RAS)
+
+- Routing along with management tools.
+
+```powershell
+Install-WindowsFeature RemoteAccess
+```
+```powershell
+Install-WindowsFeature DirectAccess-VPN -IncludeManagementTools
+```
+```powershell
+Install-WindowsFeature Routing -IncludeManagementTools
+```
+
+#### 2. Set Up Routing and Remote Access
+
+Open the Windows Server Manager through the start menu.
+
+Go to **Routing and Remote access** from the **Tools** dropdown menu in navigation.
+
+![ws232](images/ws232.webp)
+
+Right-click on your local server in the left pane and hit the **Configure and Enable Routing and Remote Access** option. The Routing and Remote Access Server Setup Wizard will open.
+
+![ws233](images/ws233.webp)
+
+In the Routing and Remote Access Server Setup Wizard, select the **Custom Configuration** radio button. We do this since we are going to configure the routing and access manually. Hit Next.
+
+Now, check the **VPN Access** and **NAT**  boxes when the wizard asks for the services you want to enable on the server. Click on the Next Button to see the summary of your selection.
+
+![ws234](images/ws234.webp)
+
+Lastly, after you click the Finish button, you will see a prompt that shows, ***The Routing and Remote Access service is ready to use.*** Run the service by clicking on the **Start Service** button.
+
+![ws235](images/ws235.webp)
+
+
+#### 4: Configure the VPN Properties
+
+Your VPN server will be running on your system after Step 3. It is now time to configure it. Right-click on your local server, under the left pane of the Routing and Remote Access window, and navigate to **Properties**.
+
+![ws236](images/ws236.webp)
+
+Go to the Security tab and check the ***Allow custom IPSec policy for L2TP/IKEv2 connection*** box. Enter a very long PSK(Pre-shared key) under it. You can generate a random key using any tool. You can also use Google Cloud Random key generator.
+
+> Note: Make sure to store the PSK securely with your as it will be needed when a user wants to connect to your VPN server.
+
+
+Thereon, navigate to the IPv4 tab and select static address pool under IPv4 address assignment. Then, hit the **Add** button and you will get a pop-up window to enter IP address ranges. In the pop-up window, enter the starting address and ending address of the IP address range you want the users to assign to.
+
+![ws237](images/ws237.webp)
+
+Click on the **OK** button to save the IP address ranges and finally click on the **OK** button on the Properties window. You may see a message that you need to restart the Routing and Remote Access service to apply changes successfully. You can ignore it and click on **OK** as we’re going to restart the service after the next step anyway.
+
+
+#### 5: Configuring NAT Properties
+
+Your local server is listed on the left pane of the Routing and Remote Access window. Expand it by clicking on the arrow aside it or double-clicking. Similarly, expand IPv4 listed under your local server. You will find the NAT object there. Right-click on NAT and select the ***New Interface*** option.
+
+Choose ***Ethernet*** and hit OK to proceed. On the NAT tab, go with the “Public interface connected to Internet” radio button and check the &&***Enable NAT on this interface*** box.
+
+![ws238](images/ws238.webp)
+
+Further, navigate to the **Services and Ports** tab and check the **VPN Gateway(L2TP/IPSec – running on this server)** box. You will see a new interface for editing the settings of the service.
+
+Now, change the private address from **0.0.0.0** to **127.0.0.1** and save by hitting OK.
+
+Finally, save the configuration of the NAT interface by clicking OK.
+
+#### 6: Restart Routing and Remote Access
+
+Right-click on your local server under the left-pane of the Routing and Remote Access window. Click on **Restart** under **All Tasks**.
+
+![ws239](images/ws239.webp)
+
+This will restart all services and tasks under the Routing and Remote Access service. This will also ensure that our changes and configurations have been applied.
+
+#### 7: Configure Windows Firewall
+
+Open the Windows Defender Firewall through the start menu and navigate to **Inbound Rules**.
+
+![ws240](images/ws240.webp)
+
+On the **Inbound Rules** in the left pane and select **New Rule** on the right pane. The New Inbound Rule Wizard will open.
+
+Windows Server 2022 already has predefined rules for running the VPN server. We just need to enable them. In the New Inbound Rule Wizard, select the “Predefined” radio button and select the ***Routing and Remote Access*** option from the drop-down menu.
+
+![ws241](images/ws241.webp)
+
+In the **Predefined Rules** section, check the **Routing and Remote Access(L2TP-In)** box and hit Next.
+![ws242](images/ws242.webp)
+In the **Action** section, select the **Allow the connection** option and click Finish.
+
+We have successfully configured the Windows Firewall to allow inbound traffic on UDP port 1701.
+
+#### 8: Create VPN User
+
+Open **Computer Management** from the start menu. You will see “Local Users and Groups” in the left pane of the Computer Management window. Expand it and right-click on **Users**. Click on **New Users** to create a new user.
+
+
+![ws244](images/ws243.webp)
+
+A New User prompt will open. Enter a username, full name, and strong password in the New User prompt. Unselect the **User must change the password on next login** checkbox. Hit Create to create a new user.
+
+![ws244](images/ws244.webp)
+
+You will find the newly created user listed in the Computer Management window. Right-click on the user and click the on the Properties option.
+
+Go to the Dial-in tab of the VPN user’s properties. Select the **Allow Access** radio button for the **Network Access Permissions setting**. Hit OK to save properties.
+
+![ws245](images/ws245.webp)
+
+You have successfully set up an L2TP/IPSec VPN server on Windows Server 2022 and it is now ready to accept connections.
+
+#### 9: Connecting VPN Clients
+
+Once your VPN server is successfully set up, you can now easily connect to the remote VPN server with other devices. All you need to do is to share the PSK and Windows credentials with the users who wish to connect to the VPN server.
+
+#### 10: Monitor your VPN Server
+
+Open the Remote Access Management Console by searching for it in the start menu. In the console, you should be able to see the status of your VPN server in the dashboard. If you have installed the VPN server on your Windows Server 2022 successfully by following the tutorial, you will see a green check on all the services. The Remote Access Management Console can also be used to see the details of connected clients.
+
+![ws246](images/ws246.webp)
+
+---
 
 
 
+### VPN Configure Connection Manager Administration Kit (CMAK)
 
 
+In the fast-paced world of networking, the ability to connect remotely to different networks is no longer a luxury but a necessity. For years, Microsoft’s Connection Manager Administration Kit (CMAK) has been a vital tool in this arena. Although deprecated after Windows Server 2012 and Windows 8, this tool remains an essential part of networking history and still holds relevance for certain use-cases today. This article will provide a deep dive into CMAK, focusing mainly on its more recent versions while giving a nod to its historical background.
 
 
+**What is the Connection Manager Administration Kit (CMAK)?**
+
+First off, let’s tackle the basics. The Connection Manager Administration Kit, commonly known as CMAK, is a Microsoft tool. It focuses on creating customizable network connectivity solutions. Specifically, it allows users to connect remotely to various types of networks. These can be anything from Internet service providers (ISPs) to corporate networks safeguarded by VPN servers.
+
+The Connection Manager Administration Kit (CMAK) is a tool that you can use to customize the remote connection experience for users on your network by creating pre-defined connections to remote servers and networks. To create and customize a connection for your users, you use the CMAK wizard.
+
+Lastly, let’s break it down. CMAK consists of multiple components. One main component is the Connection Manager (CM).
 
 
+History
+
+Now, a quick journey back in time. Believe it or not, CMAK has been around since the days of Windows 2000. However, it gained more features and became more refined with each new version of Windows. By the time we reached Windows Server 2012 and Windows 8, the tool was comprehensive but eventually deprecated.
 
 
+**Installing CMAK**
 
+To check the use of SMAK, go to **Windows Server**, launch Server Manager, then select **Add roles and features**:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![Alt text](ws247.webp)
 
 
 
@@ -2483,3 +2929,5 @@ Install moduls
 Install-WindowsFeature wds -IncludeAllSubFeature -IncludeManagementTools
 ```
  
+
+## IIS
