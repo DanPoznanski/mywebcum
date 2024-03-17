@@ -2735,15 +2735,22 @@ Get-NetNatSession
 
 ## VPN
 
-PPTP - Point to Point Tunneling Protocol
+### Install VPN 
 
-L2TP/IPsec - Layer 2 Tunneling Protocol
+Configuration of the VPN protocols
+Supported protocols
 
-SSTP - Secure Socket Tunneling Protocol
+ - PPTP (Point-to-Point Tunneling Protocol) the first implementation was in Windows NT 4.0. Communication takes place via port 1723 TCP and the protocol 47 GRE. PPTP is widely used, but is no longer secure enough today, see also Microsoft security recommendation 2743314.
 
-IKEv2 - Internet Key exchange
+ - L2TP (Layer 2 Tunneling Protocol) which is used by Microsoft together with IPsec. Communication takes place via port 1701 TCP and 500 UDP.
 
-OpenVPN
+ - IKEv2 (actually “Internet Key Exchange V 2”, but here a synonym for IPsec, IP Security). Communication takes place via port 500 and 4500 UDP.
+
+ - SSTP (Secure Socket Tunneling Protocol), a Microsoft own protocol based on port 443 TCP. Thus, it gets through all firewalls as long as the 
+ 
+ - HTTPS tunnel is not broken. The protocol requires a functional SSL tunnel. Disadvantage: only available on Microsoft devices.
+Protocol selection
+
 
 
 #### 1. Install Remote Access Role in Your Windows Server
@@ -2984,6 +2991,370 @@ Adding a route is done by adding a local file (1); for a large network, routes c
 
 An example of the `route.txt` file:
 ![ws272](images/ws272.webp)
+
+After specifying the file with the route, click **Next**:
+![ws273](images/ws273.webp)
+
+In the next step, you can specify proxy settings; leave everything unchanged:
+![ws274](images/ws274.webp)
+
+Additional actions are also not required:
+![ws275](images/ws275.webp)
+
+The functionality of the **Connection Manager Administration Pack Wizard** allows you to add your own picture for the connection window:
+![ws276](images/ws276.webp)
+
+For phone book:
+![ws277](images/ws277.webp)
+
+Show support information, such as contact information:
+![ws278](images/ws278.webp)
+
+Upload a file with the text of the license agreement:
+![ws279](images/ws279.webp)
+
+Add files that can be installed with the connection manager:
+![ws280](images/ws280.webp)
+
+Before assembling the program, you can make additional changes to the files included in the connection profile, but leave everything unchanged:
+![ws281](images/ws281.webp)
+
+After clicking the **Next** button, we get the finished SMAC file, which is located at:
+![ws282](images/ws282.webp)
+
+We will transfer the **vpn.exe** file to the remote client’s computer, for example, via Google disk:
+
+**VPN Client**
+
+When you run this file on a Windows client, it displays a warning about an unknown publisher, click Run anyway:
+
+---
+
+### Site to Site VPN
+
+
+
+The **Routing and RAS** console opens, which has not changed since Windows Server 2008.
+![ws283](images/ws283.webp)
+
+
+Right-click on the server and select **Configure and activate routing and RAS**.
+![ws284](images/ws284.webp)
+
+Click on **Next** in the setup wizard
+![ws285](images/ws285.webp)
+
+In the next step you have to specify more precisely which scenario you want to set up. Next, I choose the **Custom Configuration** because **RAS (Dial-up or VPN)** expects certain requirements that we do not need.
+![ws286](images/ws286.webp)
+
+In the next step, select **VPN access**
+![ws287](images/ws287.webp)
+Confirm the message to start the service.
+
+Afterwards, the VPN protocols can be configured.
+
+Assigning rights for users
+
+It is also important that the users have the necessary rights for remote access.
+![ws288](images/ws288.webp)
+
+
+### SSTP VPN with Let’s Encrypt certificates
+
+Advertisements
+
+SSTP requires an SSL certificate accepted by the client. If you have an internal certificate authority, you can use this. The only thing that must be ensured is that the client can also reach the blacklist on the Internet. Many fail with this requirement. So why not use another certificate, for example a free one from Let’s encrypt.
+
+This article requires a Microsoft Windows Routing and RAS Server with configured SSTP VPN. If you don’t have it installed yet, I recommend you have a look at the article: VPN Server with Windows Server 2022.
+
+Installing Let’s Encrypt certificates
+
+To control Let’s Encrypt I use the appropriate PowerShell module [Posh-ACME](https://github.com/rmbolger/Posh-ACME/). The easiest way to install it is via the PowerShell Gallery. To do this, execute the following commands in a PowerShell session with administrative privileges:
+
+```powershell
+Install-PackageProvider -Name NuGet -Force
+```
+```powershell
+Install-Module -Name Posh-ACME -Scope AllUsers
+```
+Now the certificate is requested. During this process, a corresponding check entry must be entered in the DNS. The required entry is displayed by the PowerShell script. So make sure you have access to the configuration of the DNS zone you want to use. And watch out for typos. Also remember that changes in the DNS sometimes take a little longer, so better have a coffee after the change. The commands are:
+
+```powershell
+Set-PAServer LE_Prod
+```
+```powershell
+New-PACertificate -Domain "vpn.mydomain.com" -Contact "mail@mydomain.com" -CertKeyLength ec-256 -AcceptTOS -Install
+```
+> Now you can also see the corresponding certificate in the certificate management for computers. As usual with Let’s Encrypt, the duration is only 3 months.
+
+
+![ws289](images/ws289.webp)
+
+To make sure that the VPN server uses the right certificate, we need some PowerShell again:
+```powershell
+$cert = Get-ChildItem -Path Cert:\LocalMachine\My | Where-Object {$_.Subject -match "vpn.mydomain.com"}
+Import-Module RemoteAccess
+Stop-Service RemoteAccess
+Set-RemoteAccess -SslCertificate $cert
+Start-Service RemoteAccess
+```
+Renewing Certificates
+The renewal can be done easily with the command “Submit-Renewal”, but only 5 weeks before expiration. But also here the configuration for the certificate assignment has to be done again. The background is that Let Encrypt issues new certificates instead of renewing the existing ones
+
+The script to be created must be executed as a scheduled task in the same user context (including administrative rights!) as the request. Otherwise, the ACME profile with the required information is missing. A sample script could look like this:
+
+```powershell
+Import-Module RemoteAccess
+Stop-Service RemoteAccess
+Submit-Renewal
+$cert = Get-ChildItem -Path Cert:\LocalMachine\My | Where-Object {$_.Subject -match "vpn.mydomain.com" -and $_.NotBefore -lt $(Get-Date) -and $_.NotAfter -gt $(Get-Date) }
+Set-RemoteAccess -SslCertificate $cert
+Start-Service RemoteAccess
+```
+
+
+## Network Policy Server (NPS) 
+
+is Microsoft’s application for enforcing company-wide access policies through a Remote Authentication Dial-In User Service (RADIUS) server and comes with centralized authentication, authorization and accounting abilities.
+
+
+## Radius 
+
+**RADIUS** (Remote Authentication in Dial-In User Service) is a network protocol that provides centralized management of authentication, authorization, and accounting (AAA), and designed to exchange of information between a central platform and client devices. RADIUS server can communicate with a central server for example, Active Directory domain controller) to authenticate remote dial-in clients and authorize them to access specific network services or resources.
+
+The **Network Policy Server (NPS)** role implements the RADIUS server function in the Windows environment and allows you to authenticate remote clients against Active Directory. In this article, we’ll show how to configure a RADIUS server on Windows Server 2022/2019/2016, and how to configure RADIUS authentication on Cisco and MikroTic network devices (RADIUS clients) under AD user accounts.
+
+### Install the RADIUS Server Role
+
+So first I will install the **Network Policy and Access Services (NPAS)** server role either on a domain controller or member server.
+![ws290](images/ws290.webp)
+
+
+![ws291](images/ws291.webp)
+
+
+![ws292](images/ws292.webp)
+
+
+![ws293](images/ws293.webp)
+
+### Configure Firewall
+Open **Windows Defender Firewall with Advanced Security** and create a New rule for the incoming port **1812** and **1813**:
+![ws294](images/ws294.webp)
+
+![ws295](images/ws295.webp)
+
+![ws296](images/ws296.webp)
+
+![ws297](images/ws297.webp)
+
+![ws298](images/ws298.webp)
+
+![ws299](images/ws299.webp)
+
+### Configure RADIUS server
+
+Open the **Network Policy Server** console and select the **RADIUS server for 802.1X Wireless or Wired Connections** template to configure **NPS** by using the **wizard**.
+![ws300](images/ws300.webp)
+
+![ws301](images/ws301.webp)
+
+![ws302](images/ws302.webp)
+
+![ws303](images/ws303.webp)
+
+![ws304](images/ws304.webp)
+
+![ws305](images/ws305.webp)
+
+![ws306](images/ws306.webp)
+
+![ws307](images/ws307.webp)
+
+
+Note: Also, you can install NPS role and management tools from an elevated PowerShell console:
+```
+Install-WindowsFeature NPAS –IncludeManagementTools
+```
+
+Check if the NPAS role is installed on your Windows Server host:
+```
+Get-WindowsFeature -Name NPAS
+```
+
+After the role installation is completed, open the Network Policy Server (nps.msc) in the Tools menu.
+![ws308](images/ws308.webp)
+
+Right-click on a root node of the NPS console and click **Register server in Active Directory**.
+![ws309](images/ws309.webp)
+
+Confirm the new NPS server registration in Active Directory.
+![ws310](images/ws310.webp)
+
+Also, you can register your NPS server in Active Directory with a command:
+```
+netsh ras add registeredserver
+```
+The AD machine account on the NPS server is given permission to read the properties Active Directory user accounts to authenticate users. Your NPS host computer account will be added to the built-in domain group **RAS and IAS Servers**.
+![ws311](images/ws311.webp)
+
+Next, create a new security group in the Active Directory domain (for example, ***RemoteCiscoUsers***) and add all users who will be allowed to authenticate on Cisco routers and switches to this group.
+![ws312](images/ws312.webp)
+The next step is to add the Radius client. Radius client is the device from which your server can receive authentication requests. This could be a Cisco router, switch, Wi-Fi access point, etc.
+
+Expand the **RADIUS Clients and Servers** > **RADIUS Clients**, select **New**.
+
+On the Settings tab, fill the fields **Friendly name**, client **Address** (you can specify IP address or DNS name), and **Shared Secret + Confirm shared** password (you will use this password in the configuration of the Cisco switch/router).
+
+> **Note.** The shared secret password is rarely used in large corporate networks due to the problems with the distribution of shared secrets. It is recommended to use certificates instead of shared passwords. If you have a corporate Certification Authority (CA) deployed to implement PKI infrastructure, you can request a *.p12 certificate for the Radius/NPS server. Just import the certificate to the personal certification store of the Local Machine.
+
+![ws313](images/ws313.webp)
+
+In the **Advanced** tab, select Vendor name – **Cisco**.
+![ws314](images/ws314.webp)
+
+You can use the PowerShell command instead of the NPS GUI to add a new RADIUS client. In this case, you can use the **New-NpsRadiusClient** PowerShell cmdlet:
+```
+New-NpsRadiusClient –Address "192.168.31.1" –Name "cisco2960" –SharedSecret "Zb+kp^JUy]v\ePb-h.Q*d=weya2AY?hn+npRRp[/J7d"
+```
+> **Note**. On Windows Server Datacenter edition you can add RADIUS clients to NPS by IP address range. This allows to add a large number of RADIUS clients (such as wireless access points) rather than adding them individually. You can specify the IP range using the format 10.1.0.0/22.
+
+By default, NPS uses the following UDP ports to send and receive RADIUS traffic: 1812, 1813, 1645, and 1646. When you install the NPS role on Windows Server, rules for these ports are automatically created and enabled in Windows Defender Firewall. You can list these Windows Firewall rules using PowerShell:
+```
+Get-NetFirewallRule -DisplayGroup "Network Policy Server"
+```
+If your RADIUS client is located in a DMZ network or an external security perimeter, you must create the appropriate firewall rules on your network firewall.
+
+### Configure NPS Policies on the RADIUS Server
+
+NPS policies allow you to authenticate remote users and grant them access permissions configured in the NPS role. NPS access policies allow you to associate the RADIUS client to the domain security group that determines the user privileges on CISCO devices.
+
+There are two types of policy on a RADIUS server:
+
+- **Connection request policies** — determine which RADIUS servers should authenticate and authorize connection requests received from RADIUS clients;
+
+- **Network policies** — allow you to specify who is authorized to connect to your network and a list of assigned privileges.
+
+In our case, we will use only the NPS Network policies. Expand the **Policies > Network Policies** branch and select New:
+![ws315](images/ws315.webp)
+
+Specify the Policy name, the type of network access server should remain unchanged (Unspecified).
+![ws316](images/ws316.webp)
+
+In the **Specify conditions** step, you need to add the conditions under which this RADIUS policy will be applied. Let’s add two conditions — the authorized user must be a member of a specific domain security group, and the device you want to access has a specific name. Use the **Add** option to create a new condition by selecting the **Windows Group** type (add the RemoteCiscoUsers group) and specifying the **Client Friendly Name** (Cisco_*).
+
+> Note. The Client Friendly Name field may differ from the DNS name of your device. We will need it in the further steps to identify a specific network device when creating a Remote Access Policy. For example, you can use this name to specify a mask through which several different RADIUS clients are processed by a single access policy.
+
+![ws317](images/ws317.webp)
+
+On the next screen, select **Access Granted**.
+![ws318](images/ws318.webp)
+
+My Cisco switch only supports Unencrypted authentication methods (PAP, SPAP), so I’ve disabled all other options.
+
+![ws319](images/ws319.webp)
+
+Skip the next configuration Constraints step.
+
+In the **Configure Settings** section, go to the **RADIUS Attributes > Standard** section. Delete the existing attributes there and click the **Add** button.
+
+Select **Access type** > All, then **Service-Type** > Add. Specify **Others** = Login.
+
+![ws320](images/ws320.webp)
+
+Now add a new attribute in the RADIUS Attributes > Vendor Specific section. Under Vendor, select Cisco, and click Add. Here you need to add information about the attribute. Click Add and specify the following value:
+```
+shell: priv-lvl = 15
+```
+This value means that the user authorized by this policy will be granted a maximum (15) administrative access privileges on the Cisco device.
+
+![ws321](images/ws321.webp)
+
+The last screen displays all selected NPS policy settings. Click Finish.
+
+![ws322](images/ws322.webp)
+
+If you have created several network policies in the NPS console, please note that they are processed from top to bottom, so the order of the policies is important. Further processing will stop if all conditions in the next policy are met. You can change the priority of policies in the NPS console using the Processing Order value.
+
+![ws323](images/ws323.webp)
+
+By default, all AD accounts can be used to authenticate using RADIUS. You can check this using the Active Directory Users and Computers snap-in (dsa.msc). Open any user properties, go to the Dial-In tab, and check that the **Control access through NPS Network Policy** option in enabled in the **Network Access Permission** section.
+
+![ws324](images/ws324.webp)
+
+Or you can reset msNPAllowDialin attribute for all users in the specific Active Directory OU using the LDAP filter:
+```
+Get-ADUser -SearchBase "ou=Users,ou=Paris,dc=theitbros,dc=com" -LDAPFilter "(msNPAllowDialin=*)" | % {Set-ADUser $_ -Clear msNPAllowDialin}
+```
+
+### Radius Proxy
+
+**RADIUS Server Groups**
+
+A RADIUS server group is a group of RADIUS servers that are similar. When you configure a device as a RADIUS proxy to forward connection requests to RADIUS servers, process the requests, authenticate and authorize the users or computer accounts located in the database, it allows you to group existing server hosts that have different operational characteristics.
+
+When multiple RADIUS servers exist in your network, you can configure RADIUS clients to either use a primary RADIUS server or an alternate RADIUS server. This means that, if the primary RADIUS server becomes unavailable, the request is sent to the alternate RADIUS server.
+
+
+**Configuring RADIUS Servers for a group**
+
+A remote RADIUS server group, as the name suggests, contains one or more RADIUS servers. To configure more than one server, it is important to specify the load balancing settings of each RADIUS Server. This is to avoid one or more servers getting overloaded with too many connection requests. The solution is to decide the order in which the servers are used by the proxy or by allotting the flow of RADIUS messages across all servers in the group.
+
+In some cases, RADIUS Server groups comprise of multiple host entries for the same server. Under such circumstances, each host entry would have a unique name/address. The unique identifier can be the combination of an IP address or a name resolved to the IP address, such as a UDP port number.
+
+The unique identifier authorizes different UDP ports, providing a specific AAA service, and allows RADIUS requests to be sent to different UDP ports on a server at the same IP address
+
+![ws325](images/ws325.webp)
+
+
+
+
+
+
+**Adding a new remote RADIUS server group in Windows NPS Server**
+
+When the NPS is configured as a RADIUS proxy, a new connection request policy is created. The NPS uses this policy to determine which connection requests need to be forwarded to other RADIUS servers. The NPS also uses this policy to specify the precise remote RADIUS server group where the connection requests that match the connection request policy need to be sent and to decide which RADIUS servers will perform the authentication and authorization of connection requests that the NPS server receives from RADIUS clients.
+
+
+- Login to your Windows Radius Server and click on the **Server Manager**. On the Server Manager tab, click **Tools** and select **Network Policy Server**. Then click **Network Policy Server**. The NPS console opens.
+
+- Expand the NPS console tree, select **RADIUS Clients and Servers** and double-click. You’ll be moved to the **Remote RADIUS Server Groups** where you should right-click, and then click **New**.
+
+- On the New Remote RADIUS Server Group dialog box **type in the name** assigned for the **remote RADIUS server group**.
+
+- In **RADIUS Servers**, click **Add**. The Add RADIUS Servers dialog box opens. Type the **IP address** of the **RADIUS server** that you **want to add** to the group, or type the **Fully Qualified Domain Name (FQDN)** of the RADIUS server, and then click **Verify**.
+
+- In the Add **RADIUS Servers, click the Authentication/Accounting tab**. In **Shared secret** and **Confirm shared secret**, type the shared secret. Make sure to **use the same shared secret** when you configure the local computer as a **RADIUS client** on the remote RADIUS server.
+
+- Please note that **EAP** uses the **Message-Authenticator attribute** by default. So, in case you are not using Extensible Authentication Protocol (EAP) for authentication, click **Request** must contain the message authenticator attribute.
+
+- **Check** the authentication and accounting **port** numbers and see whether they are correct.
+
+- In case the shared secret for accounting is different, go to the **Accounting tab** and clear the Use the same shared secret for authentication and accounting check box. Then type the accounting shared secret in **Shared secret** and **Confirm shared secret**.
+
+- If you do not want to forward network access server start and stop messages to the remote RADIUS server, clear the **Forward network access server start and stop notifications** to this server **check box**.
+
+- Select the **Load Balancing** tab.
+
+- Specify how often requests are sent to a specific server in a group by specifying the **weight assigned** to the server.
+
+- Click **OK** to close the Add RADIUS Server dialog box.
+
+- Click **OK** to close the New Remote RADIUS Server group.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
