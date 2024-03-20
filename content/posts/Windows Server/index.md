@@ -3857,13 +3857,55 @@ Don’t confuse DFS Replication of data in shared folders and data backup. DFS r
 
 
 
-## Branch Cache
+## BranchCache
 
 The Branch offices have unique management challenges. The BranchCache is a WAN optimization technology that is built into Server 2016. It enables remote offices to access centralized file-shares, over the wide area network at faster speeds and using less bandwidth. This type of solution to remote office WAN optimization is collectivity known as “wide area files services” or WAFS solutions. They are traditionally expensive. so, it is great to have a solution included in the box with Windows Server. Therefore, the challenge is to provide efficient access to network resources for users in branch offices. BranchCache helps you overcome these problems by caching files so they do not have to be transferred repeatedly over the network. BranchCache improves the responsiveness of common network applications that access intranet servers across slow WAN links.
 
 ![ws358](images/ws358.webp)
 
+
+
+
 ### How to Install and Configure BranchCache in Windows Server 2016
+
+
+**Configure Domain Server to use Windows BranchCache**
+1. On the **DC_SERVER01** server, open **Server Manager**, click **Add roles** and **features** and proceed installation until you reach Select server roles interface, click **File and Storage** Services and click **File and iSCSI Services** then select **BranchCache for Network File**, then proceed with **Next**
+![ws359](images/ws359.webp)
+
+![ws360](images/ws360.webp)
+
+2. On the Select features interface, click **Next**
+
+![ws361](images/ws361.webp)
+
+3. On the Confirm installation selections interface, click **Install**
+
+![ws362](images/ws362.webp)
+
+4. Once the installation complete, click **Close**
+
+![ws363](images/ws363.webp)
+
+5. Next, on the **Domain Server** open **Gpedit.msc**
+
+#_# In the **Local Group Policy Editor console**, under **Computer Configuration**, expand **Administrative Templates**, expand **Network**, and then click **Lanman Server**.
+
+#_# On the **Lanman Server** result pane, double-click **Hash Publication for BranchCache**
+
+![ws364](images/ws364.webp)
+
+![ws365](images/ws365.webp)
+
+6. In the Hash Publication for BranchCache box, click **Enabled**, in the Hash **publication actions list**, select the **Allow hash publication only for shared folders on which BranchCache is enabled**, and then click **OK**
+![ws366](images/ws366.webp)
+
+
+
+
+
+
+
 
 ## WDS
 
