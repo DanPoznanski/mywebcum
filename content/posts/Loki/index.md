@@ -518,7 +518,7 @@ sudo service promtail status
 > Warning: If you reboot your server, the Promtail Service may not restart automatically.
 > You can set the Promtail service to auto restart after reboot by entering, `sudo systemctl enable promtail.service`
 
-Run promtail (promtail on `localhost:9080`)
+Run Promtail (promtail on `localhost:9080`)
 ```bash
 ./promtail --config.file=promtail-local-config.yaml
 ```

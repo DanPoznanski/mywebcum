@@ -172,9 +172,14 @@ Filters, transforms and enriches data according to your requirements. For exampl
 ![elk3](images/elk5.webp)
 
 install logstash from binary
+
 ```bash
-curl -L -O https://artifacts.elastic.co/downloads/logstash/logstash-8.1.1-linux-x86_64.tar.gz
+curl -L -O https://artifacts.elastic.co/downloads/logstash/logstash-8.11.4-linux-x86_64.tar.gz
 ```
+
+
+
+
 ```bash
 sudo dpkg -i logstash-8.1.1-amd64.deb
 ```
