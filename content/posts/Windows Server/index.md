@@ -3901,8 +3901,40 @@ The Branch offices have unique management challenges. The BranchCache is a WAN o
 ![ws366](images/ws366.webp)
 
 
+**Simulate a slow link to the branch office**
 
+1. Still in the **Local Group Policy Editor console** in Domain Server, in the navigation pane, under **Computer Configuration**, expand **Windows Settings**, right-click **Policy-based QoS**, and then click **Create new policy**
+![ws367](images/ws367.webp)
 
+2. In the Policy-based QoS Wizard, on the Create a QoS policy interface, in the Policy name text box, type **Limit to 100 Kbps**, and then select the Specify Outbound Throttle Rate check box. In the Specify Outbound Throttle Rate text box, type **100**, and then click **Next**
+![ws368](images/ws368.webp)
+
+3. On the This QoS policy applies to interface, click **Next**
+![ws369](images/ws369.webp)
+
+4. On the Specify the source and destination IP addresses interface, click **Next**
+![ws370](images/ws370.webp)
+
+5. On the Specify the protocol and port numbers interface, click **Finish and close Local Group Policy Editor console**
+![ws371](images/ws371.webp)
+
+**Enable a File Share for BranchCache**
+
+1. On the Domain Server DC_Server01, **create 01 folder** called  **BC Head_Share**, and then **share this folder**
+
+![ws372](images/ws372.webp)
+
+2. On the **BC Head_Share properties**, click **Advanced Sharing**
+
+![ws373](images/ws373.webp)
+
+3. Click **Share this folder box**, and click **Caching**
+
+![ws374](images/ws374.webp)
+
+4. 4 – In the Offline Settings box, click **Enable BranchCache box**, and then click **OK**
+
+![ws375](images/ws375.webp)
 
 
 
