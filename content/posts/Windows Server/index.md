@@ -3901,7 +3901,7 @@ The Branch offices have unique management challenges. The BranchCache is a WAN o
 ![ws366](images/ws366.webp)
 
 
-**Simulate a slow link to the branch office**
+### Simulate a slow link to the branch office
 
 1. Still in the **Local Group Policy Editor console** in Domain Server, in the navigation pane, under **Computer Configuration**, expand **Windows Settings**, right-click **Policy-based QoS**, and then click **Create new policy**
 ![ws367](images/ws367.webp)
@@ -3918,7 +3918,8 @@ The Branch offices have unique management challenges. The BranchCache is a WAN o
 5. On the Specify the protocol and port numbers interface, click **Finish and close Local Group Policy Editor console**
 ![ws371](images/ws371.webp)
 
-**Enable a File Share for BranchCache**
+
+### Enable a File Share for BranchCache
 
 1. On the Domain Server DC_Server01, **create 01 folder** called  **BC Head_Share**, and then **share this folder**
 
@@ -3932,9 +3933,420 @@ The Branch offices have unique management challenges. The BranchCache is a WAN o
 
 ![ws374](images/ws374.webp)
 
-4. 4 – In the Offline Settings box, click **Enable BranchCache box**, and then click **OK**
+4. In the Offline Settings box, click **Enable BranchCache box**, and then click **OK**
 
 ![ws375](images/ws375.webp)
+
+5. On the Specify the protocol and port numbers interface, click **Finish and close Local Group Policy Editor console**
+
+![ws376](images/ws376.webp)
+
+
+### Configure client firewall rules for BranchCache
+
+1. In the Domain Server DC_Server01, open **Group Policy Management**, then right-click **Default Domain Policy**, and then click **Edit**
+![ws377](images/ws377.webp)
+
+![ws378](images/ws378.webp)
+
+
+2. In the Group Policy Management Editor, under **Computer Configuration**, expand **Policies**, expand **Windows Settings**, expand **Security Settings**, and then expand **Windows Firewall with Advanced Security**
+
+#_# extend Windows Firewall with Advanced Security, right-click **Inbound Rules**, and then click **New Rule**
+
+![ws379](images/ws379.webp)
+
+3. In the New Inbound Rule Wizard, on the Rule Type page, click Predefined, click **BranchCache – Content Retrieval (Uses HTTP)**, and then click **Next** and Predefined Rules interface, click **Next**
+
+![ws380](images/ws380.webp)
+
+4. On the Action page, click **Finish** to create the firewall **inbound rule**
+
+![ws381](images/ws381.webp)
+
+5. Repeat the same step, and this time click **Predefined**, click **BranchCache – Peer Discovery (Uses WSD)**, and then click **Next** and proceed to **Finish**
+
+![ws382](images/ws382.webp)
+
+![ws383](images/ws383.webp)
+
+6. Next, run `gpupdate /force` command to activate the policy
+
+### Install BranchCache for Network Files role and the BranchCache feature on Member Server
+
+1. On the **SUB_SERVER02** server, open **Server Manager**, click **Add roles and features** and proceed installation until you reach Select server roles interface, click **File and Storage Services** and click **File and iSCSI Services** then select **BranchCache for Network File**, then proceed with **Next**
+![ws384](images/ws384.webp)
+
+2. On the Select features interface, click **BranchCache**, and then click **Next**
+![ws385](images/ws385.webp)
+
+3. On the Confirm installation selections interface, click **Install**, and then click **Close**
+![ws386](images/ws386.webp)
+
+4. Next, we need to start the BranchCache host server, in the **SUB_SERVER02** server open Windows PowerShell and type:
+```
+Enable-BCHostedServer -RegisterSCP
+Get-BCStatus
+```
+
+5. Scroll down to the **DataCache section**, notice the **current active cache size** is **zero**
+![ws387](images/ws387.webp)
+
+6. Lastly run the `gpupdate /force`
+![ws388](images/ws388.webp)
+
+### Configure client PC to use BranchCache in hosted cache mode
+
+1. On Domain Server **DC_SERVER01** open **Group Policy Management**, then right-click **NewHelptech.lk**, and then click **New Organizational Unit**
+![ws389](images/ws389.webp)
+
+2. On the Select features interface, click **BranchCache**, and then click **Next**
+![ws390](images/ws390.webp)
+
+3. Right-click the **HelpTech Branch OU** and click **Create a GPO in this domain, and link it here**
+![ws391](images/ws391.webp)
+
+4. In the New GPO box, type **BranchCache**, and then click **OK**
+![ws392](images/ws392.webp)
+
+5. Next, right-click the **BranchCache GPO** and click **Edit**
+![ws393](images/ws393.webp)
+
+6. In the Group Policy Management Editor, under **Computer Configuration**, expand **Policies**, expand **Administrative Templates**, expand **Network**, and then click **BranchCache**
+
+#_# in the Setting list, double click **BranchCache**
+
+![ws394](images/ws394.webp)
+
+7. In the **Turn on BranchCache** box, click **Enabled**, and then click **OK**
+![ws395](images/ws395.webp)
+
+8. In the BranchCache results pane, double-click **Enable Automatic Hosted Cache Discovery by Service Connection** and then click **Edit**
+![ws396](images/ws396.webp)
+
+9. In the Enable Automatic Hosted Cache Discovery by Service Connection Point box, click **Enabled** and then click **OK**
+![ws397](images/ws397.webp)
+
+10. In the BranchCache results pane, double-click Configure BranchCache for network files, and then click **Edit**
+![ws398](images/ws398.webp)
+
+11. In the Configure BranchCache for network files box, click **Enabled**, in the Type the maximum round-trip network latency (milliseconds) after which caching begins text box, type **0**, and then click **OK**
+![ws399](images/ws399.webp)
+
+“This setting is required to simulate access from a branch office and is not typically required”
+
+12. Next, open **Active Directory Users and Computers**, and **move** any **clients PC** that you have in **Computer OU** to **HelpTech Branch OU**
+![ws400](images/ws400.webp)
+
+![ws401](images/ws401.webp)
+
+13. Next, switch to Client PC, open CMD, and type
+```
+netsh branchcache show status all
+```
+
+#_# Verify that the BranchCache Current Status is Running. If the status is Stopped, restart the client machines.
+
+![ws402](images/ws402.webp)
+
+14. Now lets the BranchCache, on the client PC, access to **\\DC_SERVER01\BC Head_Share folder**
+![ws403](images/ws403.webp)
+
+15. **Copy** the whole file in the **BC Head_Share folder** and then **paste to your client PC desktop**
+![ws404](images/ws404.webp)
+
+### Monitoring BranchCache
+
+1. Switch to **SUB_SERVER02** Server and open **Performance Monitor**
+
+#_# under Monitoring Tools, click **Performance Monitor**, then click the **Add icon**
+
+#_# In the **Add Counters box**, under Select **counters from computer**, click **BranchCache**, click **Add**
+
+![ws405](images/ws405.webp)
+
+![ws406](images/ws406.webp)
+
+![ws407](images/ws407.webp)
+
+2. and then click **OK**
+![ws408](images/ws408.webp)
+
+3. On the **Change Graph type button**, select **Report**
+![ws409](images/ws409.webp)
+
+4. Switch to Client PC, and repeat the step previously for **Performance Monitor** & add **BranchCache**
+![ws410](images/ws410.webp)
+
+---
+```
+Get-BCStatus
+```
+```
+Enable-BCHostedServer -registerSCP
+```
+```
+gpupdate /force
+```
+
+---
+
+## NIC Teaming
+
+NIC Teaming is disabled by default. If you want to enable it, you need to have at least two physical or virtual network cards. If you decide to enable NIC Teaming in guest operating systems using virtual network cards, some options will not be available.
+
+
+In this article, I will show you which options are available and how to configure NIC Teaming in Windows Server 2022 using Server Manager.
+
+
+![ws411](images/ws411.webp)
+
+
+### How to set up NIC Teaming
+
+All your network cards need to be connected to the network and have a valid IP address.
+
+1. Open **Server Manager**.
+
+2. Select **Local Server**.
+
+3. Under NIC Teaming, click **Disabled**.
+
+![ws412](images/ws412.webp)
+
+
+
+1. Click Tasks and then **New Team**.
+![ws413](images/ws413.webp)
+
+2. **Define the name** of the NIC Team and select the relevant network adapters.
+
+
+Under **Additional properties**, you can configure **Teaming mode, Load balancing mode**, and **Standby adapter**.
+
+There are three teaming modes available: Switch Independent, Static Teaming, and LACP. Both Static Teaming and LACP are switch dependen
+
+![ws414](images/ws414.webp)
+
+- **Switch independent** mode doesn't require network cards that are members of NIC Teaming to be connected with the same switch. They may be attached to different switches; however, that doesn't matter in this case.
+
+- **Switch dependent** mode requires all network cards that are members of NIC Teaming to be connected to the same switch. If you select this mode, it will offer you two operation modes, including:
+
+  - **Static teaming** - This requires the same configuration on the host and switches to identify which links are from the NIC Teaming mode.
+  
+  - **Link Aggregation Control Protocol (LACP)** - This dynamically identifies the links between the host and the switch.
+
+In addition, you can configure the load balancing mode and choose one of the three available options: **Address Hash**, **Hyper-V Port**, and **Dynamic**.
+![ws415](images/ws415.webp)
+
+**Address Hash** mode helps to create a balance between network adapters that are members of NIC Teaming. It creates a hash based on the address component of the packet and then assigns the value to one of the adapters.
+
+**Hyper-V Port** helps distribute traffic from switches to hosts on multiple links based on the MAC of the virtual machines.
+
+**Dynamic** combines the address hash and Hyper-V port into a single mode. Outbound traffic is distributed based on a hash of TCP ports and IP addresses. Inbound traffic is distributed based on MAC.
+
+
+You can combine different teaming modes with load-balancing modes.
+
+Under the **Standby adapter**, you can choose whether you want to have all network cards active or put one of them in standby mode. Standby mode means that if one NIC fails, the second will take over network traffic.
+
+![ws416](images/ws416.webp)
+
+1. Once configured, click **OK**.
+
+2. Navigate to your **network sharing center**. You can do this by opening Run and typing ncpa.cpl. You will see that three network cards are joined to NIC Teaming. In my case, it's called 4sysops.
+
+![ws417](images/ws417.webp)
+
+This NIC Team shares a single IP address.
+
+
+
+## Switch Embedded Teaming (SET)
+
+With the release of Windows Server 2016, Microsoft introduced a new type of teaming approach called Switch Embedded Teaming (SET) which is a virtualization-aware, how is that different from NIC Teaming, the first part is embedded into the Hyper-V virtual switch, which means a couple of things, the first one you don’t have any team interfaces anymore, you won’t be able to build anything extra on top of it, you can’t set a property on the team because it’s part of the virtual switch, you set all the properties directly on the vSwitch.
+
+SET is targeted to support Software Defined Networking (SDN) switch capabilities, it’s not a general-purpose use everywhere teaming solution that NIC Teaming was intended to be. So this is specifically integrated with Packet Direct, Converged RDMA vNIC, and SDN-QoS. It’s only supported when using the SDN Extension. Packet Direct provides a high network traffic throughput and low-latency packet processing infrastructure.
+
+
+**SET is compatible with:**
+
+- Datacenter bridging (DCB).
+
+- Hyper-V Network Virtualization – NV-GRE and VxLAN are both supported in Windows Server 2016 Technical Preview.
+
+- Receive-side Checksum offloads (IPv4, IPv6, TCP) – These are supported if any of the SET team members support them.
+
+- Remote Direct Memory Access (RDMA).
+
+- SDN Quality of Service (QoS).
+
+- Transmit-side Checksum offloads (IPv4, IPv6, TCP) – These are supported if all of the SET team members support them.
+
+- Virtual Machine Queues (VMQ).
+
+- Virtual Receive Side Scaling (RSS).
+
+**SET is not compatible with:**
+
+- 802.1X authentication.
+
+- IPsec Task Offload (IPsecTO).
+
+- QoS in the host or native OSs.
+
+- Receive side coalescing (RSC).
+
+- Receive side scaling (RSS).
+
+- Single root I/O virtualization (SR-IOV).
+
+- TCP Chimney Offload.
+
+- Virtual Machine QoS (VM-QoS).
+
+**SET Modes and Settings:**
+
+- Switch independent teaming mode only.
+
+- Dynamic and Hyper-V port mode load distributions only.
+
+- Managed by SCVMM or PowerShell, no GUI.
+
+- Only team’s identical ports (same manufacturer, same driver, same capabilities) (e.g., dual or quad-port NIC).
+
+- The switch must be created in SET mode. (SET can’t be added to the existing switch; you cannot change it later).
+
+- Up to eight physical NICs maximum into one or more software-based virtual network adapters.
+
+- The use of SET is only supported in Hyper-V Virtual Switch in Windows Server 2016 or later releases. You cannot deploy SET in Windows Server 2012 R2.
+
+How you turn on this new Switch, it’s very simple:
+```
+New-VMSwitch -Name SETswitch -NetAdapterName "Ethernet1","Ethernet2" -EnableEmbeddedTeaming $true
+```
+One tip, you do not necessarily need to specify **–EnableEmbeddedTeaming $true**, if the **–NetAdapter** parameter is followed by an array instead of a single NIC, it automatically creates the vSwitch and put it in embedded teaming mode. However, if the **–NetAdapter** parameter has a single NIC, you can then set it up and enable embedded teaming mode by including the flag and then later adding another NIC to it. It’s a one-time decision you want to make at the switch creation time.
+
+
+In Windows Server 2012 R2, it was not possible to configure RDMA (Remote Direct Memory Access) on network adapters that are bound to a NIC Team or to a Hyper-V Virtual Switch. This increases the number of physical network adapters that are required to be installed in the Hyper-V host. In Windows Server 2016, you can use fewer network adapters and enable RDMA on network adapters that are bound to a Hyper-V Virtual Switch with or without Switch Embedded Teaming (SET).
+
+The diagram below illustrates the software architecture changes between Windows Server 2012 R2 and Windows Server 2016:
+
+![ws418](images/ws418.webp)
+
+The goal of moving to Windows Server 2016 is to cut the cost of networking in half, we now have the Hyper-V switch with embedded teaming, we are doing SMB with RDMA directly to a NIC that is bound to the Hyper-V switch, and is managed by the Hyper-V switch, by the way, you can have another channel from SMB to the other physical NIC (light green line in the diagram above), so they teamed the RDMA NICs which allow the sessions to be failover by SMB in the event if we lose a NIC. We will have multiple RDMA clients bound to the same NIC (Live Migration, Cluster, Management, etc.).
+
+The Converged NIC with RDMA allows:
+
+- Host vNICs to expose RDMA capabilities to kernel processes (e.g., SMB-Direct).
+
+- Switch Embedded Teaming (SET), allows multiple RDMA NICs to expose RDMA to multiple vNICs (SMB Multichannel over SMB-Direct).
+
+- Switch Embedded Teaming (SET), allows RDMA fail-over for SMB-Direct when two RDMA-capable vNICs are exposed.
+
+- Operates at full speed with the same performance as native RDMA.
+
+How you turn on RDMA on vNICs, it’s very simple with PowerShell:
+```
+Add-VMNetworkAdapter -SwitchName SETswitch -Name SMB_01
+Add-VMNetworkAdapter -SwitchName SETswitch -Name SMB_02
+
+Enable-NetAdapterRDMA "vEthernet (SMB_01)", "vEthernet (SMB_02)"
+
+Get-NetadapterRdma
+```
+> As noted earlier, SET supports only switch-independent configuration by using either Dynamic or Hyper-V Port load-balancing algorithms. For best performance, Hyper-V Port is recommended for use on all NICs that operate at or above 10 Gbps.
+
+### Deploy Switch Embedded Teaming with DSC
+
+So without further ado, let’s jump into the demo.
+
+We have here four Hyper-V nodes deployed up and running, but without any configuration yet:
+![ws419](images/ws419.webp)
+
+If I query the Virtual Switch for each node, I don’t see any:
+![ws420](images/ws420.webp)
+
+We will query all network adapters that are available on each host.
+
+As you can see, each node has 3 NICs, one for Management and two RDMA NICs.
+![ws421](images/ws421.webp)
+
+
+Next, I will install the custom DSC **cHyper-V** resource module on each node by running the following:
+```
+# Install cHyper-V Custom DSC Module on all Nodes
+
+Invoke-Command HVNODE1,HVNODE2,HVNODE3,HVNODE4 -ScriptBlock {
+Save-Module -Name cHyper-V -Path C:\
+Install-Module -Name cHyper-V
+}
+```
+Last but not least, I will push the DSC Configuration across all nodes and let the fun begins!
+```
+# Applying DSC Configuration
+.\SET-NICTeaming.ps1 -targetNode HVNODE1,HVNODE2,HVNODE3,HVNODE4
+
+# Credit to my fellow MVP - Ravikanth
+# https://www.powershellgallery.com/packages/cHyper-V/
+# PowerShell DSC Resources to Configure SET and NAT Switch in Windows Server 2016
+
+Param
+(
+[String[]]$targetNode
+)
+
+Configuration SETSwitchTeam
+{
+# Importing the resource from custom DSC Module
+Import-DscResource -ModuleName cHyper-V -Name cSwitchEmbeddedTeam
+
+# List of Hyper-V Nodes which needs to be configured
+node $targetNode
+{
+# Create Switch Embedded Team for given interfaces
+     cSwitchEmbeddedTeam DemoSETteam
+{
+        Name = "SET-TEAM01"
+        NetAdapterName = "RDMA_01","RDMA_02"
+        AllowManagementOS = $false
+        Ensure = "Present"
+     }
+} 
+}
+
+SETSwitchTeam
+
+Start-DscConfiguration -Path SETSwitchTeam -Verbose -Wait -ComputerName $targetNode -credential $DomainCred -Force
+```
+
+And here you go:
+![ws422](images/ws422.webp)
+
+
+Let’s validate the new **SET-TEAM01** vSwitch gets created on all Hyper-V nodes using PowerShell:
+![ws423](images/ws423.webp)
+
+
+
+
+### Deploying Switch Embedded Teaming on a VM
+
+Open an elevated command (cmd) prompt window and type the following, this command will also restart the virtual machine.
+```
+# Install the Hyper-V role in silent mode
+dism.exe /Online /Enable-feature /All /FeatureName:Microsoft-Hyper-V /FeatureName:Microsoft-Hyper-V-Management-PowerShell /quiet
+```
+Once the virtual machine is restarted, open PowerShell in administrative mode and run the following command:
+```
+# Create Switch Embedded Teaming (SET) on a VM
+New-VMSwitch -Name "SET-VMSwitch" -NetAdapterName "Ethernet 2","Ethernet 3" -EnableEmbeddedTeaming $true
+Get-VMSwitch | FL Name, EmbeddedTeamingEnabled, NetAdapterInterfaceDescriptions, SwitchType
+```
+![ws424](images/ws424.webp)
+
+
+
 
 
 
