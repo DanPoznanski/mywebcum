@@ -4345,12 +4345,18 @@ Get-VMSwitch | FL Name, EmbeddedTeamingEnabled, NetAdapterInterfaceDescriptions,
 ```
 ![ws424](images/ws424.webp)
 
+---
 
+## AD
 
+```
+install-WindowsFeature -name ad-domain-services -IncludeManagemenTools
+```
+```
+install-addsforest -domainname test.local
 
-
-
-
+get-adforest
+```
 ## WDS
 
 
@@ -4368,3 +4374,38 @@ Install-WindowsFeature wds -IncludeAllSubFeature -IncludeManagementTools
  
 
 ## IIS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## PKI
+
+### PKI DEPLOYMENT MODELS
+
+Single-Tier Model
+
+This is also called as one-tier model and it is the simplest deployment model for PKI. This is NOT recommended to use in any production network as its single point of failure of entire PKI. 
+
+![ws600](images/ws600.webp)
+
+In this model, single CA will act as root CA and Issuing CA. as I explain before the root CA is the highest trusted CA in PKI hierarchy. Any compromise to root CA will be compromise entire PKI. In this model its one server, so any compromise on server will easily compromise entire PKI as it doesn’t need to spread through different hierarchy levels. This is model is easy to implement and easy to manage. Because of that event it’s not recommended, this model exists in corporate networks. 
+
+Some CA aware applications, required certificates in order to function. System center operation manager (SCOM) is one of the good example. It uses certificates on to secure web interfaces, to authenticate management servers and many more. If the organization doesn’t have internal CA, the options are to purchase certificates from vendor or to deploy a new CA. In similar situations engineers usually use this single-tier model as its only use for a specific application or task.
+
+| Advantages | Disadvantages |
+| ---------- | ------------- |
+
+
