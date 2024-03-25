@@ -4943,6 +4943,7 @@ Confirm that the new RODC is on the list.
 reg delete HKLM\System\CurrentControlSet\Control\Lsa /v NetJoinLegacyAccountReuse /f
 ```
 ![ws503](images/ws503.webp)
+
 ---
 ### FSMO Roles
 
