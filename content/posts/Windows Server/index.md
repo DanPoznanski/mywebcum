@@ -4349,20 +4349,656 @@ Get-VMSwitch | FL Name, EmbeddedTeamingEnabled, NetAdapterInterfaceDescriptions,
 
 ## AD
 
+
+
+### Installing and Configuring Active Directory – Windows Server 2016
+
+This is a guide for installing Active Directory using Server Manger. To install Active Directory on Server Core, and/or install using PowerShell, please see Installing Active Directory with PowerShell – Windows Server Core 2016.
+
+1. Open Server Manager
+
+Open the Run box using Win+R, type servermanager.exe, and click
+
+or
+
+Search Server Manager in the Start Menu and click it
+
+![ws425](images/ws425.webp)
+
+2. Choose either **Add Roles and Features** Option
+![ws426](images/ws426.webp)
+
+3. Click **Next**
+![ws427](images/ws427.webp)
+
+4. Click **Next**
+![ws428](images/ws428.webp)
+
+5. Select the server
+
+If installing to the local machine, simply click **Next**
+![ws429](images/ws429.webp)
+
+6. Check **Active Directory Domain Services** and click **Next**
+![ws430](images/ws430.webp)
+
+7. Click **Add Features**
+![ws431](images/ws431.webp)
+
+8. Click **Next**
+![ws432](images/ws432.webp)
+
+9. Click **Next**
+![ws433](images/ws433.webp)
+
+10. Click **Install**
+![ws434](images/ws434.webp)
+
+11. Wait for the install to finish and click **Promote this server to a domain controller**
+![ws435](images/ws435.webp)
+
+![ws436](images/ws436.webp)
+
+12. Choose **Add a new forest**, enter a Domain Name, and Click **Next**
+
+This is assuming that the server is not going to be part of a pre-existing domain and the new domain is not going to be added to a pre-existing forest
+![ws437](images/ws437.webp)
+
+13. **Enter** a password for **DSRM** and click **Next**
+
+Again, this is assuming that the server is a new, stand-alone, Domain Controller. If it will be joining a pre-existing forest and/or domain, the functional levels may need to be changed to match the function levels currently in place
+![ws438](images/ws438.webp)
+
+
+14) Click **Next**
+
+This is assuming you do not have existing DNS servers for which delegation may be required.
+![ws439](images/ws439.webp)
+
+15. Click **Next**
+![ws440](images/ws440.webp)
+
+16. Click **Next**
+![ws441](images/ws441.webp)
+
+17. Click **Next**
+![ws442](images/ws442.webp)
+
+18. Click **Next**
+![ws443](images/ws443.webp)
+
+19. Wait for Install to Finish
+![ws444](images/ws444.webp)
+
+20. The Active Directory and DNS roles are now installed
+
+See Windows Administrative Tools to find the management applications
+
+![ws445](images/ws445.webp)
+
+---
+
+### Install on Windows Server Core
+
+```
+sconfig
+```
+Type 8 **Network Settings**
+
+Type 1 **Select Network addapter**
+
+Type 4 **Return to Menu**
+
+Type 15 Exit to Command Line
+
+Type **powershell** 
+
 ```
 install-WindowsFeature -name ad-domain-services -IncludeManagemenTools
 ```
+Install forest and add safe password
 ```
 install-addsforest -domainname test.local
-
+```
+```
 get-adforest
 ```
+---
+### What is Read-Only Domain Controller (RODC)?
+
+A Read-Only Domain Controller (RODC) is a domain controller in the Windows Server environment that stores a read-only replica of the Active Directory database. Unlike a writable domain controller, an RODC does not allow any changes to the Active Directory database from that particular domain controller.
+
+This limitation makes it an ideal choice for scenarios where security is a significant concern, such as remote offices, branch locations, or sites with lower physical security.
+
+The main advantages of an RODC are:
+
+- **Reduced Attack Surface**: Since the RODC is read-only, even if it is compromised, an attacker cannot make changes to the Active Directory database, minimizing the potential damage.
+
+-**Credential Caching**: RODCs can cache credentials of previously authenticated users, which reduces the need for users to contact a writable domain controller for authentication, thus improving logon times.
+
+- **Better Bandwidth Utilization**: An RODC can help optimize the replication traffic in locations with limited bandwidth since it only receives updates but doesn’t send them out.
+
+### Method 1: Install Read-Only Domain Controller (Direct)
+
+Installing the RODC using this method is performed by an administrator on the target server. The installation can be done using the Server Manager (GUI) and PowerShell.
+
+#### Requirements
+
+- The functional level of your domain is Windows Server 2008 or higher.
+
+- The administrator who will install the RODC must be a member of the Domain Admins group.
+
+- The target RODC server must meet the following:
+
+- A configured computer name.
+
+- Have a static IP address.
+- Must be pointed to the nearest Read-Writable Domain Controller (RWDC) as its DNS server.
+
+- Must be joined to the domain.
+
+#### Using the Server Manager
+
+In this section, we’ll install a read-only domain controller on a target server called **RODC1** using the Server Manager GUI.
+
+1. Open the **Server Manager** on the target RODC server.
+
+2. Click **Manage → Add Roles and Features.**
+![ws446](images/ws446.webp)
+
+3. Select the **Role-based or feature-based installation** option, and click **Next**.
+![ws447](images/ws447.webp)
+
+4. Select the target RODC server and click **Next**.
+![ws448](images/ws448.webp)
+
+5. Check the **Active Directory Domain Services** role, click **Add Features** and **Next**.
+![ws449](images/ws449.webp)
+
+6. Click **Next** on the following pages until you reach the **Confirmation** step.
+
+7. Click **Install** and wait for the ADDS role installation to complete.
+![ws450](images/ws450.webp)
+
+8. Once the ADDS installation is finished, click the **Promote this server to a domain controller** link.
+![ws451](images/ws451.webp)
+
+9. Select the **Add a domain controller to an existing domain** option, select the correct domain, and click **Next**.
+![ws452](images/ws452.webp)
+
+10. Check the **Read only domain controller (RODC)** option, type the **DSRM password**, and click **Next**.
+![ws453](images/ws453.webp)
+
+11. Select the **Delegated administrator account** on the RODC options page. You can choose a user or group. In this example, I’m selecting a pre-created security group called **RODC Delegated Admins**. The members of this group will have **local administrator-equivalent** access to the RODC server.
+
+Leave other fields as default and click **Next**.
+![ws454](images/ws454.webp)
+
+12. Choose whether to replicate from a specific domain controller or any domain controller and click **Next**.
+![ws455](images/ws455.webp)
+
+13. Customize or leave the default database, log files, and SYSVOL paths and click **Next**.
+![ws456](images/ws456.webp)
+
+14. Review the RODC installation options and click **Next**.
+![ws457](images/ws457.webp)
+
+15. When the prerequisites check has been completed and passed, click **Install**.
+![ws458](images/ws458.webp)
+
+16. Wait for the installation to complete. Once the installation is finished, the server will reboot automatically.
+
+17. Open the Active Directory Users and Computers console **(dsa.msc)**, navigate to the **Domain Controllers** container, and see the new RODC.
+![ws459](images/ws459.webp)
+
+---
+### Install Using PowerShell
+
+In this section, we’ll install a read-only domain controller on a target server called `RODC2` using PowerShell.
+
+1. Open PowerShell as an administrator on the target RODC server.
+
+2. Run the following commands to install the Active Directory Domain Services role:
+
+```
+# Install AD DS Role
+```
+```
+Import-Module ServerManager
+
+Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+```
+![ws460](images/ws460.webp)
+
+Run the following script to promote the domain controller. This PowerShell script installs an Active Directory Domain Controller with specific configurations, such as making it a global catalog server, setting the appropriate paths for the AD database and log files, installing DNS, setting the Safe Mode Administrator Password, making it a Read-Only Replica, specifying the Active Directory site, and forcing the installation to proceed.
+The script guides the user to enter the password for DSRM at the beginning for added security.
+```
+# Install the RODC
+```
+```
+$DSRMPassword = Read-Host -AsSecureString -Prompt "Enter the DSRM Password"
+
+Import-Module ADDSDeployment
+
+Install-ADDSDomainController `
+
+-NoGlobalCatalog:$false `
+
+-CriticalReplicationOnly:$false `
+
+-DatabasePath "C:\Windows\NTDS" `
+
+-DelegatedAdministratorAccountName "THEITBROS\RODC Delegated Admins" `
+
+-DomainName "theitbros.com" `
+
+-InstallDns:$true `
+
+-LogPath "C:\Windows\NTDS" `
+
+-SafeModeAdministratorPassword $DSRMPassword `
+
+-NoRebootOnCompletion:$false `
+
+-ReadOnlyReplica:$true `
+
+-SiteName "BRANCH-01" `
+
+-SysvolPath "C:\Windows\SYSVOL" `
+
+-Force:$true
+```
+1. **$DSRMPassword = Read-Host -AsSecureString -Prompt “Enter the DSRM Password"**
+  - This line prompts the user to enter a password for Directory Services Restore Mode (DSRM), a special boot mode in Active Directory used for restoring or repairing the AD database. The **AsSecureString** parameter ensures that the password is securely stored as a SecureString object, a more secure way to handle sensitive data like passwords.
+
+2. **Import-Module ADDSDeployment**
+  - This line imports the ADDSDeployment module, which provides cmdlets (commands) related to deploying Active Directory.
+
+3. **Install-ADDSDomainController**
+  - This is the cmdlet used to install the Active Directory Domain Controller.
+
+Now, let’s go through the various parameters used with the **Install-ADDSDomainController** cmdlet:
+
+1. **NoGlobalCatalog:$false:** Specifies that this domain controller will be a global catalog server. The value **$false** indicates that it will be a global catalog; otherwise, $true would mean it won’t be a global catalog.
+
+2. **CriticalReplicationOnly:$false:** Indicates whether the new domain controller should perform critical-only replication during the installation. Setting this to **$false** means the domain controller replicates all domain partition information.
+
+3. **DatabasePath “C:\Windows\NTDS”:** Specifies the path where the Active Directory database will be stored on the new domain controller. The path provided here is **C:\Windows\NTDS**.
+
+
+4. **DelegatedAdministratorAccountName “THEITBROS\RODC Delegated Admins”:** Sets the account name for the Delegated Administrator. This is usually used for Read-Only Domain Controllers (RODCs) to specify which group can administer them
+Install from powershell cli
+
+5. **DomainName “theitbros.com”:** Specifies the name of the domain for which the new domain controller will be installed.
+
+6. **InstallDns:$true:** Specifies whether to install the DNS server role on the domain controller. Setting $true means DNS will be installed.
+
+7. **LogPath “C:\Windows\NTDS”:** Specifies the path where the Active Directory log files will be stored. The path provided here is **C:\Windows\NTDS**.
+ 
+8. **SafeModeAdministratorPassword $DSRMPassword:** Provides the password entered by the user at the beginning of the script for Directory Services Restore Mode.
+
+9. **NoRebootOnCompletion:$false:** Specifies whether the domain controller should automatically restart after the installation is completed. Setting **$false** means it will not automatically reboot.
+
+10. **ReadOnlyReplica:$true:** Indicates that the domain controller being installed is a Read-Only Replica. RODCs are used in branch offices and have limited functionality to enhance security.
+
+11. **SiteName “BRANCH-01”:** Specifies the name of the Active Directory site where the new domain controller will be located.
+
+12. **SysvolPath “C:\Windows\SYSVOL”:** Sets the path where the Sysvol folder (containing the domain’s public files like policies and scripts) will be stored. The path provided here is **C:\Windows\SYSVOL**.
+
+13. **Force:$true:** Forces the installation even if there might be warnings or errors. Setting $true means the cmdlet will proceed regardless of any potential issues.
+![ws461](images/ws461.webp)
+Once the installation is finished, the RODC server will restart automatically.
+
+Run the following command in PowerShell to display the new RODC.
+```
+Get-ADDomainController <RODC SERVER> | Select-Object Hostname,IsReadOnly,IsGlobalCatalog,Site
+```
+![ws462](images/ws426.webp)
+
+---
+
+### Method 2: Install Read-Only Domain Controller (Staged)
+
+A staged RODC installation is useful when a Domain Admin must delegate the completion of the RODC deployment. This method is done in two stages.
+
+#### Stage 1:
+
+This step is typically done in the same location as the RWDC. The Domain Admin pre-creates the domain controller computer account, which includes:
+
+- Specifying the RODC name and site.
+
+- Adding delegated administrators who can deploy the RODC on the new server.
+ 
+#### Stage 2 
+
+The delegated administrator then installs the ADDS role and promotes it to a read-only domain controller. This method avoids assigning a highly privileged account to deploy the RODC.
+
+#### Requirements
+
+- The functional level of your domain is Windows Server 2008 or higher.
+
+- The administrator who will pre-create the RODC computer account must be a Domain Administrator.
+
+- A delegated user or group must be prepared prior to the RODC deployment.
+
+- The target RODC server must meet the following:
+
+- A configured computer name.
+
+- Have a static IP address.
+
+- Must be pointed to the nearest Read-Writable Domain Controller (RWDC) as its DNS server.
+
+- Must NOT be joined to the domain.
+
+#### Preparation: Allow computer account re-use during domain join (GPO)
+
+Starting with the March 14, 2023 Security update, a security restriction disallows re-using an existing computer account. In a scenario when you deploy a pre-created RODC, you’ll get the following error.
+
+![ws463](images/ws463.webp)
+> Reference: KB5020276—Netjoin: Domain join hardening changes
+
+The solution is to update the domain controller GPO to allow your delegated admin user or group to re-use an existing computer account. Here’s how.
+
+1. On the domain controller, open the Group Policy Management console.
+```
+gpmc.msc
+```
+
+2. Navigate to an existing GPO or create a new one. In this example, let’s create a new GPO.
+![ws464](images/ws464.webp)
+
+3. Next, type the name of the new GPO and click OK. This example uses the GPO name **Allow Pre-Created RODC Computer Name Re-Use.**
+![ws465](images/ws465.webp)
+
+4. Right-click the new GPO and click **Edit**.
+![ws466](images/ws466.webp)
+
+5. Navigate to **Computer ConfigurationSettingsSettingsPoliciesOptions,** and double-click the **Domain controller: Allow computer account re-use during domain join** policy.
+![ws467](images/ws467.webp)
+
+6. Check the **Define this policy** box, click Edit Security, and add the delegated user or group.
+![ws468](images/ws468.webp)
+The policy is now defined. This means that the delegate user or group members are allowed to join existing computer accounts to the domain, such as the pre-created RODC.
+![ws469](images/ws469.webp)
+
+7.Wait for the group policy update interval, or run **gpupdate /force** on the domain controllers.
+
+8. Run the **gpresult /r** command on the domain controller and confirm that the policy has been applied.
+![ws470](images/ws470.webp)
+
+#### Using the Server Manager (GUI)
+
+In this example, we’ll install the read-only domain controller on a server named **RODC3** using the Server Manager GUI.
+
+
+#### Stage 1: Pre-Create the RODC Account
+
+1. Open the **Active Directory Users and Computers** console using your Domain Admin account.
+
+2. Right click the **Domain Controllers** container and click the **Pre-create Read-only Domain Controller account** item.
+![ws471](images/ws471.webp)
+
+3. Check the **Use advanced mode installation** box and click **Next**.
+![ws472](images/ws472.webp)
+
+4. On the **Network Credentials** step, specify whether to use the current logged-on credentials or set alternate credentials for whom will install the ADDS role on the RODC. Let’s choose the **My current logged on credentials** option, assuming it is a domain admin.
+![ws473](images/ws473.webp)
+
+5. Type the target RODC computer name and click **Next**. In this example, the server name is **RODC3**.
+![ws474](images/ws474.webp)
+
+6. Select the AD Site for the new RODC and click **Next**.
+![ws475](images/ws475.webp)
+
+7. In this example, the wizard calculated that the DNS server must be installed on the new server and make it a Global catalog. Leave the additional domain controller options as-is and click **Next**.
+![ws476](images/ws476.webp)
+
+
+8. In this step, you can customize the password replication policy ACL. You can add or remove the users or groups whose passwords can be replicated to the new RODC.
+The **BUILTIN** and **Denied RODC Password Replication Group** groups are blocked by default. While only the **AllowedRODC Password Replication Group** is allowed.
+Let’s leave the password replication policy ACL as-is in this example and click **Next**.
+![ws477](images/ws477.webp)
+
+9. In the **Delegation of RODC Installation and Administration**, set the user or group who will be delegated to install the RODC installation. In this example, I’m setting the **THEITBROSDelegated Admins** group I created previously.
+![ws478](images/ws478.webp)
+
+10. Review the RODC installation options and click **Next**.
+![ws479](images/ws479.webp)
+
+11. Lastly, click Finish.
+![ws480](images/ws480.webp)
+
+12. Check back in the ADUC, and confirm that the new RODC has been added and is disabled.
+![ws481](images/ws481.webp)
+
+#### Stage 2: Install the Read Only Domain Controller
+
+In this stage, the delegated admin account can continue installing the ADDS role and promote the server as an RODC.
+
+1. Log in to the target RODC server using a local account (because it is not yet joined to the domain).
+
+2. Open PowerShell or CMD as an administrator and run the following command. This command ensures that the domain-join part of the RODC deployment succeeds.
+
+```
+reg add HKLM\System\CurrentControlSet\Control\Lsa /v NetJoinLegacyAccountReuse /t REG_DWORD /d 1 /f
+```
+![ws482](images/ws482.webp)
+
+3. Open the **Server Manager**, click **Manage → Add Roles and Features.**
+![ws483](images/ws483.webp)
+
+4. Select the **Role-based or feature-based installation** option, and click **Next**.
+![ws484](images/ws484.webp)
+
+5. Select the target RODC server and click **Next**.
+![ws485](images/ws485.webp)
+
+6. Check the **Active Directory Domain Services** role, click Add Features and **Next**.
+![ws486](images/ws486.webp)
+
+7. Click **Next** on the following pages until you reach the **Confirmation** step.
+
+8. Click **Install** and wait for the ADDS role installation to complete.
+
+![ws487](images/ws487.webp)
+
+9. Once the ADDS installation is finished, click the **Promote this server to a domain controller** link.
+![ws488](images/ws488.webp)
+
+10. Select the **Add a domain controller to an existing domain** option and type the domain name. Click the Change button and enter the credentials of your delegated administrator.
+In this example, the delegated administrator is **djohnson**, a member of the **RODC Delegated Admins** group.
+![ws489](images/ws489.webp)
+
+11. On the next page, you’ll see a banner saying, **A pre-created RODC account that matches the name of the target server exists in the directory.** This message means that the wizard detected the pre-created RODC computer account.
+Select the “Use existing RODC account” option, type the **DSRM password**, and click **Next**.
+![ws490](images/ws490.webp)
+
+12. Choose whether to replicate from a specific domain controller or any domain controller and click **Next**.
+![ws491](images/ws491.webp)
+
+13. Customize or leave the default database, log files, and SYSVOL paths and click **Next**.
+![ws492](images/ws492.webp)
+
+14. Review the RODC installation options and click **Next**.
+![ws493](images/ws493.webp)
+
+15. When the prerequisites check has been completed and passed, click **Install**.
+![ws494](images/ws494.webp)
+
+16. Wait for the installation to complete. Once the installation is finished, the server will reboot automatically.
+
+17. Open the Active Directory Users and Computers console, navigate to the Domain Controllers container, and see that the new RODC is now enabled.
+![ws495](images/ws495.webp)
+
+18. Remove the **NetJoinLegacyAccountReuse** registry entry you added in Step 2:
+```
+reg delete HKLM\System\CurrentControlSet\Control\Lsa /v NetJoinLegacyAccountReuse /f
+```
+
+### install with PowerShell
+
+In this example, we’ll install the read-only domain controller on a server named **RODC4** using PowerShell.
+
+#### Stage 1: Pre-Create the RODC Account
+
+1. Log in to the existing RWDC and open PowerShell as admin.
+
+2. Run the following command to pre-create the RODC account. In this example, the RODC computer name is RODC4 in the theitbros.com domain. The delegated admin group is **THEITBROS\RODC Delegated Admins**, and the AD site is **BRANCH-01**.
+```
+Add-ADDSReadOnlyDomainControllerAccount `
+```
+```
+-DomainControllerAccountName 'RODC4' `
+
+-DomainName theitbros.com `
+
+-DelegatedAdministratorAccountName 'THEITBROS\RODC Delegated Admins' `
+
+-SiteName 'BRANCH-01'
+```
+![ws496](images/ws496.webp)
+
+3. Confirm the new RODC computer account has been created by running this command.
+```
+Get-ADDomainController -Filter {Name -eq 'RODC4'} | `
+```
+```
+Format-List Hostname,Enabled,Site,IsReadOnly,IsGlobalCatalog
+```
+As you can see, the new computer account is read-only and in a disabled state.
+![ws497](images/ws497.webp)
+
+#### Stage 2: Install the Read Only Domain Controller
+
+In this stage, the delegated admin account can continue installing the ADDS role and promote the server as an RODC.
+
+1. Log in to the target RODC server using a local account (because it is not yet joined to the domain).
+
+2. Open PowerShell as an administrator. Run the following command to install the AD DS role.
+
+```
+Import-Module ServerManager
+```
+```
+Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+```
+![ws498](images/ws498.webp)
+
+3.Run the following command. This command adds the **NetJoinLegacyAccountReuse** registry entry, ensuring that the RODC deployment’s domain-join part succeeds.
+```
+reg add HKLM\System\CurrentControlSet\Control\Lsa /v NetJoinLegacyAccountReuse /t REG_DWORD /d 1 /f
+```
+![ws499](images/ws499.webp)
+
+4. Run the following commands to save the delegated administrator credentials and the DSRM password.
+```
+$DelegatedAdminCredential = Get-Credential -Message 'Enter the delegated administrator credential'
+```
+```
+$DSRMPassword = Read-Host -AsSecureString -Prompt 'Enter the DSRM Password'
+```
+![ws500](images/ws500.webp)
+
+5. Next, run the below command to promote the computer and install the RODC.
+```
+Import-Module ADDSDeployment
+```
+```
+Install-ADDSDomainController `
+
+-Credential $DelegatedAdminCredential `
+
+-SafeModeAdministratorPassword $DSRMPassword `
+
+-CriticalReplicationOnly:$false `
+
+-DatabasePath "C:\Windows\NTDS" `
+
+-DomainName "theitbros.com" `
+
+-LogPath "C:\Windows\NTDS" `
+
+-SysvolPath "C:\Windows\SYSVOL" `
+
+-UseExistingAccount:$true `
+
+-NoRebootOnCompletion:$false `
+
+-Force:$true
+```
+![ws501](images/ws501.webp)
+
+6. Wait for the RODC deployment to finish, and the computer will reboot automatically.
+
+7. Once restarted, run the following command in PowerShell to list all RODCs.
+```
+Get-ADDomainController -Filter {IsReadOnly -eq $true} | Format-List Hostname,Enabled,Site,IsReadOnly,IsGlobalCatalog
+```
+Confirm that the new RODC is on the list.
+![ws502](images/ws502.webp)
+
+8. Remove the **NetJoinLegacyAccountReuse** registry entry you added in Step 3.
+```
+reg delete HKLM\System\CurrentControlSet\Control\Lsa /v NetJoinLegacyAccountReuse /f
+```
+![ws503](images/ws503.webp)
+---
+### FSMO Roles
+
+**What are FSMO Roles?**
+
+Microsoft split the responsibilities of a DC into 5 separate roles that together make a full AD system.
+
+![ws504](images/ws504.webp)
+
+**In Windows, the 5 FSMO roles are:**
+
+- Schema Master – one per forest
+
+- Domain Naming Master – one per forest
+
+- Relative ID (RID) Master – one per domain
+
+- Primary Domain Controller (PDC) Emulator – one per domain
+
+- Infrastructure Master – one per domain
+
+**FSMO Roles: What do They do?**
+
+**Schema Master FSMO Role**
+
+The Schema Master role manages the read-write copy of your Active Directory schema. The AD Schema defines all the attributes – things like employee ID, phone number, email address, and login name – that you can apply to an object in your AD database.
+
+**Schema Master FSMO Role**
+
+The Schema Master role manages the read-write copy of your Active Directory schema. The AD Schema defines all the attributes – things like employee ID, phone number, email address, and login name – that you can apply to an object in your AD database.
+
+**RID Master FSMO Role**
+
+The Relative ID Master assigns blocks of Security Identifiers (SID) to different DCs they can use for newly created objects. Each object in AD has an SID, and the last few digits of the SID are the Relative portion. In order to keep multiple objects from having the same SID, the RID Master grants each DC the privilege of assigning certain SIDs.
+
+**PDC Emulator FSMO Role**
+
+The DC with the Primary Domain Controller Emulator role is the authoritative DC in the domain. The PDC Emulator responds to authentication requests, changes passwords, and manages Group Policy Objects. And the PDC Emulator tells everyone else what time it is! It’s good to be the PDC.
+
+**Infrastructure Master FSMO Role**
+
+The Infrastructure Master role translates Globally Unique Identifiers (GUID), SIDs, and Distinguished Names (DN) between domains. If you have multiple domains in your forest, the Infrastructure Master is the Babelfish that lives between them. If the Infrastructure Master doesn’t do its job correctly you will see SIDs in place of resolved names in your Access Control Lists (ACL).
+
+FSMO gives you confidence that your domain will be able to perform the primary function of authenticating users and permissions without interruption (with standard caveats, like the network staying up).
+
+View Status FSMO
+```
+netdom /query fsmo
+```
+
+
+
+
+
 ## WDS
 
-
-
-
-Install from powershell cli
 ```powershell
 Get-WindowsFeature wds*
 ```
@@ -4393,13 +5029,13 @@ Install-WindowsFeature wds -IncludeAllSubFeature -IncludeManagementTools
 
 ## PKI
 
-### PKI DEPLOYMENT MODELS
+### PKI Deployment Models 
 
-Single-Tier Model
+#### Single-Tier Model
 
 This is also called as one-tier model and it is the simplest deployment model for PKI. This is NOT recommended to use in any production network as its single point of failure of entire PKI. 
 
-![ws600](images/ws600.webp)
+![ws600](images/ws600.svg)
 
 In this model, single CA will act as root CA and Issuing CA. as I explain before the root CA is the highest trusted CA in PKI hierarchy. Any compromise to root CA will be compromise entire PKI. In this model its one server, so any compromise on server will easily compromise entire PKI as it doesn’t need to spread through different hierarchy levels. This is model is easy to implement and easy to manage. Because of that event it’s not recommended, this model exists in corporate networks. 
 
@@ -4407,5 +5043,49 @@ Some CA aware applications, required certificates in order to function. System c
 
 | Advantages | Disadvantages |
 | ---------- | ------------- |
+| Less resources and Low Cost to manage as the its all running from single server. It also reduces the license cost for the operating systems. | Less resources and Low Cost to manage as the its all running from single server. It also reduces the license cost for the operating systems. |
+| Faster deployment and it is possible to get CA running in short period of time. | Lack of redundancy as Certificate issuing and management all depend on single server and availability of it will decide the availability of PKI |
+|            | It is not scalable and it will need restructure the hierarchy if need to add more role servers. |
+|            | All the certificate issuing and management done by one server and all the work requests has to handle by it. it creates a performance bottleneck. |
+
+#### Two-Tier Model 
+
+This is the most commonly used PKI deployment model in corporate networks. By design the root CA need to keep offline and it will prevent private key of root certificate been compromised. root CA will issue certificates for subordinate CAs and Subordinate CAs are responsible for issuing certificates for objects and services. 
+
+![ws601](images/ws601.svg)
 
 
+In event of Subordinate CAs certificate expire, Offline root CA will need to bring online to renew the certificate. Root CA doesn’t need to be a domain member and it should be operating in workgroup level (standalone CA). There for the certificate enrollment, approval and renew will be manual process. This is scalable solution and number of issuing CAs can be increase based on workloads. This allows to extend the CA boundaries to multiple sites too. In Single-Tier model if PKI got compromised, in order to recover all the issues certificates, need to be manually removed from the devices. In Two-Tier model, all need to do is revoke the certificates issued by CA and then publish CRL (Certificate Revocation List) and then reissue the certificates. 
+
+| Advantages | Disadvantages |
+| ---------- | ------------- |
+| mproved PKI security as root CA offline and it’s been protected by private key been compromised. | High Maintenance – Need to maintain multiple systems and need skills to process the manual certificates request/approval/renewal between root CA and subordinate CA |
+| Flexible scalability – Can start small and expand by adding additional subordinate CAs when required. | Cost – Cost of resources and licenses are high compare to Single-Tier model |
+| Restrict Issuing CA impact in CA hierarchy by controlling certificates scope. It will prevent issuing “rouge” certificates. | Manual certificate renewal process between root CA and subordinate CAs adds additional risks as if administrators forgot to renew it on time it can bring whole PKI down. |
+| Improved performances as workloads can shared among multiple subordinate CAs. |     |
+| Flexible maintenance capabilities as less dependencies. |    |
+
+#### Three-Tier Model 
+
+Three-Tier model is the highest in the model list which operates with greater security, scalability and control. Similar to two-tier model it also has offline root CA and online Issuing CAs. Addition to that there will be offline intermediate CAs which operates between root CA and subordinate CAs. Main reason for it is to operate intermediate CAs as Policy CAs. In larger organizations, different departments, different sites, different operation units can have different certificate requirements. As an example, a certificate issued to a perimeter network will required manual approval process while others users in corporate network prefer auto approval. IT team prefer to have advanced Cryptography provider for its certificates and large key while other users operates with default RSA algorithm. All these different requirements are defined by the Policy CA and it publish the relevant templates, procedures to the other CAs.
+
+![ws602](images/ws602.svg)
+
+This model add another layer of security to the hierarchy. However, if you not using CA policies the intermediate tier will not use. It is just can be a waste of money and resources. there for most of the organizations prefer Two-tier model to start with and then expand as required. 
+In this model both root CA and Intermediate CAs are operates as standalone CA. root CA only will issue certificates to intermediate CAs and those only will issue certificate to Issuing CAs. 
+
+
+| Advantages | Disadvantages |
+| ---------- | ------------- |
+| Improved security as it adds another layer of CAs to the certificate verification. | Cost – Cost of resources and licensee are high as its need to maintain three layers. It also increases the operation cost. |
+| Greater scalability as each tier can span horizontally. | High Maintenance – When number of servers increases the efforts need to maintain those also increases. Both tiers which operates standalone CAs required additional maintenance as its not supported for automatic certificate request/approval/renewal. |
+| In event of compromise of issuing CA, intermediate CA can revoke the compromised CA with minimum impact to existing setup | Implementation Complexity is high compare to other models. |
+| High Performance setup as workloads are distributed and administrative boundaries are well defined by intermediate CAs. | |
+| Improved control over certificate policies and allow enterprise to have tailored certificates. | |
+| High availability as dependencies further reduced. | |
+
+
+
+
+
+---
