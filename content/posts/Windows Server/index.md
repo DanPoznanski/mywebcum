@@ -4995,8 +4995,16 @@ netdom /query fsmo
 ```
 
 
+### Clone Domain Controller
 
+Clone DC to xml 
+```
+Get-ADDCCloningExcludedApplicationList -Generatexml -Force -Path C:\windows\ntds
+```
 
+```
+New-ADDCCloneConfigFile -Static -IPv4Address 192.168.10.253 -IPv4DefaultGateway 192.168.10.254 -IPv4DNSResolver 192.168.10.1 -IPv4SubnetMask 255.255.255.0 -CloneComputerName DC03
+```
 
 ## WDS
 
