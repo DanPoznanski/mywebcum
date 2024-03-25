@@ -4997,14 +4997,99 @@ netdom /query fsmo
 
 ### Clone Domain Controller
 
-Clone DC to xml 
+
+1. Log in to the Source Domain controller as Domain admin or Enterprise administrator
+
+2. Go to **Server Manager > Tools > Active Directory Users and Computers**
+![ws505](images/ws505.webp)
+
+3. Then go to **Domain Controllers** OU. Select the DC needs to clone and right click to select properties.
+![ws506](images/ws506.webp)
+
+4. Go to member of tab and click on **Add.**
+![ws507](images/ws507.webp)
+
+5. Then add security group **Cloneable Domain Controllers** and click **ok.**
+![ws508](images/ws508.webp)
+
+6. Close the mmc and load the windows PowerShell with admin rights. Then type and enter **Get-ADDCCloningExcludedApplicationList** . This will check the system if there is program which will not compatible with the clone process.
+![ws509](images/ws509.webp)
+
 ```
 Get-ADDCCloningExcludedApplicationList -Generatexml -Force -Path C:\windows\ntds
 ```
 
+
+7. If it’s comes up with list make sure those services are removed before clone.
+
+8. After cleanup process type
+
 ```
-New-ADDCCloneConfigFile -Static -IPv4Address 192.168.10.253 -IPv4DefaultGateway 192.168.10.254 -IPv4DNSResolver 192.168.10.1 -IPv4SubnetMask 255.255.255.0 -CloneComputerName DC03
+New-ADDCCloneConfigFile –Static -IPv4Address “10.10.10.7” -IPv4DNSResolver “10.10.10.2” -IPv4SubnetMask “255.255.255.0” –CloneComputerName “DC2” -IPv4DefaultGateway “10.10.10.1” -SiteName “Default-First-Site-Name”
 ```
+```
+New-ADDCCloneConfigFile -Static -IPv4Address 192.168.1.14 -IPv4DNSResolver 192.168.1.10, 192.168.1.14 -IPv4SubnetMask 255.255.255.0 -CloneComputerName srv2016-3 -IPv4DefaultGateway 192.168.1.1 -SiteName Default-First-Site-Name Path C:windows\ntds
+```
+
+
+```
+New-ADDCCloneConfigFile -Static -IPv4Address 192.168.1.14 -IPv4DefaultGateway 192.168.1.1 -IPv4DNSResolver 192.168.1.10, 192.168.1.14 -IPv4SubnetMask 255.255.255.0 -CloneComputerName srv2016-3
+```
+In here I specify the ip address information it (the clone server) will hold. Also the computer name and site name.
+![ws510](images/ws510.webp)
+
+9. Once its pass and completed the process, exit from the console and the server.
+
+10. For next steps we need to turn off the source domain controller. So before proceed make sure organization is aware about the downtime and the impact.
+
+11. Load the Hyper-V manager and right click on the DC which needs cloning. Then select Turn-off.
+
+![ws511](images/ws511.webp)
+
+12. Once its turn off, right click on DC and select export. Then select the path to save the export file.
+![ws512](images/ws512.webp)
+
+![ws513](images/ws513.webp)
+
+13. Once export process is completed, right click on the source dc and click on start.
+
+14. Then in Hyper-V go to **Action > Import Virtual Machine**
+![ws514](images/ws514.webp)
+
+15. It will open up the import wizard and click next to continue.
+![ws515](images/ws515.webp)
+
+16. In next window specify the folder path to the exported DC. Then click next.
+![ws516](images/ws516.webp)
+
+17. Next window to select the DC and click next
+![ws517](images/ws517.webp)
+
+18. In next window from the list select **Copy the virtual machine (create a new unique ID )** option can click next.
+![ws518](images/ws518.webp)
+
+19. In next window it ask for the VM path. You can leave default or the different path based on your requirement. Once done click on next.
+![ws519](images/ws519.webp)
+
+20. Next it’s ask for storage folder. Again it can change as per requirement. Once done click next.
+![ws520](images/ws520.webp)
+
+21. Then it gives a summary page. Click on finish to start the import process.
+![ws521](images/ws521.webp)
+
+22. Once import is completed, right click on the clone dc and click on start.
+
+23. It will runs under several stages preparing the AD.
+![ws522](images/ws522.webp)
+
+24. Once process is completed, l logged in to the server as domain admin. In Domain controller OU I can see the new clone dc. Also under site and services I can see the cloned dc located correctly.
+![ws523](images/ws523.webp)
+
+![ws524](images/ws524.webp)
+---
+
+
+
 
 ## WDS
 
