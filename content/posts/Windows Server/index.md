@@ -5086,10 +5086,772 @@ In here I specify the ip address information it (the clone server) will hold. Al
 ![ws523](images/ws523.webp)
 
 ![ws524](images/ws524.webp)
+
 ---
 
 
+### Join to Domain
 
+**Before You Join Windows to an AD Domain**
+
+irst, let’s look at the basic requirements and preparations that you need to make on your computer before you join an Active Directory domain:
+
+- Only Pro, Education, Pro for Workstations, and Enterprise editions of Windows 10/11 can be joined to a domain. Note that the Active Directory domain is not supported in Home Editions;
+
+- Your device needs to be connected to a local network and able to access at least one AD domain controller. We assume that your computer already has an IP address from the local subnet configured, with the IP addresses of the nearest domain controllers specified in the computer’s DNS settings (you can configure the network adapter settings manually or get them from the DHCP server);
+
+- Make sure that your computer can resolve the domain name and can access the domain controller:`ping test.local`
+![ws525](images/ws525.webp)
+
+- The computer’s local time must be within five minutes of the domain controller’s time. The proper time synchronization is required for Kerberos authentication;
+
+- Set the name of your computer (`hostname`) to be used in a domain. By default, Windows generates a computer name during installation. However, it’s best to change it to something more meaningful. You can change the computer name using the classic Control Panel `sysdm.cpl`. Click **Change**, enter a new computer name, and press OK. As you can see, the computer is now a member of the default WORKGROUP);
+![ws526](images/ws526.webp)
+
+You can also use the PowerShell command to change the computer name:
+```
+Rename-Computer -NewName "PC01" 
+```
+> After you change the hostname, you must restart Windows.
+
+
+#### Add Windows to the Domain Using System Properties GUI
+
+**Control Panel\Network and Internet\Network and Sharing Center** and Click on **Ethernet** and Go to **Properties**
+![ws527](images/ws527.webp)
+
+Now IPV4 and Click on **Properties**.
+![ws528](images/ws528.webp)
+
+Now add the Private IP address of the Domain Controller VM and close it.
+![ws529](images/ws529.webp)
+Now Again try to add the Domain.
+
+#### Add Windows to the Domain Using System Properties GUI
+
+You can add your computer to the domain using the classic Control Panel in Windows:
+
+1. Run `sysdm.cpl` and click Change;
+
+2. Switch the **Member of** option to **Domain** and specify your domain’s name; 
+![ws530](images/ws530.webp)
+
+3. You will be prompted to enter the name and password of a user with delegated administrative AD permissions to join computers to the domain. This may be a regular AD user (by default, any domain user can join up to 10 devices) or a privileged domain administrator account;
+![ws531](images/ws531.webp)
+
+4. The next thing you should see is the message **Welcome to the test.local domain;**
+![ws532](images/ws532.webp)
+
+5. Restart your computer
+
+#### How to Join a Computer to a Domain with PowerShell
+
+o join computers to an Active Directory domain, you can use the **Add-Computer** Powershell cmdlet. You can use this command to join a domain with a new hostname and immediately move the computer’s account to a specific OU.
+
+For the simplest case, adding to a domain requires one command only:
+```
+Add-Computer -DomainName test.local
+```
+Then enter your username and password in the pop-up window.
+
+
+#### Windows 11 Join in Domain (GUI)
+
+Before setting, change DNS settings to refer to Active Directory Host.
+![ws533](images/ws533.webp)
+
+Right-Click the Windows icon and select [System], then Click [Domain or workgroup] link.
+![ws534](images/ws534.webp)
+
+Move to [Computer Name] tab and click [Change] button.
+![ws535](images/ws535.webp)
+
+Check a box [Domain] and input domain name and next, click [OK] button.
+![ws536](images/ws536.webp)
+
+Authentication is required, authenticate with a domain User in Active Directory.
+![ws537](images/ws537.webp)
+
+After successfully authenticated, Welcome message is shown like follows. Restart the Computer once.
+![ws538](images/ws538.webp)
+
+On the logon screen after restarting Computer, click [Other user] to switch Domain user to logon.
+
+---
+
+## Account Lockout Policy: Configuration Guide
+
+![ws539](images/ws539.webp)
+
+In this guide, you will learn about the three account lockout policy settings and how to properly configure each policy setting.
+
+I’ll be referring to the recommended account lockout policy settings from both the Windows Security Baseline (aka Microsoft Security Toolkit) and the CIS benchmarks.
+
+&nbsp;
+
+### What are Account Lockout Policies?
+
+An account lockout policy is a set of three group policy settings that control when and for how long a user account is to be locked out.
+
+This policy is critical for security as it can help prevent malicious users or hackers from accessing your account and computer systems.
+
+&nbsp;
+
+### What is a lockout?
+
+When you have an account lockout policy configured a user account will be locked out after so many failed login attempts.
+
+For example, if a hacker entered the wrong password three times the account would be locked out if there is a properly configured lockout policy. This helps to prevent unauthorized access to your network. If no policy is configured or was incorrectly configured a hacker could keep guessing an account’s password.
+
+By default, Active Directory has no account lockout policy.
+
+In the next section, I’ll go over each policy setting, the default value, and the recommended settings.
+
+&nbsp;
+
+### Account Lockout Policy Settings and Best Practices
+
+In group policy the lockout policy settings are located at:
+
+Computer Configuration -> Policies -> Windows Settings -> Security Settings -> Account Policies -> Account Lockout Policy
+
+Here is a screenshot of the default settings. By default, these policy settings are not defined.
+![ws539](images/ws539.webp)
+
+It’s common for these settings to be configured using the Default Domain Policy GPO, but you can add them to a new or existing GPO. It’s up to you.
+
+&nbsp;
+
+#### Account Lockout Duration
+The account lockout duration setting determines the number of minutes that an account is locked out before it automatically unlocks.
+
+If you set this policy to 0 then the account will not automatically unlock and must be unlocked manually by an administrator.
+
+For example, if the account lockout duration was set to 15 minutes and the user “joe.smith” became locked out. It would automatically unlock after 15 minutes.
+
+Recommended settings:
+
+- Windows Security Baseline: 15 minutes
+
+- CIS Benchmarks: 15 or more minutes
+
+&nbsp;
+
+#### Account lockout threshold
+
+The account lockout threshold setting determines the number of failed logon attempts that caused a user account to be locked out.
+
+When an account is locked-out, it cannot be used until it is manually reset or automatically reset by the lockout duration policy.
+
+For example, if the lockout threshold was set to 5 and the user “joe.smith” tried to logon 5 times with the wrong password, the account would be locked. And Joe would not be able to logon until the account was manually unlocked by an administrator or reset by the lockout duration policy.
+
+Recommended settings:
+
+- Windows Security Baseline: 10
+
+- CIS Benchmarks: 5 or fewer but not 0
+
+> Microsoft says:
+
+> ***The threshold that you select is a balance between operational efficiency and security, and it depends on your organization’s risk level. To allow for user error and to thwart brute force attacks, Windows security baselines recommend a value of 10 could be an acceptable starting point for your organization.***
+
+https://learn.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/account-lockout-threshold
+
+In my opinion, I think 10 allows too many password attempts. I would instead recommend 5 or fewer for the lockout threshold.
+
+&nbsp;
+
+#### Reset Account Lockout Counter After
+
+This policy setting determines the time in minutes that the failed logon attempt counter resets to 0 bad logon attempts.
+
+For example, if the user “joe.smith” tries to logon and enters the wrong password, this will increment the failed logon attempt counter. This policy will reset that counter to 0.
+
+It is recommended that this policy is set to less than or equal to the account lockout duration.
+
+Recommended settings:
+
+- Windows Security Baseline: 15 minutes
+
+- CIS Benchmarks: 15 or more minutes
+
+So now that you know what each setting does and its recommended settings, let’s walk through creating an account lockout policy.
+
+&nbsp;
+
+### How to Create an Account Lockout Policy
+
+For these steps, I’ll use the CIS benchmark’s recommended settings.
+
+&nbsp;
+
+#### Step 1: Check Account Lockout Policy with PowerShell
+
+It is a good idea to check your domain’s current lockout policy before modifying or creating a new one.
+
+You can easily do this with the below PowerShell command.
+```
+Get-ADDefaultDomainPasswordPolicy | Select LockoutDuration,LockoutObservationWindow,LockoutThreshold | FL
+```
+The screenshot below is from my test lab.
+![ws540](images/ws540.webp)
+
+&nbsp;
+
+#### Step 2: Edit the Default Domain Policy
+
+If you prefer, you can add these settings to another GPO or create a new one. Microsoft by default includes a password policy in the default domain policy, so I like to keep the lockout policy in the same GPO.
+![ws541](images/ws541.webp)
+
+&nbsp;
+
+#### Step 3: Modify the Account Lockout Policy
+
+n the default domain policy navigate to the account lockout policy section.
+
+Computer Configuration -> Policies -> Windows Settings -> Security Settings -> Account Policies -> Account Lockout Policy
+
+To modify each policy setting just double-click the policy to edit its settings. For example, I opened the “Account lockout duration”, entered 30, and clicked ok.
+![ws542](images/ws542.webp)
+
+Set the 3 policy settings to your requirements. Again, I’ll use the CIS benchmark recommended settings.
+
+- **Account lockout duration:** 30 minutes
+
+- **Account lockout threshold:** 5 invalid logon attempts
+
+- **Reset account lockout counter after:** 30 minutes
+
+Once completed, all 3 policy settings should then be defined.
+
+![ws543](images/ws543.webp)
+
+&nbsp;
+
+#### Step 4: Test the Account Lockout Policy
+
+To test the policy attempt, logon and enter the wrong password 5 times (or whatever you set the lockout threshold to) and the account should become locked out.
+
+Below is a screenshot of my account being locked out after 5 failed logon attempts.
+
+![ws544](images/ws544.webp)
+
+I will now have to wait 30 minutes or have an administrator manually unlock my account before I can attempt to logon again.
+
+That is it for this guide.
+
+If you have questions or comments please post them below.
+
+---
+
+### Create Bulk Users in Active Directory
+
+Method 1: Bulk Import AD Users With GUI Tool
+This first method uses the [AD Pro Toolkit](https://activedirectorypro.com/ad-pro-toolkit). This tool makes it very easy to bulk import users and is a great alternative if you don’t want to deal with PowerShell scripts. Also, there are certain user fields that PowerShell does not support and a 3rd party import tool is needed.
+
+#### Step 1: Download and Install
+
+The bulk import tool is 1 of 13 tools included in the AD Pro Toolkit. You can download a free trial and try it for yourself.
+
+[Click here to download a free trial](https://activedirectorypro.com/download-thank-you/)
+
+#### Step 2: Open User Import Tool
+
+Once installed open the toolkit and click on **Import Users**.
+![ws545](images/ws545.webp)
+
+#### Step 3: Download CSV Template
+
+Click the **Download CSV Template** button to generate a template file. This template includes the most common user attributes needed to create new user accounts. You can also add additional attributes if needed.
+![ws546](images/ws546.webp)
+
+You will be prompted to save the CSV file. You can rename it and save it anywhere on your PC.
+
+![ws547](images/ws547.webp)
+
+Now open the CSV template and fill out the fields you need. 
+
+**At a minimum, I recommend setting the attributes below for all accounts.**
+
+- **SamAccountName** (required) = This will be the users logon name.
+
+- **password** (required) = users password. Make sure it meets your password requirements.
+
+- **OU** = The organizational unit to add the user accounts into. This is the distinguished name of the OU. If you leave it blank it will import into the default users container.
+
+- **GivenName** = First name
+
+- **Surname** = Last name
+
+- **DisplayName** = Display Name
+
+- **Groups** = Groups to add the users to. Separate each group with a comma.
+
+
+#### Step 4. Bulk Import from CSV file
+
+Next, click the **Import Options** button and change any of the defaults that you need.
+![ws548](images/ws548.webp)
+
+Now select your CSV template and click the run button to start the import process.
+
+![ws549](images/ws549.webp)
+
+When the import is complete you can view the logs to verify the import status. You can see below the logs show imported 98 users out of 98.
+
+![ws550](images/ws550.webp)
+
+It only took 30 seconds to import 98 user accounts.
+
+Next, I’ll open an account and verify all properties were set.
+![ws551](images/ws551.webp)
+
+Yes! It worked, it created the account and set all the user attributes from the CSV file.
+
+I’ll check the Marketing folder to verify the accounts imported into the correct OU.
+
+![ws552](images/ws552.webp)
+
+The GUI tool is a huge time saver and makes importing user accounts into Active Directory super easy. Plus you don’t have to modify any scripts or need PowerShell experience.
+
+#### Method 2: How to Bulk Import AD Users With PowerShell from a CSV file
+
+What you will need: 
+
+- PowerShell Active Directory Module loaded – The script I provide will load the module you just need to run it from a computer that has RSAT tools installed or the AD role.
+
+- Rights to create user accounts in Active Directory
+
+- CSV File (See below)
+
+- PowerShell Script (See below)
+
+#### Step 1: Setup the CSV file
+
+A basic CSV file should have the following headers. Technically you can import new accounts with just the SamAccountName, Name, and the password column but that is not recommended.
+
+- **SamAccountName** = this will be the users logon name
+
+- **password** = users password. Make sure it meets your password requirements.
+
+- **path** = OU where you want to import users to. This is the distinguished name of the OU. If you leave it blank it will import into the default users container.
+
+- **GivenName** = First name
+
+- **Surname** = Last name
+
+- **Name** = Name
+
+- **DisplayName** = Display Name
+
+![ws553](images/ws553.webp)
+
+
+Above is an example of my CSV file.
+
+**How do you find the OU path?**
+
+The OU path is the distinguishedName attribute, to find this open up Active Directory Users and Computers and browse to the OU you want to import to, then right click and select properties then select attribute editor.
+
+![ws554](images/ws554.webp)
+
+Copy the path into the path column in the CSV file.
+
+At this point the CSV file has the required fields,  you can jump to step 2 (setting up the PowerShell script) or keep reading to configure optional fields for user accounts.
+
+**Add additional user fields to the CSV file.**
+
+You may want to include some additional user fields in the CSV. Just know that whatever columns you add to the CSV you will also need to include them in the PowerShell script.
+
+I’ve included several common user fields in the CSV template and PowerShell script.
+
+- UserPrincipalName
+
+- Department
+
+- Description
+
+- Office
+
+- OfficePhone
+
+- EmailAddress
+
+- StreetAddress
+
+- POBox
+
+- City
+
+- State
+
+- PostalCode
+
+- Title
+
+- Company
+
+![ws555](images/ws555.webp)
+
+To add more I recommend looking at the PowerShell [new-aduser](https://learn.microsoft.com/en-us/powershell/module/activedirectory/new-aduser?view=windowsserver2022-ps) cmdlet to see which parameters are supported.
+
+I like to keep the name of the headers the same as the new-aduser parameters, it makes it easier to troubleshoot.
+
+At this point, you should have a CSV file configured, and save the file to your local computer.
+
+#### Step 2: Configure the PowerShell Script
+
+Below is the script to bulk import new users.
+```
+#Import active directory module for running AD cmdlets
+#Author: Robert Allen
+#Website: activedirectrypro.com
+
+Import-Module activedirectory
+
+#Store the data from ADUsers.csv in the $ADUsers variable
+$Users = Import-csv C:\it\bulk_import.csv
+
+#Loop through each row containing user details in the CSV file 
+foreach ($User in $Users) {
+    # Read user data from each field in each row
+    # the username is used more often, so to prevent typing, save that in a variable
+
+        # create a hashtable for splatting the parameters
+        $userProps = @{
+            SamAccountName            = $User.SamAccountName                   
+            Path                                   = $User.path
+            GivenName                       = $User.GivenName 
+            Surname                           = $User.Surname
+            Initials                               = $User.Initials
+            Name                               = $User.Name
+            DisplayName                   = $User.DisplayName
+            UserPrincipalName          = $user.UserPrincipalName 
+            Department                     = $User.Department
+            Description                     = $User.Description
+            Office                              = $User.Office
+            OfficePhone                   = $User.OfficePhone
+            StreetAddress                = $User.StreetAddress
+            POBox                            = $User.POBox
+            City                               = $User.City
+            State                            = $User.State
+            PostalCode                 = $User.PostalCode
+            Title                            = $User.Title
+            Company                    = $User.Company
+            Country                      = $User.Country
+            EmailAddress               = $User.Email
+            AccountPassword        = (ConvertTo-SecureString $User.Password -AsPlainText -Force) 
+            Enabled                      = $true
+            ChangePasswordAtLogon      = $true
+        }   #end userprops   
+
+         New-ADUser @userProps
+
+    } #end else
+   
+```
+You will need to modify the path to the CSV file you saved from step 1 (unless it matches what I have in the script)
+```
+$ADUsers = Import-csv C:\it\bulk_import.csv
+```
+
+By default, the script sets the accounts to enable. You can change this by setting Enabled to false
+```
+Enabled = $false
+```
+
+By default, the script sets the accounts to change password at the next logon. To change this set “ChangePasswordAtlogon to false.
+```
+ChangePasswordAtLogon = $false
+```
+That should do it for configuring the script. It’s pretty much ready to go as is.
+
+#### Step 3: Run the PowerShell Script to import the accounts
+
+At this point, the CSV file should be setup with the user’s information and the Powershell script should be modified (if needed)
+
+Now it’s time to execute the script.
+
+In PowerShell ISE just click the green button to run the script.
+![ws556](images/ws556.webp)
+
+![ws557](images/ws557.webp)
+
+Now check Active Directory to verify the accounts imported.
+![ws558](images/ws558.webp)
+
+Yes, it was a success.
+
+That’s it for method 2. You can now use this script anytime to automate creating one or many AD user accounts.
+
+---
+
+BulkUser Script
+```
+import-csv -path d:\bulkuser\Userlist.csv | foreach {
+ 
+$givenName = $_.name.split()[0] 
+$surname = $_.name.split()[1]
+ 
+new-aduser -name $_.name -enabled $true –givenName $givenName –surname $surname -accountpassword (convertto-securestring $_.password -asplaintext -force) -changepasswordatlogon $true -samaccountname $_.samaccountname –userprincipalname ($_.samaccountname+”@win.osi.local”) -city $_.city -department $_.department
+```
+---
+
+
+### How to use offline Domain join (djoin.exe) Active Directory in Windows Server
+
+**Offline domain join scenario overview**
+
+Offline domain join is a new process that computers that run Windows® 10 or Windows Server® 2016 can use to join a domain without contacting a domain controller. This makes it possible to join computers to a domain in locations where there is no connectivity to a corporate network.
+
+For example, an organization might need to deploy many virtual machines in a datacenter. Offline domain join makes it possible for the virtual machines to be joined to the domain when they initially start after the installation of the operating system. No additional restart is required to complete the domain join. This can significantly reduce the overall time that is required for wide-scale virtual-machine deployments.
+
+A domain join establishes a trust relationship between a computer running a Windows operating system and an Active Directory® domain. This operation requires state changes to Active Directory Domain Services (AD DS) and state changes on the computer that is joining the domain. To complete a domain join in the past using previous Windows® operating systems, the computer that joined the domain had to be running and it had to have network connectivity to contact a domain controller. Offline domain join provides the following advantages over the previous requirements:
+
+- The Active Directory state changes are completed without any network traffic to the computer.
+
+- The computer state changes are completed without any network traffic to a domain controller.
+
+- Each set of changes can be completed at a different time
+
+There is a new tool included with **Windows Server 2012 R2 / Server 2016 and Windows 8 / 10 called Djoin.exe.**
+
+There are any number of circumstances where you may want to have a client computer join to a domain when they have no access to a domain controller.
+
+On example might be if you are creating a new branch office and the servers are not functional yet in that location, but you would like to begin rolling out the clients.
+
+1. On the Windows Server, open **CMD** and **type**:
+
+- **Windows** = your Domain name
+
+- **CLIENT-10** = PC Client
+
+```
+djoin /provision /domain “Windows” /machine “CLIENT-10” /savefile win10blob.txt
+```
+> If the djoin /provision command completes **successfully**, you’ll see your **new Clients** PC account in the **Computers container in AD.** **(Please Refer to the Pictures)**
+
+![ws559](images/ws559.webp)
+
+![ws560](images/ws560.webp)
+
+![ws561](images/ws561.webp)
+
+2. Browse to in **C:\Djoin**, and look for **Win10blob.txt** file.
+
+Transfer Win10blob.txt file to **CLIENT-10** client PC.
+
+![ws562](images/ws562.webp)
+
+3. On the **CLIENT-10 PC**, confirm that it still in **workgroup**.
+
+Paste the **Win10blob.txt** that you copy previously from the server (**any domain member PC**) into **local admin profile** (for this Demo i copy into **Windows 10 System32** folder (not the best practice).
+
+![ws563](images/ws563.webp)
+
+![ws564](images/ws564.webp)
+
+4. On the **client PC**, open **CMD** and type: and then **restart the PC**. **(Please Refer to the Pictures)**
+
+```
+djoin /requestodj /loadfile C:\Windows\System32\win10blob.txt /windowspath c:\windows /localos
+```
+![ws565](images/ws565.webp)
+
+5. Once your Client PC restarted, open System **Properties** and **confirm that your Client PC is now a member of your domain**.
+
+> note : You’ll only be able to logon with a domain account for the first time if there’s connectivity to a DC.
+
+---
+
+### Create and Manage Users, Groups and Organizational units (OU)
+
+![ws567](images/ws567.webp)
+
+So first up on our list is the remarkably uninteresting task of dealing with users and computers inside of the graphical tools that we have here in Windows Server. In a production world you’re probably not going to be performing these tasks on the domain controller itself. You will probably have management machine for this or if you are a powershell guy you can create new PSSession and import active directory module. On this way you don’t need to install RSAT tools on every machine you are using. I will show you later how this can be done.
+
+There are actually a pair of different tools you can use for managing users and computers here in the operating system. The first of which is the old tool active directory users and computers (ADUC)
+
+![ws567](images/ws567.webp)
+
+The second of which, which I’ll just open up here so we can see it, is the new tool called active directory administrative center. Now these two tools perform many of the same functions but the biggest difference here is that the adac, different from the aduc, runs on top of Windows PowerShell.
+
+![ws568](images/ws568.webp)
+
+Now I’m going to use the old tool, because I’m old school, and old habits die hard. I will also show you how you can use powershell to accomplish the same tasks but much faster. If you need to create only one user you can use ADUC but if you need to create many from CSV file or if you need to copy many members from one AD group to another then performing those operations manually can take a lot of time.
+
+Here on the left you can see the long list of organizational units and other containers that exist here in our domain nm.com. And over on the right, because we focused here on the list of users, are those users and then the groups that are available right out-of-the-box.
+
+![ws569](images/ws569.webp)
+
+For us to create a new user is to right-click on the Users Container or any other OU if you have specific one that you want to use (I will create new one in Test Users) and select new user
+
+![ws570](images/ws570.webp)
+
+and then we need to provide the first name and last name and then a user logon name for the individual. Under Full Name section you can see what we call the upn suffix for that user logon name. Here we have the ability to log on via either of these two approaches. The Pre-Windows 2000 approach, which is what many of us still use today, the domain name/a user logon name approach. Or the more new school method which is user name at domain name `nm.com.` Click **Next**
+
+![ws571](images/ws571.webp)
+
+For any user that we many enter in; we’re going to have to punch in a password that supports whatever our password restrictions are going to be, those rules that we’ve applied. I will choose Pas never expires but you can choose any of these. In production you will probably uncheck Pass never expire. Next and finish
+
+![ws572](images/ws572.webp)
+
+Now once I’ve created the user then there are a large number of different fields that we could potentially enter in that are associated with the user account. So a description of the user, their office, their telephone number, their email, their physical address information etc.
+
+![ws573](images/ws573.webp)
+
+#### ACCOUNT TAB
+
+1. If the account ends up getting locked for one reason or another, perhaps they’ve entered in their password incorrectly too many times, well I can unlock the account by choosing the checkbox here.
+
+2. **Account Expires field** –> I can also set an expire on the account  at the bottom which is used most often when I have temporary accounts or perhaps consultants, external users that are coming in. That when I create that account I want to make sure that that account doesn’t inadvertently stick around past the point that that person should no longer be a part of the organization.
+
+3. **LOG ON TO** –> This is very useful because we can restrict user access to a few servers in your Active Directory domain.
+
+4. **Logon Hours** –> This will open an interface where you can restrict user login days and time by highlighting the appropriate area and clicking on Logon Denied
+
+![ws574](images/ws574.webp)
+
+One more tab to mention before we move forward is the **Member Of**. (We will check few more later in these series).  Now anytime I create a new user, well that users going to be created with the domain users membership, you have to be in domain users in order to support attaching to and working with any of the objects that make up an active directory domain. In order to give additional access I would need to add that additional access by clicking on ADD.. and add user in additional AD groups which will give that user additional access to the resources.
+
+**Set Primary Group** –> Is it not needed for every day Active Directory usage and can safely be ignored by almost everyone.
+
+![ws575](images/ws575.webp)
+
+#### COPY USER 
+
+There are always situations where we need to create a new user with a similar set of privileges. This can be done very easily by copying existing user account and creating new one from existing user account. To copy user account, right-click on it and select Copy
+
+![ws576](images/ws576.webp)
+
+Give it a name and logon name and on the last page give it a new password.
+
+![ws577](images/ws577.webp)
+
+and that’s it.
+
+![ws578](images/ws578.webp)
+
+To delete a user account right-click on it and select delete
+
+![ws579](images/ws579.webp)
+
+Now this is the user side of the equation. We also have the computer side of the equation as well. We can actually right-click to create a new computer object however you don’t find yourself doing that all too often, and the reason is that the process to add a computer into the active directory domain automatically creates the computer account as part of that process. One reason for pre-creating computer accounts would be offline domain join.
+
+![ws580](images/ws580.webp)
+
+#### USER ACCOUNT TEMPLATES
+
+We went through a very short explanation of the process to copy an account and we went to the Nedim Mehic account and attempted to copy it to some other user and in a world where you may have another user, who may be coming in and working in the same group as the Nedim person it makes sense then to just copy the account so that you can very easily replicate all the different configurations to what new user will need. But there comes a time also where when you’re creating new accounts you may have a certain minimum baseline set of configurations that every new account may require. You may have a set of baseline security groups that the users may need to be added. In this case we can create a user template. A template user account is essentially a non-functioning user account that you create in ADUC. That you can use as the container for all those baseline configurations. To create a user template right-click on Users container and select new user. In the new user window start it with an underbar for the only reason that when you go about sorting the active directory users and computers interface that the underbar will force this template account to the top of the list. And if I come down here to the user logon name, I’ll do the same thing and create it as underbar template. Click next
+
+![ws581](images/ws581.webp)
+
+I’m going to leave the password as blank. Now here’s a really cool trick that you can do when you’re creating these template accounts. If I create this password as blank I’m not going to be able to actually create the user because in order to create the password as blank well I’m not going to meet the password complexity requirements for my active directory domain. So you can’t actually create a blank password on a user. But if I do create the password as blank and set the password so it cannot be changed, so the password never expires and so that the account is disabled. I’m then allowed to go about creating this new user. The neat part about this template user is that in no way can I ever enable the account because if I enable the account the blank password is not going to fit within those password complexity requirements. So this creates, as I said, kind of a nonfunctioning account. Click Next and finish
+
+![ws582](images/ws582.webp)
+
+![ws583](images/ws583.webp)
+
+Now what you can do is to edit that template and configure it. When you need to create a new user just copy the template and create a new account.
+
+#### ACTIVE DIRECTORY GROUPS
+
+As you may know the reason why we have groups is to ensure that the right people have access to the right resources and conversely that the wrong people don’t have access to the resources they shouldn’t have access too. And so dealing with your groups requires a bit of strategy in ensuring that you create them and manage them correctly.
+
+Managing your AD groups can at first blush seem like a really simple thing to do, but these groups and the sheer number of groups you will likely have and the nesting of one group into another can very quickly turn what would seem a simple active directory infrastructure into one that is far more complicated than you would ever expect. We will not just talk about how to put users in groups, but more specifically on the other things that you have to deal with when you’re talking about managing the groups themselves. Let’s get started.
+
+Groups have multiple different types and they also have multiple different scopes so you’ll be creating different kinds of groups depending on what you actually need to use that group for. First up are the two different types of groups in active directory, security groups on one side and distribution groups on the other.
+
+![ws584](images/ws584.webp)
+
+**SECURITY** –> In every case if you’re attempting to use a group to apply permissions to some folder or other object you’re going to use a security group to do that.
+
+**DISTRIBUTION** –>The only case where you find yourself using distribution groups is when you’re dealing with email and the need to send out the email to a group of users for one reason or another.
+
+Now when it comes to scopes this is where things get a little bit more challenging because the scopes can be a little confusing when you first start out.
+
+![ws585](images/ws585.webp)
+
+**DOMAIN LOCAL** –> can include users, computers, universal groups, and global group, and groups from any domain in the forest and trusted domains. These groups are most often utilized to give permissions to resources and to provide access to resources in the domain where they’re located so in the same domain where you create domain local group.
+
+**GLOBAL** –> can include users, computers and can include other global groups from the same domain. Most often you use global groups to organize users who have similar functions, so your finance group, your IT group, and so on. And so because of that these users will have similar requirements on the network. These groups are visible through-out the forest, but as I said they can only contain accounts and global groups from the same domain. Best practice is to not assign permissions directly to global groups.
+
+**UNIVERSAL** –>  these are kind of a special group that you have to pay careful attention too, because the universal groups and the membership of universal groups is something that’s taken care of by any domain controllers that are also global catalogs. And so because of that any change to the membership of a universal group is going to require that membership to be replicated around every global catalog server in your active directory forest. They can contain accounts, global groups and other universal groups from any domain in the forest (they cannot contain domain local groups). Universal groups should be used to nest global groups. By doing that, the group can assign permissions to resources in multiple domains. I would recommend to use them only in multi-domain environments. We can use them when we are creating Distribution lists as well.
+
+So one more time the **GLOBAL GROUPS** are generally for people and the **DOMAIN LOCAL GROUPS** are for the resources.
+
+
+#### Configure Group Nesting
+
+Best practice for group nesting is that you add users to global groups and then you add global groups to domain local groups. When that is done you then apply permissions to domain local groups. In a single forest, single domain environment you may not need to follow this and you will notice that there are not too many companies that follows this approach in the real-world scenarios.
+
+To create a new group, right click on the OU and select New –> Group
+![ws586](images/ws586.webp)
+
+Give it a name and select the scope and the type and click OK.
+![ws587](images/ws587.webp)
+
+#### DOMAIN ADMINS VS ENTERPRISE ADMINS VS BUILTIN/ADMINISTRATORS GROUP
+
+I have seen many times that enterprise and domain admin groups have too many member and that many organizations simply add every administrator and help desk technician to the enterprise admins group to make it easy for them to fix and configure the computers they need to administer. Now the big problem is that those employees use their enterprise admin accounts to manage the network, as well as to pick up email and surf the Web. Enterprise admin group should be empty and it should be used only when configuring things that need enterprise admin permisions. Domain admin group should not have too many admins and we should configure delegation instead of giving domain admin rights to every help desk member. Let’s see the difference between these groups.
+
+**DOMAIN ADMINS** –> This group has complete and unrestricted access to the entire domain, DC’s and memebers are able to logon to any pc or server that is a member of the domain. Keep in mind that Domain Admins group is a Global group and it is limited to the domain it resides. Every domain in the forest have Domain Admins Group. Members of this group can add themselves in Enterprise/schema admin group.
+
+With domain admin right you can for example administer Domain / DC Group Policy Management, Domain user and computer administration, Delegation of rights within Domain, FSMO Role Seizure (RID, PDC, Infrastructure), Domain Controller Installation (DCPROMO) etc…
+
+**ENTERPRISE ADMINS** –> This group lives only in the forest root domain and has full AD rights to every domain in the forest. This group is a universal group which means that permission can be defined in any domain and user can be from any domain. This group should contain no permanent members. Use this group only when needed.
+
+With Enterprise admin right you can for example: Administering the AD Schema,
+Creating Certificate Authority, Managing Certificate Templates,
+DHCP Authorization, Forest trust relationships, Forest Preparation and Functional Level management, Global Sites and Services Management and administration (for all domains), Creation of Sites & Site-Links, Creation of IP Subnets, Terminal Services Licensing, Creation and Destruction of Domains,FSMO Role Seizure (Domain Naming, Schema), take ownership of all forest and domain resources etc…
+
+**BUILTIN ADMINISTRATORS** –> Members of this group have full control of all domain controllers in the domain. By default, the Domain Admins and Enterprise Admins groups are members of the Administrators group. The Administrator account is also a default member. The domain admins group, and the AD builtin\Adminstrators group (not the local admin group on clients) effectively grant users in them the same rights but the difference is that Builtin/Administrators is domain local group while Domain admins is domain global group.
+
+ 
+#### ORGANIZATIONAL UNITS vs CONTAINERS
+
+There is still misunderstanding when it comes to **OUs** and containers. They look almost the same but they are not the same. A generic Active Directory container is identifiable by its plain folder icon. The most common containers that appear in ADUC by default are the Computers and Users containers. By default, any workstation that is added to the domain will automatically be placed in the Computers container. Now problem with container is that you cannot apply group policy directly to it or delegate control. You can of course link a GPO to root domain and on that way apply policies to containers but if you do that all of your server objects will also get the same GPO applied to them.
+
+**OUs** –> are here to make our job as IT admins easier. The icon for an organizational unit is similar, except that a small book is superimposed on the folder.  An OU is like a container, but OUs can be manipulated by IT administrators by applying GPOs, permissions, child OUs, and delegates. OU can be used to segregate/filter department bases on the region or type of users/groups/computers.
+
+You can create a new OU by right-clicking on domain name or on another OU. In this case I will create new OU in root.
+
+![ws588](images/ws588.webp)
+
+When I create that OU I have the abilities to protect the container from accidental deletion, this sets a flag on the permissions for that OU that eliminates the abilities to accidently click and delete the entire organizational unit at once.
+
+![ws589](images/ws589.webp)
+
+notice how this OU now has the little box next to it. What you can do now is to create additional sub-OUs and move computers/servers to it. You can create one for users, computers, groups etc under the Helsingborg OU.
+![ws590](images/ws590.webp)
+
+**Change default container when new computers get added into our active directory domain.**
+
+As I said any server/computer that is added to our domain will automatically be placed in the Computers container. There is a way to change this so what you need to do is to get distinguished name of the OU you want to be the new default and then use the command redircmp. Run powershell as admin and run
+
+```
+redircmp “OU=Helsingborg,DC=nm,DC=com”
+```
+This becomes particularly handy when I start applying group policy to that Helsingborg OU. And it helps me ensure that every new computer is going to end up getting that group policy that I’ve applied.
+
+
+
+### Create Users in AD use CMD
+
+redirect to myfolder after you can create users in myfolder group
+```
+redirect OU=MyFolder DC=test DC=local
+```
+
+Create user
+```
+netuser USER1 Pa$$w0rd /add /domain
+```
+
+redirect computer
+```
+redircmp
+```
 
 ## WDS
 
@@ -5123,9 +5885,15 @@ Install-WindowsFeature wds -IncludeAllSubFeature -IncludeManagementTools
 
 ## PKI
 
+&nbsp;
+
 ### PKI Deployment Models 
 
+&nbsp;
+
 #### Single-Tier Model
+
+
 
 This is also called as one-tier model and it is the simplest deployment model for PKI. This is NOT recommended to use in any production network as its single point of failure of entire PKI. 
 
@@ -5134,6 +5902,8 @@ This is also called as one-tier model and it is the simplest deployment model fo
 In this model, single CA will act as root CA and Issuing CA. as I explain before the root CA is the highest trusted CA in PKI hierarchy. Any compromise to root CA will be compromise entire PKI. In this model its one server, so any compromise on server will easily compromise entire PKI as it doesn’t need to spread through different hierarchy levels. This is model is easy to implement and easy to manage. Because of that event it’s not recommended, this model exists in corporate networks. 
 
 Some CA aware applications, required certificates in order to function. System center operation manager (SCOM) is one of the good example. It uses certificates on to secure web interfaces, to authenticate management servers and many more. If the organization doesn’t have internal CA, the options are to purchase certificates from vendor or to deploy a new CA. In similar situations engineers usually use this single-tier model as its only use for a specific application or task.
+
+&nbsp;
 
 | Advantages | Disadvantages |
 | ---------- | ------------- |
@@ -5150,6 +5920,8 @@ This is the most commonly used PKI deployment model in corporate networks. By de
 
 
 In event of Subordinate CAs certificate expire, Offline root CA will need to bring online to renew the certificate. Root CA doesn’t need to be a domain member and it should be operating in workgroup level (standalone CA). There for the certificate enrollment, approval and renew will be manual process. This is scalable solution and number of issuing CAs can be increase based on workloads. This allows to extend the CA boundaries to multiple sites too. In Single-Tier model if PKI got compromised, in order to recover all the issues certificates, need to be manually removed from the devices. In Two-Tier model, all need to do is revoke the certificates issued by CA and then publish CRL (Certificate Revocation List) and then reissue the certificates. 
+
+&nbsp;
 
 | Advantages | Disadvantages |
 | ---------- | ------------- |
@@ -5168,6 +5940,7 @@ Three-Tier model is the highest in the model list which operates with greater se
 This model add another layer of security to the hierarchy. However, if you not using CA policies the intermediate tier will not use. It is just can be a waste of money and resources. there for most of the organizations prefer Two-tier model to start with and then expand as required. 
 In this model both root CA and Intermediate CAs are operates as standalone CA. root CA only will issue certificates to intermediate CAs and those only will issue certificate to Issuing CAs. 
 
+&nbsp;
 
 | Advantages | Disadvantages |
 | ---------- | ------------- |
@@ -5178,8 +5951,6 @@ In this model both root CA and Intermediate CAs are operates as standalone CA. r
 | Improved control over certificate policies and allow enterprise to have tailored certificates. | |
 | High availability as dependencies further reduced. | |
 
-
-
-
+&nbsp;
 
 ---
