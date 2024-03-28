@@ -5834,7 +5834,32 @@ redircmp “OU=Helsingborg,DC=nm,DC=com”
 ```
 This becomes particularly handy when I start applying group policy to that Helsingborg OU. And it helps me ensure that every new computer is going to end up getting that group policy that I’ve applied.
 
+#### Automate Groups and OUs with PowerShell 
 
+Create a new OU
+```
+New-ADOrganizationalUnit -Name London -Path "DC=test, DC=local"
+```
+Create users in the new OU
+```
+New-ADUser -Name "User3" -SamAccountName USER3 -Path "OU=London,DC=test,DC=local"
+```
+```
+New-ADUser -Name "User4" -SamAccountName USER4 -Path "OU=London,DC=test,DC=local"
+```
+
+Create a new group in the new OU
+```
+New-ADGroup -Name "SpecialGroup2" -SameAccountName SpecialGroup2 -GroupCatelogory Security -GroupScope DomainLocal -Path "OU=London,DC=test,DC=local"
+```
+Add users to the group
+```
+Add-ADGroupMember SpecialGroup2 User3,User4
+```
+Enumerate the group `ScecialGroup2`
+```
+Get-ADGroupMember ScecialGroup2
+```
 
 ### Create Users in AD use CMD
 
@@ -5852,6 +5877,166 @@ redirect computer
 ```
 redircmp
 ```
+
+### Manage Local AD Groups using GPO Restricted Groups
+
+
+
+The task of being an IT or system manager in a medium or large organization usually means that you may need to manage hundreds, thousands or even tens of thousands of client computers, and hundreds or thousands of servers. Some management tasks on many of these computers are related to the need to control local group members on those workstations and servers, which in such numbers, means an almost impossible task if you have to do it manually.
+
+#### About Group Policy Restricted Groups
+
+How do you control the membership of local groups on so many computers from a central location?
+Luckily we have several options, such as built-in features of Group Policy Objects (GPOs) or startup scripts. We’ll first talk about a feature of Group Policy called Restricted Groups. Using this mechanism, GPOs lets you control the membership of domain and local groups on any computer that’s joined to the Active Directory domain.
+**Important:** Restricted Groups affect only the computer account, not the user accounts. That means that you will need to use the GPOs that are linked to the organizational units (OUs) that contain the computer accounts. If you edit the default domain GPO, it will affect all the computers in the domain. If you edit the default domain controller GPO, it will affect all the domain controllers in the domain. Use with caution.
+It’s worth mentioning that Restricted Groups are not configured by default in any pre-defined GPO, and by default, no new GPO has Restricted Groups configured initially. This means that if you want to use this feature, you must manually configure it, which is a good thing, as you’ll see in my next super important note.
+**Warning:** Before touching any existing Restricted Groups setting or before adding new Restricted Groups settings, you must fully read and understand the possible consequences of using this feature. If you fail to do so, you may find yourself in deep trouble.
+
+#### Tips for using Group Policy Restricted Groups to control group membership
+
+How do we use Restricted Group? You can use these groups in several different ways. For example, you can add users to groups, and you can also use Restricted Groups to remove any user or group that is not on the list of allowed users or groups from groups. Finally, you can also use Restricted Groups to maintain the membership of the Domain Admins group in all the Local Administrators group.
+With Restricted Groups, you can control the membership of critical groups, such as the Domain Admins, Enterprise Admins, and Schema Admins groups, for better security that ensures incorrect accounts are not added to these groups. Restricted Groups also lets you manage membership of local groups on file servers, adding global groups from the Active Directory domain to keep group membership consistent and persistent.
+One nice feature of Restricted Groups is that you can manage groups that are non-existant at the time of configuration, where you can control those members. For example, you configure a group called “Future Local Group” by typing in the name and add a user called “Future User.” Because the group and user don’t exist at this point in time, it will have no effect. Once such is group is created on one of the computers that fall under the scope of that GPO, it will automatically be configured to only include “Future User” in it. If that user exists, it will be added. If not, the group will remain empty until such a user is created. Any attempt to add other members to that group will fail.
+
+#### Creating a Restricted Group using Group Policy
+
+To create a Restricted Group, you need to create or edit a GPO that is linked to the OU that contains the computer objects you want to be affected by the GPO.
+
+1. In the GPO, browse and expand **Computer Configuration** > **Policies** > **Windows Settings** > **Security Settings**. Click on **Restricted Groups.** Right-click on **Restricted Groups** and select **Add Group**
+![ws591](images/ws591.webp)
+
+2. Manually enter the group name. The name can be an existing group or a non-existing group that will be created in the future. If you want to control an existing Active Directory group, then you can browse for it, but this will only work for AD-based groups. Once you create the group, it will show up in the right-hand pane. In this example, we’re using a group called `Test Local Group` located on a member server.
+![ws592](images/ws592.webp)
+
+3. Once the group is added to the Restricted Groups list, double-click the newly-added group to reveal the **Members of this group** option. This option lets you control the membership of the group that you’ve specified in the policy.
+**Important:** When you configure the members of a group, the group’s existing membership is overwritten and replaced with the members that are specified in the GPO at the time of the GPO refresh. Any existing members in that group are immediately removed. Because of this, it is critical that you test these steps before applying these steps to a production environment.
+**Important:** If you configure this setting and leave the “Members of this group” list blank, the group will be emptied and will not have any members after the GPO refresh.
+
+4. To configure this option, double-click the group name that you created under Restricted Group node, then, click on the **Add** button for the **This group is a member of** on the upper part of the window. In this example we’re adding a user called `testuser1` located in AD.
+![ws593](images/ws593.webp)
+
+![ws594](images/ws594.webp)
+
+5. If you look at the specific group on the target workstation or server, you will see that the group is empty. However, after you perform a GPO refresh by typing `gpupdate /force` in a command prompt window, you will see that the group now has a new member.
+![ws595](images/ws595.webp)
+
+6. After you’ve refreshed the GPO, you will see that the member was re-added if you try to remove the member from the local group on the member server
+![ws596](images/ws596.webp)
+
+![ws597](images/ws597.webp)
+
+7. If you edit the GPO and add a second user to the list, you will see that the new member was added to the group after you’ve performed a refresh. However, group memberships for the current user take effect during the next user logon.
+![ws598](images/ws598.webp)
+
+![ws599](images/ws599.webp)
+
+![ws600](images/ws600.webp)
+
+![ws601](images/ws601.webp) 
+
+8. If you remove the previous two users from the group and instead insert a third user, you will see that the third user was added to the group, but also that the previous two users were removed.
+
+Again, keep in mind that group memberships for the current user take effect during the next user logon.
+
+![ws602](images/ws602.webp)
+
+![ws603](images/ws603.webp)
+
+9. Finally, if you empty the **Members of this group** list, you will see that group is now empty after a refresh.
+
+![ws604](images/ws604.webp)
+
+![ws605](images/ws605.webp)
+
+10. Note that all manually added users to the specific group will be re-added once the GPO is deleted or edited to remove the Restricted Group from the list. In this case, it’s `testuser1` that was originally manually added to the group.
+
+![ws606](images/ws606.webp)
+
+
+---
+
+### AD nesting groups strategy and implementation
+
+Microsoft recommends that you apply a nesting and role-based access control (RBAC), specifically the AGDLP for single-domain environments and AGUDLP for multi-domain/multi-forest environments. But implementing either arrangement in a legacy setup that lacks a clear strategy when it comes to RBAC and nesting can take time to clean up. The effort will be worthwhile, because the end result will make your environment more secure and dynamic.
+
+#### Why should I use a nesting groups strategy?
+
+A good nesting approach, such as AGDLP or AGUDLP, gives you a great overview of who has what permissions, which can help in certain situations such as audits. This setup is also useful because it eliminates the need for troubleshooting if something doesn't work. Lastly, it reduces administrative overhead by making the assignment of permissions to other domains straightforward
+
+#### What is AGDLP?
+
+- **A**ccounts (the user or computer)
+
+- **G**lobal group (also called role group)
+
+- **D**omain **L**ocal groups (also called access groups)
+
+- **P**ermissions (the specific permission tied to the domain local group)
+
+he acronym is the exact order used to nest the groups.
+
+Accounts will be a member of a global group that, in turn, is a member of a domain local group. The domain local group holds the specific permission to resources we want the global group to have access to, such as files and printer queues.
+
+We can see in the illustration below how this particular nesting group comes together:
+![ws607](images/ws607.webp)
+
+By using AGDLP nesting and RBAC principles, you get an overview of a role's specific permissions, which can be easily copied to other role groups if needed. With AGDLP, you only need to remember to always tie the permission to the domain local group at the end of the nesting chain and never to the global group.
+
+#### What is AGUDLP?
+
+AGUDLP is the multi-domain/multi-forest version of AGDLP, with the one difference being a universal group added to the nesting chain. You can use these universal groups to add role groups (global groups) from other domains without too much effort.
+
+The universal group -- also called a resource group -- should have the same name as the corresponding role group, except for its prefix, as illustrated below:
+
+![ws608](images/ws608.webp)
+
+#### What are the implementation concerns with AGDLP/AGUDLP?
+
+There are four important rules related to the use of AGDLP or AGUDLP:
+
+1. Decide on a naming convention of your groups.
+
+2. One user can have multiple roles. Don't create more role groups than necessary.
+
+3. Always use the correct group type: domain local, global, universal, etc.
+
+4. Never assign permissions directly to the global or universal groups. This will break the nesting strategy and its corresponding permissions summary for the organization.
+
+#### Should you use AGDLP or AGUDLP?
+
+If you don't need to assign permissions across multiple domains, then always use AGDLP. Groups nested with AGDLP can be converted to AGUDLP if needed and require less work to operate. If you're in doubt, use AGDLP.
+
+To convert an AGDLP nested group to AGUDLP, do the following:
+
+1. Create a universal group.
+
+2. Transfer the memberships of the global group to the universal group.
+
+3. Add the universal group as a member of the global group.
+
+4. Have all users and computers update their Kerberos ticket or log out and log in.
+
+5. Remove all the domain local groups from the global group.
+
+#### Why a naming convention is necessary with nesting groups
+
+You should decide on a naming convention before you implement AGDLP or AGUDLP; it's not a requirement, but without one, you will quickly lose control of the organization you worked to build.
+
+There are multiple naming schemes, but you can create a customized one that fits your organization. A good naming convention should have the following criteria:
+
+- Be easy to read.
+
+- Be simple enough to parse with scripts.
+
+- Contain no whitespace characters, such as spaces.
+
+- Contain no special characters -- characters that are not numbers or from the alphabet -- except for the underscore or minus sign.
+
+
+
+
+--- 
+
 
 ## WDS
 
