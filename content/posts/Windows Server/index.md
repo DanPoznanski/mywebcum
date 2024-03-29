@@ -6032,10 +6032,347 @@ There are multiple naming schemes, but you can create a customized one that fits
 
 - Contain no special characters -- characters that are not numbers or from the alphabet -- except for the underscore or minus sign.
 
-
-
-
 --- 
+
+
+
+## Configure Service Accounts
+
+create new service
+```
+New-Service -name Test-service -BynaryPathName C:\windows\System32\notepad.exe
+```
+
+
+## Managed Service Account (MSA)
+
+Create  a managed service account
+```
+New-ADServiceAccount -name Msa-test -RestrictToSingleComputer
+```
+```
+Add-ADComputerServiceAccount -Indetify srv2016 -ServiceAccount Msa-test
+```
+
+Test
+```
+Add-ADServiceAccount -Indetify Msa-test
+```
+
+Install Msa on local srv2016
+```
+Install-ADServiceAccount Msa-test
+```
+
+Test
+```
+Add-ADServiceAccount -Indetify Msa-test
+```
+
+Create Dimmy service 
+```
+New-Service -name Test-service -BynaryPathName C:\windows\System32\notepad.exe
+```
+
+Group Managed Service Accounts (GMSA)
+
+For test
+```
+Add-KdsRootKey -EffectiveTime ((Get-Date).AddHours(-10))
+```
+in reallife 
+```
+Add-KdsRootKey -EffectiveImmediately
+```
+
+```
+New-ADServiceAccount -Name GMSA-test -DNSHostName GSMA-Test.test.local -PrincipalsAllowedToRetrieveManagedPassword "Domain Controllers"
+```
+install remote on other server
+```
+Invoke-Command -ComputerName srv2016-2 -ScriptBlock { Install-WindowsFeature Rsat-AD-Powershell }
+```
+
+On other server `srv2016-2`
+
+
+```
+Install-ADServiceAccount GMSA-test
+```
+
+Test him
+```
+Test-ADServiceAccount -Indetify GMSA-test
+```
+
+Install Dimmy service 
+```
+New-Service -name Test-service -BynaryPathName C:\windows\System32\notepad.exe
+```
+
+---
+
+### How to Install the gMSA
+
+After verify that fulfill all the requirements let's continue with the creation and installation of the gMSA(Group Manage Service Account.
+
+
+#### Create the KDS Root Key
+
+- As per requirements the first step is to create the **KDS Root Key**
+
+- So let's open a **Powershell as Administrator** and run the following command.
+
+- Note that with this command must take place 10 hours until key generation of the Domain Controller before create the **gMSA(Group Manage Service Account)**
+```
+Add-KdsRootKey -EffectiveImediately
+```
+![ws609](images/ws609.webp)
+
+- If try to create the **gMSA(Group Manage Service Account)** you will get an error that the Key doesn't exist
+
+- If you want to use it immediately for your tests in your Lab you can run the following command that set the start time in the past 10 hours before
+```
+Add-KdsRootKey -EffectiveTime ((get-date).addhours(-10))
+```
+![ws610](images/ws610.webp)
+
+#### Delete the KDS Root Key
+
+Deletion of the KDS Root Key it's not recommended if you have start already use the gMSA because Servers has cache the password.
+
+However If for any reason you want to delete the KDS Root key then you can
+
+- Open the **Active Directory Sites and Services**
+
+- Click in **Active Directory Sites and Services** [your Domain]
+
+- Click in **View** and Select **Show Service Node**
+
+- Expand the **Group Key Distribution Service**
+
+- Click on **Master Root Key** and find the Key in the right side
+
+- From a Powershell command run the Get-KdsRootkey and verify the **Keyid**
+
+- Right click in the Key and delete
+
+![ws611](images/ws611.webp)
+
+#### Create the gMSA(Group Manage Service Account)
+
+After we create the KDS Root Key we can proceed to create the gMSA.
+
+- From the **Domain Controller** open the **Powershell** as **Administrator**
+
+- Run the following command and change the **Name** and **DNSHostname** base on your requirements
+
+- Note that this are the minimum just to run the command and create the gMSA. 
+```
+New-ADServiceAccount -Name "gsaccount" -DNSHostName "gsaccount.askme4tech.com"
+```
+![ws612](images/ws612.webp)
+
+- Now open the **Active Directory Computer** and **Services**
+
+- Expand the **Manage Service Account** and you will see the **gMSA** which create
+
+![ws613](images/ws613.webp)
+
+#### Where and How can use the gMSA
+
+When i start to working with gMSA my first thought after created was How can use it?
+
+Let's do some examples
+
+Let's say that you have 2 Servers with Veeam and Backup Replication and one WSUS Server which use IIS and you want to use the gMSA
+
+First of al you must create a **Group** in the **Active Directory** which include the **Computer Objects** that will use the gMSA
+
+![ws614](images/ws614.webp)
+
+- Now run the following command to add members Hosts to gMSA 
+```
+Set-ADServiceAccount -Identity "gsaccount" -PrincipalsAllowedToRetrieveManagedPassword "gMSA Members"
+```
+![ws615](images/ws615.webp)
+
+- Login in your Server that you want to change the Service Account to **gMSA**
+
+- Open the **Services**
+
+- Select the **Service** and with **right click --- Properties**
+
+- Click in Tab **Logon**
+
+- Check the This account
+
+- Type the account of the gMSA as the following format:
+`askme4tech\gsaccount$`
+
+- Clean any password that maybe has from previous account and click Apply. 
+
+![ws616](images/ws616.webp)
+
+It will ask to **restart** the **Service** until take effect.
+![ws617](images/ws617.webp)
+
+- Restart the Service to apply the **gMSA**
+
+- Follow the above steps for the other Servers that you want to use the gMSA. In my example i will do the same for the 2 Servers with the Veeam and i will change all the service accounts related with the Veeam with the gMSA which create before
+
+**gMSA** can you help you to eliminate passwords of Service Accounts and the most important secure your Service Account to be compromised.
+
+---
+
+## Kerberos Constrained Delegation (KCD)
+
+![ws618](images/ws618.svg)
+
+Enabling KCD with Access Gateway#
+Delegation is not enabled by default for any user account. You need to enable it manually by adding services in Active Directory User or computer's properties.
+
+Perform the following steps to enable KCD with Access Gateway:
+
+Open the Active Directory Users and Computers folder in your Domain Controller.
+
+Select Computers > Access Gateway computer.
+
+Right-click and select Properties > Delegation.
+
+Select Trust this user for delegation specified services only and Use any authentication protocol options.
+
+Specify the services in Services to which this account can present delegated credentials.
+
+Click Add.
+
+Click Users or Computers to select the computer hosting these services.
+
+![ws619](images/ws619.webp)
+
+---
+
+#### Allowing Non-Domain Admins to Configure Kerberos Constrained Delegation.
+
+As you are probably aware of, configuring constrained delegation requires some steps that involve domain admin permissions.
+
+In many larger organizations where there is a clear separation of duties this is can be problem since the engineers and developers need to specify what type of delegation need to be configured, and domain admins need to execute on that, not knowing what this is for and in many cases not knowing how and why Kerberos Constrained Delegation (KCD) operates.
+
+Anyone that has tried to work with KCD knows what I am referring to.
+
+This post is not about how to configure KCD but rather how to give a group of non-domain admin persons the ability to setup KCD without giving them other unnecessary domain-wide permissions.
+
+This can be accomplished in a few steps, using an Organizational Unit (OU), a group for membership and a Global Policy applied to the OU.
+
+Below is a description of how to achieve that.
+
+For the sake of this article let us suppose that we have a group of DBAs that need to enable KCD for their BI developers so they can use row level security on their data sources (SSAS or SQL Server databases).
+
+Let’s start by creating an OU where the servers we need to delegate can be placed. I name this OU **SQL Server Data Sources**
+
+![ws620](images/ws620.webp)
+
+In that OU, let’s place the servers for which we need to be able to configure Kerberos Constrained Delegation. In my example I am placing my two database servers, SQL1 and SHP in the newly created OU.
+
+![ws621](images/ws621.webp)
+
+The next step is to create a Security Group in which the users that need to be able to configure KCD for those servers will become member. I call this group **DBA** and it has one member called **regbac**.
+![ws622](images/ws622.webp)
+
+Now we need to find the exact security settings that will allow members of this **DBA** group to configure Kerberos Constrained Delegation. For that purpose we need to view the advanced security properties of the newly created OU.
+
+**Properties > Security > Advanced**
+![ws623](images/ws623.webp)
+
+Next step is to Add a principal by clicking on Add and in the **select a principal** link, choosing the **DBA** security group.
+![ws624](images/ws624.webp)
+
+The first thing to do now is to give this **DBA** group permissions to modify some properties on all the computer objects that we will put in the OU (our data sources).
+
+Now, switch the **Applies to** setting to **All descendant objects** (This means all objects within the OU) and give DBA permissions to Write all properties. Click **OK**.
+![ws625](images/ws625.webp)
+
+Now I need to add some special permissions to computer objects, so I click Add again. Once again, I’ll select the **DBA** group, then I need to switch to Descendant Computer objects. I click Write and then scroll down until I see **Validated write to service principal name**. I’ll click the box to enable it, and then OK, OK, and OK.
+
+The end result looks like below :
+
+2 permissions for **DBA** group,
+
+- All descendants objects : Write all properties
+
+- Descendant computer objects : Validate write to Service Principal Name
+
+
+Now that we have managed the permission part, we need to create a group policy to enable thrust for delegation. This requires that I modify the Group Policy for the OU.
+
+![ws626](images/ws626.webp)
+
+In group policy management, create a new Group Policy called **SQLDBAforKCD**.
+
+![ws627](images/ws627.webp)
+
+Choose Edit (right-click), this brings up the Group Policy Management editor. The policy I need to change is under the Computer Configuration. I’ll expand Policies, Window Settings, Security Settings, and Local Policies. I’m looking for User Rights Assignments. Now I see a list of all the policies. I’m looking for **Enable computer and user accounts to be trusted for delegation**.
+
+![ws628](images/ws628.webp)
+
+Add the **DBA** group to this policy.
+
+Now back in Group Policy Manager, let’s find the OU. I’ll locate the **SQLDBAforKCD** policy and drag it to the OU. Yes, I do want to link it there, and I’ll also enforce it. Now the members of the **DBA** group have rights to set up Kerberos delegation.
+
+![ws629](images/ws629.webp)
+
+Let’s test it by logging onto the server, running Active Directory Users and Computers as **regbac** and validate that the delegation is active for that user,
+by trying to set or alter an active delegation:
+
+![ws630](images/ws630.webp)
+
+Trying to do the same with an object placed in other OU doesn’t work, thus proving that we have successfully enabled KCD on that OU only.
+
+---
+
+### Manage Service Principal Names (SPNs)
+
+#### Adding User Principal Name to Service Account
+
+This section will guide you on how to add User Principal Name (UPN) to Service Account. You will need to follow the direction here if your AD FS is configured to run using a Service Account. You can check whether AD FS is using Service Account by using the **Services** Tool (open Start Menu and type services). If **Log On As** for Active Directory Federation
+
+Services ends with '$' (dollar sign), this indicates that your AD FS is running using a Service Account.
+
+![ws631](images/ws631.webp)
+
+UPN is required to identify the end entity of the issued certificate, but since Service Account does not have UPN by default, it is required that this information is filled out before issuing Enrollment Agent certificate to the Service Account.
+
+To add UPN to Service Account:
+
+1. Open **Active Directory Users and Computers** from **Windows Administrative Tools**.
+
+2. Click **View** and enable **Advanced Features** by selecting the option. This will enable editing the attribute of the Service Account.
+
+![ws632](images/ws632.webp)
+
+3. In the tree window at the left, collapse the domain in which the Service Account exists, and select **Managed Service Accounts**. Right-click the Service Account configured for AD FS and select **Properties**.
+
+![ws633](images/ws633.webp)
+
+4. In the **Properties** dialog, select the **Attribute Editor** tab, scroll down and select **userPrincipalName**. Click **Edit**.
+
+![ws634](images/ws634.webp)
+
+5. In the **String Attribute Editor** dialog, enter **userPrincipalName** of the Service Account. UPN will need to be in the format, <cn of the Service Account>$@<domain name>. For this example, the cn (or the shown name) of the Service Account is “gmsa_adfs”, and domain is “whfb.pkidev.bbtest.net”. Resulting UPN for this example will be `gmsa_adfs$@whfb.pkidev.bbest.net`
+
+![ws635](images/ws635.webp)
+
+6. Click **OK** twice to apply the change and close the dialogs.
+---
+
+```
+setspn -S MSSQLSvc/myhost.redmond.microsoft.com:instancename domain\accountname  
+```
+```
+setspn -S MSSQLSvc/myhost.redmond.microsoft.com:1433 domain\accountname  
+```
+
+---
 
 
 ## WDS
