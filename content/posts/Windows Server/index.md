@@ -6375,6 +6375,447 @@ setspn -S MSSQLSvc/myhost.redmond.microsoft.com:1433 domain\accountname
 ---
 
 
+## Offline AD and Defragmentation
+
+
+
+### Directory Services Restore Mode (DSRM)
+
+```
+bcdedit /set safeboot dsrepair
+```
+
+Restart Server 
+```
+shutdown -t 0 -r
+```
+
+To Normal Mode
+```
+bcdedit /deletevalue safeboot
+```
+
+Restart Server 
+```
+shutdown -t 0 -r
+```
+
+### Defragmentation AD
+
+How we can do it?
+
+In windows OS we uses the defragment tool to optimize the computer hard drive. There is similar procedure we can use to defrag active directory database.
+
+There are two type of defragmentation use with active directory database. 
+
+Online Defragmentation
+
+With windows serer 2000 Microsoft introduced this method. It is runs in certain intervals (default is every 12 hours) automatically to defrag active directory database. It is part of active directory garbage collection process. It will optimize the data storage and reclaims the space for new active directory objects. But this will not reduce the size of the active directory database. The important thing is it not required to bring any service offline to do this.
+
+Offline Defragmentation
+
+As the name says to do this process we need stop the active directory service. To do this system will create compact version of the existing active directory database in different location. Once process is created the new defragmented database it will copy the compact version in to the original location.  Stats says it can shrink database in to 1/6th of its original size after offline fragmentation.
+
+1. First you need to log in to the primary domain controller as Domain admin or Enterprise Admin.
+2. Go to **Server Manager > Tools > Services**
+![ws639](images/ws639.webp)
+
+3. In `Services.mmc` right click on **Active Directory Domain Services** and click **Stop**
+![ws640](images/ws640.webp)
+
+4. Then it will ask if it’s okay to stop the associated services. Click yes to continue.
+![ws641](images/ws641.webp)
+
+5. Once services stops, right click on Start button and click **Command Prompt (Admin)**
+
+6. Type `ntdsutil` and enter
+```
+ntdsutil
+active instance ntds
+files
+compact to c:\
+```
+![ws636](images/ws636.webp)
+
+
+view status
+```
+integrity
+```
+
+
+7. Copy compact file to original place
+```
+copy  c:\ntds.dit c:\windows\ntds\ntds.dit
+```
+![ws637](images/ws637.webp)
+
+
+
+8. Delete old Log files
+```
+del c:\windows\ntds\*.log
+```
+![ws638](images/ws638.webp)
+
+
+### AD Recycle Bin
+
+#### Enable Recycle Bin Using Enable-ADOptionalFeature Cmdlet
+
+Here are the steps user can use to enable the recycle bin:
+
+- Click on the start menu and go to the Administrative tools option. Then right-click the Active Directory Module for Windows Powershell and 
+click on **Run as administrator**.
+
+- Type the following command at the Active Directory module for Windows Powershell Command prompt and then press Enter:
+```
+Enable-ADOptionalFeature –Identity ‘CN=Recycle Bin Feature,CN=Optional Features,CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration,DC=www,DC=domain,DC=com’ –Scope ForestOrConfigurationSet –Target ‘www.domain.com’
+```
+
+#### Enable the AD Recycle Bin on Windows Server 2016
+
+To Enable the AD Recycle Bin on Windows Server, you need to follow the steps below. But once the AD Recycle Bin is enabled, you can not turn it off.
+
+The steps are:
+
+1. Open Server Manager
+
+Open the Server Manager in your windows.
+![ws642](images/ws642.webp)
+
+
+2. Open the Active Directory Administrative Center
+
+Go to **tool** from the server manager and select Active Directory Administrative Center.
+![ws643](images/ws643.webp)
+
+
+3. Enable Recycle Bin
+
+Click on your local domain in the Active Directory Administrative Center and click on **Enable Recycle Bin**
+![ws644](images/ws644.webp)
+
+To confirm, click **OK** and again Click **OK** to the next pop-up.
+
+Your AD recycles bin the now enabled.
+
+---
+
+### AD Snapshots
+
+Create a Snapshot of AD DS by using NTDSUTIL in Windows Server 2016
+
+what’s snapshot and what’s NTDSUTIL?
+Manages snapshots of the volumes that contain the Active Directory database and log files, which you can view on a domain controller without starting in Directory Services Restore Mode (DSRM). You can also run the snapshot subcommand on an Active Directory Lightweight Directory Services (AD LDS) server.
+
+In the command-line tool Ntdsutil.exe, you can use the snapshot subcommand to manage the snapshots, but you must use Dsamain.exe to expose the snapshot as a Lightweight Directory Access Protocol (LDAP) server. 
+
+NTDSUtil in Windows Server 2016 can create and mount snapshots of AD DS.
+
+**A snapshot is a form of historical backup that captures the exact state of the directory service at the time of the snapshot.**
+
+
+1. On the Domain server, open **command prompt** and type **ntdsutil** and press **Enter**.
+![ws645](images/ws645.webp)
+
+2. Next, type **snapshot** and press **Enter**.
+![ws646](images/ws646.webp)
+
+3. Next, type **activate instance ntds** and press **Enter**.
+![ws647](images/ws647.webp)
+> command "list all" for view all snapshot
+
+4. Next, type **create** (this create command is to generate a snapshot of my AD) and press **Enter**.
+![ws648](images/ws648.webp)
+
+5. Next, make sure you **copy the copy the GUID** somewhere (highlight the GUID and then copy).
+![ws649](images/ws649.webp)
+
+6. Next, type **quit** 2 times to exit from snapshot.
+![ws650](images/ws650.webp)
+
+7. Now, lets **make some change to my ADDS** by deleting 1 of my AD user, for this Demo, I choose my user from **Sales Department. (Refer to my Picture)**
+![ws651](images/ws651.webp)
+Once you Deleted the user, you need to mount an Active Directory snapshot, and create a new instance so that later we can **retrieve back the Deleted user**
+
+8. in CMD, type **ntdsutil**, then snapshot, then type **activate instance ntds**, then type **list all (Refer to my Picture)**.
+![ws652](images/ws652.webp)
+
+9. Next, you need to **mount GUID no** (please refer to my screen shot), type **mount <GUID>** no and press **Enter**.
+![ws653](images/ws653.webp)
+
+10. once successful, exit the process by typing **quit** 2 times.
+![ws654](images/ws654.webp)
+
+11. Next, on the CMD, type 
+```
+dsamain /dbpath C:\$SNAP_datetime_volumec$\windows\ntds\ntds.dit /ldapport 50000
+```
+> Leave `Dsamain.exe` running, and do not close the CMD.
+
+***A message indicates that Active Directory Domain Services startup is complete***
+![ws655](images/ws655.webp)
+
+12. Next, lets explore a snapshot with Active Directory Users and Computers, on the ADUC, right click **Windows.ae** and click **Change Domain Controller**.
+![ws656](images/ws656.webp)
+
+13. type `DC-CLOUD:50000` on the **<Type a Directory Server name[:port] here>**, then click **OK**.
+![ws657](images/ws657.webp)
+
+14. our last step is to unmount an Active Directory snapshot.
+![ws658](images/ws658.webp)
+
+---
+
+### Windows Server Backup and AD backup
+
+#### Windows Server Backup – Brief Overview
+
+Windows Server Backup (WSB) is a backup and recovery feature offered by Windows that makes a backup copy of the whole disk volume into another local disk. Once done, you can later use the backup to restore individual datasets or the entire disk. For example, if your system is crashed or Windows is not starting, you can use the backup file to restore the system volume and get your operating system back to operation in no time.
+
+
+Windows Server Backup is an installable backup feature in Windows. Follow the below steps to install Windows Server Backup:
+
+1. Launch **Server Manager** and click **Add roles and features** from the main dashboard.
+
+2. Click **Next** multiple times until you reach the **Features** section. From there, look for **Windows Server Backup**, tick its checkbox, and click **Next**.
+![ws659](images/ws659.webp)
+
+3. Wait till the installation process is completed. Once done, click **Close**.
+![ws660](images/ws660.webp)
+This way, you have successfully installed and configured Windows Server Backup.
+
+
+
+#### Perform One-Time Server Backup via Windows Server Backup
+
+Follow the below steps to perform a one-time backup of Windows Server with WSB:
+
+1. In the Windows Search bar, type **Run** and click the app shown in the **Best match** section.
+
+2. In the Run pop-up window, type **wbadmin.msc** to launch the Windows Server Backup utility.
+![ws661](images/ws661.webp)
+
+3. In the Windows Server Backup utility, click “Backup Once” from the right sidebar and then click **Next** to initiate the process.
+![ws662](images/ws662.webp)
+
+4. You can perform multiple types of backups with WSB. So, now you have to choose either **Full server** or **Custom** backup. In a full server backup, all the Server data and applications will be backed up.
+
+On the other hand, custom backup gives you the option to choose the data and applications you want to backup. If you are doing **WSB based backups** for the first time, then you can pick **Full server**. Afterward, click **Next**.
+
+![ws663](images/ws663.webp)
+However, if you choose **Custom**, then you can also pick what nature of Volume Shadow Copy Service backup you want to have.
+
+5. Now you have to choose where you want to store the backup. You can either pick **Local drives** or **Remote shared folder**. So, pick the choice that suits you and click **Next**.
+
+If you select local drives, then you have to specify the drive where you want to store the backup. Similarly, if you select the Remote network share folder, then you have to provide the shared folder address.
+![ws664](images/ws664.webp)
+
+6. Lastly, confirm all the settings and click **Backup**.
+![ws665](images/ws665.webp)
+
+The tool will start creating the backup of the Windows Server. So, wait till the process is completed. Once done, you have successfully made a backup of **Server 2012** or whichever version you are using. This way, you can now **feel free** and satisfied that you have a backup in place that you can quickly restore in case of any data calamity.
+
+##### Schedule Server Backups via Windows Server Backup
+In the above steps, we have learned how to create a one-time Server backup. But you can also schedule backup with Windows Server Backup. Follow the below steps to do it:
+
+1. In the Windows Search bar, type **Run** and click the app shown in the **Best match** section.
+
+2. In the Run pop-up window, type **wbadmin.msc** to launch the Windows Server Backup utility.
+
+3. In the Windows Server Backup utility, click **Backup Schedule** from the right sidebar.
+
+4. Select either **Full server** or **Custom** backup configuration and click **Next**.
+
+5. Choose how frequently you want to create backups. Finalize the settings as you like and then click **Next**.
+
+6. Select the backup destination and click **Next**.
+
+7. Lastly, confirm all the settings and click **Finish**.
+
+![ws666](images/ws666.webp)
+
+This way, you have successfully created the backup schedule for your Windows Server. From now onwards, Windows Server Backup Restore will automatically create backups as per scheduled times without disturbing you.
+
+#### Restore Server Backups via Windows Server Backup
+
+We have learned how to create Server backups, but are you aware of how to restore backups after any data calamity, such as accidental deletion, malware attack, system crash, etc. Following are the steps you have to follow to restore Server backups with the WSB utility:
+
+1. In the Windows Search bar, type **Run** and click the app shown in the **Best match** section.
+
+2. In the Run pop-up window, type **wbadmin.msc** to launch the Windows Server Backup utility.
+
+3. In the Windows Server Backup utility, click **Recovery Wizard** from the right sidebar.
+
+4. Choose the backup that you want to restore and click **Next**. You have to select the backup based on the date and time.
+
+![ws667](images/ws667.webp)
+
+5. Now select the recovery type. You can pick **Files and folders**, **Hyper-V**, **Volumes**, **Applications**, or **System state**. Afterward, click **Next**.
+![ws668](images/ws668.webp)
+
+6. Select the items you want to recover and click **Next**.
+
+7. Specify the recovery location. You can pick **Original location** or other options. Once done, click **Next**.
+![ws669](images/ws669.webp)
+
+8. Lastly, confirm all the settings and click **Recover**.
+
+The tool will start recovering the backed-up data into the desired destination. Wait till the process is completed and then you are all set to access the data.
+
+---
+
+### Replication of AD
+
+```
+rapadmin /syncall srv2016-2 dc=test,dc=local /d /e /a
+```
+
+d - use distinguished names in the login files
+
+e - replicate everything
+
+a - abort in case of any errors
+
+
+Test dc 
+```
+dcdiag 
+```
+
+---
+
+#### Types of Active Directory Replication
+
+Replication in Active Directory can be broadly classified into two types. They are discussed as follows.
+
+![ws672](images/ws672.webp)
+
+**Intra-site Replication**
+
+Intra-site replication takes place between domain controllers within the same site. This process is quite simple and occurs by default in less than a minute. This replication is performed within a site by means of the ring topology. This need not be configured manually and occurs automatically within the site.
+ 
+**Inter-site Replication**
+
+In inter-site replication, changes made to a domain controller in one site are propagated to the domain controllers in different sites. This type of replication takes place by means of site links. However, this also utilizes the ring topology. Here, replication occurs between two domain controllers called bridgeheads. At least one domain controller within a site is assigned the role of bridgehead. In contrast to the intra-site replication, it has to be configured and does not occur manually.
+
+
+
+#### Force Replication Of Domain Controller Through GUI
+Windows servers make use of GUIs a lot, which is good for novice Systems Administrators. It’s easier to learn and sometimes helps you visualize what’s really happening. 
+
+1. Log in to one of your DCs and open **Active Directory Sites and Services**.
+![ws670](images/ws670.webp)
+
+2. Navigate to the site for which you’d like to replicate the domain controllers. Expand it by clicking the arrowhead next to the site name. Expand the **Servers**. Expand the DC which you’d like to replicate. Click on **NTDS Settings**.
+![ws671](images/ws671.webp)
+
+3. In the right pane, right-click on the server and select **Replicate Now**.
+![ws673](images/ws673.webp)
+
+4. Depending on how many DCs there are, this could take less than a second to a few minutes. When it is complete, you’ll see the notification, **Active Directory Domain Services has replicated the connections.**. Click **OK** to finish.
+
+#### Force Replication of Domain Controllers Through CLI Command
+
+If you’re familiar with the good old Windows CMD, then the **repadmin** command is for you. This is the quickest one-off way to force DC duplication. If you’re not familiar then this is a good time to learn about Windows CMD. 
+
+1. Log in to one of your DCs and open the **Command Prompt**.
+![ws674](images/ws674.webp)
+
+2. Enter the following command, and then press the **Enter** key.
+```
+repadmin /syncall /AdeP
+```
+![ws675](images/ws675.webp)
+
+3. A litany of information will scroll up the screen. If you see that the last line reads, **SyncAll terminated with no errors.**, and then the command prompt underneath it, your DCs are successfully replicated
+![ws676](images/ws676.webp)
+
+### Force Domain Controller Replication With PowerShell
+
+1. Log in to one of your DCs and open **PowerShell** or **PowerShell ISE**.
+![ws677](images/ws677.webp)
+
+2. Before writing any script, save this with a descriptive name like force-DCReplication.ps1 so you can reuse it easier. Enter the following code and run it to see how it will get the names of all your DCs.
+```
+(Get-ADDomainController -Filter *).Name
+```
+See how it returns the names of the DCs? Now you can pipe that result into the next cmdlet. A pipe is the vertical line character ( | ), that’s usually found on the keyboard just above the **Enter** key.
+![ws678](images/ws678.webp)
+
+3. At the end of the previous command, enter the following code:
+```
+| Foreach-Object { repadmin /syncall $_ (Get-ADDomain).DistinguishedName /AdeP }
+```
+The command should look like it does in the image below. Run it. It should return a message just like the one back in the Force Domain Controller Replication Through GUI section above. If it ends with, “SyncAll terminated with no errors.” then it worked. 
+![ws679](images/ws679.webp)
+Did you see how it also uses the **repadmin** command?
+
+4. Let’s add another line to help you make sure that the replication really did complete. The following code will return the date and time of when each of your DCs was last replicated. This command could be used on its own at another time if you’re just curious when your DCs last replicated. Enter the code and run it.
+```
+Get-ADReplicationPartnerMetadata -Target "$env:userdnsdomain" -Scope Domain | Select-Object Server, LastReplicationSuccess
+```
+
+The result should resemble the image below. You’ll see at the bottom the exact date and time the replication last took place.
+![ws680](images/ws680.webp)
+
+5. To put some polish on this script, let’s make its output a little less verbose. Near the end of the first line, enter | **Out-Null** between the **/AdeP** and the end bracket. That tells it to not put out the results of that cmdlet. The end result will look like the following image.
+![ws681](images/ws681.webp)
+
+---
+
+### Controlling Password Replication on RODC
+
+#### Cache credentials on an RODC
+
+To perform the instructions below, you must have an existing AD domain with at least one RODC.
+
+- Log in to any domain controller with an account that has permission to modify AD group membership.
+
+- Open Server Manager from the Start screen.
+
+- In Server Manager, select **Active Directory Users and Computers (ADUC)** from the **Tools** menu.
+
+![ws682](images/ws682.webp)
+
+- In Active Directory Users and Computers, expand your AD forest and domain in the left pane, and click the **Users** container.
+
+- In the right pane of (ADUC), double click Allowed **RODC Replication Group**.
+
+- In the group dialog box, switch to the **Members** tab.
+
+- Click **Add** at the bottom of the dialog, then enter the names of any users or groups you’d like to add to Allowed RODC Replication Group, and then click **Check Names**.
+
+- Click Add at the bottom of the dialog, then enter the names of any users or groups you’d like to add to Allowed RODC Replication Group, and then click Check Names.
+
+- Once you’re done adding accounts, click **OK**.
+
+- Click **OK** in the group dialog box to complete the process.
+![ws683](images/ws683.webp)
+
+Don’t forget that you can block credentials being cached by adding the relevant accounts to the Denied RODC Replication Group using the same process as above. And as with most permission scenarios, deny permissions override allow permissions. The Denied RODC Replication Group has the following members by default
+
+- Enterprise Domain Controllers
+
+- Enterprise Read-Only Domain Controllers
+
+- Group Policy Creator Owners
+
+- Domain Admins
+
+- Cert Publishers
+
+- Enterprise Admins
+
+- Schema Admins
+
+- Domain-wide krbtgt account
+
+In this article I showed you how to configure which user and computer accounts can be cached on a RODC using built-in groups in Active Directory.
+
+---
+
 ## WDS
 
 ```powershell
