@@ -6816,6 +6816,404 @@ In this article I showed you how to configure which user and computer accounts c
 
 ---
 
+### Configure Multiple User Principal Name (UPN) Suffixes
+
+1. Log in to the domain controller as administrator
+
+2. Then load up the **Server Manager > Tools > Active Directory Domain and Trusts**
+![ws684](images/ws684.webp)
+
+3. Then it will load up the MMC and right click on **Active Directory Domain and Trusts** and select **Properties**.
+![ws685](images/ws685.webp)
+
+4. In next window, type the UPN suffix which you like to add and then press add button.
+![ws686](images/ws686.webp)
+
+5. Then click **OK** to exit.
+
+Now when you go to add new user to the domain you can select which UPN suffix he supposed to use.
+![ws687](images/ws687.webp)
+
+Also we can change UPN suffix for already setup user account. To do that you need to go to properties of the relevant user account > Account > and then select suffix from the drop down. Once done click ok to apply changes.
+![ws688](images/ws688.webp)
+
+
+---
+
+
+### AD Trusts 
+
+An Active Directory trust (AD trust) is a method of connecting two distinct Active Directory domains (or forests) to allow users in one domain to authenticate against resources in the other. In simplest terms, it is the process of extending the security boundary of an AD domain (or forest) to include another AD domain (or forest).
+
+ 
+There are multiple parameters to configuring an Active Directory trust that will not be discussed in this article; itopia recommends that administrators research AD trusts to gain a full understanding of their impact and implications before proceeding. Concepts like transitivity, implicit trusts, SID filtering, and scoping are not covered in this article but are important aspects of defining the impact of a trust relationship.
+
+It is important to understand several terms that will be used in this article:
+
+**Resource Domain** - This is the AD domain that contains the resources users need to access. In the context of itopia, this is the new domain that is created by CAS that contains the Cloud Desktop servers. This is often called the "trusting" domain.
+
+**Accounts Domain** - This is the AD domain that contains the user accounts with which users log in. In the context of itopia, this your existing AD domain that contains the user accounts that will authenticate to Cloud Desktop. This is often called the "trusted" domain.
+
+#### Directional Trusts
+
+AD trusts relationships are directional; a trust can be configured as a one-way or two-way trust. In a one-way trust, one domain is specified as the Accounts domain and the other is the Resource domain; in Microsoft's confusing terminology, the trust is incoming to the Accounts domain and outgoing from the Resource domain. A two-way trust is effectively two one-way trusts; each domain is configured as both the Accounts domain and the Resource domain, so users in either domain can access resources in the other domain.
+
+> **NOTE**: It is important to understand that the phrase "can access resources" does not mean that Accounts users have any implicit access to the resources in the trusting (Resource) domain; it is more accurate to say that Accounts users "can be granted access to resources" in the Resource domain.
+
+![ws689](images/ws689.webp)
+
+#### Prerequisites for Establishing an Active Directory Trust
+
+To establish an AD trust between two Active Directory domains, specific conditions must be met. These include:
+
+**Network Connectivity**: There must be proper communication between the domain controllers of each domain to establish the AD trust. Additionally, resources in the Resource domain should be able to communicate with the domain controllers in the Accounts domain.
+
+**DNS Name Resolution**: Domain controllers of each domain must be able to resolve DNS records for the other domain’s AD environment.
+
+**Accounts Domain Service Account**: An AD user account in the Accounts domain is essential for reading user and group objects in the domain. This requirement applies to one-way trusts. In two-way trusts, implicit read-only access is granted by default, and there is no need for a service account. There are no special permissions necessary for the service account, and it simply needs to be a member of the Domain Users group in the Accounts domain.
+
+
+#### Network Connectivity
+
+To support the AD trust, the domain controllers in each domain must be able to communicate over a number of network ports. For Cloud Desktop, this requires:
+
+Creating a VPC peering (if your Accounts domain has domain controllers in Google Cloud) or a VPN or Interconnect (if your Accounts domain only has domain controllers outside of Google Cloud). Refer to Google Cloud documentation for detailed instructions on these processes.
+
+Configuring firewall rules to permit AD traffic between the Accounts domain and the Resource domain. These rules typically need to be configured in multiple places: on the VPC network for your Cloud Desktop environment and on the VPC network (or the firewall for on-premises environments) that contains the domain controllers for the Accounts domain. Refer to Google Cloud documentation and/or your firewall vendor's documentation for instructions on these processes.
+
+The table below provides the minimum network ports that are required for Active Directory trust functionality.  Additional information is available in Microsoft's 
+![ws690](images/ws690.webp)
+
+#### What are the Different Types of AD Trusts?
+
+**Tree-root trust**
+
+When a new tree-root domain is added to a forest, a trust among its tree roots is established without explicit authorization. This trust only involves the domains that are located at the top of each tree. These two-way transitive trusts are created automatically.
+
+**Parent-child trust**
+
+By creating a new child domain in a tree, a parent-child trust relationship is established without the need for explicit action. As part of this process, DCPromo generates a two-way transitive trust relationship between the new domain and the domain directly above it in the DNS hierarchy.
+
+**Shortcut trust**
+
+To improve user logon time for those who access computers in another domain within the forest, a system administrator needs to manually create a shortcut trust between two domains in the same forest. This is usually required in large forests, and the trust is transitive and can be set up as a one- or two-way configuration.
+
+**External trust**
+
+A system administrator is required to create an external trust between domains located in different forests or between a domain in an Active Directory forest and a Windows NT 4.0 or earlier domain. The external trust proves helpful when transferring resources from a Windows NT 4.0 domain to an Active Directory domain. It is non-transitive and can be established either one-way or two-way.
+
+**Forest trust**
+
+To establish a forest trust between two forest root domains (Windows 2003 and beyond), a systems administrator must create it deliberately. This trust enables all domains in one forest to trust all domains in another forest transitively. Nonetheless, this trust does not spread transitivity over three forests or more. Forest trusts can be either one- or two-way and are solely accessible when the forest functional level is configured to Windows Server 2003 or higher.
+
+**Realm trust**
+
+To connect a non-Windows Kerberos realm with a Windows 2003 or newer domain, a system administrator needs to establish a realm trust. It can be either transitive or non-transitive, and can operate in one or both directions.
+
+
+
+
+#### DNS Name Resolution
+Once network connectivity has been established, both Active Directory domains must be configured with DNS forwarding rules so that they can access each other's Active Directory DNS records.
+
+The most common way to achieve this is to create conditional forwarders for each domain's FQDN on the other domain's DNS servers. Consider the following example:
+
+- The Resource domain is `contoso.local` and has two AD domain controllers / DNS servers with the IPs `10.0.1.10` and `10.0.1.11`
+
+- The Accounts domain is `fabrikam.local` and has two AD domain controllers / DNS servers with the IPs `192.168.1.10` and `192.168.1.11`
+
+Once network connectivity is established between these two domains (as described above), an administrator for each domain would configure the following:
+
+- On the DNS servers for `contoso.local`, create a conditional forwarder for the domain `fabrikam.local` that points to `192.168.1.10` and `192.168.1.11`
+
+- On the DNS servers for `fabrikam.local`, create a conditional forwarder for the domain `contoso.local` that points to `10.0.1.10` and `10.0.1.11`
+
+To create a conditional forwarder:
+
+1. Open the DNS Manager utility on your DNS server
+
+2. Expand the DNS server name, and select the **Conditional Forwarders** menu item.
+
+3. Right-click and select **New Conditional Forwarder**
+
+4. For DNS Domain, specify the FQDN of the other AD domain. For IP addresses, provide at least one IP address of a DNS server for the other domain
+
+5. For simplicity, it is recommended to **enable** Store this conditional forwarder in Active Directory; otherwise, you will need to create the forwarder locally on each DNS server.
+
+Save the forwarder.
+
+![ws691](images/ws691.gif)
+
+> **NOTE:** There are other methods of establishing DNS name resolution between domains, and in some cases these other methods may be necessary. For example, if one domain resides behind a Network Address Translation (NAT) interface, the IP addresses returned by its DNS servers will not match the IPs that the other domain must use to communicate. In this scenario, you would need to create a DNS zone for the other domain's FQDN, manually create DNS A records for the domain controllers (and the domain name itself) using the NAT IP addresses, and then delegate the _msdcs.<domain FQDN> subdomain to the domain controllers in the other domain. 
+
+
+#### Creating an AD Trust
+
+Once the prerequisites have been established and verified, you can proceed to create an AD trust. As mentioned at the beginning of this article, there are several important security decisions that must be made prior to creating a trust, and analysis of these decisions is beyond the scope of this article. itopia recommends that you research and understand AD trusts before proceeding
+
+
+In the example below, we will configure the following:
+
+- **Resource domain**: contoso.local
+
+- **Accounts domain**: fabrikam.local
+
+- **Trust type**: One-way, non-transitiv
+
+We will initiate the trust creation from the Resource domain (contoso.local) and configure the New Trust Wizard to create the trust in both domains; if this is not possible in your environment, you can run the New Trust Wizard separately in each domain and configure it not to create the trust in the other domain.
+
+1. Log into a domain controller in the Resource domain contoso.local using an account that is a member of the Domain Admins group.
+
+2. Open the **Active Directory Domains and Trusts** utility.
+
+3. Expand the left-hand tree menu, right-click the object representing the domain contoso.local, and select **Properties**.
+
+4. Navigate to the Trusts tab and click **New Trust**
+
+5. Proceed through the New Trust Wizard.
+
+6. For Trust Name, provide the FQDN of the Accounts domain, `fabrikam.local`
+
+7. For Trust Type, select **External trust**; this means the trust is only for the two domains being configured. If contoso.local or fabrikam.local had any child domains, they would not be able to use this trust and would need to create their own trusts.
+
+8. For Direction of Trust, select **Two-way**. This will configure both an incoming and an outgoing trust in each of the Account and Resource domains.
+
+9. For Sides of Trust, select **Both this domain and the specified domain**. This will create the trust configuration in both domains at the same time. If you do not have Domain Admins credentials for the other domain, you can select This domain only and then run the New Trust Wizard at a later time to complete the trust. Note that if you do this, you would reverse the configuration values to provide the FQDN of the Resource domain and you would select One-way: incoming.
+
+10. For User Name and Password, provide the credential for an account with Domain Admins membership in the Accounts domain.
+
+11. For Outgoing Trust Authentication Level - Local Domain, select **Domain-wide authentication**. This greatly simplifies the permission configuration.
+
+12. For Outgoing Trust Authentication Level - Specified Domain, select **Domain-wide authentication**. This greatly simplifies the permission configuration. NOTE: If greater security is required, Selective authentication can be enabled for this setting. Contact itopia support for more information.
+
+13. On the Trust Selections Complete screen, review the configuration summary and click **Next**.
+
+14. On the Trust Creation Complete screen, review the status to ensure the trust was created successfully and click **Next**.
+
+15. For Confirm Outgoing Trust, select **Yes, confirm the outgoing trust**.
+
+16. For Confirm Incoming Trust, select **Yes, confirm the incoming trust**.
+
+17. On the Completing the New Trust Wizard, review the status to ensure the trust was successfully confirmed. Click **Finish**.
+
+18. If you see a pop-up message that SID filtering is enabled, you may safely discard this message. SID filtering is a default security measure that will not affect the trust functionality for Cloud Desktops.
+
+![ws692](images/ws692.gif)
+
+---
+
+### AD: Multi Site, Subnet, and Replication Configuration
+
+#### Presentation
+
+In this tutorial, we will approach the notions of Active Directory sites as well as subnets.
+
+Active Directory sites can optimize management in multi-site / network infrastructures by:
+
+- Management of replication between domain controllers.
+
+- Authentication of users on the local controller (s).
+
+- GPO by sites
+
+- …
+
+There are two types of replication links:
+
+- Intra-site : replication link between domain controllers in the same site
+
+- Inter-site : Replication link between Active Directory sites, which is configured in the Inter-Site Transport node.
+
+The lab:
+
+![ws693](images/ws693.webp)
+
+#### Configuring sites and networks
+
+Ideally, it is best to declare the Active Directory site before promoting to the server’s domain controller, which allows you to place it directly in the right place. It is quite possible to move the DC a posteriori.
+
+> In order for the domain controller to be placed directly in the correct site, it must have its final IP address linked to the site.
+
+On a domain controller, open the Active Directory Sites and Services console.
+![ws694](images/ws694.webp)
+
+We can see that on the console, several nodes are available:
+
+- **Inter-Site Transports**: contains the various inter-site links as well as the protocol used for replication.
+
+- **Subnets** : contains the different networks that are declared and then assigned to the site.
+
+- **Les sites** : The nodes in blue (one per site) contain the parameters of the sites with the different servers (domain controller, transport edge …)
+
+![ws695](images/ws695.webp)
+
+When creating the Active Directory domain, a default site is created (Default-First-Site-Name), the first step when implementing a multi-site architecture and renaming the site. To do this right click on the site 1 and click on Rename 2.
+
+![ws696](images/ws696.webp)
+
+The site is now renamed
+![ws697](images/ws697.webp)
+> Now that the site is named correctly, we can declare it an IP network.
+
+#### Add an IP network
+
+The network declaration automatically places the servers in the correct site according to its IP.
+
+If you want to add an IP network, for another site than this one by default, it is necessary to add the site.
+
+Right click on Subnets 1 and click on New Subnet 2.
+![ws698](images/ws698.webp)
+
+Enter the network address 1 then select the site 2 and click OK 3 to add the subnet.
+![ws699](images/ws699.webp)
+
+The subnet is added 1. You can also see in the properties of the site the subnet or subnets assigned to it 2.
+![ws700](images/ws700.webp)
+
+#### Add a Site
+
+From the console, right click on Sites 1 then click on New site 2.
+![ws701](images/ws701.webp)
+
+Enter the site name 1, select a replication link object 2 and click OK 3.
+![ws702](images/ws702.webp)
+
+A confirmation message appears, click OK 1 to close it.
+![ws703](images/ws703.webp)
+
+The site is added and available in the Active Directory Sites and Services console.
+![ws704](images/ws704.webp)
+
+Now that the site is added, configure the subnet (s) linked to it.
+![ws706](images/ws706.webp)
+
+![ws705](images/ws705.webp)
+
+#### Configure a Bridgehead Server
+
+A bridgehead server is a preferred domain controller for cross-site replication. It is useful to define a bridgehead server on the site that has multiple domain controllers to support replication from and to the domain controller and then replicate to its site controllers.
+
+On server 1, right-click and click Properties 2.
+![ws707](images/ws707.webp)
+
+Select the 1 protocol (s) then click on Add 2.
+![ws708](images/ws708.webp)
+
+Click Apply 1 and OK 2 to validate the configuration.
+![ws709](images/ws709.webp)
+
+#### Add a Replication Link
+
+When adding a domain controller, intra-site replication links are normally generated automatically.
+![ws710](images/ws710.webp)
+
+
+Because the LAB-AD1 server is a bridgehead for SiteA, there is no link from LAB-AD2 (SiteB) to LAB-AD3 (SiteA). If you still want to add a link manually this is possible.
+
+From the console, unroll the server node and go to NTDS Settings 1. Right-click in the central area and click New Active Directory Domain Services Connection 2.
+![ws711](images/ws711.webp)
+
+Select source controller 1 and click OK 2.
+![ws712](images/ws712.webp)
+
+Name the link 1 and click OK 2.
+![ws713](images/ws713.webp)
+
+The replication link is added from the LAB-AD2 server to LAB-AD3.
+![ws714](images/ws714.webp)
+
+#### Frequency and Replication Planning
+
+The replication frequency is configured according to the type of link (Inter or Intra site).
+
+**Inter-Site**
+
+On the console go to Inter-Site Transports 1 / Link type 2 (IP) then right click on the link 3 and click on Properties 4.
+![ws715](images/ws715.webp)
+
+The configuration of the frequency and the planning is done from the General tab.
+
+- Cost 1: If multiple links are configured, it is possible to prioritize a link by changing the cost. The number to do the most is priority.
+
+- Replication every XXX minutes 2: corresponds to the replication frequency.
+
+- The Change Schedule button 3 allows you to configure the hours when this one is active.
+
+![ws716](images/ws716.webp)
+
+![ws717](images/ws717.webp)
+
+By going to see the properties of the inter-site replication link directly in NTDS Settings we can see the planning is done according to the Inter-Site Transport settings.
+![ws718](images/ws718.webp)
+
+If we change the frequency in the link configuration in Inter-Site Transports to 60 minutes and we go back to see the link at the controller, we can see the replication schedule has been changed automatically.
+![ws719](images/ws719.webp)
+
+![ws720](images/ws720.webp)
+> The change is not instantaneous, it is possible to force it with the command `repadmin /kcc`.
+
+#### Intra-site
+
+The frequency and scheduling of Intra-site replication is done directly at the link properties level in the NTDS Settings portion of the domain controller.
+![ws721](images/ws721.webp)
+
+Click Change Schedule 1.
+![ws722](images/ws722.webp)
+
+Select the range with modification 1 then select the number of replications per hour 2 and validate by clicking on OK 3.
+![ws723](images/ws723.webp)
+
+#### Use Group Policies by Sites
+
+From the Group Policy Management console, right-click on Sites 1 and click on Show Sites 2.
+![ws724](images/ws724.webp)
+
+
+Choose sites to display 1 and click OK 2.
+![ws725](images/ws725.webp)
+
+It’s now possible to link a GPO to a site, just right-click on the site and click Link an existing GPO.
+![ws726](images/ws726.webp)
+
+
+#### Troubleshooting
+
+**Move a domain controller**
+
+From the Active Directory Sites and Services console, right-click on the 1 controller to move and click Move 2.
+![ws727](images/ws727.webp)
+
+Choose destination site 1 and click OK 2.
+![ws728](images/ws728.webp)
+
+The server has been moved to the new site.
+![ws729](images/ws729.webp)
+
+#### Check the status of replication
+
+On a domain controller, open a command prompt and enter the command below to view the status of the controller replication.
+```
+repadmin /showrepl
+```
+
+It is also possible to check the replication of a remote controller by specifying it from the command:
+```
+repadmin /showrepl 
+```
+
+#### Force replication
+
+
+Enter the following command to force Intra-site replication:
+```
+repadmin /syncall
+```
+
+Enter the following command to force Intra-site and Inter-site replication:
+```
+repadmin /syncall /e
+```
+
 ## WDS
 
 ```powershell
