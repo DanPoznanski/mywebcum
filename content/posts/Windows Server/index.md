@@ -7669,6 +7669,267 @@ I hope you enjoyed this group policy guide. If you have comments or questions po
 
 ---
 
+## CA
+
+
+### How To Set Up A Standalone Root CA On Windows Server
+
+#### What Is ADCS?
+
+Microsoft ADCS is the Active Directory Certificate Services server role in Windows Server. It allows administrators to manage and generate digital certificates for use in a variety of scenarios, such as authenticating users and devices, encrypting communication, and validating signatures. ADCS is a key component of many PKI deployments and helps organizations to secure their data and communications.
+
+ADCS includes a number of features that make it a powerful and flexible tool for certificate management. For example, ADCS can be used to issue certificates to user accounts and computers in an Active Directory domain. ADCS can also be configured to automatically enroll users and computers in a certificate program, making it easy to keep track of who has which certificates. In addition, ADCS provides a web enrollment interface that allows users to request and retrieve certificates without having to use the ADCS console.
+
+ADCS is an important part of many PKI deployments and can help organizations to secure their data and communications.
+
+#### What Is A Root CA?
+
+A Root CA is a certification authority that is trusted by all other CAs in a given PKI hierarchy. A Root CA’s certificate is self-signed and contains information that identifies the Root CA as well as the Root CA’s public key. The Root CA’s public key is used to verify the signatures of all other certificates in the PKI hierarchy.
+
+#### What Is A Standalone Root CA In ADCS?
+
+A standalone root CA is a  Certification Authority (CA) that is not  integrated with  an  existing  public  key infrastructure  (PKI). A PKI is  a  system  of  digital  certificates,  public  and  private keys, and other related components that are used to verify the identity of individuals or devices and to encrypt information. A standalone root CA can issue and manage digital certificates for use in a PKI, but it is not itself part of a PKI.
+
+A standalone root CA is typically used in organizations that do not have an existing PKI, or in situations where it is not possible or desirable to integrate a new CA into an existing PKI. For example, a standalone root CA might be used to issue digital certificates for use in a PKI that is  being  created  from  scratch,  or  to  issue  digital  certificates  for  use  in  a  PKI  that  exists  outside  of  the organization.
+
+There are several benefits to using a standalone root CA. First, it can be faster and easier to deploy than a CA that is integrated into an existing PKI. Second, it can be less expensive to maintain and operate than a CA that is part of a PKI. Finally, it can provide more flexibility in terms of the types of certificates that can be issued and the way in which they are used.
+
+However, there are also some drawbacks to using a standalone root CA. First, it is  more  vulnerable  to  attack  than  a  CA  that  is  part  of  a  PKI.  Second,  it  can  be  more difficult to manage and operate than a CA that is integrated into an existing PKI. Finally, it may not be possible to issue all types of certificates that are available from a CA that is part of a PKI.
+
+In summary, a standalone root CA is a CA that is not integrated with an existing PKI. It has several benefits, but also some drawbacks. It is typically used in organizations that do not have an existing PKI, or in situations where it is not possible or desirable to integrate a new CA into an existing PKI.
+
+#### Why You Should Set Up A Standalone Root CA?
+
+A lot of people ask why they should set up A Standalone Root CA. The answer is simple: because it’s more secure. When you set up A Standalone Root CA, your server will be its own Certificate Authority. This means that your server will generate its own certificates, and no one else will be able to issue certificates for your domain.
+
+There are a few reasons why this is more secure:
+
+1. It’s much harder for someone to spoof your certificates if they can’t generate their own.
+
+2. If someone does manage to get ahold of your private key, they won’t be able to use it to issue new certificates – they’ll only be able to use it for the sites that already have certificates from your server.
+
+3. set up A Standalone Root CA is more resistant to attack than other types of Certificate Authorities. This is because the attacker would need to compromise the server itself in order to issue new certificates.
+
+Overall, set up A Standalone Root CA is a more secure way to manage your certificates. If you’re looking for the highest level of security possible, this is the way to go.
+
+
+#### Things Required To Set Up A Standalone Root CA In ADCS:
+
+There are nothing much required to set up Standalone Root CA server. You just need to have these two things. That’s all.
+
+1. A Windows Server (a bare-metal or a virtual machine)
+
+2. An Administrator account to set up ADCS
+
+#### How To Set Up A Standalone Root CA On Windows Server?
+
+Let’s see steps to set up a standalone root CA for your organization. We have created a Windows VM on our lab to demonstrate this demo. You can go through this steps on your production or test environments to set up a standalone root CA. Let’s get started.
+
+> Note: This server is not attached to the Active Directory. It’s a workgroup machine.
+
+![ws769](images/ws769.webp)
+
+1. Set up Active Directory Certificate Service (ADCS) Role- Open the ‘Add Roles and Features’
+
+Open the **Add Roles and Features**.
+
+In Server Manager, go to **Manage** > Add **Roles and Features**
+![ws770](images/ws770.webp)
+
+2. Select Role-Based Installation
+
+Click Next button in the **Add Roles and Features** wizard.
+
+Select **Role based or Feature based installation** since it is a role based
+Click **Next**.
+![ws771](images/ws771.webp)
+
+3. Select the Server on that you are going to install the ADCS Role
+
+Since it has only local server, select that local server then click **Next**.
+
+![ws772](images/ws772.webp)
+
+4. Select **Active Directory Certificate Services** role
+
+Select **Active Directory Certificate Services** role then click on **Next**.
+![ws773](images/ws773.webp)
+
+5. Add the **Add Features**
+Click on **Add Features** button to add the ADCS features.
+
+Click on **Next**, and **Next** again.
+![ws774](images/ws774.webp)
+
+6. Initiate the ADCS installation process
+
+Click on **Next**, and **Next** again. This will take you to the ADCS installation wizard.
+
+Click the **Next** button to initiate the ADCS installation process.
+![ws775](images/ws775.webp)
+
+7. Select **Certificate Authority** role
+
+You will to greeted with multiple option to choose.  Select the first option **Certificate Authority** role alone then click **Next**.
+![ws776](images/ws776.webp)
+
+8. Begin the installation of **Certificate Authority** role
+
+Click on the Install button to being the installation of **Certificate Authority** role.
+![ws777](images/ws777.webp)
+
+
+9. Installation of **Certificate Authority** role in progress…
+![ws778](images/ws778.webp)
+
+
+10. Start the Active Directory Certificate Service configuration wizard
+
+Upon the completion of the installation process, it prompts for Configuration, Select **Configure Active Directory Certificate Services on destination server** to start the ADCS configuration wizard.
+![ws779](images/ws779.webp)
+
+11. Select the Administrator account in the ADCS configuration wizard
+
+By default Local Administrator Account should be selected (Server is in WorkGroup). Just ensure it is selected then click **Next**.
+![ws780](images/ws780.webp)
+
+
+12. Select **Certificate Authority** role in the ADCS configuration wizard
+
+You are allowed to Check the **Certificate Authority** role alone as we have installed only CA role. Select ‘Certificate Authority’ role then click **Next**.
+![ws781](images/ws781.webp)
+
+13. Select the Standalone CA in the ADCS configuration wizard
+
+You will be greeted to choose two types of CAs, Enterprise CA and Standalone CA. Enterprise CA option should be greyed out since this computer is not attached to the Active Directory and not part of any domain.
+
+You are allowed to select only Standalone CA option. Select the **Standalone CA** option then click on **Next**
+![ws782](images/ws782.webp)
+
+14. Select the Root CA
+
+You will be greated with two options. Root CA and Subordinate CA. Since we are going to set up standalone root CA in this demo go with the Root CA option. We will cover about the Subordinate CA in a different post when we show you how to create two tier PKI system. 
+
+Select **Root CA** then click **Next**.
+![ws783](images/ws783.webp)
+
+
+15. Create a new private key for Standalone Root CA
+
+Private key is the first element of trust for any Certificate Authority. Let’s create a private key for this root CA. Since this is the newly created CA. Create a new private key.
+
+Select **Create a New Private Key** then click **Next**.
+![ws784](images/ws784.webp)
+
+16. Select Key Length & Hash Algorithm based on requirement
+
+Select the Cryptographic Provider, Hash Alogarithm, and Key Length as per your design. Then Click Next.
+![ws785](images/ws785.webp)
+
+
+17. Specify the name of the Certificate Authority
+
+Specify the name of your CA, By default, Common Name with **- CA** will be taken as the CA name
+![ws786](images/ws786.webp)
+
+18. Specify the Certificate validation period
+
+Validity period is the expiration time of the CA’s certificate. Normal practice is to keep the validity period for up to 10 years for root CA certificates. However, you can keep the validity period anywhere between 5 to 10 years.
+![ws787](images/ws787.webp)
+
+19. Specify Database & Logs location for Standalone Root CA
+
+Specify the location for database and logs for your Standalone Root CA. You can leave this default as it is then click **Next**.
+![ws788](images/ws788.webp)
+
+20. Verify the summary of the configuration
+
+Take a look at all the configurations then click on **Configure** button.
+![ws789](images/ws789.webp)
+
+21. Close the configuration wizard after the completion
+
+Click on the Close button upon the completion of the configuration wizard.
+![ws790](images/ws790.webp)
+
+22. Close the Certificate Authority configuration wizard
+![ws791](images/ws791.webp)
+
+ 23. Open Certificate Authority Console
+
+Server Manager -> Tools -> Certificate Authority
+
+Right click on the **Certificate Authority** on the console then select **Properties**
+![ws792](images/ws792.webp)
+
+24. View the Certificate of the Standalone Root CA
+
+Click on the View Certificate to open the certificate.
+![ws793](images/ws793.webp)
+
+25.  Certificate of Standalone Root CA
+
+Now you can start issuing the Certificates from this Standalone Root Certificate Authority.
+![ws794](images/ws794.webp)
+
+---
+
+### What Is The Difference Between A Standalone And An Enterprise CA
+
+What Is A Standalone CA In ADCS?
+A Standalone CA is a Certification Authority (CA) that is not integrated with an existing public key infrastructure (PKI). A PKI is a system of digital certificates, public and private keys, and other related components that are used to verify the identity of individuals or devices and to encrypt information. A Standalone CA can issue and manage digital certificates for use in a PKI, but it is not itself part of a PKI.
+
+A Standalone CA is typically used in organizations that do not have an existing PKI or in situations where it is not possible or desirable to integrate a new CA into an existing PKI. For example, a Standalone CA might be used to issue digital certificates for use in a PKI that is being created from scratch or issuing digital certificates for use in a PKI that exists outside of the organization.
+
+There Are Several Benefits To Using A Standalone CA:
+
+1. It can be faster and easier to deploy than a CA that is integrated into an existing PKI.
+
+2. It can be less expensive to maintain and operate than a CA that is part of a PKI.
+
+3. It can provide more flexibility in terms of the types of certificates that can be issued and the way in which they are used.
+
+In summary, a Standalone CA is a CA that is not integrated with an existing PKI. It has several benefits but also some drawbacks. It is typically used in organizations that do not have an existing PKI or in situations where it is not possible or desirable to integrate a new CA into an existing PKI.
+
+#### What Is An Enterprise CA In ADCS?
+
+An Enterprise CA in ADCS is a type of Certificate Authority that is used to issue digital certificates to organizations within an enterprise. The Enterprise CA is typically installed on a server that is located within the organization’s internal network.
+
+The Enterprise CA is responsible for issuing digital certificates to all other types of CAs within the enterprise and issuing digital certificates to devices and users connected to the enterprise network. The Enterprise CA can be used to issue digital certificates for SSL/TLS encryption, email security, code signing, and more.
+
+Organizations that use an Enterprise CA usually have a high level of security and require a higher degree of trust for their digital certificates. As such, the Enterprise CA is typically more expensive and difficult to install and maintain than other types of CAs.
+
+Difference Between A Standalone And An Enterprise CA:
+There are two primary types of Certificate Authorities (CAs): Standalone CAs and Enterprise CAs. The main difference between a Standalone CA and an Enterprise CA is that a Standalone CA is typically used in smaller organizations where the security requirements are not as stringent. An Enterprise CA, on the other hand, is usually used in larger organizations where the security requirements are more stringent. The next difference between a Standalone CA and an Enterprise CA is that an Enterprise CA is integrated with Active Directory, while a Standalone CA is not.
+
+Standalone CAs are easier to set up and manage, but they lack the security and scalability of an Enterprise CA. Standalone CAs can be vulnerable to attack since they are not integrated with Active Directory. In addition, Standalone CAs can only issue certificates to users and computers within their own domain. Finally, Standalone CAs are not as scalable as Enterprise CAs, and they cannot issue certificates to users in multiple domains.
+
+Enterprise CAs are more secure and scalable than Standalone CAs, but they are more difficult to set up and manage. Enterprise CAs are integrated with Active Directory, which provides increased security. In addition, Enterprise CAs can issue certificates to users and computers in multiple domains. Finally, Enterprise CAs are much more scalable than Standalone CAs, and they can support a large number of users and computers.
+
+Another difference between the two types of CAs is that a Standalone CA is typically easier to set up and manage than an Enterprise CA. This is because a Standalone CA does not require as much infrastructure or support from other components in the organization.
+
+Finally, another difference between a Standalone and an Enterprise CA is that an Enterprise CA can issue certificates to multiple levels of hierarchy within the organization, while a Standalone CA can only issue certificates to a single level.
+
+|  Standalone CA   | Enterprise CA |
+| --- | --- |
+| Standalone CAs are easier to set up and manage, but they lack the security and scalability of an Enterprise CA. |	Enterprise CAs are more secure and scalable than Standalone CAs, but they are more difficult to set up and manage. | 
+| Standalone CAs can be vulnerable to more attack since they are not integrated with Active Directory. | Enterprise CAs are integrated with Active Directory, which provides increased security. |
+| Standalone CAs can only issue certificates to users and computers within their own domain. | Enterprise CAs can issue certificates to users and computers in multiple domains. |
+| Standalone CAs are not as scalable as Enterprise CAs, and they cannot issue certificates to users in multiple domains. | Standalone CAs are not as scalable as Enterprise CAs, and they cannot issue certificates to users in multiple domains. |
+
+#### When To Choose Standalone CA?
+
+If you are setting up a CA for a small organization or for personal use, then a Standalone CA is a good choice. Standalone CAs are easier to set up and manage than Enterprise CAs. In addition, Standalone CAs can be used in environments where Active Directory is not present.
+
+#### When To Choose An Enterprise CA?
+
+If you are setting up a CA for a large organization, then an Enterprise CA is the best choice. Enterprise CAs are more secure and scalable than Standalone CAs. In addition, Enterprise CAs can issue certificates to users and computers in multiple domains.
+
+#### Conclusion:
+
+If you are setting up a CA for a small organization or for personal use, then a Standalone CA is a good choice. If you are setting up a CA for a large organization, then an Enterprise CA is the best choice.
+
+
 
 
 
