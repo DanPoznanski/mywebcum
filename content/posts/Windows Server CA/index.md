@@ -1,13 +1,12 @@
 ---
 title: "Windows Server CA"
 discription: Windows Server
-date: 2020-01-07T21:29:01+08:00 
+date: 2022-05-01T21:29:01+08:00 
 draft: false
 type: post
 tags: ["PKI","CA","Windows Server"]
 showTableOfContents: true
 --- 
-
 
 In this Tutorial we’re going to configure a Two-Tier Enterprise PKI with Microsoft Server 2019 intended for Lab use. The advantage of a Two-Tier Enterprise PKI Hierarchy is that clients only trust the Root CA.  So if a Subordinate server gets compromised the Root CA does not have to be replaced. During normal operation the Root CA will be offline and Certificate requests are handled by the Subordinate CA. The Root CA is a non-domain joined device and will only be turned on issue a certificate for the Subordinate CA or to update the  Certificate Revocation List (CRL).
 
@@ -93,3 +92,75 @@ LoadDefaultTemplates=0
 
 6. The **Add Roles and Features Wizard** will start, press **Next** to continue.
 ![ws805](images/ws805.webp)
+
+7. Select **Role-based or feature-based installation** and press **Next**
+![ws806](images/ws806.webp)
+
+8. Use the default settings and press **Next** to continue.
+![ws807](images/ws807.webp)
+
+9. Select **Active Directory Certificate Services**
+![ws808](images/ws808.webp)
+
+10. A pop-up will appear, press **Add Features** to continue.
+![ws809](images/ws809.webp)
+
+11. Press **Next** to continue
+![ws810](images/ws810.webp)
+
+12. Press **Next** to continue.
+![ws811](images/ws811.webp) 
+
+13. Check if the Servername is correct and press **Next** to continue.
+![ws812](images/ws812.webp) 
+
+14. Check if the Servername is correct and press **Next** to continue.
+![ws813](images/ws813.webp) 
+
+15. Press **install** to add the Active Directory Certificate Services to the server.
+![ws814](images/ws814.webp) 
+
+16. When the installation has completed, press the link **Configure Active Directory Certificate Services on the destination server**
+![ws815](images/ws815.webp) 
+
+17. Use the default settings and press **Next**
+![ws816](images/ws816.webp) 
+
+18. Select **Certification Authority** and press **Next**
+![ws817](images/ws817.webp) 
+
+19. Because this server is non-domain joined only Standalone CA can be selected. Press **Next** to continue.
+![ws818](images/ws818.webp
+
+
+
+
+### Subordinate CA
+
+With the Offline Root CA completed, we can now setup of the Subordinate CA server. This server is authorized by the Root CA to issue the certificates. During the setup the CA role will be added and configured. The server will also be authorized by the Root CA  The Subordinate CA Server is the SUBENT-CA02. Make sure that the server Subordinate server is domain joined before you start with the ADCS setup and that you have a domain account which is member of the Enterprise admins group.
+
+ 
+
+
+
+
+### Setup Group Policy
+
+The CA Servers are now configured. Now the domain computers/servers need to trust the certificates which are created by the Subordinate Server. This is done by adding the Root CA certificate to the “Trusted Root Certification Authorities” store.  The certificate can be added in multiple ways, but the easiest way is by adding it with a Group Policy. In this example a separate policy is created on the Domain Controller in the root of the domain. This is not required but just an example on how it’s possible.
+
+
+
+
+
+
+
+
+
+
+
+
+### Deploy Policy Templates
+
+After Setting up an Enterprise CA some Certificate policies are available without additional configuration. In this post I will demonstrate how to add Certificate Template and publish it.
+
+Deploy Policy Templates
