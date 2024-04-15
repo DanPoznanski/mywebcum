@@ -372,9 +372,10 @@ With the Offline Root CA completed, we can now setup of the Subordinate CA serve
 ![ws890](images/ws890.webp)
 
 45. Press **Browse…**
+![ws891](images/ws891.webp)
 
-46. Enter a name for the certificate and press “Save” (the default location is the Documents folder)
-
+46. Enter a name for the certificate and press **Save** (the default location is the Documents folder)
+![ws892](images/ws892.webp)
 
 
 
