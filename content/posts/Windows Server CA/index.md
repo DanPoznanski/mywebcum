@@ -377,8 +377,26 @@ With the Offline Root CA completed, we can now setup of the Subordinate CA serve
 46. Enter a name for the certificate and press **Save** (the default location is the Documents folder)
 ![ws892](images/ws892.webp)
 
+47. Press **Next** to continue.
+![ws893](images/ws893.webp)
 
+48. Press **Finish** to export the CA Certificate.
+![ws894](images/ws894.webp)
 
+49. After some time a popup will appear when the export has finished. Press **OK** to continue.
+![ws895](images/ws895.webp)
+
+50. Copy the CA Certificate from the RootCA ( step 46) and switch to the subordinate server to paste the file.
+![ws896](images/ws896.webp)
+
+51. On the Subordinate CA open the Certification Authority. Rightclick the Servername and select **All Tasks** -> **Install CA Certificate**
+![ws897](images/ws897.webp)
+
+52. Select the copied CA Certificate and press **Open**
+![ws898](images/ws898.webp)
+
+53. Rightclick the Servername and select **All Tasks** -> **Start Service**
+![ws899](images/ws899.webp)
 
 ### Setup Group Policy
 
