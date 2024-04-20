@@ -13,23 +13,23 @@ showTableOfContents: true
 
 ## Server Shadowsocks Classic 
 
-first uprgade system
+First uprgade system
+```
+apt update && apt uprgade -y
+```
+Install need packets
+```
+apt install shadowsocks-libev -y
+```
+View what your ip address
+```
+ip -br a
+```
 
-`apt update && apt uprgade -y`
- 
-install need packets
-
-`apt install shadowsocks-libev -y`
-
-see what your ip address
-
-`ip -br a`
-
-
-edit options parametrs you can change port and all ip `"::1", "127.0.0.1"` for example "185.85.85.85"
-
-`nano /etc/shodowsocks-libev/config.json`
-
+Edit options parametrs you can change port and all ip `"::1", "127.0.0.1"` for example "185.85.85.85"
+```
+nano /etc/shodowsocks-libev/config.json
+```
 ```json
 {
 "server":["::1", "127.0.0.1"],

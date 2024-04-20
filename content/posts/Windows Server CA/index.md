@@ -402,8 +402,42 @@ With the Offline Root CA completed, we can now setup of the Subordinate CA serve
 
 The CA Servers are now configured. Now the domain computers/servers need to trust the certificates which are created by the Subordinate Server. This is done by adding the Root CA certificate to the “Trusted Root Certification Authorities” store.  The certificate can be added in multiple ways, but the easiest way is by adding it with a Group Policy. In this example a separate policy is created on the Domain Controller in the root of the domain. This is not required but just an example on how it’s possible.
 
+1. Open “Group Policy Management”
+![ws900](images/ws900.webp)
 
+2. Expand “Group Policy Management” -> “Forest: <domain>” -> “Domains” and Rightclick your domain. Select “Create a GPO in this domain, and link it here…” 
+![ws901](images/ws901.webp)
 
+3. Enter a name for the policy for example “Root CA Distribution policy” and press “OK”
+![ws902](images/ws902.webp)
+
+4. Select the created policy and press “Edit”
+![ws903](images/ws903.webp)
+
+5. Go to: “Computer Configuration” -> “Policies” -> “Windows Settings” -> “Security Settings” -> “Public Key Policies” and Rightclick “Trusted Root Certification Authorities” and select “Import”
+![ws904](images/ws904.webp)
+
+6. Press “Next” to continue
+![ws905](images/ws905.webp)
+
+7. Press “Browse”
+![ws906](images/ws906.webp)
+
+8. Browse to <subordinate-ca>\c$\inetpub\wwwroot\CertEnroll and select the RootCA certificate. Press “Open” to continue
+![ws907](images/ws907.webp)
+
+9. Press “Next” to continue
+![ws908](images/ws908.webp)
+
+10. Use the default settings and press “Next”
+![ws909](images/ws909.webp)
+
+11. Press “Finish” to import the Root CA Certificate.
+![ws910](images/ws910.webp)
+
+12. After some time when the import has finished a popup will appear. Press “OK” to continue
+![ws911](images/ws911.webp)
+The Root CA Certificate is now distributed to all domain devices.
 
 
 
