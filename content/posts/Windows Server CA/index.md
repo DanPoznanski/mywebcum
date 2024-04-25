@@ -402,40 +402,40 @@ With the Offline Root CA completed, we can now setup of the Subordinate CA serve
 
 The CA Servers are now configured. Now the domain computers/servers need to trust the certificates which are created by the Subordinate Server. This is done by adding the Root CA certificate to the “Trusted Root Certification Authorities” store.  The certificate can be added in multiple ways, but the easiest way is by adding it with a Group Policy. In this example a separate policy is created on the Domain Controller in the root of the domain. This is not required but just an example on how it’s possible.
 
-1. Open “Group Policy Management”
+1. Open **Group Policy Management**
 ![ws900](images/ws900.webp)
 
-2. Expand “Group Policy Management” -> “Forest: <domain>” -> “Domains” and Rightclick your domain. Select “Create a GPO in this domain, and link it here…” 
+2. Expand **Group Policy Management** > **Forest: <domain>** > **Domains** and Rightclick your domain. Select **Create a GPO in this domain, and link it here…** 
 ![ws901](images/ws901.webp)
 
-3. Enter a name for the policy for example “Root CA Distribution policy” and press “OK”
+3. Enter a name for the policy for example **Root CA Distribution policy** and press **OK**
 ![ws902](images/ws902.webp)
 
-4. Select the created policy and press “Edit”
+4. Select the created policy and press **Edit**
 ![ws903](images/ws903.webp)
 
-5. Go to: “Computer Configuration” -> “Policies” -> “Windows Settings” -> “Security Settings” -> “Public Key Policies” and Rightclick “Trusted Root Certification Authorities” and select “Import”
+5. Go to: **Computer Configuration** > **Policies** > **Windows Settings** > **Security Settings** > **Public Key Policies** and Rightclick **Trusted Root Certification Authorities** and select **Import**
 ![ws904](images/ws904.webp)
 
-6. Press “Next” to continue
+6. Press **Next** to continue
 ![ws905](images/ws905.webp)
 
-7. Press “Browse”
+7. Press **Browse**
 ![ws906](images/ws906.webp)
 
-8. Browse to <subordinate-ca>\c$\inetpub\wwwroot\CertEnroll and select the RootCA certificate. Press “Open” to continue
+8. Browse to `<subordinate-ca>\c$\inetpub\wwwroot\CertEnroll` and select the RootCA certificate. Press **Open** to continue
 ![ws907](images/ws907.webp)
 
-9. Press “Next” to continue
+9. Press **Next** to continue
 ![ws908](images/ws908.webp)
 
-10. Use the default settings and press “Next”
+10. Use the default settings and press **Next**
 ![ws909](images/ws909.webp)
 
-11. Press “Finish” to import the Root CA Certificate.
+11. Press **Finish** to import the Root CA Certificate.
 ![ws910](images/ws910.webp)
 
-12. After some time when the import has finished a popup will appear. Press “OK” to continue
+12. After some time when the import has finished a popup will appear. Press **OK** to continue
 ![ws911](images/ws911.webp)
 The Root CA Certificate is now distributed to all domain devices.
 
@@ -452,3 +452,64 @@ The Root CA Certificate is now distributed to all domain devices.
 After Setting up an Enterprise CA some Certificate policies are available without additional configuration. In this post I will demonstrate how to add Certificate Template and publish it.
 
 Deploy Policy Templates
+
+1. On the Subordinate CA start the **Certification Authority** and select **Certificate Templates**. In the right pane all the out of the box templates are visible. These can be requested by Users, Computers, etc depending on the type.
+![ws912](images/ws912.webp)
+
+2. To add a new template rightclick **Certificat Templates** and select **Manage**
+![ws913](images/ws913.webp)
+
+3. An overview with all available templates will appear.
+![ws914](images/ws914.webp)
+
+4. To avoid editing the original template Right click the template and select **Duplicate Template**
+![ws915](images/ws915.webp)
+
+5. Give the new template a unique name and press **OK**
+![ws916](images/ws916.webp)
+
+6. Rightclick **Certificat Templates** and select **New** > **Certificate Template to Issue**
+![ws917](images/ws917.webp)
+
+7. Select in the **Enable Certificate Templates** list the template which was created and press **OK**
+![ws918](images/ws918.webp)
+
+8. The certificate is now visible in the **Certificate Templates** Pane
+![ws919](images/ws919.webp)
+
+**Test the certificate**
+
+9. Logon to a domain joined computer. Start **MMC** and select **file** > **Add/Remove Snap-in**.
+![ws920](images/ws920.webp)
+
+10. Select the **Certificates** snap-in and press **Add**.
+![ws921](images/ws921.webp)
+
+11. Select **My user account** in the Certificates snap-in popup and press **Finish**. Press **OK** to close the snap-in manager. (Only select **my user account** for user templates, for computer related templates select **Computer account**)
+![ws922](images/ws922.webp)
+
+12. Right click **Personal** and select **All Tasks** > **Request New Certificate**
+![ws923](images/ws923.webp)
+
+13. Press **Next**
+![ws924](images/ws924.webp)
+
+14. Press **Next** (by default **Active Directory Enrollment Policy** is selected)
+![ws925](images/ws925.webp)
+
+15. In the **Request Certificates** overview all available user related policy templates are displayed. The created template should appear. Check the box of the created template and press **Enroll**
+![ws926](images/ws926.webp)
+
+16. The template will be requested. After a while the status should be **Succeeded**. Press **Finish** to continue.
+![ws927](images/ws927.webp)
+
+17. The new certificate is now visible.
+![ws928](images/ws928.webp)
+
+18. When you double click the Certificate and select **Certification Path** you should see the RootCA, SubordinateCA and requested Certificate. All Certificates should be **OK**
+
+![ws929](images/ws929.webp)
+
+This was the final post of the Setup Server 2019 Enterprise CA tutorial.
+
+---
