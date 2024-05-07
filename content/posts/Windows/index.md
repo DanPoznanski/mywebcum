@@ -66,11 +66,15 @@ Get-NetSwitchTeam
 ## Wim Capture Image
 
 need external disk image capture to `d:\`
+
+old method for windows 7
 ```
 e:\imagex.exe /capture c: d:\install.wim "my windows 7 install" /compress fast /verify
 ```
-
-
+new
+```
+dism /capture-image /imagefile:c:\Win7.wim / captureir:c:\ /name:“Windows 7 Install” 
+```
 ## Godmod
 
 ```
