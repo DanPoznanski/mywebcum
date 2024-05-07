@@ -71,9 +71,9 @@ old method for windows 7
 ```
 e:\imagex.exe /capture c: d:\install.wim "my windows 7 install" /compress fast /verify
 ```
-new
+new method
 ```
-dism /capture-image /imagefile:c:\Win7.wim / captureir:c:\ /name:“Windows 7 Install” 
+dism /capture-image /imagefile:d:\Win7.wim /capturedir:c:\ /name:“Windows10” /compress:fast /verify 
 ```
 ## Godmod
 
