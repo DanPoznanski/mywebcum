@@ -276,3 +276,11 @@ You will get one more notice about the customer experience program. Simply click
 Nice! Now for fun lets go ahead and open it, you guessed it. So we can pin it to our taskbar. It will be called "Deployment Workbench".
 h
 ![wds58](images/wds58.webp)
+
+## ADK
+
+### Installing the ADK
+
+Once you have the ADK lets begin the install. Again we will let this install to "C:\".
+
+![wds59](images/wds59.webp)
