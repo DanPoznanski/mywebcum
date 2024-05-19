@@ -73,7 +73,7 @@ e:\imagex.exe /capture c: d:\install.wim "my windows 7 install" /compress fast /
 ```
 new method
 ```
-dism /capture-image /imagefile:d:\Win7.wim /capturedir:c:\ /name:“Windows10” /compress:fast /verify 
+dism /capture-image /imagefile:"d:\Win7.wim" /capturedir:c:\ /name:“Windows10” /compress:fast /verify 
 ```
 ## Godmod
 
