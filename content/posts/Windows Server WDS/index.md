@@ -455,3 +455,45 @@ With this complete lets move on to the "Windows PE" tab. Select "x64" from the "
 We only want the wim. So we will **uncheck** the box that generates the ISO image.
 
 ![wds77](images/wds77.webp)
+
+It should be noted that we can do all kinds of things here. Like change the image name. Change the background we see during install, add drivers etc. Today we will only work on these modifications though.
+
+Now that that is done, go to the "Monitoring" tab. Its always good to enable monitoring, even if we wont be using it initially. Just check the box "Enable monitoring for this deployment share"
+
+![wds78](images/wds78.webp)
+
+With the configuration now complete click "Apply" followed by "OK".
+
+
+## Getting our Images​
+
+Now that we have MDT configured, we need to import some images into it. To do that we need to get them. This is where the script I wrote comes in. You should already have it so lets open it up.
+
+The script will download the windows media creation tool and using some fancy command flags we can tear out and generate some windows images. I will tuck away the screenshots as they are really self explanatory. I will pick back up when its time to do stuff. For now when the script complete DO NOT delete the files it generates, we need them.
+
+![wds79](images/wds79.webp)
+
+
+![wds80](images/wds80.webp)
+
+![wds81](images/wds81.webp)
+
+![wds82](images/wds82.webp)
+
+![wds83](images/wds83.webp)
+![wds84](images/wds84.webp)
+![wds85](images/wds85.webp)
+
+
+Links/Further reading​
+
+Windows Server Evaluation Download: https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022
+Download MDT: https://www.microsoft.com/en-us/download/details.aspx?id=54259
+Download ADK: https://go.microsoft.com/fwlink/?linkid=2196127
+Download ADK PE Add-on: https://go.microsoft.com/fwlink/?linkid=2120253
+Add your own MDT steps to select a specific drive: https://social.technet.microsoft.co...m-pane-to-select-disk-in-mdt-wizard?forum=mdt
+
+Extras​
+
+Remember that monitoring we wanted enabled? You can see the machines being formatted in MDT. It also gives you the % completion and step. If a step is taking a long time, you can always take a look at what that step does in the task sequence.
+
