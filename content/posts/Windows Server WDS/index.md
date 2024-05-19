@@ -502,6 +502,14 @@ We don't need to go again for this guide so just select "No".
 
 Finally it will ask us if we want to delete the files we need. This is good if we have already worked with them, but we have not. We will select "No" here.
 
+The script will close and we move forward!
+
+With our images in hand we need to import them into MDT and prepare WDS.
+
+Open MDT and right click on "Operating Systems" then select "New Folder". Folders help us manage where we are placing images. Since we can have several flavors of the same OS. We will make a folder named "Windows 11".
+
+
+
 
 
 Links/Further reading​
