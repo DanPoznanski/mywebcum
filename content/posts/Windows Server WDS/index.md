@@ -374,3 +374,84 @@ We are now presented with a summary screen, click "Next" to move forward.
 ![wds69](images/wds69.webp)
 
 The configuration will now begin and build the share that WDS/MDT will use when deploying images.
+
+![wds70](images/wds70.webp)
+
+Once its complete just hit finish.
+
+![wds71](images/wds71.webp)
+
+Sweet!! We can now expand the share in MDT we have options!
+
+![wds72](images/wds72.webp)
+
+Great job!
+
+Lets set some basic properties. This is how we will handle modifications to our settings. These changes are stored in the "boot/pe .wim" that is loaded over PXE into ram. I am sure you remember talking to me about it. With that said, anytime you want to make changes we will need to update this wim since these changes are written to it. Lets start by right clicking on the share and selecting properties.
+
+![wds73](images/wds73.webp)
+
+Now that the configuration window is open, we land on the "General" tab. For starters, since you should embrace this century we can uncheck x86 under "Platforms Supported". It will save us some space.
+
+![wds74](images/wds74.webp)
+
+Next we want to go to the "Rules" tab. This tab controls the main sequencing of MDT. Those checkboxes I mentioned earlier were just a few of the ones that show up here. You can take a look at articles regarding the options that can be used: https://www.google.com/search?q=windows+mdt+rules&sxsrf=APwXEdcVNgiWeQXk0i1roFJX3qbOegwvCQ:1681511045527&ei=hdI5ZPbbH5HpxgHgrp3YCA&ved=0ahUKEwi2srfktKr-AhWRtDEKHWBXB4sQ4dUDCBA&uact=5&oq=windows+mdt+rules&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCAAQgAQyBggAEBYQHjIGCAAQFhAeMggIABCKBRCGAzIICAAQigUQhgMyCAgAEIoFEIYDMggIABCKBRCGAzoKCAAQRxDWBBCwA0oECEEYAFDSCViOD2CQEGgBcAB4AIABqAGIAdcEkgEDMC40mAEAoAEByAEIwAEB&sclient=gws-wiz-serp
+
+These are the defaults for "Rules" specifically:
+
+```
+[Settings]
+Priority=Default
+Properties=MyCustomProperty
+
+[Default]
+OSInstall=Y
+SkipCapture=NO
+SkipAdminPassword=YES
+SkipProductKey=YES
+SkipComputerBackup=NO
+SkipBitLocker=NO
+```
+ere are some sane defaults you can use:
+
+Grab you TZ info etc from here: https://www.ronnipedersen.com/2017/08/14/find-the-timezonename-for-your-sccmmdt-deployments/
+
+You will see the attributes I added that say "techpowerup" and "Solaris17 Install". You can change these, but I left them as is so you can see where they appear during the install process.
+
+```
+[Settings]
+Priority=Default
+Properties=MyCustomProperty
+
+[Default]
+OSInstall=Y
+SkipBDDWelcome=YES
+SkipCapture=YES
+SkipAdminPassword=YES
+SkipProductKey=YES
+SkipComputerBackup=YES
+SkipBitLocker=YES
+SkipUserData=YES
+SkipTimeZone=YES
+SkipLocaleSelection=YES
+
+_SMSTSORGNAME="Techpowerup"
+
+_SMSTSPackageName="Solaris17 Install"
+
+KeyboardLocale=en-US
+TimeZoneName=Pacific Standard Time
+```
+
+It should look like this. For now we will leave "Bootstrap.ini" as is.
+
+
+![wds75](images/wds75.webp)
+
+With this complete lets move on to the "Windows PE" tab. Select "x64" from the "Platform" dropdown at the top.
+
+![wds76](images/wds76.webp)
+
+We only want the wim. So we will **uncheck** the box that generates the ISO image.
+
+![wds77](images/wds77.webp)
