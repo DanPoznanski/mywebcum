@@ -488,6 +488,22 @@ The script will download the windows media creation tool and using some fancy co
 
 ![wds86](images/wds86.webp)
 
+![wds87](images/wds87.webp)
+
+![wds88](images/wds88.webp)
+
+finally have some images!
+
+![wds89](images/wds89.webp)
+
+We don't need to go again for this guide so just select "No".
+
+![wds90](images/wds90.webp)
+
+Finally it will ask us if we want to delete the files we need. This is good if we have already worked with them, but we have not. We will select "No" here.
+
+
+
 Links/Further reading​
 
 Windows Server Evaluation Download: https://www.microsoft.com/en-us/evalcenter/download-windows-server-2022
