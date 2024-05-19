@@ -481,9 +481,12 @@ The script will download the windows media creation tool and using some fancy co
 ![wds82](images/wds82.webp)
 
 ![wds83](images/wds83.webp)
+
 ![wds84](images/wds84.webp)
+
 ![wds85](images/wds85.webp)
 
+![wds86](images/wds86.webp)
 
 Links/Further reading​
 
