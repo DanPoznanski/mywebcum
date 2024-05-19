@@ -250,3 +250,29 @@ The machine is booting via network and windows os files loading starts.
 Now you can install windows on a client computer with a normal windows installation process.
 
 ---
+
+## MDT
+
+### Installing MDT​
+
+All done with your break? I did encourage you to take one. Now we are going to install MDT. MDT is the toolkit we will use to control and add and modify our images remember? The link is below under the link section. The same place you grabbed the server ISO. For this we will want to make sure we download the 64bit version.
+
+![wds54](images/wds54.webp)
+
+Lets get started.
+
+Once you have it downloaded go ahead and open it up to start the installer. It is more or less a "Next" fest but I will let you know if you need to do anything else. So click "Next" to begin.
+
+![wds55](images/wds55.webp)
+
+It's ok for this to go to the `C:\` drive so don't worry about that quite yet. Go ahead and click "Next".
+
+![wds56](images/wds56.webp)
+
+You will get one more notice about the customer experience program. Simply click "Install" and finally when its done, "Finish".
+
+![wds57](images/wds57.webp)
+
+Nice! Now for fun lets go ahead and open it, you guessed it. So we can pin it to our taskbar. It will be called "Deployment Workbench".
+h
+![wds58](images/wds58.webp)
