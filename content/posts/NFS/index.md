@@ -9,51 +9,48 @@ showTableOfContents: true
 --- 
 
 ## Install Server NFS
-1. 
+1. update
 ```
 sudo apt update
 ```
 
-2. 
+2. install nfs server
 ```
 sudo apt install nfs-kernal-server
 ```
 
-3. view nfs
+3. view if nfs ok
 ```
 rpcinfo -p | grep nfs
 ```
 
-4. view if ok 
+4. other ways view if ok 
 ```
 cat /proc/filesystems | grep nfs
 ```
 
-5. 
+5. enable nfs-server start after restart
 ```
 sudo systemctl enable nfs-server
 ```
 
-6.
+6. create folder
 ```
 sudo mkdir /var/nfs
 ```
 
-7. 
+7. admin privilege on folder
 ```
 sudo chmod -R 777 /var/nfs
 ```
 
-8. 
+8. edit exports file
 ```
 sudo nano /etc/exports
 ```
 
-9. 
-```
-sudo /etc/exports
-```
-The /etc/exports Options
+9. The /etc/exports Options
+
 | General Options | Description | 
 | --------------- | ----------- |
 | secure          | Requires request originate on secure ports, those less than 1024. This is on by default. |
@@ -116,7 +113,7 @@ sudo ufw allow 2049
 ```
 sudo apt install nfs-common
 ```
-2. mount <ip server> + <shared link> <to folder>
+2. mount (ip server) + (shared link) (to folder)
 ```
 sudo mount 192.168.1.149:/var/nfs /mnt/
 ```
@@ -124,7 +121,7 @@ sudo mount 192.168.1.149:/var/nfs /mnt/
 ```
 cd /mnt/
 ```
-for always attach 
+for always attach add to fstab service 
 ```
 sudo /etc/fstab
 ```
