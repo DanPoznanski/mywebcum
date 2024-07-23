@@ -227,6 +227,7 @@ See https://rclone.org/drive/#making-your-own-client-id for how to create your o
 If you leave this blank, it will use an internal key which is low performance.
 Enter a value. Press Enter to leave empty.
 ```
+Enter id from google api
 ```
 client_id> ************************************.apps.googleusercontent.com
 ```
@@ -236,8 +237,11 @@ OAuth Client Secret.
 Leave blank normally.
 Enter a value. Press Enter to leave empty.
 ```
+Enter password from google api
 ```
 client_secret> GOCSPX-**********************
+```
+Enter `1`
 ```
 Option scope.
 Comma separated list of scopes that rclone should use when requesting access from drive.
@@ -258,7 +262,7 @@ Press Enter to leave empty.
  5 | does not allow any access to read or download file content.
    \ (drive.metadata.readonly)
 scope> 1
-
+```
 Option service_account_file.
 Service Account Credentials JSON file path.
 Leave blank normally.
