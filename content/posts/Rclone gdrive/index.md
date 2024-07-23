@@ -96,11 +96,11 @@ q) Quit config
 
 n/s/q> n
 ```
-Enter name for new remote.
+Enter new name for drive.
 ```
 name> Google Drive
 ```
-Option Storage.
+Option Storage. My drive its Google drive its number 17
 ```
 Type of storage to configure.
 Choose a number from below, or type in your own value.
@@ -219,6 +219,7 @@ Choose a number from below, or type in your own value.
 
 Storage> 17
 ```
+Press Enter to leave empty
 ```
 Option client_id.
 Google Application Client Id
@@ -231,6 +232,7 @@ Enter id from google api
 ```
 client_id> ************************************.apps.googleusercontent.com
 ```
+Enter to leave empty.
 ```
 Option client_secret.
 OAuth Client Secret.
@@ -241,7 +243,7 @@ Enter password from google api
 ```
 client_secret> GOCSPX-**********************
 ```
-Enter `1`
+Enter Full access `1`
 ```
 Option scope.
 Comma separated list of scopes that rclone should use when requesting access from drive.
@@ -263,6 +265,10 @@ Press Enter to leave empty.
    \ (drive.metadata.readonly)
 scope> 1
 ```
+
+Enter to leave empty
+
+```
 Option service_account_file.
 Service Account Credentials JSON file path.
 Leave blank normally.
@@ -270,12 +276,17 @@ Needed only if you want use SA instead of interactive login.
 Leading `~` will be expanded in the file name as will environment variables such as `${RCLONE_CONFIG_DIR}`.
 Enter a value. Press Enter to leave empty.
 service_account_file>
+```
 
+Enter to leave empty or `n`
+```
 Edit advanced config?
 y) Yes
 n) No (default)
 y/n>
-
+```
+Enter `y`
+```
 Use web browser to automatically authenticate rclone with remote?
  * Say Y if the machine running rclone has a web browser you can use
  * Say N if running rclone on a (remote) machine without web browser access
@@ -284,7 +295,9 @@ If not sure try Y. If Y failed, try N.
 y) Yes (default)
 n) No
 y/n>
-
+```
+Enter `n`
+```
 2024/07/12 18:50:20 NOTICE: Make sure your Redirect URL is set to "http://127.0.0.1:53682/" in your custom config.
 2024/07/12 18:50:20 NOTICE: If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=wjDtvZ_b4OGR04blYulRpQ
 2024/07/12 18:50:20 NOTICE: Log in and authorize rclone for access
@@ -295,15 +308,14 @@ Configure this as a Shared Drive (Team Drive)?
 y) Yes
 n) No (default)
 y/n>
-
 ```
 
-
-
-
+all config on Windows 10-11  
+````
 `C:\Users\Burzum\AppData\Roaming\rclone\rclone.conf`
-
 ```
+
+
 
 
 ```
