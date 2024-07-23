@@ -316,24 +316,27 @@ cd rclone
 
 nssm install Rclone_Gdrive
 ```
+![21](images/21.webp)
 
+Enter argument :
 
-
-
-
-
-
-
-all config on Windows 10-11  
-```
-`C:\Users\Burzum\AppData\Roaming\rclone\rclone.conf`
-```
 ```
 mount Gdrive: Z: --config "C:\Users\Burzum\AppData\Roaming\rclone\rclone.conf"
 ```
+or for network drive
+```
+mount Gdrive: Z: --config "C:\Users\Burzum\AppData\Roaming\rclone\rclone.conf" --network-mode
+```
+
+>all config on Windows 10-11  
+```
+`C:\Users\Burzum\AppData\Roaming\rclone\rclone.conf`
+```
 
 
 
+### Rclone GUI
 
-
+```
 rclone rcd --rc-web-gui
+```
