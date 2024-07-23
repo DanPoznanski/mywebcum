@@ -36,12 +36,14 @@ sudo systemctl enable nfs-server
 
 6. create folder
 ```
-sudo mkdir /var/nfs
+sudo mkdir /mnt/nfs
 ```
-
+```
+chown nobody:nogroup /mnt/nfs
+```
 7. admin privilege on folder
 ```
-sudo chmod -R 777 /var/nfs
+sudo chmod -R 777 /mnt/nfs
 ```
 
 8. edit exports file
@@ -78,7 +80,7 @@ sudo nano /etc/exports
 
 exemple:
 ```
-/var/nfs 127.0.0.1(rw,sync,no_subtree_check)
+/var/nfs 127.0.0.1(rw,sync,no_subtree_check,check,crossmnt)
 ```
 ```
 /var/nfs 192.168.1.0/24(rw,sync,no_subtree_check)
@@ -105,7 +107,11 @@ Need open ports 111 and 2049
 sudo ufw allow 111
 sudo ufw allow 2049 
 ```
-
+show client on server
+```
+showmount -e 10.20.1.36
+export list for 10.20.3.36:
+/mnt/nfs 10.20.1.56
 
 ### On Client
 
@@ -115,7 +121,7 @@ sudo apt install nfs-common
 ```
 2. mount (ip server) + (shared link) (to folder)
 ```
-sudo mount 192.168.1.149:/var/nfs /mnt/
+sudo mount 192.168.1.149:/mnt/nfs /mnt/
 ```
 3. test if all ok 
 ```
