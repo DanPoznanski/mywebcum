@@ -311,22 +311,11 @@ y/n>
 ```
 
 Now install nssm service
-````
+```
 cd rclone
 
 nssm install Rclone_Gdrive
-````
-
-
-
-
-
-
-
-
-
-
-
+```
 
 
 
@@ -336,13 +325,9 @@ nssm install Rclone_Gdrive
 
 
 all config on Windows 10-11  
-````
+```
 `C:\Users\Burzum\AppData\Roaming\rclone\rclone.conf`
 ```
-
-
-```
-
 ```
 mount Gdrive: Z: --config "C:\Users\Burzum\AppData\Roaming\rclone\rclone.conf"
 ```
