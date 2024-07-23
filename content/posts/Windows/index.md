@@ -87,3 +87,9 @@ dism /capture-image /imagefile:"d:\Win7.wim" /capturedir:c:\ /name:â€œWindows10â
 ```
 dsregcmd /status
 ```
+
+### Change password
+
+```
+net user administrator *
+```
