@@ -612,7 +612,9 @@ all tree process
 sudo pstree
 ```
 
+dmidecode is a tool for dumping a computer's DMI (all hardware about machine)
 ```
+dmidecode
 ```
 
 ```
