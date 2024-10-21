@@ -16,16 +16,9 @@ SMTP
 smtp.gmail.com
 port 587 STARTTLS
 port 465 SSL\TLS
-```
+```ho
 
-
-
-
-
-
-
-
-app password
+app password link:
 ```
 https://myaccount.google.com/apppasswords
 ```
