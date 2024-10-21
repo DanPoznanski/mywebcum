@@ -13,7 +13,62 @@ showTableOfContents: true
 
 
 
+Create a repository in an existing directory:
 
+Linux:
+```
+cd home user my_project
+```
+MacOS:
+```
+cd Users user my_project
+```
+Windows:
+```
+cd C:/Users/user/my_project
+```
+then run the command:
+```
+git init
+```
+Add existing files under version control:
+```
+git add *.c
+git add LICENSE
+git commit -m ‘Initial project version’
+```
+
+Clone an existing repository
+```
+git clone https://github.com/libgit2/libgit2
+```
+
+Clone the repository to a directory named mylibgit:
+$ git clone https://github.com/libgit2/libgit2 mylibgit
+
+## Working with Git
+
+Add existing files under version control:
+```
+$ git status
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean  
+```
+Adding README + status:
+```
+$ echo ‘My project’ > README
+$ git status
+On the master branch
+Your branch is updated with ‘origin/master’.
+Untraceable files:
+(use ‘git add <file>...’ to include them in what will be committed)
+README
+nothing added to the commit, but untracked files are present (use ‘git add’ to
+track)
+```
 
 
 
