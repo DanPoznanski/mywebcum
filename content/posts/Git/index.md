@@ -48,6 +48,8 @@ $ git clone https://github.com/libgit2/libgit2 mylibgit
 
 ## Working with Git
 
+### Git Add 
+
 Add existing files under version control:
 ```
 $ git status
@@ -69,8 +71,212 @@ README
 nothing added to the commit, but untracked files are present (use ‘git add’ to
 track)
 ```
+Tracking new files:
+```
+$ git add README
+$ git status
+On the master branch
+Your branch has been updated to ‘origin/master’.
+The changes should be committed:
+(use ‘git restore --staged <file>...’ to uncommit)
+new file: README
+```
 
+### Git Status
 
+Indexing the modified files:
+```
+$ git status
+On the master branch
+Your branch has been updated to ‘origin/master’.
+The changes should be committed:
+(use ‘git reset HEAD <file>...’ to uncommit)
+new file: README
+Changes not placed to commit:
+(use ‘git add <file>...’ to update what will be committed)
+(use ‘git checkout -- <file>...’ to remove changes in the working directory)
+modified: CONTRIBUTING.md
+```
+Add this content to the next commit:
+```
+$ git add CONTRIBUTING.md
+$ git status
+On branch master
+Your branch is up-to-date with ‘origin/master’.
+Changes to be committed:
+new file: README
+modified: CONTRIBUTING.md
+```
+Let's make changes to the file via `vim` and request a new status:
+```
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+new file: README
+modified: CONTRIBUTING.md
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git checkout -- <file>..." to discard changes in working directory)
+modified: CONTRIBUTING.md
+```
+A shorter status output:
+```
+$ git status -s
+```
+```
+M README
+MM Rakefile
+A lib/git.rb
+M lib/simplegit.rb
+?? LICENSE.txt
+```
+### Git Ignore
+
+Ignore files:
+```
+$ cat .gitignore
+```
+```
+*.[oa].
+*~
+```
+
+The following rules apply to templates in the `.gitignore` file:
+- Blank lines, as well as lines beginning with #, are ignored
+- Default templates are global and are applied recursively
+for the entire directory tree
+- To avoid recursion, use a slash (/) at the beginning of the template.
+- To exclude a directory, add a slash (/) at the end of the template
+- You can invert the template by using an exclamation mark (!) as the first character in the template.
+as the first character
+
+Example `.gitignore`:
+Exclude all files with the extension `.a`
+```
+*.a
+```
+But keep track of the lib.a file even if it falls under the rules listed
+```
+!lib.a
+```
+Exclude the TODO file in the root directory, but not the file in subdir/TODO
+```
+/TODO
+```
+Ignore all files in the `build/` directory
+```
+build/
+```
+Ignore the file `doc/notes.txt`, but not the file `doc/server/arch.txt`
+```
+doc/*.txt
+```
+Ignore all `.txt` files in the `doc/` directory.
+```
+doc/**/*.txt
+```
+for more details `.gitignore` are available in manual
+```
+$ man gitignore.
+```
+### Git Diff
+
+View indexed and unindexed changes:
+```
+$ git diff
+```
+```
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 8ebb991..643e24f 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -65,7 +65,8 @@ branches directly, things can get confusing.
+Please include a nice description of the changes when submitting PRs;
+If we have to read the entire diff to understand why you are contributing
+in the first place, you'll be less likely to get feedback and get your changes
+-included.
++included. Also, break your changes into extensive chunks if your patch is
++longer than a dozen lines.
+If you start working on a specific area, feel free to send a PR
+describing your work (and mention in the title of the PR that it's 
+```
+See what you've indexed and what will go into the next commit:
+```
+$ git diff --staged
+```
+```
+diff --git a/README b/README
+new file mode 100644
+index 0000000..03902a1
+--- /dev/null
++++ b/README
+@@ -0,0 +1 @@
++My Project
+```
+
+View changes to the file in different programs:
+```
+$ git difftool
+```
+Difftool Help:
+```
+$ git difftool --tool-help
+```
+### Git Commit
+
+Commit changes:
+```
+$ git commit
+```
+VIM window example:
+```
+# Please enter a message to commit your changes. Lines starting
+# with ‘#’ will be ignored, and an empty message will abort the commit.
+# On the master branch
+# Your branch is updated at ‘origin/master’.
+# Changes that will be committed:
+# new file: README
+# changed: CONTRIBUTING.md
+‘.git/COMMIT_EDITMSG’ 9L, 283C
+```
+Detailed changes:
+```
+$ git commit -v
+```
+Add your comment to the commit:
+```
+$ git commit -m ‘Story 182: fix benchmarks for speed’
+```
+```
+[master 463dc4f] Story 182: fix benchmarks for speed
+2 files modified, 2 inserts(+)
+creation mode 100644 README
+```
+Ignoring indexing:
+```
+$ git status
+```
+```
+On the master branch
+Your branch has been updated to ‘origin/master’.
+The changes have not been put on commit:
+(use ‘git add <file>...’ to update what will be committed)
+(use ‘git checkout -- <file>...’ to remove changes in the working directory)
+changed: CONTRIBUTING.md
+changes not added to commit (use ‘git add’ and/or ‘git commit -a’)
+```
+- `-a` automatic add all changed files to commit
+
+- `-m` its need to add quotes commit ’new cicd'
+
+```
+$ git commit -a -m ‘Add new benchmarks’
+```
+```
+[master 83e38c7] Add new benchmarks
+1 file modified, 5 inserts(+), 0 deletes(-)
+```
 
 
 
