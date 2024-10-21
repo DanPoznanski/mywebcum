@@ -269,7 +269,7 @@ changes not added to commit (use ‘git add’ and/or ‘git commit -a’)
 - `-a` automatic add all changed files to commit
 
 - `-m` its need to add quotes commit ’new cicd'
-
+f
 ```
 $ git commit -a -m ‘Add new benchmarks’
 ```
@@ -277,6 +277,225 @@ $ git commit -a -m ‘Add new benchmarks’
 [master 83e38c7] Add new benchmarks
 1 file modified, 5 inserts(+), 0 deletes(-)
 ```
+
+### Git Remove
+
+Deleting files:
+```
+$ rm PROJECTS.md.
+```
+```
+$ git status
+```
+```
+On the master branch.
+Your branch is updated with ‘origin/master’.
+Changes are not put on commit:
+(use ‘git add/rm <file>...’ to update what will be committed)
+(use ‘git checkout -- <file>...’ to remove changes in the working directory)
+removed: PROJECTS.md
+changes not added to commit (use ‘git add’ and/or ‘git commit -a’)
+```
+
+If you run the git rm command:
+```
+$ git rm PROJECTS.md
+rm ‘PROJECTS.md’
+```
+```
+$ git status
+```
+```
+On the master branch.
+Your branch has been updated to ‘origin/master’.
+The changes should be committed:
+deleted: PROJECTS.md
+```
+Removing wrongly indexed files:
+```
+$ git rm --cached README
+```
+Delete files mistakenly indexed with files, directories:
+```
+$ git rm log/\**.log # or you can do it this way $ git rm \*~
+```
+### Gi Moving
+
+Moving files:
+```
+$ git mv file_from file_to
+```
+Example:
+```
+$ git mv README.md README
+```
+```
+$ git status
+```
+```
+On branch master
+Your branch is up-to-date with ‘origin/master’.
+Changes to be committed:
+renamed: README.md -> README
+```
+Similarly:
+```
+$ mv README.md README
+```
+```
+$ git rm README.md
+$ git add README
+```
+
+### Git Amend
+
+Cancellation operation:
+```
+$ git commit --amend
+```
+Example:
+```
+$ git commit -m ‘Initial commit’
+$ git add forgotten_file
+$ git commit --amend
+```
+Similarly:
+```
+$ mv README.md README
+$ git rm README.md
+$ git add README
+```
+Cancelling the indexing of the file:
+```
+$ git add *
+```
+```
+$ git status
+```
+```
+On the master branch.
+Changes should be committed:
+(use ‘git reset HEAD <file>...’ to uncommit)
+renamed: README.md -> README
+changed: CONTRIBUTING.md
+```
+Let's unindex the 'CONTRIBUTING.md' file:
+```
+$ git reset HEAD CONTRIBUTING.md
+```
+```
+Uninstalled changes after reset:
+CONTRIBUTING.md
+```
+```
+$ git status
+```
+```
+On the master branch.
+Changes to be committed:
+renamed: README.md -> README
+Changes not submitted for committing:
+changed: CONTRIBUTING.md.
+```
+<br>
+Cancelling changes to a file how do I do it?
+```
+The changes are not put on commit:
+(use ‘git add <file>...’ to update what will be committed)
+(use ‘git checkout -- <file>...’ to remove changes in the working directory)
+changed: CONTRIBUTING.md
+```
+Let's do this:
+```
+$ git checkout -- CONTRIBUTING.md
+```
+```
+$ git status
+```
+```
+On the master branch.
+The changes should be committed:
+(use ‘git reset HEAD <file>...’ to uncommit)
+renamed: README.md -> README
+```
+Undo actions with git restore:
+```
+$ git reset <file> # = $ git restore <file> from git 2.23.0
+```
+
+
+### Git Remote 
+
+View deleted repositories:
+```
+$ git clone https://github.com/schacon/ticgit
+```
+```
+Cloning into ‘ticgit’...
+remote: Reusing existing pack: 1857, done.
+remote: Total 1857 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (1857/1857), 374.35 KiB | 268.00 KiB/s, done.
+Resolving deltas: 100% (772/772), done.
+Checking connectivity... done.
+```
+```
+$ cd ticgit
+```
+```
+$ git remote
+```
+```
+origin
+```
+View the addresses bound to the repository:
+```
+$ git remote -v
+```
+```
+origin https://github.com/schacon/ticgit (fetch)
+origin https://github.com/schacon/ticgit (push)
+```
+
+Adding remote repositories:
+```
+$ git remote
+origin
+```
+```
+$ git remote add pb https://github.com/paulboone/ticgit
+```
+view status:
+```
+$ git remote -v
+```
+origin https://github.com/schacon/ticgit (fetch)
+origin https://github.com/schacon/ticgit (push)
+pb https://github.com/paulboone/ticgit (fetch)
+pb https://github.com/paulboone/ticgit (push)
+```
+Get the changes that Paul has:
+```
+$ git fetch pb
+```
+```
+remote: Counting objects: 43, done.
+remote: Compressing objects: 100% (36/36), done.
+remote: Total 43 (delta 10), reused 31 (delta 5)
+Unpacking objects: 100% (43/43), done.
+From https://github.com/paulboone/ticgit
+* [new branch] master -> pb/master
+* [new branch] ticgit -> pb/ticgit
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
