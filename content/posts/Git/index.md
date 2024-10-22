@@ -468,6 +468,7 @@ view status:
 ```
 $ git remote -v
 ```
+```
 origin https://github.com/schacon/ticgit (fetch)
 origin https://github.com/schacon/ticgit (push)
 pb https://github.com/paulboone/ticgit (fetch)
@@ -487,8 +488,442 @@ From https://github.com/paulboone/ticgit
 * [new branch] ticgit -> pb/ticgit
 ```
 
+### Git Fetch
+
+Getting changes from a remote repository - Fetch and Pull:
+```
+$ git fetch [remote-name])
+```
+Send changes to the remote repository (Push):
+```
+$ git push origin master
+```
+View remote repository:
+```
+$ git remote show origin
+```
+```
+* remote origin
+Fetch URL: https://github.com/schacon/ticgit
+Push URL: https://github.com/schacon/ticgit
+HEAD branch: master
+Remote branches:
+master                        tracked
+dev-branch                    tracked
+Local branch configured for 'git pull':
+   master merges with remote master
+Local ref configured for 'git push':
+   gmaster pushes to master (up to date)
+```
+
+### Git rename repository
+
+Delete and rename remote repositories:
+```
+$ git remote rename pb paul
+```
+```
+$ git remote
+```
+```
+origin
+paul
+```
+Remove a deleted repository:
+```
+$ git remote remove paul
+```
+View Status:
+```
+$ git remote
+```
+```
+origin
+```
+
+### Git Tag
+
+View tag list:
+```
+$ git tag
+```
+```
+v1.0
+v2.0
+```
+Searching for a tag by pattern:
+```
+$ git tag -l ‘v1.8.5*’
+```
+```
+v1.8.5
+v1.8.5-rc0
+v1.8.5-rc1
+```
+Creating tags with annotation:
+```
+$ git tag -a v1.4 -m "my version 1.4"
+```
+View tag:
+```
+$ git tag
+```
+```
+v0.1
+v1.3
+v1.4
+````
+View tag information:
+```
+$ git show v1.4
+```
+```
+tag v1.4
+Tagger: Ben Straub <ben@straub.cc>
+Date: Sat May 3 20:19:12 2014 -0700
+my version 1.4
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon <schacon@gee-mail.com>
+Date: Mon Mar 17 21:52:11 2008 -0700
+    Change version number
+```
+Creating a lightweight tag:
+```
+$ git tag v1.4-lw
+```
+View tags
+```
+$ git tag
+```
+```
+v0.1
+v1.3
+v1.4
+v1.4-lw
+```
+Deferred tagging:
+```
+$ git log --pretty=oneline
+```
+```
+15027957951b64cf874c3557a0f3547bd83b3b3ff6 Merge branch ‘experiment’
+a6b4c97498bd301d84096da251c98a07c7723e65 Create write support
+0d52aaab4479697da7686c15f77a3d64d9165190 One more thing
+```
+Commit tag:
+```
+$ git tag -a v1.2 9fceb02
+```
+#### Tag Exchange:
+```
+$ git push origin v1.5
+```
+```
+Object count: 14, done.
+Delta compression using up to 8 threads.
+Object compression: 100% (12/12), done.
+Recording objects: 100% (14/14), 2.05 KiB | 0 bytes/sec, done.
+Total 14 (delta 3), reused 0 (delta 0)
+From git@github.com:schacon/simplegit.git
+* [new tag]               v1.5 -> v1.5
+Send to remote server:
+```
+```
+$ git push origin --tags
+```
+```
+Object count: 1, done.
+Recording objects: 100% (1/1), 160 bytes | 0 bytes/sec, done.
+Total 1 (delta 0), reused 0 (delta 0)
+From git@github.com:schacon/simplegit.git
+* [new tag]             v1.4 -> v1.4
+* [new tag]             v1.4-lw -> v1.4-lw
+```
+#### Tag delete:
+```
+$ git tag -d v1.4-lw
+```
+```
+Removed tag ‘v1.4-lw’ (was e7d5add)
+```
+Remove tag on external resource:
+```
+$ git push origin :refs/tags/v1.4-lw # 1 method
+```
+```
+$ git push origin --delete <tagname> # 2nd way
+```
+#### Tag checkout:
+```
+$ git checkout v2.0.0.
+```
+```
+Note: switching to 'v2.0.0'.
+Example:
+git switch -c <new-branch-name>
+Or undo this operation with:
+git switch -
+```
+```
+$ git checkout v2.0-beta-0.1
+```
+```
+Previous HEAD position was 99ada87... Merge pull request #89 from
+schacon/appendix-final
+HEAD is now at df3f601... Add atlas.json and cover image
+```
+
+### Tag Alies
+Example aliases:
+```
+$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+```
+Exclude the file from the index:
+```
+$ git config --global alias.unstage ‘reset HEAD --’
+```
+Equivalent to:
+```
+$ git unstage fileA
+```
+```
+$ git reset HEAD -- fileA
+```
+With the addition of last:
+```
+$ git config --global alias.last ‘log -1 HEAD’
+```
+View last commit:
+```
+$ git last
+```
+```
+commit 66938dae3329c7aebe598c2246a8e6af90d04646
+```
+
+### About branching 
+
+Suppose you have a catalogue with three files, and you
+add them all to the index and create a commit
+```
+$ git add README test.rb LICENSE
+```
+```
+$ git commit -m 'Initial commit
+```
+![git10](images/git10.webp)
 
 
+### Creating a new branch
+
+A new branch is created by the command:
+
+```
+$ git branch testing
+```
+You can easily see this with a simple git log, which will show you where the branch pointers are pointing. This
+option is called --decorate.
+```
+$ git log --oneline --decorate
+```
+```
+f30ab (HEAD -> master, testing) Add feature #32 - ability to
+add new formats to the central interface
+34ac2 Fix bug #1328 - stack overflow under certain conditions
+98ca9 Initial commit
+```
+![git11](images/git11.webp)
+
+
+
+
+
+
+### Switching branches
+
+To switch to an existing branch, run the git checkout command:
+```
+$ git checkout testing
+```
+Let's do one more commit:
+```
+$ git commit -a -m 'made a change'
+```
+![git12](images/git12.webp)
+
+### Branching basics
+Create a new branch and switch to it with the git checkout command with the
+`-b` parameter:
+```
+$ git checkout -b iss53
+```
+```
+Switched to a new branch "iss53"
+```
+Commit:
+```
+$ vim index.html
+```
+```
+$ git commit -a -m ‘Create new footer [issue 53]’
+```
+![git13](images/git13.webp)
+
+![git14](images/git14.webp)
+
+Now suppose you have committed all your changes and can
+switch to the master branch:
+```
+$ git checkout master
+```
+```
+Switched to branch 'master'
+```
+Create a new branch:
+```
+$ git checkout -b hotfix
+```
+```
+Switched to a new branch 'hotfix'
+```
+
+```
+$ git commit -a -m 'Fix broken email address'
+```
+```
+[hotfix 1fb7853] Fix broken email address
+1 file changed, 2 insertions(+)
+```
+![git15](images/git15.webp)
+
+### Merge Basics
+To merge a branch, you need to switch to the branch to which you
+you want to include changes to, and run the git merge command:
+```
+$ git checkout master
+```
+```
+Switched to branch 'master'
+```
+```
+$ git merge iss53
+```
+```
+Merge made by the 'recursive' strategy.
+index.html | 1 +
+1 file changed, 1 insertion(+)
+```
+![git16](images/git16.webp)
+
+#### The Basic conflicts of the merger
+
+Sometimes the merger process doesn't go smoothly:
+
+```
+$ git merge iss53
+```
+```
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+```
+Special markers are added:
+```
+<<<<<<< HEAD:index.html
+<div id="footer">contact : email.support@github.com</div>
+=======
+<div id="footer">
+please contact us at support@github.com
+</div>
+>>>>>>> iss53:index.html
+```
+
+### Deleted branches
+
+Deleted links are links (pointers) in your deleted
+repositories, including branches, tags, and so on. A complete list of
+of remote links can be obtained by using the `git lsremote <remote>` command or the `git remote show <remote>` command to retrieve remote branches and information.to get deleted branches and more information
+
+![git17](images/git17.webp)
+
+If you do something in your local master branch, and in the meantime someone sends the changes to the git.ourcompany.com server and
+Meanwhile, someone sends the changes to the git.ourcompany.com server and
+update the master branch there, your stories will continue in different ways.
+As long as you don't contact the origin server, your origin/master pointer
+pointer will remain in place.
+
+![git18](images/git18.webp)
+
+To synchronise your changes with the remote server, run the
+`git fetch <remote>` command (in our case git fetch origin). This command
+determines which server ‘origin’ corresponds to (in our case it is
+git.ourcompany.com), fetches data from there that you don't already have, and
+updates the local database by shifting the origin/master pointer to a new
+position.
+
+### Sending changes
+
+If you have a `serverfix` branch that you want someone else to work on.
+you can submit it the same way you submitted your first branch.
+branch. Run the `git push <remote> <branch>` command:
+
+```
+$ git push origin serverfix
+```
+```
+Counting objects: 24, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (24/24), 1.91 KiB | 0 bytes/s, done.
+Total 24 (delta 2), reused 0 (delta 0)
+To https://github.com/schacon/simplegit
+* [new branch] serverfix -> serverfix
+```
+### Tracking branches
+
+Tracking branches are local branches that are directly connected to a
+a remote branch. If you perform a git pull while on a tracking branch, git will already know which server to pull data from and which branch to pull from.
+Git will already know which server to pull data from and which branch to use for merging.
+```
+$ git push origin serverfix
+```
+```
+Counting objects: 24, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (24/24), 1.91 KiB | 0 bytes/s, done.
+Total 24 (delta 2), reused 0 (delta 0)
+To https://github.com/schacon/simplegit
+* [new branch] serverfix -> serverfix
+```
+### Fetching changes
+
+The `git fetch` command fetches any changes from the server that you don't already have.
+but will not change the state of your working copy. This command
+just fetches the data and allows you to do the merge yourself.
+merge. However, there is a `git pull` command, which is in most cases
+most of the time is the `git fetch` command, which is followed
+directly followed by the git merge command.
+
+### Git Tools
+
+
+
+
+
+
+
+<br>
+
+
+
+
+
+
+</br>
 
 
 
