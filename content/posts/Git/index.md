@@ -1181,6 +1181,14 @@ Recovery:
 $ git revert -m 1 HEAD
 ```
 
+![git21](images/git21.webp)
+
+![git22](images/git22.webp)
+
+![git23](images/git23.webp)
+
+
+
 
 ### Credential storage
 Git out-of-the-box has several options:
