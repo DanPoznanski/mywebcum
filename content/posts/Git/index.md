@@ -1148,6 +1148,59 @@ $ git status -sb
 ```
 ## master
 ```
+### Using checkout in conflicts
+
+Let's look at the reason for the conflict:
+```
+$ git log --graph --oneline --decorate --all
+```
+```
+* f1270f7 (HEAD, master) Update README
+* 9af9d3b Create README
+* 694971d Update phrase to 'hola world'
+| * e3eb223 (mundo) Add more tests
+| * 7cff591 Create initial testing script
+| * c3ffff1 Change text to 'hello mundo'
+|/
+* b7dcc89 Initial hello world code
+```
+Checkout:
+```
+$ git checkout --conflict=diff3 hello.rb
+```
+Use it as default for future merge conflicts:
+```
+$ git config --global merge.conflictstyle diff3
+```
+
+
+### Undo commit 
+
+Recovery:
+```
+$ git revert -m 1 HEAD
+```
+
+
+### Credential storage
+Git out-of-the-box has several options:
+
+- By default, Git does not cache credentials at all. Each
+connection will ask you for your username and password.
+
+- In “cache” mode, the credentials are stored in memory for a
+for a certain period of time.
+
+- In “store” mode, the credentials are stored indefinitely in an open file on a disk.
+for an indefinite period of time in an open file on disk.
+
+- In case you're using a Mac, Git has an “osxkeychain” mode,
+which stores credentials in a secure
+storage tied to your system account.
+
+- In case you are using Windows, you can install a
+a helper called “Git Credential Manager for Windows”. 
+
 
 
 
