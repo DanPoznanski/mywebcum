@@ -1023,6 +1023,39 @@ $ git clean -d -n
 Would remove test.o
 Would remove tmp/
 ```
+
+
+### Search the Git log
+For example, if you want to find when the constant
+`ZLIB_BUF_MAX`, you can use the `-S` option to ask Git to
+only show commits in which this string was added or removed.
+this string.
+
+```
+$ git log -S ZLIB_BUF_MAX --oneline
+```
+```
+e01503b zlib: allow feeding more than 4GB in one go
+ef49a7a zlib: zlib can only process 4GB at a time
+```
+
+### Change last commit
+```
+$ git commit --amend
+```
+
+
+### Deleting a commit
+
+If you want to get rid of a commit, you can remove it during `rebase -i`.
+during the rebase -i interactive rebase. Type the word
+“drop” in front of the commit you want to remove, or simply remove it
+from the list:
+```
+pick 461cb2a This commit is OK
+drop 5aecc10 This commit is broken
+```
+
 <br>
 
 
