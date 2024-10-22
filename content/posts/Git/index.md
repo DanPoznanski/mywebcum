@@ -911,11 +911,118 @@ directly followed by the git merge command.
 ### Git Tools
 
 
+#### Revision Selection
+```
+$ git log
+```
+```
+commit 734713bc047d87bf7eac9674765ae793478c50d3
+Author: Scott Chacon <schacon@gmail.com>
+Date:   Fri Jan 2 18:32:33 2009 -0800
+
+    Fix refs handling, add gc auto, update tests
+
+commit d921970aadf03b3cf0e71becdaab3147ba71cdef
+Merge: 1c002dd... 35cfb2b...
+Author: Scott Chacon <schacon@gmail.com>
+Date:   Thu Dec 11 15:08:43 2008 -0800
+
+    Merge commit 'phedders/rdocs'
+
+commit 1c002dd4b536e7479fe34593e72e6c6c1819e53b
+Author: Scott Chacon <schacon@gmail.com>
+Date:   Thu Dec 11 14:58:32 2008 -0800
+
+    Add some blame and merge stuff
+```
+In this case, say you’re interested in the commit whose hash begins with `1c002dd…​`. You can inspect that commit with any of the following variations of `git show` (assuming the shorter versions are unambiguous):
+```
+$ git show 1c002dd4b536e7479fe34593e72e6c6c1819e53b
+$ git show 1c002dd4b536e7479f
+$ git show 1c002d
+```
+
+#### Branch References
+One straightforward way to refer to a particular commit is if it’s the commit at the tip of a branch; in that case, you can simply use the branch name in any Git command that expects a reference to a commit. For instance, if you want to examine the last commit object on a branch, the following commands are equivalent, assuming that the `topic1` branch points to commit `ca82a6d`…​
+```
+$ git show ca82a6dff817ec66f44342007202690a93763949
+$ git show topic1
+```
+View the SHA-1 of the object pointed to by the branch:
+```
+$ git rev-parse topic1
+ca82a6dff817ec66f44342007202690a93763949
+```
+
+### Git Stashing and Cleaning
+
+The stash operation takes the changed state of your working directory, that is, changed tracked files and indexed changes,
+and saves them to the pending changes repository, which you can apply back at any time.
+```
+$ git stash
+```
+```
+Saved working directory and index state \
+"WIP on master: 049d078 Create index file"
+HEAD is now at 049d078 Create index file
+(To restore them type "git stash apply")
+```
+To see a list of stashed changes, you can use `git stash list`:
+```
+$ git stash list
+```
+```
+stash@{0}: WIP on master: 049d078 Create index file
+stash@{1}: WIP on master: c264051 Revert "Add file_size"
+stash@{2}: WIP on master: 21d80a5 Add number to log
+```
+ To apply the changes you just stashed, you need to use the
+the command specified in the output of the original command: `git stash apply`.
+
+### Creating a branch from stashed changes
+
+```
+$ git stash branch testchanges
+```
+```
+M index.html
+M lib/simplegit.rb
+Switched to a new branch 'testchanges'
+On branch testchanges
+Changes to be committed:
+(use "git reset HEAD <file>..." to unstage)
+modified: index.html
+Changes not staged for commit:
+(use "git add <file>..." to update what will be committed)
+(use "git checkout -- <file>..." to discard changes in working directory)
+modified: lib/simplegit.rb
+Dropped refs/stash@{0} (29d385a81d163dfd45a452a2ce816487a6b8b014)
+```
+
+### Cleaning up the working directory
 
 
+Clearing the working directory of some changes and files:
+```
+git clean
+```
+A safer option is to use the command:
+```
+git stash --all
+```
 
-
-
+To delete all untraceable files in the working directory
+```
+git clean -f -d
+```
+To see what will be done, you need to run the command with the `-n` option
+```
+$ git clean -d -n
+```
+```
+Would remove test.o
+Would remove tmp/
+```
 <br>
 
 
