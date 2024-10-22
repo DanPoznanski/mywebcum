@@ -1056,6 +1056,108 @@ pick 461cb2a This commit is OK
 drop 5aecc10 This commit is broken
 ```
 
+### Merge Conflicts
+
+```
+$ git checkout -b whitespace
+```
+```
+Switched to a new branch 'whitespace'
+```
+```
+$ unix2dos hello.rb
+```
+```
+unix2dos: converting file hello.rb to DOS format ...
+```
+```
+$ git commit -am 'Convert hello.rb to DOS'
+```
+```
+[whitespace 3270f76] Convert hello.rb to DOS
+1 file changed, 7 insertions(+), 7 deletions(-)
+```
+```
+$ git diff -b
+```
+```
+diff --git a/hello.rb b/hello.rb
+index ac51efd..e85207e 100755
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,7 +1,7 @@
+- puts 'hello world'
++ puts 'hello mundo'^M
+end
+```
+```
+$ git commit -am 'Use Spanish instead of English'
+```
+```
+[whitespace 6d338d2] Use Spanish instead of English
+1 file changed, 1 insertion(+), 1 deletion(-)
+```
+```
+$ git checkout master
+```
+```
+Switched to branch 'master'
+```
+```
+$ git diff
+```
+```
+diff --git a/hello.rb b/hello.rb
+index ac51efd..36c06c8 100755
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,5 +1,6 @@
+#! /usr/bin/env ruby
++# prints out a greeting
+def hello
+puts 'hello world'
+end
+```
+```
+$ git commit -am 'Add comment documenting the function'
+```
+```
+[master bec6336] Add comment documenting the function
+1 file changed, 1 insertion(+)
+$ git merge whitespace
+Auto-merging hello.rb
+CONFLICT (content): Merge conflict in hello.rb
+Automatic merge failed; fix conflicts and then commit the result.
+```
+#### Canceling a merge attempt
+
+Option to resolve merge conflict:
+```
+$ git status -sb
+```
+```
+## master
+UU hello.rb
+```
+```
+$ git merge --abort
+```
+```
+$ git status -sb
+```
+```
+## master
+```
+
+
+
+
+
+
+
+
+
+
 <br>
 
 
