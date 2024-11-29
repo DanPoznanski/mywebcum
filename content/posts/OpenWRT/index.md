@@ -12,14 +12,29 @@ showTableOfContents: true
 
 ![img](images/OpenWrt_Logo.svg)
 
+&nbsp;
+&nbsp;
 
-
+&nbsp;
+&nbsp;
 
 ## BRI-R3 Mini
 
 https://wiki.banana-pi.org/Getting_Started_with_BPI-R3_MINI
 
 https://downloads.openwrt.org/snapshots/targets/mediatek/filogic/
+
+https://firmware-selector.openwrt.org/?version=SNAPSHOT&target=mediatek%2Ffilogic&id=bananapi_bpi-r3-mini
+
+https://openwrt.org/toh/sinovoip/bananapi_bpi_r3_mini?s[]=bananapi&s[]=bpi&s[]=r3&s[]=mini
+
+
+&nbsp;
+&nbsp;
+
+&nbsp;
+&nbsp;
+
 
 ### Unbrick Nand from Emmc U-Boot
 
@@ -65,6 +80,14 @@ nand write $loadaddr 0 0x8000000
 ```
 switch to nand
 
+&nbsp;
+&nbsp;
+
+&nbsp;
+&nbsp;
+
+&nbsp;
+&nbsp;
 
 ### Immortalwrt on Emmc from nand Terminal
 
@@ -78,7 +101,7 @@ mount -t vfat /dev/sda1 /mnt
 ```
 go to directory
 ```
-cd mnt
+cd /mnt/sda1
 ```
 Write new GPT table
 ```
@@ -215,4 +238,10 @@ stop() {
 help for me:
 ```
 dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-squashfs-sysupgrade.itb of=/dev/mmcblk0p5 bs=512 conv=fsync
+```
+
+### Immortalwrt all package
+
+```
+https://downloads.immortalwrt.org/releases/packages-23.05/powerpc_464fp/luci/Packages.manifest
 ```
