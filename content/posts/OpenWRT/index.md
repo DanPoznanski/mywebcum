@@ -165,33 +165,42 @@ fdisk -l /dev/mmcblk0p4
 
 ### fan
 
-Вот как удалось решить вопрос с вентилятором. Закидываем а init.d, делаем файл исполняемым. /etc/init.d/script enable
 
+autorun
+```
+/etc/init.d/script enable
+```
+
+start script
+```
 /etc/init.d/script start
+```
+
 
 ```
 #!/bin/sh /etc/rc.common
 
-# Имя скрипта
+# fan scripts
 START=99
 STOP=10
 
-# Указываем путь к файлу с температурой
+# way to file with temp
 TEMP_FILE="/sys/class/thermal/thermal_zone0/temp"
 
-# Указываем путь к контроллеру вентилятора
+# way to controller fan
 FAN_PWM="/sys/class/hwmon/hwmon1/pwm1"
 
-# Храним последнюю команду для вентилятора
+# way to save to fan
 LAST_CMD=""
 
-# Функция log_message теперь пустая
+# function log_message
 log_message() {
     :
 }
 
 start() {
-    # Проверяем наличие TEMP_FILE и FAN_PWM
+    # check  TEMP_FILE and FAN_PWM
+
     if [ ! -f $TEMP_FILE ]; then
         log_message "Error: TEMP_FILE not found at $TEMP_FILE"
         return 1
@@ -202,29 +211,28 @@ start() {
         return 1
     fi
 
-    # Фоновый процесс для контроля температуры
+    # background for controller
     (
         while true; do
-            # Читаем температуру в миллиградусах (например, 45000 = 45°C)
+            # Read temp in militemps ( example 45000 = 45 C)
             TEMP=$(cat $TEMP_FILE)
-            TEMP_C=$((TEMP / 1000))  # Преобразуем температуру в градусы
+            TEMP_C=$((TEMP / 1000))  # convert the temperature to degrees
 
-            # Определяем команду для вентилятора в зависимости от температуры
+            # determine the command for the fan depending on the temp
             if [ $TEMP_C -lt 55 ]; then
-                CMD="130"  # Вентилятор выключен
+                CMD="130"  # fan off
             elif [ $TEMP_C -ge 55 ] && [ $TEMP_C -lt 65 ]; then
-                CMD="70"   # Вентилятор работает на средней скорости
+                CMD="70"   # fan normal speed
             else
-                CMD="20"   # Вентилятор работает на максимальной скорости
+                CMD="20"   # max fan speed
             fi
-
-            # Если команда изменилась, отправляем её на вентилятор
+            # when command change fan speed
             if [ "$CMD" != "$LAST_CMD" ]; then
                 echo $CMD > $FAN_PWM
                 LAST_CMD=$CMD
             fi
 
-            sleep 15  # Задержка в 15 секунд перед следующей проверкой
+            sleep 15  # delay 15 second
         done
     ) &
 }
@@ -235,6 +243,7 @@ stop() {
 
 ```
 
+
 help for me:
 ```
 dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-squashfs-sysupgrade.itb of=/dev/mmcblk0p5 bs=512 conv=fsync
@@ -244,4 +253,10 @@ dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-squashfs-sysupgrade.itb 
 
 ```
 https://downloads.immortalwrt.org/releases/packages-23.05/powerpc_464fp/luci/Packages.manifest
+```
+
+
+```
+autocore base-files block-mount bridger busybox ca-bundle default-settings-chn dnsmasq-full dropbear firewall4 fstools kmod-hwmon-pwmfan kmod-crypto-hw-safexcel kmod-gpio-button-hotplug kmod-leds-gpio kmod-mt7915e kmod-mt7986-firmware kmod-nft-offload libustream-mbedtls kmod-nf-nathelper kmod-nf-nathelper-extra kmod-nft-offload kmod-phy-aquantia kmod-phy-airoha-en8811h libc libgcc libustream-openssl logd luci luci-app-opkg luci-compat luci-lib-base luci-lib-ipkg mt7986-wo-firmware kmod-usb3 mtd netifd nftables odhcp6c odhcpd-ipv6only luci-i18n-firewall-zh-cn luci-i18n-ddns-zh-cn openssl-util wget-ssl kmod-bonding proto-bonding luci-proto-bonding kmod-wireguard wireguard-tools luci-proto-wireguard mkf2fs airoha-en8811h-firmware apk-openssl kmod-usb-net-cdc-mbim libmbim luci-proto-mbim umbim umbim kmod-usb-net-qmi-wwan libqmi luci-proto-qmi uqmi modemmanager luci-proto-modemmanager luci luci-base luci-i18n-base-ru luci-i18n-firewall-ru luci-i18n-package-manager-ru kmod-usb-net-qmi-wwan kmod-usb-serial-qualcomm kmod-usb-storage kmod-usb-serial kmod-usb-serial-option mc mmc-utils libmountl libmount1 kmod-mtd-rw nano minicom mbim-utils qmi-utils wget-ssl apk luci-compat luci-i18n-3ginfo-lite-ru uci
+
 ```
