@@ -93,3 +93,8 @@ dsregcmd /status
 ```
 net user administrator *
 ```
+
+### Windows 11 bypass 
+```
+oobe\bypassnro
+```

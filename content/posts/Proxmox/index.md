@@ -214,6 +214,40 @@ qm migrate 101 --online pve2 --with-local-disks
 # PermitRootLogin yes
 PermitRootLogin without-password
 ```
+### Repository non-subscription
+
+![img1](images/1.png)
 
 
+![img2](images/2.png)
+
+### Notifications
+
+![img3](images/3.png)
+
+### Trusted TLS Certifications Requirements
+
+
+
+### Windows VirtIO Drivers
+
+after install windows need install `virtio.iso` last versions:
 ```
+https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/?C=M;O=D
+```
+
+
+### Ventoy Install of Proxmox 8.1 halts at "Loading initial ramdisk"
+
+I ran into the exact same problem.
+(installed `proxmox-ve_8.1-2.iso` using `ventoy-1.0.97-linux.tar.gz`)
+
+The file `/etc/default/grub.d/installer.cfg` introduces the `rdinit=/vtoy/vtoy` option:
+```
+GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX    rdinit=/vtoy/vtoy"
+```
+In order to remove the vtoy grub leftovers permanently, change it to:
+```
+GRUB_CMDLINE_LINUX="$GRUB_CMDLINE_LINUX"
+```
+Then run `update-grub` and reboot.
