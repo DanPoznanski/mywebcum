@@ -20,6 +20,6 @@ First i need change on server dns on localhost
 ![img2](images/2.png)
 
 
-after change the name of server 
+After change the name of server and restart
 
 ![img3](images/3.png)
