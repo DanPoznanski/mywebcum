@@ -113,4 +113,16 @@ Next
 Next
 ![img30](images/30.png)
 
+Finish
 ![img31](images/31.png)
+
+Done!
+![img32](images/32.png)
+
+### Create AD User
+
+Tools > Active Directory Users and Computers
+![img33](images/33.png)
+
+Users > New > Users
+![img34](images/34.png)
