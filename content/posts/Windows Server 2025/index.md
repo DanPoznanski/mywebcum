@@ -62,5 +62,9 @@ Promote this server to a domain controller
 dan.local name of my dc 
 ![img15](images/15.png)
 
-
+Next
 ![img16](images/16.png)
+
+Next
+![img17](images/17.png)
+
