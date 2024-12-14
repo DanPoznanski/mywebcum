@@ -82,3 +82,23 @@ Install
 
 Wait
 ![img22](images/22.png)
+
+Done !
+
+### DNS Reverse IP
+
+![img23](images/23.png)
+
+
+DNS > Reverse Lookup Zone > New Zone
+
+![img24](images/24.png)
+
+Next
+![img25](images/25.png)
+
+Next
+![img26](images/26.png)
+
+Next
+![img27](images/27.png)
