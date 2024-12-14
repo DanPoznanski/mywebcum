@@ -40,3 +40,20 @@ Next
 
 Next 
 ![img8](images/8.png)
+
+Next
+![img9](images/9.png)
+
+Next
+![img10](images/10.png)
+
+Next 
+![img11](images/11.png)
+
+Install
+![img12](images/12.png)
+
+Wait
+![img13](images/13.png)
+
+![img14](images/14.png)
