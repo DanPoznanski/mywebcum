@@ -126,3 +126,26 @@ Tools > Active Directory Users and Computers
 
 Users > New > Users
 ![img34](images/34.png)
+
+Next
+![img35](images/35.png)
+
+Next
+![img36](images/36.png)
+
+Finish
+![img37](images/37.png)
+
+Done
+![img38](images/38.png)
+
+
+### Connect User to Domain Windows 11
+
+![img39](images/39.png)
+
+dns of dc (dont forget disable dnsv6)
+![img40](images/40.png)
+
+
+![img41](images/41.png)
