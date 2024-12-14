@@ -80,5 +80,5 @@ Next
 Install
 ![img21](images/21.png)
 
-Next
+Wait
 ![img22](images/22.png)
