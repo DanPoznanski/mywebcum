@@ -23,3 +23,17 @@ First i need change on server dns on localhost
 After change the name of server and restart
 
 ![img3](images/3.png)
+
+
+## Add DC 
+
+![img4](images/4.png)
+
+Next
+![img5](images/5.png)
+
+Next
+![img6](images/6.png)
+
+Next
+![img7](images/7.png)
