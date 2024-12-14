@@ -70,3 +70,15 @@ Next
 
 Next 
 ![img18](images/18.png)
+
+Next
+![img19](images/19.png)
+
+Next
+![img20](images/20.png)
+
+Install
+![img21](images/21.png)
+
+Next
+![img22](images/22.png)
