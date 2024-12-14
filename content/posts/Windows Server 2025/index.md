@@ -56,4 +56,11 @@ Install
 Wait
 ![img13](images/13.png)
 
+Promote this server to a domain controller
 ![img14](images/14.png)
+
+dan.local name of my dc 
+![img15](images/15.png)
+
+
+![img16](images/16.png)
