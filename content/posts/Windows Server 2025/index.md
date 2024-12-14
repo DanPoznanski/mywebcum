@@ -144,8 +144,12 @@ Done
 
 ![img39](images/39.png)
 
-dns of dc (dont forget disable dnsv6)
+dns of dc (dont forget disable DNSv6)
 ![img40](images/40.png)
 
-
+user/password > restart
 ![img41](images/41.png)
+
+### Show all AD Computers & Users 
+
+![img42](images/42.png)
