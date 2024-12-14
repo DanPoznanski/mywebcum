@@ -104,5 +104,13 @@ Next
 ![img27](images/27.png)
 
 
-Enter Zone IP my its 192.168.1
+Enter Zone IP my its `192.168.1`
 ![img28](images/28.png)
+
+Next
+![img29](images/29.png)
+
+Next
+![img30](images/30.png)
+
+![img31](images/31.png)
