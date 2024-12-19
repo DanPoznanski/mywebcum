@@ -153,3 +153,29 @@ user/password > restart
 ### Show all AD Computers & Users 
 
 ![img42](images/42.png)
+
+
+
+
+### GPO
+
+Shortcuts
+
+Tools > Group Policy Management
+![img43](images/43.png)
+
+Group Policy Management > Forest > Domain > dan.local > Default Domain Policy > Edit 
+![img44](images/44.png)
+
+User Configuration > Preferences > Windows Settings > Shortcuts > New > Shortcut 
+![img45](images/45.png)
+
+Fill in all fields from > OK
+![img46](images/46.png)
+
+
+for update group policy now open `cmd` and write command:
+```
+gpupdate /force
+````
+![img47](images/47.png)
