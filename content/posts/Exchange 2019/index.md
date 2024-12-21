@@ -8,7 +8,7 @@ tags: ["Windows Server"]
 showTableOfContents: true
 --- 
 
-## Add New User to AD 
+## Add New User to AD for Exchange
 
 1. Tools > Active Directory Users and Computers
 ![img1](images/1.png)
@@ -108,8 +108,7 @@ cd f:
 
 ### DC sync 
 
-if you have many dc servers you need sync 
-
+if you have many DC servers you need sync  
 ```
 repadmin /syncall 
 ```
@@ -134,17 +133,19 @@ its my site domain `641514.cc` for other domain add command :
 
 ### Back to DC 
 
-you can see change
+1. you can see change:
 ![img18](images/18.png)
 
-resync now 
+2. resync now 
 ```
 repadmin /syncall 
 ```
 ![img16](images/16.png)
 
 
-### Back to Exchange Server
+### Install ISO
+
+Back to Exchange Server and Install iso 
 
 now i can run `setup.exe` > Next :
 ![img19](images/19.png)
@@ -167,9 +168,117 @@ now i can run `setup.exe` > Next :
 
 ![img29](images/29.png)
 
+Error its OK (i dont have connect to internet)
 ![img30](images/30.png)
+Done
+![img31](images/31.png)
+
+Now test if all ok
+![img32](images/32.png)
+
+all ok "true"
+![img33](images/33.png)
 
 
+## On DC Add DNS Records
+
+1. DNS > Server > Forward Lookup Zones > dan.local > New Hosts (A or AAAA) > Add `192.168.1.169` (IP Exchange server) > Add Host
+![img34](images/34.png)
+
+2. Add autodiscover for Outlook 
+![img35](images/35.png)
+
+3. DNS > Server > Forward Lookup Zones > dan.local > _tcp > Other New Records > SRV > Create Record
+![img36](images/36.png)
+
+4. Service: `_autodiscover` > Protocol: `_tcp` > Port `443` > Host `mail.dan.local` > Done
+![img37](images/37.png)
+5. Done
+![img38](images/38.png)
+
+6. Need Add MX record: 
+![img39](images/39.png)
 
 
+### Login on Web Admin Exchange Center
 
+1. Open web browser and write
+```
+https://mail.dan.local/ecp
+```
+2. login with exchange account:
+![img40](images/40.png)
+
+3. Set time:
+![img41](images/41.png)
+
+4. Now Need Create address mail policies:
+![img42](images/42.png)
+
+5. mailflow > email address policies > +
+![img43](images/43.png)
+
+6. Click on plus 
+![img44](images/44.png)
+
+7. Select your fotmat and click on Save
+![img45](images/45.png)
+
+8. Give to police name `local` and click Save 
+![img46](images/46.png)
+
+9. Warning say i need apply police
+![img47](images/47.png)
+
+10. Apply police 
+![img48](images/48.png)
+
+11. Done
+![img49](images/49.png)
+
+
+### Move the DB to another disk 
+
+1. First i need create folders `DB` after in folder `LOGS`, `EDB`
+![img50](images/50.png)
+
+2. First I need unmount database
+![img51](images/51.png)
+
+3. Dismount it
+![img52](images/52.png)
+
+4. Done
+![img53](images/53.png)
+
+5. Open Exchange Management Shell > write `Get-MailboxDatabase`
+![img54](images/54.png)
+
+6. Move database to disk d:
+```
+Move-DatabasePath -Identity DB -EdbFilePath d:\DB\EDB\db01.edb -LogFolderPath d:\DB\LOGS
+```
+![img55](images/55.png)
+
+Key for EX2019
+```
+YCQY7-BNTF6-R337H-69FGX-P39TY
+```
+7. Watch if all OK
+![img56](images/56.png)
+
+8. Now Mount and Done
+![img57](images/57.png)
+
+
+### Add Mail to AD User 
+
+1. recipients > + > Alies: `test` > Browser > Save
+![img58](images/58.png)
+
+2. Go to Outlook and send  
+```
+https://mail.dan.local/owa
+```
+Test to send messege , all ok 
+![img59](images/59.png)
