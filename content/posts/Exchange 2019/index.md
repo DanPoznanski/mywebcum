@@ -260,10 +260,7 @@ Move-DatabasePath -Identity DB -EdbFilePath d:\DB\EDB\db01.edb -LogFolderPath d:
 ```
 ![img55](images/55.png)
 
-Key for EX2019
-```
-YCQY7-BNTF6-R337H-69FGX-P39TY
-```
+
 7. Watch if all OK
 ![img56](images/56.png)
 
@@ -271,7 +268,7 @@ YCQY7-BNTF6-R337H-69FGX-P39TY
 ![img57](images/57.png)
 
 
-### Add Mail to AD User 
+### Add User Mail to AD User 
 
 1. recipients > + > Alies: `test` > Browser > Save
 ![img58](images/58.png)
@@ -280,5 +277,35 @@ YCQY7-BNTF6-R337H-69FGX-P39TY
 ```
 https://mail.dan.local/owa
 ```
-Test to send messege , all ok 
+Test send messege to check if all ok 
 ![img59](images/59.png)
+
+
+### Sender Agent and External Site
+
+![img60](images/60.png)
+
+![img61](images/61.png)
+
+![img62](images/62.png)
+
+![img63](images/63.png)
+
+![img64](images/64.png)
+
+![img65](images/65.png)
+
+![img6](images/66.png)
+
+
+
+test mail 
+```
+https://www.mail-tester.com/
+```
+
+
+Key for EX2019
+```
+YCQY7-BNTF6-R337H-69FGX-P39TY
+```
