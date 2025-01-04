@@ -281,21 +281,87 @@ Test send messege to check if all ok
 ![img59](images/59.png)
 
 
-### Sender Agent and External Site
+### Sender Agent
 
+Mail flow > + 
 ![img60](images/60.png)
 
+create for sender for my local domain
 ![img61](images/61.png)
 
+ choice mx record and next
 ![img62](images/62.png)
 
+press `+` and and choice smtp record
 ![img63](images/63.png)
 
+`*` for all domains
 ![img64](images/64.png)
 
+Next
 ![img65](images/65.png)
+Add server `+` 
+![img66](images/66.png)
 
-![img6](images/66.png)
+choice add `dan.local` and OK and Finish
+![img67](images/67.png)
+
+Done!
+![img68](images/68.png)
+
+
+ ## External Domain 
+
+ecp my external name his `641514.cc`
+![img69](images/69.png)
+
+ews my external name his `641514.cc`
+![img70](images/70.png)
+
+mapi my external name his `641514.cc`
+![img71](images/71.png)
+
+Active Sync my external mame his `641514.cc`
+![img72](images/72.png)
+
+OAB my external mame his `641514.cc`
+![img73](images/73.png)
+
+owa my external mame his `641514.cc`
+![img74](images/74.png)
+
+
+* ECP (Exchange Control Panel) — its web server for Administration Microsoft Exchange Server
+
+* EWS (Exchange Web Services) is a web service provided by Microsoft Exchange Server that allows applications to communicate with the Exchange server through a programmatic interface. EWS provides access to various Exchange features, including managing email, calendars, contacts, tasks, and other data.
+
+* MAPI (Messaging Application Programming Interface) is an application programming interface developed by Microsoft that allows client applications to exchange messages, interact with email, calendars, and other functions of servers such as Microsoft Exchange Server.
+
+* Exchange ActiveSync (EAS) is a synchronization protocol developed by Microsoft for accessing mail, calendars, contacts, tasks, and notes on mobile devices. It provides communication between a server (for example, Microsoft Exchange Server) and a client device (smartphone, tablet, or email client). EAS is the primary protocol for integrating Exchange with mobile devices.
+
+* OAB (Offline Address Book) is an offline address book used in Microsoft Exchange Server. OAB allows Microsoft Outlook users to work with their organization's address book without connecting to a server. This is especially useful when you are not connected to the Internet or in situations where you want to minimize the load on the Exchange server.
+
+* OWA (Outlook Web App) is a web application developed by Microsoft for accessing mail, calendar, contacts and tasks through a browser. OWA is a component of Microsoft Exchange Server that allows users to experience business email and other Exchange features without installing a client application such as Microsoft Outlook.
+
+### DNS
+
+|            |          |       IP       |
+| ----------- | ----------- | -------------- |
+|  A          | @ |  75.10.52.21   |
+| A  | ex | 75.10.52.21 |
+| MX | @ | ex.641514.cc |
+| TXT | @ | v=spf1 a mx ~all |
+| TXT | _dmarc | v=DMARC1; p=none |
+
+
+
+
+
+
+
+
+
+
 
 
 
