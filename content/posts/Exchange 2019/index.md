@@ -345,7 +345,7 @@ owa my external mame his `641514.cc`
 
 ### DNS
 
-|            |          |       IP       |
+|     Records       |          |       IP       |
 | ----------- | ----------- | -------------- |
 |  A          | @ |  75.10.52.21   |
 | A  | ex | 75.10.52.21 |
@@ -355,6 +355,90 @@ owa my external mame his `641514.cc`
 
 
 
+Spf
+
+
+v=spf1 ip:my_domain_ip mx ~all
+
+
+dkim 
+txt mail: domainkey mypublickey
+
+dmarc
+
+txt _dmarc v=DMARC1; p=quarantine; aspf=r; sp=none
+
+
+pop3 imap
+
+services > microsoft imap4 > autorun
+services > microsoft imap4 backend > autorun
+
+services > microsoft pop3 > autorun
+services > microsoft pop3 backend > autorun
+
+need create certificate
+
+ecp > servers > certificate > ssl cetificate doble click and services and v on imap pop and save
+
+
+
+
+Set-PopSettings -ExternalConnectionSettings "mail.641514.cc:995:SSL", "mail.641514.cc:110:SSL" -X509CertificateName 641514.cc
+
+Set-ImapSetting --ExternalConnectionSettings "mail.641514.cc:993:SSL", "mail.641514.cc:143:SSL" -X509CertificateName 641514.cc
+
+take x509 name from ecp certificate 
+
+restart pop3 and backend 
+restart imap and backend 
+
+
+router open ports 
+
+443,80,995,110,25,993,143
+
+
+mail flow > client frontend expc > scooping > FQDN : my external domain 
+
+
+
+
+Get-Exchangecertificate 
+
+copy thumpprint
+
+ewrewrwererwewerwer 
+
+smtp
+---------------
+Get-Exchangecertificate -Trumbprint #$@$#@@#$#@#$EWFEW
+
+$TLSCertName = "<I>$($TLSCert.Issuer)<S>$($TLSCert.Subject)"
+
+Get-ReceiveConnector -Identity "Client Frontend*" | Set-ReceiveConnector -TlsCertificateName $TLSCertName
+
+
+look cetificate
+Get-ReceiveConnector -Identity "Client Frontend*" | Format-List Name,Fqdn
+
+
+
+check enable pop and imap on outlook
+
+ecp > recipients > user > mailbox features > pop3 enabled 
+
+
+
+test 
+
+Test-ImapConnectivity -ClientAccessServer <ServerName> -Lightmode -MailboxCredential (Get-Credential)
+
+Test-PopConnectivity -ClientAccessServer <ServerName> -Lightmode -MailboxCredential (Get-Credential)
+
+
+
+https://testconnectivity.microsoft.com/
 
 
 
@@ -362,8 +446,23 @@ owa my external mame his `641514.cc`
 
 
 
+outlook for anywere
+
+servers > servers > expc > outlook anywere > mydomain 
 
 
+
+import cetificate
+
+import-ExchangeCertificate -server expc -Filedata ([System.IO.File]::ReadAllBytes('\\expc\Certs\certificate.pfx'))
+
+or 
+
+import-ExchangeCertificate -server expc -Filedata ([System.IO.File]::ReadAllBytes('c:\Certs\certificate.pfx'))
+
+aFTER
+
+SERVERS> cerficates > cn=r3 > services and > x all smtp, pop imap 
 
 test mail 
 ```
