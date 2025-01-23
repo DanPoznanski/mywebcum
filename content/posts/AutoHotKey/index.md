@@ -16,7 +16,7 @@ For complex sites with redirects to another site, where each user has a unique t
 
 ### Download AutoHotkey
 
-First, we need to download it from the website. https://www.autohotkey.com (My script works on version 1.1, but you can download all versions.)
+1. we need to download it from the website. https://www.autohotkey.com (download all versions.)
 ![img01](images/1.png)
 
 
@@ -24,7 +24,7 @@ First, we need to download it from the website. https://www.autohotkey.com (My s
 
 create simple script for autoconnect for website
 
-First, open new text document and copy & past `dan` and `pasword` replace it with yours and save it like `myscript.ahk`
+1. Open new text document and copy & past `dan` and `pasword` replace it with yours and save it like `myscript.ahk`
 ```ahk
 Run, "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" "https://*****.co.il/*****/default.php"
 Sleep, 5000 ; We will wait 5 sec for the site to load (you can increase the time if necessary)
@@ -35,19 +35,24 @@ Send, {Tab} ; Switching to the password entry field
 Send, Mypassword ; Enter your password
 Send, {Enter} ; Press Enter to enter
 ```
+2. Save it like `myscript.ahk` or your custom name 
+![img05](images/5.png)
 
 
 ### Convert file.ahk to file.exe 
 
-Now we want to run it where there is no AutoHotKey program. so we need to turn it into an .exe file.
+Now we want to run it where there is no AutoHotKey program. so we need to turn it into an `.exe` file.
 
-Open `AutoHotKey Dash` > `Compile`
+1. Open `AutoHotKey Dash` > `Compile`
 ![img02](images/2.png)
 
 
-First, take your script.ahk after take icon from internet or create it from png file and cover it 
+2. Take your script `script.ahk`, then find an icon from the internet or create one from a PNG file, and assign it to your script.
 ![img03](images/3.png)
 
+3. This should look like this :
+![img06](images/6.png)
 
-Run it 
+
+4. Done
 ![img04](images/4.png)
