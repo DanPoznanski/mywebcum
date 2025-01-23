@@ -37,7 +37,7 @@ Send, {Enter} ; Press Enter to enter
 ```
 
 
-### .ahk to .exe 
+### Convert file.ahk to file.exe 
 
 Now we want to run it where there is no AutoHotKey program. so we need to turn it into an .exe file.
 
