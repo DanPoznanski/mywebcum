@@ -14,7 +14,7 @@ showTableOfContents: true
 
 ### Whatsapp Link Generator
 
-```js
+```javascript
 <!DOCTYPE html>
 <html lang="en">
 <head>
