@@ -14,7 +14,7 @@ showTableOfContents: true
 
 ### Whatsapp Link Generator
 
-
+Open text copy & past and change name to `whatsapp.html` 
 ```javascript
 <!DOCTYPE html>
 <html lang="en">
@@ -104,3 +104,7 @@ showTableOfContents: true
 </body>
 </html>
 ```
+
+for example :
+
+https://pdan.dev/whatsapp
