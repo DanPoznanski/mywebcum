@@ -80,7 +80,8 @@ showTableOfContents: true
 
 ![img16](images/16.webp)
 
-2. Fill in all for download  
+2. Fill all and download  
+
 ![img17](images/17.webp)
 
 ![img18](images/18.webp)
@@ -89,22 +90,33 @@ showTableOfContents: true
 
 ![img19](images/19.webp)
 
-4.
+4. Click on it 
 
 ![img20](images/20.webp)
 
 
-5.
+5. Double-click on `FortiClientInstaller`
 
 ![img21](images/21.webp)
 
-6.
+6. Click on `Open`
 
 ![img22](images/22.webp)
 
-7.
+![img23](images/23.webp)
+
+7. 
+
+![img24](images/24.webp)
 
 
+8.
+
+9.
+
+10.
+
+11.
 
 8.
 
