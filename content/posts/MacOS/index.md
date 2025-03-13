@@ -80,7 +80,7 @@ showTableOfContents: true
 
 ![img16](images/16.webp)
 
-2. full all for download  
+2. Fill in all for download  
 ![img17](images/17.webp)
 
 ![img18](images/18.webp)
