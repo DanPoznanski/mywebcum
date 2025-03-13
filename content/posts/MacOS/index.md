@@ -105,15 +105,21 @@ showTableOfContents: true
 
 ![img23](images/23.webp)
 
-7. Continue... Continue.. Continue..
-
+7. Continue... Continue.. Agree.. Continue..
 ![img24](images/24.webp)
 
 ![img25](images/25.webp)
 
 ![img26](images/26.webp)
 
+![img27](images/27.webp)
+
 8.
+
+![img28](images/28.webp)
+
+![img29](images/29.webp)
+
 
 9.
 
