@@ -114,12 +114,16 @@ showTableOfContents: true
 
 ![img27](images/27.webp)
 
-8.
+8. Click Install, full password and click install software
 
 ![img28](images/28.webp)
 
+9. OK, OK.
 ![img29](images/29.webp)
 
+![img30](images/30.webp)
+
+![img31](images/31.webp)
 
 9.
 
