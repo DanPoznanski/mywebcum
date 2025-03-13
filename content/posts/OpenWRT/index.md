@@ -260,3 +260,11 @@ https://downloads.immortalwrt.org/releases/packages-23.05/powerpc_464fp/luci/Pac
 autocore base-files block-mount bridger busybox ca-bundle default-settings-chn dnsmasq-full dropbear firewall4 fstools kmod-hwmon-pwmfan kmod-crypto-hw-safexcel kmod-gpio-button-hotplug kmod-leds-gpio kmod-mt7915e kmod-mt7986-firmware kmod-nft-offload libustream-mbedtls kmod-nf-nathelper kmod-nf-nathelper-extra kmod-nft-offload kmod-phy-aquantia kmod-phy-airoha-en8811h libc libgcc libustream-openssl logd luci luci-app-opkg luci-compat luci-lib-base luci-lib-ipkg mt7986-wo-firmware kmod-usb3 mtd netifd nftables odhcp6c odhcpd-ipv6only luci-i18n-firewall-zh-cn luci-i18n-ddns-zh-cn openssl-util wget-ssl kmod-bonding proto-bonding luci-proto-bonding kmod-wireguard wireguard-tools luci-proto-wireguard mkf2fs airoha-en8811h-firmware apk-openssl kmod-usb-net-cdc-mbim libmbim luci-proto-mbim umbim umbim kmod-usb-net-qmi-wwan libqmi luci-proto-qmi uqmi modemmanager luci-proto-modemmanager luci luci-base luci-i18n-base-ru luci-i18n-firewall-ru luci-i18n-package-manager-ru kmod-usb-net-qmi-wwan kmod-usb-serial-qualcomm kmod-usb-storage kmod-usb-serial kmod-usb-serial-option mc mmc-utils libmountl libmount1 kmod-mtd-rw nano minicom mbim-utils qmi-utils wget-ssl apk luci-compat luci-i18n-3ginfo-lite-ru uci
 
 ```
+
+
+
+
+reset all config and reboot
+```
+firstboot && reboot
+```
