@@ -14,7 +14,7 @@ showTableOfContents: true
 
 ![img1](images/1.webp)
 
-### Install Anydesk and Permission
+### Install Anydesk and Allow Permissions
 
 1. Open  https://anydesk.com
 
@@ -74,7 +74,7 @@ showTableOfContents: true
 
 > DONE
 
-### Install FortiClient VPN
+### Install FortiClient VPN and Allow Permissions
 
 1. Open https://www.fortinet.com and scroll down 
 
@@ -94,7 +94,6 @@ showTableOfContents: true
 
 ![img20](images/20.webp)
 
-
 5. Double-click on `FortiClientInstaller`
 
 ![img21](images/21.webp)
@@ -106,6 +105,7 @@ showTableOfContents: true
 ![img23](images/23.webp)
 
 7. Continue... Continue.. Agree.. Continue..
+
 ![img24](images/24.webp)
 
 ![img25](images/25.webp)
@@ -118,28 +118,50 @@ showTableOfContents: true
 
 ![img28](images/28.webp)
 
-9. OK, OK.
 ![img29](images/29.webp)
+
+9. OK
 
 ![img30](images/30.webp)
 
+10. Allow
 ![img31](images/31.webp)
 
-9.
+11. Close
+![img32](images/32.webp)
+
+12. Double-clik on icon FortiClient (upper corner)
+![img33](images/33.webp)
+
+13. 
+![img34](images/34.webp)
+
+
+![img35](images/35.webp)
+
+
+
+![img36](images/36.webp)
+
+![img37](images/37.webp)
+
+![img38](images/38.webp)
+
+![img39](images/39.webp)
+
+![img40](images/40.webp)
+
+
 
 10.
 
 11.
 
-8.
+12.
 
+13.
 
-9.
+14.
 
-
-10.
-
-
-11.
 
 
