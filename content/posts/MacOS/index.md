@@ -183,20 +183,13 @@ showTableOfContents: true
 
 ![img44](images/44.webp)
 
-4.
+4. target machine ip and save
 
 ![img45](images/45.webp)
 
+5. Doble click on icon after add your credentials and connect
 
-10.
+![img46](images/46.webp)
 
-11.
-
-12.
-
-13.
-
-14.
-
-
+> Done !
 
