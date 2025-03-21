@@ -1,7 +1,7 @@
 ---
 title: "MacOS"
 discription: install all on macos
-date: 2024-11-01T21:29:01+08:00 
+date: 2025-03-01T21:29:01+08:00 
 draft: false
 type: post
 tags: ["Macos","VPN","Remote"]
