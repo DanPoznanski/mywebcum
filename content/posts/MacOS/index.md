@@ -125,32 +125,67 @@ showTableOfContents: true
 ![img30](images/30.webp)
 
 10. Allow
+
 ![img31](images/31.webp)
 
 11. Close
+
 ![img32](images/32.webp)
 
 12. Double-clik on icon FortiClient (upper corner)
+
 ![img33](images/33.webp)
 
-13. 
+13. Press [ x ] and access 
+
 ![img34](images/34.webp)
 
+14. Fill all `12.12.12.12` change to your IP and Save 
 
 ![img35](images/35.webp)
 
-
+15. Connect
 
 ![img36](images/36.webp)
 
+16. Open Security & Privacy Settings
+
 ![img37](images/37.webp)
+
+17. General > Login items & Extensions > Network Extensions
 
 ![img38](images/38.webp)
 
 ![img39](images/39.webp)
 
+18. Fill your password 
+
 ![img40](images/40.webp)
 
+![img41](images/41.webp)
+
+19. Reconnect to VPN
+
+![img42](images/42.webp)
+
+> Done!
+
+
+### Install Windows App 
+
+1. Download and Install Windows App from Apple store https://apps.apple.com/us/app/windows-app/
+
+2. Open Windows App and Allow it
+
+![img43](images/43.webp)
+
+3. Device > + > Add PC
+
+![img44](images/44.webp)
+
+4.
+
+![img45](images/45.webp)
 
 
 10.
