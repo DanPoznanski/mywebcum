@@ -98,3 +98,9 @@ net user administrator *
 ```
 oobe\bypassnro
 ```
+
+or
+
+```
+start ms-cxh:localonly
+```

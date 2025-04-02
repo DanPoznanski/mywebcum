@@ -262,7 +262,14 @@ autocore base-files block-mount bridger busybox ca-bundle default-settings-chn d
 ```
 
 
+/etc/config/network
 
+/etc/init.d/network restart
+
+
+ip a | grep inet
+
+/etc/config/dhcp
 
 reset all config and reboot
 ```
