@@ -1,7 +1,7 @@
 ---
-title: "Windows Server WDS"
+title: "Windows Server Terminal"
 discription: Windows Server
-date: 2022-05-01T21:29:01+08:00 
+date: 2025-05-01T21:29:01+08:00 
 draft: false
 type: post
 tags: ["Terminal","RDP","Windows Server"]
@@ -11,7 +11,7 @@ showTableOfContents: true
 
 ## Termenal for Free
 
-[img0](images/0.webp)
+![img0](images/0.webp)
 
 ### Add Terminal to  Domain
 
@@ -77,6 +77,74 @@ showTableOfContents: true
 
 20.
 ![img20](images/20.webp)
+
+21.
+![img21](images/21.webp)
+
+22.
+![img22](images/22.webp)
+
+23.
+![img23](images/23.webp)
+
+24.
+![img24](images/24.webp)
+
+25.
+![img25](images/25.webp)
+
+
+26.
+![img26](images/26.webp)
+
+27.
+![img27](images/27.webp)
+
+
+![img28](images/28.webp)
+
+
+![img29](images/29.webp)
+
+
+![img30](images/30.webp)
+
+
+![img31](images/31.webp)
+
+
+![img32](images/32.webp)
+
+
+![img33](images/33.webp)
+
+
+![img34](images/34.webp)
+
+
+![img35](images/35.webp)
+
+
+![img36](images/36.webp)
+
+
+![img37](images/37.webp)
+
+
+![img38](images/38.webp)
+
+
+![img39](images/39.webp)
+
+
+![img40](images/40.webp)
+
+
+![img41](images/41.webp)
+
+
+![img42](images/42.webp)
+
 
 ```
 ```
