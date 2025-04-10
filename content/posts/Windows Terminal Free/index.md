@@ -15,7 +15,7 @@ showTableOfContents: true
 
 ### Add Terminal to  Domain
 
-1. set DNS of DC server (if not work disable DNSv6)
+1. set DNS of DC server (if not work disable IPv6)
 ![img1](images/1.webp)
 
 2. Change 
