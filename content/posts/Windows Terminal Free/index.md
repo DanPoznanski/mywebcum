@@ -27,7 +27,7 @@ showTableOfContents: true
 4. Done !
 ![img6](images/6.webp)
 
-### Troubleshooter
+### Troubleshooter Problems
 
 1. If  doesn't connect to domain - disable ipv6
 ![img5](images/5.webp)
