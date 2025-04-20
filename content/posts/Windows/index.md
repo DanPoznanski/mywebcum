@@ -104,3 +104,10 @@ or
 ```
 start ms-cxh:localonly
 ```
+
+
+### Find Windows key
+
+```
+wmic path softwarelicensingservice get OA3xOriginalProductKey
+```
