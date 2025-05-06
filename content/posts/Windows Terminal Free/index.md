@@ -4,7 +4,7 @@ discription: Windows Server
 date: 2025-04-01T21:29:01+08:00 
 draft: false
 type: post
-tags: ["Terminal","RDP","Windows Server"]
+tags: ["Terminal","RDP","Windows Server","CAL"]
 showTableOfContents: true
 --- 
 
@@ -86,7 +86,7 @@ showTableOfContents: true
 > Done !
 
 
-### RD Licensing Activation Free
+### RD Licensing Activation for Free
 
 1. Open RD Licensing Manager
 ![img22](images/22.webp)

@@ -111,3 +111,24 @@ start ms-cxh:localonly
 ```
 wmic path softwarelicensingservice get OA3xOriginalProductKey
 ```
+
+
+### Powershell Aggrigate LAN
+
+############# New-NetSwitchTeam ##################################
+
+List adapters
+```
+Get-NetAdapter
+```
+
+Create new  aggrigate adapters
+```powershell
+New-NetSwitchTeam -Name "SwitchTeam01" -TeamMembers "Ethernet 2","Ethernet 3"
+```
+
+Remove aggirate LAN's
+```powershell
+Remove-New-NetSwitchTeam -Name "SwitchTeam01"
+
+```
