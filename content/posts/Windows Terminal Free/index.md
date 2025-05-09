@@ -1,6 +1,6 @@
 ---
 title: "Windows Server Terminal (RDS)"
-discription: Windows Server
+discription: Windows Server 2025
 date: 2025-05-01T21:29:01+08:00 
 draft: false
 type: post
