@@ -1,7 +1,7 @@
 ---
-title: "Windows Server Terminal"
+title: "Windows Server Terminal(RDS)"
 discription: Windows Server
-date: 2025-04-01T21:29:01+08:00 
+date: 2025-05-01T21:29:01+08:00 
 draft: false
 type: post
 tags: ["Terminal","RDP","Windows Server","CAL"]
@@ -152,7 +152,7 @@ showTableOfContents: true
 21. Done !
 ![img40](images/40.webp)
 
-### GPO 
+### Add GPO rules 
 
 1. Run `gpedit.msc`
 
