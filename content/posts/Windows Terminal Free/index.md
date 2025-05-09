@@ -1,5 +1,5 @@
 ---
-title: "Windows Server Terminal(RDS)"
+title: "Windows Server Terminal (RDS)"
 discription: Windows Server
 date: 2025-05-01T21:29:01+08:00 
 draft: false
