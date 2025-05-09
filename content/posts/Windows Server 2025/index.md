@@ -1,10 +1,10 @@
 ---
 title: "Windows Server"
 discription: Windows Server 2025
-date: 2024-12-13T21:29:01+08:00 
+date: 2025-03-13T21:29:01+08:00 
 draft: false
 type: post
-tags: ["Windows Server"]
+tags: ["Windows Server, AD, GPO"]
 showTableOfContents: true
 --- 
 
