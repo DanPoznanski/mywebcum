@@ -12,14 +12,6 @@ showTableOfContents: true
 ![img0](images/img.svg)
 
 
-
-
-
-
-
-
-
-
 ## Tools for Create APP-V & and Office 
 
 1. Download ADK for Windows. 
@@ -27,24 +19,15 @@ showTableOfContents: true
 https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install
 
 
-
-
-
-
 2. Download Office Deployment Tool
 
+https://www.microsoft.com/en-us/download/details.aspx?id=49117
+
+3. install and open 
 
 
 
-
-
-
-
-
-
-
-
-`outlook.xml` its config for 32 bit outlook
+3.  `outlook.xml` its config for 32 bit outlook
 ```
 <!-- Office 365 client configuration file sample. To be used for Office 365 ProPlus apps, 
      Office 365 Business apps, Project Pro for Office 365 and Visio Pro for Office 365. 
