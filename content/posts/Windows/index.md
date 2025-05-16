@@ -132,3 +132,51 @@ Remove aggirate LAN's
 Remove-New-NetSwitchTeam -Name "SwitchTeam01"
 
 ```
+
+
+### Free Disk Space in Windows
+
+Delete files from temp
+```
+C:\Windows\Temp
+```
+
+Delete user cache `%temp%`
+```
+%USERPROFILE%\AppData\Local\Temp
+```
+
+Delete windows update files
+```
+C:\Windows\SoftwareDistribution\Download
+```
+
+Delete logs 
+```
+C:\Windows\Logs
+```
+
+Delete Prefetch
+```
+C:\Windows\Prefetch
+```
+Hibernation off
+```
+powercfg -h off
+```
+
+Delete hibernation file `hiberfil.sys`
+```
+c:\hyberfil.sys
+```
+
+Delete files from  `WinSxS` 
+```
+dism.exe /online /cleanup-image /AnalyzeComponentStore
+```
+```
+dism.exe /online /cleanup-image /StartComponentCleanup
+```
+```
+C:\Windows\WinSxS
+```
