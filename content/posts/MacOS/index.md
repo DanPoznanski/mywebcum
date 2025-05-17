@@ -74,32 +74,31 @@ showTableOfContents: true
 
 > DONE
 
+&nbsp;<br><br><br>
+
 ### Install FortiClient VPN and Allow Permissions
 
-1. Open https://www.fortinet.com and scroll down 
+&nbsp;<br><br><br>
 
+1. Open https://www.fortinet.com and scroll down 
 ![img16](images/16.webp)
 
-2. Fill all and download  
 
+2. Fill all and download  
 ![img17](images/17.webp)
 
 ![img18](images/18.webp)
 
 3. Allow it
-
 ![img19](images/19.webp)
 
 4. Click on it 
-
 ![img20](images/20.webp)
 
 5. Double-click on `FortiClientInstaller`
-
 ![img21](images/21.webp)
 
 6. Click on `Open`
-
 ![img22](images/22.webp)
 
 ![img23](images/23.webp)
@@ -170,8 +169,11 @@ showTableOfContents: true
 
 > Done!
 
+&nbsp;<br><br><br>
 
 ### Install Windows App 
+
+&nbsp;<br><br><br>
 
 1. Download and Install Windows App from Apple store https://apps.apple.com/us/app/windows-app/
 
@@ -192,4 +194,5 @@ showTableOfContents: true
 ![img46](images/46.webp)
 
 > Done !
+
 

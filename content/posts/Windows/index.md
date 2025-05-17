@@ -130,45 +130,54 @@ New-NetSwitchTeam -Name "SwitchTeam01" -TeamMembers "Ethernet 2","Ethernet 3"
 Remove aggirate LAN's
 ```powershell
 Remove-New-NetSwitchTeam -Name "SwitchTeam01"
-
 ```
 
+&nbsp;<br><br><br>
 
 ### Free Disk Space in Windows
+
+&nbsp;<br><br><br>
 
 Delete files from temp
 ```
 C:\Windows\Temp
 ```
+&nbsp;<br><br><br>
 
 Delete user cache `%temp%`
 ```
 %USERPROFILE%\AppData\Local\Temp
 ```
 
+&nbsp;<br><br><br>
+
 Delete windows update files
 ```
 C:\Windows\SoftwareDistribution\Download
 ```
+&nbsp;<br><br><br>
 
 Delete logs 
 ```
 C:\Windows\Logs
 ```
+&nbsp;<br><br><br>
 
 Delete Prefetch
 ```
 C:\Windows\Prefetch
 ```
+&nbsp;<br><br><br>
+
 Hibernation off
 ```
 powercfg -h off
 ```
-
 Delete hibernation file `hiberfil.sys`
 ```
 c:\hyberfil.sys
 ```
+&nbsp;<br><br><br>
 
 Delete files from  `WinSxS` 
 ```
@@ -180,3 +189,11 @@ dism.exe /online /cleanup-image /StartComponentCleanup
 ```
 C:\Windows\WinSxS
 ```
+&nbsp;<br><br><br>
+
+Delete files from Downloads folder
+```
+%USERPROFILE%\Downloads
+```
+
+&nbsp;<br><br><br>
