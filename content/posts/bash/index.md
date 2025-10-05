@@ -1466,4 +1466,668 @@ File.md
 file.txt
 ```
 With nocaseglob enabled, both `file.txt` and `File.md` are matched.
+&nbsp;&nbsp;&nbsp;
 
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+## Pattern Matching and Search with Grep
+
+### Introduction to Pattern Matching and Search with Grep
+
+Welcome! In this lesson, we will explore the powerful tool `grep` in Bash for pattern matching and searching within files. `grep` stands for "Global Regular Expression Print," and it is widely used for filtering and searching through text data. Think of `grep` like automating `Ctrl+F` within your scripts. Mastering `grep` will make your text processing tasks easier and more efficient. Let's get started!
+
+&nbsp;&nbsp;&nbsp;
+
+### Basic Search
+
+Let's start with a basic search using grep. The basic command syntax is:
+
+```bash
+grep 'pattern' filename
+```
+This command searches for the specified pattern within the file. Here's an example:
+```bash
+#!/bin/bash
+echo -e "This line will match\nfile.txt is a test file\nHello World" > file.txt
+
+grep 'is' file.txt
+```
+Output:
+```
+This line will match
+file.txt is a test file
+```
+This query outputs only the lines that contain `is` anywhere in the line. Notice that "This line will match" is included because "This" contains the substring "is".
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Search for Whole Words Only
+
+To search for a whole word rather than a substring, use the -w option. Let's take a look:
+
+```bash
+#!/bin/bash
+
+echo -e "This line won't match\nfile.txt is a test file" > file.txt
+grep -w 'is' file.txt
+```
+Output:
+```
+file.txt is a test file
+```
+Even though "This" contains the substring "is", only the lines with "is" as a whole word are matched.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Case-Insensitive Search
+
+Sometimes, you need to perform a search without considering the case (uppercase or lowercase). The `-i` option allows for case-insensitive searches. For example:
+```bash
+#!/bin/bash
+echo -e "Hello World\nHELLO WORLD\nHi world!" > file.txt
+grep -i 'hello' file.txt
+```
+
+Output:
+```
+Hello World
+HELLO WORLD
+```
+In this example, "Hello" and "HELLO" are both matched because `-i` ignores case differences.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Search for Lines Beginning with a Pattern
+
+To find lines that begin with a specific pattern, you can use the caret (^) symbol. For example, ^Hello will match any lines that start with Hello. This anchor signifies the start of a line in regular expressions. Let's look at an example:
+
+```bash
+#!/bin/bash
+
+echo -e "Hello world\nSay Hello grep\nGreetings" > file.txt
+grep '^Hello' file.txt
+```
+
+Output:
+```
+Hello world
+```
+Only the lines that begin with Hello are matched. The caret `^` ensures that the pattern must appear at the start of the line.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Show Line Numbers
+
+If you want to know the line numbers of matching patterns, you can use the `-n` option. Let's look at an example:
+
+```bash
+#!/bin/bash
+echo -e "Hello world\nGrep is a powerful tool\nThis is a test file\nHello grep" > file.txt
+
+grep -n 'grep' file.txt
+```
+
+Output:
+```
+2:Grep is a powerful tool
+4:Hello grep
+```
+Both lines 2 and 4 contain "Grep". Notice that line numbers start at 1, not 0
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Invert Match
+
+To find lines that do not match a given pattern, use the `-v` option. Suppose we have the following script:
+
+```bash
+#!/bin/bash
+
+echo -e "Hello world\nGrep is a powerful tool\nThis is a test file\nHello grep" > file.txt
+grep -v 'Hello' file.txt
+```
+
+Output:
+```
+Grep is a powerful tool
+This is a test file
+```
+Using `-v`, only lines that do not contain "Hello" are printed
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Count Matches
+
+To count the number of lines matching a pattern, use the `-c` option. For example:
+
+```bash
+#!/bin/bash
+
+echo -e "This file is a test file\nSearch in a file using grep\nThis won't match" > file.txt
+grep -c 'file' file.txt
+```
+
+Output:
+
+```
+2
+```
+Only 2 of the 3 lines contain the word "file". `-c` only counts matching lines. "This file is a test file" contains "file" twice, but the line is only counted once.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+### Search for Multiple Patterns (OR Logic)
+
+You can simulate `OR` logic using the `-e` option. This allows you to search for lines 
+
+```bash
+#!/bin/bash
+
+echo -e "Introducing grep\nHello world\nThis won't match\nHello grep" > file.txt
+grep -e 'Hello' -e 'grep' file.txt
+```
+
+Output:
+
+```
+Introducing grep
+Hello world
+Hello grep
+```
+`grep -i 'grep' file.txt` matches the 3 lines that contain grep (case-insensitive). These 3 lines are then sent as input to `grep -i 'hello' `which matches only the lines that contain hello (case-insensitive.)
+
+---
+
+Perform basic searches using grep:
+
+Use `-w` to search for whole words
+
+Use `-i` to conduct case-insensitive searches
+
+Use `-n` to show line numbers of matching patterns
+
+Use `-v` to invert matches
+
+Use `-c` to count the number of matching lines
+
+Use `-e` to implement OR logic to search for multiple patterns
+
+Use `|` to implement AND logic by piping multiple commands together
+
+---
+
+Example :
+```bash
+#!/bin/bash
+
+echo -e "Lines containing \"successful\":"
+# TODO: Modify the query to search for whole words
+grep -w 'successful'  system.logs
+echo
+
+# TODO: Modify the command to search for lines that start with ERROR
+echo -e "Lines containing \"ERROR\":"
+grep '^ERROR' system.logs
+echo
+
+# TODO: Modify the command to search for lines that do not start with "INFO"
+echo -e "Lines not starting with \"INFO\":"
+grep -v '^INFO' system.logs
+echo
+
+# TODO: Modify the command to search for "disk" or "memory" and ignoring case
+echo -e "Lines containing \"disk\" or \"memory\":"
+grep -i -e 'disk' -e 'memory' system.logs
+echo
+```
+
+---
+
+Example 2
+```bash
+#!/bin/bash
+
+echo "All users with Admin privileges are required to renew their credentials."
+# TODO: Find all users with Privilege Level "Admin"
+grep -w 'Admin' users.txt
+echo -e "\nAll users with a software version starting with \"1.\" need to update their software."
+# TODO: Find users with a software version starting with "1."
+grep -E '1\.[0-9]+' users.txt
+# Hint: You need to escape the period
+
+echo -e "\nAll users who are not SuperAdmin must review the new security protocols."
+# TODO: Find all users without "SuperAdmin" privileges
+grep -v 'SuperAdmin' users.txt
+
+echo -e "\nAll users with User privileges in Engineering should attend the Admin onboarding session."
+# TODO: Find all users with "User" privileges in the Engineering department.
+
+grep 'User' users.txt | grep 'Engineering'
+
+```
+---
+
+```bash
+#!/bin/bash
+
+# Clear all files
+> report1.txt
+> report2.txt
+> report3.txt
+> summary.txt
+> errors.log
+
+echo "Server 1 Report" >> report1.txt
+# TODO: Append all lines that contain "Server 1" (include line numbers) to report1.txt
+grep -n 'Server 1' system.log >> report1.txt
+echo "Server 2 Report" >> report2.txt
+# TODO: Append all lines that contain "Server 2" (include line numbers) to report2.txt
+grep -n 'Server 2' system.log >> report2.txt
+echo "Server 3 Report" >> report3.txt
+# TODO: Append all lines that contain "Server 3" (include line numbers) to report3.txt
+grep -n 'Server 3' system.log >> report3.txt
+echo "Connection ERROR Entries" >> errors.log
+# TODO: Append all lines containing "ERROR" AND "Connection" (case-insensitive) to errors.log
+grep -i 'ERROR' system.log | grep 'Connection' >> errors.log
+echo "Memory ERROR Entries" >> errors.log
+# TODO: Append all lines containing "ERROR" AND "Memory" (case-insensitive) to errors.log
+grep -i 'ERROR' system.log | grep 'Memory' >> errors.log
+echo "CPU ERROR Entries" >> errors.log
+# TODO: Append all lines containing "ERROR" AND "CPU" to errors.log
+grep 'ERROR' system.log | grep 'CPU' >> errors.log
+echo -n "Number of 'WARNING' Entries: " >> summary.txt
+# TODO: Count the number of lines that begin with WARNING and append it to summary.txt
+grep -c '^WARNING' system.log >> summary.txt
+echo -e "\nIP Addresses" >> summary.txt
+# TODO: Append all lines containing IP (whole word) to summary.txt
+grep -w 'IP' system.log >> summary.txt
+echo -e "\nHigh and Low Level Monitoring:" >> summary.txt
+# TODO: Append all lines with "High" or "Low" (case insensitive) to summary.txt
+grep -i -E 'High|Low' system.log >> summary.txt
+```
+---
+
+Example 3
+```bash
+#!/bin/bash
+
+echo -e "Lines containing \"successful\":"
+# TODO: Modify the query to search for whole words
+grep -w 'successful'  system.logs
+echo
+
+# TODO: Modify the command to search for lines that start with ERROR
+echo -e "Lines containing \"ERROR\":"
+grep '^ERROR' system.logs
+echo
+
+# TODO: Modify the command to search for lines that do not start with "INFO"
+echo -e "Lines not starting with \"INFO\":"
+grep -v '^INFO' system.logs
+echo
+
+# TODO: Modify the command to search for "disk" or "memory" and ignoring case
+echo -e "Lines containing \"disk\" or \"memory\":"
+grep -i -e 'disk' -e 'memory' system.logs
+echo
+```
+---
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+## Text Substitution and Editing with Sed
+
+### Introduction to Text Substitution and Editing with Sed
+
+Welcome! In this lesson, we will explore the powerful text processing tool `sed` in Bash. `sed` stands for "Stream Editor," and it is a versatile utility for parsing and transforming text in files or data streams. It reads text from a file or standard input, processes it according to specified commands, and outputs the modified text. It's commonly used for tasks like text substitution, deletion, and insertion in both files and data streams, making it an essential tool for automating text processing in scripts.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Understanding Text Substitution with Sed
+
+Text substitution is one of the fundamental uses of `sed`. Suppose you want to replace all instances of the word "pattern" with "replacement" in a file. The syntax for this:
+
+```bash
+sed 's/pattern/replacement/' filename
+```
+This command searches for the **first occurrence** of the specified pattern and replaces it with `replacement`. The new text will then be output to the terminal. Let's replace the first occurrence of "Hi" with "Hello":
+
+```bash
+#!/bin/bash
+
+echo "Hi World. Hi sed." > file.txt
+echo "Output of sed command:"
+sed 's/Hi/Hello/' file.txt
+
+echo -e "\nContents of file.txt:"
+cat file.txt
+```
+
+Output:
+
+```
+Output of sed command:
+Hello World. Hi sed.
+
+Contents of file.txt:
+Hi World. Hi sed.
+```
+&nbsp;&nbsp;&nbsp;
+
+This command searches `file.txt` for the first occurrence of "Hi" and replaces it with "Hello" and outputs it to the terminal. "Hi sed." does not change to "Hello sed" because this command only searches for the **first** occurence of "Hi". Also notice that the contents of `file.txt` were not actually changed.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### In-place Substitution
+
+In many cases, you may want to make substitutions directly within the file. The `-i` option allows you to do this. You must ensure that the file has write permissions so `sed` can write to it. For this, you use the` chmod +w` command.
+
+```bash
+#!/bin/bash
+
+echo "Hi World" > file.txt
+chmod +w file.txt
+sed -i 's/Hi/Hello/' file.txt
+
+cat file.txt
+```
+
+Output:
+```
+Hello World
+```
+
+Using `-i`, the contents of `file.txt` have been replaced. Notice that the actual sed command does not print anything to the terminal now.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Global Substitution
+
+To replace all occurrences of a pattern in the file, add the `g` flag to the `sed` command.
+
+```bash
+#!/bin/bash
+
+echo "Hi World. Hi sed." > file.txt
+sed 's/Hi/Hello/g' file.txt
+```
+
+Output:
+```
+Hello World. Hello sed.
+```
+Now, all instances of `Hi` are replaced with `Hello`.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Deleting Lines with Sed
+
+`sed` can also be used to delete specific lines from a file. The syntax for deleting lines is:
+
+```bash
+sed 'pattern/d' filename
+```
+Let's look at an example:
+
+```
+#!/bin/bash
+
+echo -e "Hello World\nDelete me" > file.txt
+sed '/Delete/d' file.txt
+```
+Output:
+```
+Hello World
+```
+The line `Delete me` has been deleted.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Inserting Lines with Sed
+
+`sed` can be used to insert lines after a specific pattern. The syntax for insertion is:
+
+Let's add "Nice to meet you" after any line that contains the text "Hello"
+
+```bash
+#!/bin/bash
+
+echo -e "Hello World\nThis won't match\nHello sed" > file.txt
+sed '/Hello/a Nice to meet you.' file.txt
+```
+Output:
+
+```
+Hello World
+Nice to meet you.
+This won't match
+Hello sed
+Nice to meet you.
+```
+Any line that contains `Hello` now has the line `Nice to meet you`. after it.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Saving Changes to a New File
+
+Sometimes, you might want to save the edited content to a new file instead of modifying the original. Suppose we want to create a new file `grep.txt` that contains the contents of `sed.txt` with all instances of `sed` changed to `grep`. To do this, we create the new `grep.txt` file and grant write permissions. Then we simply redirect the output of the `sed` command using `>`. Let's take a look:
+
+```bash
+#!/bin/bash
+
+echo -e "sed allows for efficient text management.\nWriting a script using sed automates tedious manual tasks." > sed.txt
+
+# Create grep.txt and allow write permissions
+touch grep.txt
+chmod +w grep.txt
+
+# Save to new file
+sed 's/sed/grep/g' sed.txt > grep.txt
+
+cat grep.txt
+```
+Output:
+```
+grep allows for efficient text management.
+Writing a script using grep automates tedious manual tasks.
+```
+Now, `sed.txt` still contains its original content, and the new `grep.txt` file contains the results of the `sed` command.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+### Advanced Pattern Matching
+
+In addition to the basic commands we've covered, `sed` supports advanced pattern matching using wildcards and regular expressions for more flexible and powerful text processing. Let's explore how to leverage some of these features:
+
+---
+`.` matches any single character except a newline. Suppose we want to ensure the punctuation after "World" is always an "!". The pattern we want to match is `/World./`. This will match any instance of "World" followed by any single character. Let's see an example:
+
+```bash
+#!/bin/bash
+echo "Hello World? Hello World%" | sed 's/World./World!/g' 
+```
+Output:
+```
+Hello World! Hello World!
+```
+The pattern matches `World?` and `World%`. These are replaced with `World!`
+
+---
+
+`*` matches zero or more occurrences of the preceding character. Suppose we want to reduce multiple spaces between words to a single space. The pattern we want to match is`s/` `*/`. This pattern contains two spaces. The `*` will match zero or more occurrences of the preceding character which is a single space. This matches any sequences of two or more spaces. We will then replace it with `/ /` which is a single space. Let's see this in action:
+
+```bash
+#!/bin/bash
+echo "Hello    World!   This  is  a   test." | sed 's/  */ /g'
+```
+
+Output:
+
+```
+Hello World! This is a test.
+```
+
+This finds any sequence of two or more spaces and replaces them with a single space.
+
+---
+
+`[]`: Matches any one of the enclosed characters. Suppose we want to replace all digits in a sentence with the character `#`. The pattern to search for is` /[0-9]/`, which matches any digit. We will then replace it with `/#/`. Here's an example:
+
+```bash
+#!/bin/bash
+echo "My phone number is 123-456-7890." | sed 's/[0-9]/#/g'
+```
+Output:
+```
+My phone number is ###-###-####.
+```
+Now, all digits have been replaced with `#`.
+
+---
+
+`\b` matches a word boundary, which is the position between a word and a space or punctuation. Suppose we want to replace the word sed with grep. The pattern to match is \bsed\b, which ensures that only the standalone word sed is matched. We then replace it with grep. Let's take a look:
+
+```bash
+#!/bin/bash
+echo "sed is used for text processing." | sed 's/\bsed\b/grep/'
+```
+Output:
+```
+grep is used for text processing.
+```
+Notice that even though `used` contains `sed`, it does not get replaced with `grep`. This is because there is no word boundary before `sed` in the string `used`.
+
+1. Perform text substitution using sed `'s/pattern/replacement/'`
+
+2. Use `-i` to make in-place changes directly in the file
+
+3. Add the `g` flag to perform global substitution
+
+4. Use sed 'pattern/d' to delete specific lines from a file with
+
+5. Use `sed 'pattern/a\new_line'` to insert lines after a specific pattern
+
+6. Use the `.` wildcard to match any single character
+
+7. Use the `*` wildcard to match zero or more occurrences of the preceding character
+
+8. Use the `[]` character class to match specific characters or ranges of characters
+
+9. Use the `\b` word boundary to precisely match whole words
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```bash
+#!/bin/bash
+
+# Create a sample data file
+cat << EOF > data.txt
+Brand Model RAM
+Apple MacBook 32
+Apple iPad 16
+Dell XPS 32
+Dell Inspiron 128
+Lenovo ThinkPad 128
+Lenovo Yoga 256
+Apple MacBook 64
+EOF
+
+# Print formatted table
+echo "**Computer Inventory**" > output.txt
+awk 'BEGIN {print "Brand    Model     RAM"} NR>1 {printf "%-8s %-10s %d\n", $1, $2, $3}' data.txt >> output.txt
+echo "" >> output.txt
+
+# Print "Brand" and "Model" of computers with 128 GB RAM
+echo "**Computers with 128 GB RAM**" >> output.txt
+awk '$3 == 128  {print $1, $2}' data.txt >> output.txt
+echo "" >> output.txt
+
+# Print lines with "Apple"
+echo "**Apple Products**" >> output.txt
+awk '/Apple/ {print}' data.txt  >> output.txt
+echo "" >> output.txt
+
+# Print average RAM
+echo "**Average RAM**" >> output.txt
+awk 'NR>1 {sum+=$3; count++} END {print "Average RAM:", sum/count}' data.txt >> output.txt
+
+cat output.txt
+```

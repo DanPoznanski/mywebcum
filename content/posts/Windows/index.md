@@ -9,6 +9,14 @@ showTableOfContents: true
 --- 
 
 
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
 
 
 ## IP
@@ -41,6 +49,9 @@ fix net reset winsock
 ```
 netsh winsock reset
 ```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 ## Aggregation link in Windows 7-10 
 
@@ -61,6 +72,9 @@ see config
 ```powershell
 Get-NetSwitchTeam
 ```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 
 ## Wim Capture Image
@@ -75,6 +89,10 @@ new method
 ```
 dism /capture-image /imagefile:"d:\Win7.wim" /capturedir:c:\ /name:“Windows10” /compress:fast /verify 
 ```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
 ## Godmod
 
 ```
@@ -87,12 +105,19 @@ dism /capture-image /imagefile:"d:\Win7.wim" /capturedir:c:\ /name:“Windows10�
 ```
 dsregcmd /status
 ```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 ### Change password
 
 ```
 net user administrator *
 ```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
 
 ### Windows 11 bypass 
 ```
@@ -104,13 +129,18 @@ or
 ```
 start ms-cxh:localonly
 ```
+&nbsp;&nbsp;&nbsp;
 
+&nbsp;&nbsp;&nbsp;
 
 ### Find Windows key
 
 ```
 wmic path softwarelicensingservice get OA3xOriginalProductKey
 ```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 
 ### Powershell Aggrigate LAN
@@ -132,11 +162,13 @@ Remove aggirate LAN's
 Remove-New-NetSwitchTeam -Name "SwitchTeam01"
 ```
 
-&nbsp;<br><br><br>
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
 
 ### Free Disk Space in Windows
 
-&nbsp;<br><br><br>
 
 Delete files from temp
 ```
@@ -196,8 +228,9 @@ Delete files from Downloads folder
 %USERPROFILE%\Downloads
 ```
 
-&nbsp;<br><br><br>
+&nbsp;&nbsp;&nbsp;
 
+&nbsp;&nbsp;&nbsp;
 
 
 ### Old Printers and Devices on Windows 11
@@ -208,10 +241,27 @@ explorer.exe shell:::{A8A91A66-3A7D-4424-8D24-04E180695C7A}
 ```
 
 
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+
 ### Short Command
 
 Network Connection
 ```
 ncpa.cpl
 ```
+&nbsp;&nbsp;&nbsp;
 
+&nbsp;&nbsp;&nbsp;
+
+
+### Shortcut Run with Administrator
+
+```bash
+runas.exe /user:test\administrator /savecred "C:\Program Files\AnyBurn\AnyBurn.exe"
+
+runas /user:test\administrator /savecred "C:\Program Files\AnyBurn\AnyBurn.exe"
+```
