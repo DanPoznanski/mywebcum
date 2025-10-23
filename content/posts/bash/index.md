@@ -2053,46 +2053,402 @@ Notice that even though `used` contains `sed`, it does not get replaced with `gr
 
 9. Use the `\b` word boundary to precisely match whole words
 
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 
+## Text Processing with awk
+
+### Introduction to Text Processing with 'awk'
+
+Hello! Welcome to your next step in mastering Bash scripting. In this lesson, we will immerse ourselves in the world of text processing with the versatile command-line tool `awk`. `awk` is a powerful tool that allows you to manipulate and analyze text files with ease. By the end of this lesson, you’ll be equipped to efficiently handle and process text files, extracting meaningful data and performing relevant computations directly from your Bash scripts.
+
+Let's get started by diving into how we can leverage `awk` for various text processing tasks.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Creating Initial Data
+
+First, let's create a sample data file to work with. This file will help us learn and practice various `awk` commands effectively.
+
+The heredoc (short for "here document") is a special syntax in Unix shell scripting that allows you to create a multi-line string. It is particularly useful for creating files or including large blocks of text within your script. The syntax is `<<EOF ... EOF`, where `EOF` (End of File) is a marker indicating the beginning and end of the block of text. You can actually use any marker, but EOF is conventionally used.
+
+Let's create a file called `data.txt` that includes data about computers in inventory.
+
+```bash
+#!/bin/bash
+
+# Create a sample data file
+cat << EOF > data.txt
+Brand   Model     RAM
+Apple   MacBook    32
+Apple   iPad       16
+Dell    XPS        32
+Dell    Inspiron  128
+Lenovo  ThinkPad  128
+Lenovo  Yoga      256
+Apple   MacBook    64
+EOF
+```
+
+Let's break this code down:
+
+- `cat << EOF`: This starts the heredoc and tells the cat command to begin reading the subsequent lines as a string until it encounters the ending `EOF` marker.
+
+- `> data.txt`: This redirects the output of the `cat` command to a file named `data.txt`.
+
+- The lines between `<< EOF` and `EOF` are the content that will be written to `data.txt`.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Basic Syntax of 'awk'
+
+The basic syntax of the awk command in Unix-like systems is:
+
+```bash
+awk options 'selection_criteria {action}' input-file > output-file
+```
+
+Here's a detailed breakdown of each component:
+
+- `awk`: The command itself.
+
+- `options`: These are optional flags you can pass to `awk` to modify its behavior (e.g., `-F` to specify the field separator).
+
+- `selection_criteria`: This is an optional condition or pattern that specifies which lines of the input file to process. It can be a regular expression or a logical condition based on field values.
+
+- `{action}`: This is the block of code to execute for each line that matches the selection criteria. Actions are enclosed in curly braces `{}`.
+
+- `input-file`: The file that awk processes.
 
 
+- `> output-file`: This optional part redirects the output to a file. If omitted, awk prints the output to the terminal..
+
+With this understanding of `awk` syntax, let's dive into some examples.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 
+### Printing Entire File Using 'awk'
+
+Let's begin with the most basic `awk` command to print the entire content of the file. The `print` command is used to output text, fields, or expressions to the terminal or another output stream. It offers flexibility in how the data is displayed and allows custom formatting of text.
+
+```bash
+#!/bin/bash
+
+# Using `awk` to print the entire file
+awk '{print}' data.txt
+```
+
+In this `awk` command
 
 
+- There are no `options` or `selection_criteria`
+
+- The action is `{print}` enclosed in curly braces. The `print` pattern-action statement in awk tells it to print each line of the file.
+
+- There is no `output-file`, so the result is displayed on the terminal.
+
+Running this command will display all lines of the `data.txt` file, mirroring the functionality of the `cat` command.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Field Numbers
+
+In `awk`, field numbers are used to refer to specific columns in a line of text. Fields are denoted by a dollar sign (`$`) followed by the field number. The records (lines of text) are automatically split into fields based on a delimiter, which is a space or tab by default but can be changed using the `-F` option.
+
+`$1` denotes the first field of a line of text, `$2` represents the second field, and so forth. `$0` refers to the whole line.
+
+Often, we need to extract specific columns from a file. Suppose we only want to extract the "Brand" and "Model" of each line. The code is:
+```bash
+#!/bin/bash
+
+# Using `awk` to print specific columns (Brand and Model)
+awk '{print $1, $2}' data.txt
+```
+- `$1` and `$2` refer to the first and second fields (columns) of each line in the file.
+
+- This command skips the first and fourth columns, displaying only the brand and model of each item.
+
+The output of the command is:
+
+```bash
+Brand Model
+Apple MacBook
+Apple iPad
+Dell XPS
+Dell Inspiron
+Lenovo ThinkPad
+Lenovo Yoga
+Apple MacBook
+```
+The output successfully shows only the "Brand" and "Model" columns of the text file.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 
+### Conditional Text Selection
+
+Often, you will need to filter lines based on specific conditions. To do this, you place the condition before the `{action}` block, enclosed in single quotes `(')`. For instance, we may want to find all entries where the RAM is 64 GB or greater.
+
+```bash
+#!/bin/bash
+
+# Using `awk` to print lines where RAM is greater than or equal to 64
+awk '$3 >= 64 {print $0}' data.txt
+```
+
+- `$3 >= 64 {print $0}` instructs awk to print any line where the third field (RAM) is 64 or greater.
+
+- `$0` represents the entire line. 
+
+The output is:
+
+```bash
+Brand   Model     RAM
+Dell    Inspiron  128
+Lenovo  ThinkPad  128
+Lenovo  Yoga      256
+Apple   MacBook    64
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Built-in NR Variable
+
+`NR` stands for "Number of Records" in `awk`. It is a built-in variable that keeps track of the current line number being processed in the input file. Each time `awk` reads a new line, it increments `NR` by one. This makes `NR` useful for actions based on the line number, such as skipping headers, processing specific lines, or adding line numbers to output.
+
+#### Skip Header Line
+
+Suppose we want to print every line, excluding the header line ("Brand Model RAM)". The header line has an `NR` value of 1. To skip this line, we use the condition `NR > 1`
+
+```bash
+#!/bin/bash
+
+awk 'NR > 1 {print}' data.txt
+```
+
+- `NR > 1`: This condition skips the first line (header) and prints the remaining lines.
+
+The output is:
+
+```bash
+Apple   MacBook    32
+Apple   iPad       16
+Dell    XPS        32
+Dell    Inspiron  128
+Lenovo  ThinkPad  128
+Lenovo  Yoga      256
+Apple   MacBook    64
+```
+
+#### Process a Specific Line
+
+Now let's print only the 3rd line of `data.txt`.
+
+```bash
+#!/bin/bash
+
+awk 'NR == 3 {print}' data.txt
+```
+The output is:
+
+```bash
+Apple   iPad       16
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 
+### Pattern Matching with 'awk'
+
+Pattern matching is one of the core strengths of `awk`, allowing you to perform actions only on lines that match specific patterns. The syntax for pattern matching in `awk` involves enclosing regular expressions within slashes (`/pattern/`). Suppose we only want to print lines that contain "Apple":
+
+```bash
+
+#!/bin/bash
+
+# Using `awk` with pattern matching
+awk '/Apple/ {print}' data.txt
+```
+
+- The `/Apple/ {print}` pattern checks each line for the string "Apple."
+
+- If a line contains "Apple," it is printed.
+
+The output of the command is:
+
+```bash
+Apple   MacBook    32
+Apple   iPad       16
+Apple   MacBook    64
+
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 
+### Performing Calculations: Variables and END
+
+The `END` keyword is used to specify an action to be executed after all lines have been processed. The syntax is:
+
+```bash
+awk '{action1} END {action2}'
+```
+This command will perform `action1` for every line of text. After all lines have been processed, `action2` is run once.
+
+Now let's write a command that calculates the average RAM across all entries. To do this
+
+- We create a `sum` variable and `count` variable.
+
+- For each line, we add the RAM value (column `$3`) to sum and increment the `count` variable by 1.
+
+- After all lines have been processed, we print `sum/count`
+
+```bash
+#!/bin/bash
+
+# Using `awk` to calculate the average RAM
+awk 'NR>1 {sum+=$3; count++} END {print "Average RAM:", sum/count}' data.txt
+```
+- `NR>1` skips the header line because it does not contain a RAM value.
+
+- `{sum+=$3; count++}` sums the values of the third field (RAM) and increments the count.
+
+- `END {print "Average RAM:", sum/count}` executes after processing all lines, printing the calculated average RAM.
+
+The output of the code is:
+
+```bash
+Average RAM: 93.7143
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Custom Line Messages
+
+You can customize the output format for each line as well. We can add text to our print statement by separating strings/field references with commas. Let’s create a message for each entry.
+
+```bash
+#!/bin/bash
+
+# Using `awk` to print a custom message for each line
+awk 'NR>1 {print "Brand:", $1, "- Model:", $2, "- RAM:", $3}' data.txt
+``
+The output of this command is:
+
+```bash
+Brand: Apple - Model: MacBook - RAM: 32
+Brand: Apple - Model: iPad - RAM: 16
+Brand: Dell - Model: XPS - RAM: 32
+Brand: Dell - Model: Inspiron - RAM: 128
+Brand: Lenovo - Model: ThinkPad - RAM: 128
+Brand: Lenovo - Model: Yoga - RAM: 256
+Brand: Apple - Model: MacBook - RAM: 64
+```
+
+The output is still a bit difficult to read. Let's continue to see how to use `printf` to format the output.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Table Formatting with 'awk'
+
+The `printf` function in `awk` offers more control over the formatting of the output compared to the `print` command. The syntax for `printf` is:
+
+```sql
+awk '{printf format, item1, item2, ..., itemN}' input-file
+```
+The format string includes text and format specifiers that begin with `%`. Common format specifiers include:
+
+- `%d`: Integer
+
+- `%s:` String
+
+- `\n`: Newline character
+
+Modifiers can also be added to control the width and alignment:
 
 
+**Minimum Field Width**: The number between `%` and the format specifier defines the minimum width of the field.
+
+**Positive Width**: Right-justified by default. For example, `%10s` formats a string, right-aligned, with a minimum width of 10 characters.
+
+**Negative Width**: Left-justified if prefixed with a minus sign. For example, `%-10s` formats a string, left-aligned, with a minimum width of 10 characters.
+
+Now, let’s format our output as a neatly aligned table:
+
+```bash
+#!/bin/bash
+
+# Using `awk` to format output as a table
+awk 'BEGIN {print "Brand    Model     RAM"} NR>1 {printf "%-8s %-10s %2d\n", $1, $2, $3}' data.txt
+```
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 
+### Breakdown of the Command
 
+`BEGIN {print "Brand Model RAM"}`
 
+- The `BEGIN` block is executed before any lines from the input file are processed.
 
+- `{print "Brand Model RAM"}` This prints the header row "Brand Model RAM" before processing the actual data. The string contains specific spaces to align the header with the columns that will follow.
 
+`NR > 1` ensures that the action `{printf ...}` is applied only to lines after the first one, which is the header line.
 
+- `%-8s`: Left-align (`-`) a string (`s`) with a width of 8 characters.
 
+- `%-10s`: Left-align (`-`) a string (`s`) with a width of 10 characters.
 
+- `%2d`: Print an integer (`d`) with exactly 2 digits.
 
+- `\n`: Newline character to move to the next line after printing.
 
+- `$1`, `$2`, `$3`: These are the fields to be printed according to the format specifiers.
 
+- `data.txt`: The input file that contains the data to be processed.
 
+The output of the command is:
 
+```sql
+Brand    Model     RAM
+Apple    MacBook    32
+Apple    iPad       16
+Dell     XPS        32
+Dell     Inspiron   128
+Lenovo   ThinkPad   128
+Lenovo   Yoga       256
+Apple    MacBook    64
+```
+Using `printf` and formating specifiers, the output of our table looks much more clean!
 
+&nbsp;&nbsp;&nbsp;
 
-
-
-
-
-
-
-
-
+&nbsp;&nbsp;&nbsp;
 
 
 ```bash
@@ -2130,4 +2486,80 @@ echo "**Average RAM**" >> output.txt
 awk 'NR>1 {sum+=$3; count++} END {print "Average RAM:", sum/count}' data.txt >> output.txt
 
 cat output.txt
+```
+
+---
+
+```bash
+#!/bin/bash
+
+# Create a sample data file
+cat << EOF > products.txt
+Brand Type Price
+Nike Shoes 100
+Adidas Jacket 120
+Puma Socks 20
+Nike Hat 30
+Adidas Shoes 110
+Puma Jacket 90
+Nike Shoes 130
+EOF
+
+# TODO: Only print the Brand and Type columns
+awk '{print $1, $2}' products.txt > output.txt
+echo "" >> output.txt
+
+# TODO: Print items less than 100
+awk '$3 < 100 {print $0}' products.txt >> output.txt
+echo "" >> output.txt
+
+# TODO: Print rows that contain Adidas
+awk '/Adidas/ {print}' products.txt >> output.txt
+
+cat output.txt
+```
+
+```bash
+#!/bin/bash
+
+# Create a sample data file
+cat << EOF > products.txt
+Brand Type Price
+Nike Shoes 100
+Adidas Jacket 120
+Puma Socks 20
+Nike Hat 30
+Adidas Shoes 110
+Puma Jacket 90
+Nike Shoes 130
+EOF
+
+echo "**Products Table**" > output.txt
+awk '{print $0}' products.txt >> output.txt
+echo "" >> output.txt
+
+echo "**Average Price**" >> output.txt
+awk '{sum+=$3; count++} END {print "Average Price:", sum/count}' products.txt >> output.txt
+
+cat output.txt
+```
+
+```sql
+#!/bin/bash
+
+# TODO: Create the operations.txt file
+cat << EOF > operations.txt
+Operation
+Powering On
+Initializing BIOS
+Loading Kernel
+Authenticating User
+EOF
+
+# TODO: Process operations.txt and create server.logs with the required format using awk.
+awk 'BEGIN {print "Starting Computer"}
+NR > 1 {print "Task", NR-1 ":", $0}
+END {print "Computer Startup Complete"}' operations.txt > server.logs
+
+cat server.logs
 ```
