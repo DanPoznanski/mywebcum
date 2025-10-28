@@ -1064,3 +1064,55 @@ func main() {
 ```
 
 &nbsp;&nbsp;&nbsp;
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // TODO: Create a map of countries and their capital cities
+    CapitalCity := map[string]string{
+        "France": "Paris",
+        "Japan": "Tokyo",
+        "Kenya": "Nairobi",
+    }
+    // TODO: Print out the capital of France
+    fmt.Println("Capital city of France:", CapitalCity["France"])
+    // TODO: Add the USA
+    CapitalCity["USA"] = "Washington D.C."
+    // TODO: Remove Kenya
+    delete(CapitalCity, "Kenya")
+
+    // TODO: Display the updated map
+    fmt.Println("Display the updated map:", CapitalCity)
+
+}
+```
+
+
+
+### 
+
+
+
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // A map to handle airport codes
+    airportCodes := map[string]map[string]string{
+        "JFK": {"city": "New York", "country": "USA"},
+        "LAX": {"city": "Los Angeles", "country": "USA"},
+        "LHR": {"city": "London", "country": "UK"},
+        "HND": {"city": "Tokyo", "country": "Japan"},
+        "SYD": {"city": "Sydney", "country": "Australia"},
+    }
+
+    // TODO: Access and print the city and country that corresponds to a particular airport code.
+    fmt.Println(airportCodes["LHR"]["city"] + " - " + airportCodes["LHR"]["country"])
+}
+```

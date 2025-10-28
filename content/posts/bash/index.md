@@ -2490,6 +2490,7 @@ cat output.txt
 
 ---
 
+example 2
 ```bash
 #!/bin/bash
 
@@ -2518,7 +2519,7 @@ awk '/Adidas/ {print}' products.txt >> output.txt
 
 cat output.txt
 ```
-
+example 3
 ```bash
 #!/bin/bash
 
@@ -2543,8 +2544,8 @@ awk '{sum+=$3; count++} END {print "Average Price:", sum/count}' products.txt >>
 
 cat output.txt
 ```
-
-```sql
+example 4
+```bash
 #!/bin/bash
 
 # TODO: Create the operations.txt file
@@ -2562,4 +2563,40 @@ NR > 1 {print "Task", NR-1 ":", $0}
 END {print "Computer Startup Complete"}' operations.txt > server.logs
 
 cat server.logs
+```
+
+example 5
+```bash
+#!/bin/bash
+
+# Create a sample data file
+cat << EOF > data.txt
+Brand   Item       Price
+Nike    Shoes      150
+Adidas  Socks       20
+Nike    Hat         30
+Puma    Jacket     120
+Nike    Shirt       80
+EOF
+
+echo "All Nike Products:" > summary.txt
+# TODO: Append the item and price columns for lines containing 'Nike' to summary.txt
+awk '/Nike/ {print $2 $3}' data.txt
+echo "" >> summary.txt
+
+echo "Total Price" >> summary.txt
+# TODO: Calculate the total price of all items and append to summary.txt
+awk 'NR>1 {sum += $3} END {print sum}' data.txt >> summary.txt
+echo "" >> summary.txt
+
+echo "Items \$100 or more:" >> summary.txt
+# TODO: Append all rows with a price of $100 or more
+awk 'NR>1 && $3 >= 100 {print $0}' data.txt >> summary.txt
+echo "" >> summary.txt
+
+echo "Formatted Table:" >> summary.txt
+# TODO: Append the formatted table
+awk 'NR==1 {printf "%-10s %-10s %-10s\n", $1, $2, $3; next}
+     {printf "%-10s %-10s %-10s\n", $1, $2, $3}' data.txt >> summary.txt
+cat summary.txt
 ```
