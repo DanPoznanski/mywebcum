@@ -17,9 +17,11 @@ showTableOfContents: true
 
 &nbsp;&nbsp;&nbsp;
 
-## Introduction to Programming with Go
+# Introduction to Programming with Go
 
-### Taking Your First Step in Go Programming
+![img01](images/01.webp)
+
+## Taking Your First Step in Go Programming
 
 Can you feel the excitement coursing through your veins? You're on the verge of diving into the world of programming. Let's get started!
 
@@ -39,16 +41,19 @@ func main() {
     fmt.Println("Hello, Learner!")
 }
 ```
+&nbsp;&nbsp;&nbsp;
 
-#### Understanding the Code
+&nbsp;&nbsp;&nbsp;
+
+**Understanding the Code**
 
 The code snippet contains some elements that we will discuss briefly:
 
-- `package main`: Since your program is meant to run, it must be named `main`. We are focusing on running our program so for now just know that this is the name that must be used in order to run the program.
+- **package main:** Since your program is meant to run, it must be named `main`. We are focusing on running our program so for now just know that this is the name that must be used in order to run the program.
 
-- `import "fmt"`: We are printing something as output on the screen, and the built-in package `fmt` gives us access to this functionality.
+- **import "fmt":** We are printing something as output on the screen, and the built-in package `fmt` gives us access to this functionality.
 
-- `func main()`: This defines the `main` function, which is the entry point of every executable Go program.
+- **func main():** This defines the `main` function, which is the entry point of every executable Go program.
 
 &nbsp;&nbsp;&nbsp;
 
@@ -129,6 +134,7 @@ So, why are variables significant? They are among the fundamental building block
 
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE: 
 ```go
 package main
 
@@ -153,11 +159,10 @@ func main() {
 
 ### Managing Quantities with Variables in Go
 
-#### Managing Quantities with Variables
 
 Are you eager to expand your knowledge of Go programming? Fantastic! In this lesson, we'll focus on using `variables` in Go to manage quantities. This is a crucial feature for organizing data and performing computations. Go emphasizes type safety, ensuring that the data you work with is consistent and reliable.
 
-#### Getting Into The Nitty-Gritty
+**Getting Into The Nitty-Gritty**
 
 To manage quantities efficiently, we use `variables`. In Go, a variable is a name that represents or references a value stored in the system memory. A variable can represent numbers, strings, and more. You can use the named variable to read the value stored, or to modify it as needed.
 
@@ -206,11 +211,11 @@ An argument can be a direct value, like a number or a string, as well as a varia
 
 ### Combining Text with Variables in Go Using fmt.Sprintf
 
-#### What You'll Learn
+**What You'll Learn**
 
 Are you ready to explore combining text with variables in Go using `fmt.Sprintf`? This versatile feature makes it effortless to create dynamic and readable strings by embedding variables directly within them.
 
-#### Code Example
+**Code Example**
 
 For a trip planning scenario, consider these variables:
 
@@ -266,6 +271,7 @@ Format specifiers in `fmt.Sprintf` help format the inserted variables in specifi
 
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE:
 ```go
 package main
 
@@ -293,6 +299,7 @@ func main() {
 
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE 2:
 ```go
 package main
 
@@ -338,12 +345,9 @@ In Go, arithmetic operations allow for direct manipulation of numeric values wit
 
 ### Introduction to Go Variables and Booleans
 
-
-#### Introduction to Go Variables and Booleans
-
 An exciting lesson awaits us, promising a deeper exploration of Go's **variables** and **Boolean types**. In earlier lessons, we covered the basics of Go, and now we're going to build on that by exploring how to use **Boolean variables**. These are simple yet powerful, used to represent a condition or status as either `true` or `false`.
 
-#### What You'll Learn
+**What You'll Learn**
 
 In this lesson, we'll define two string variables: each will hold the name of a destination. We'll also explore how to use **Boolean variables** — a type of variable that can only be `true` or `false`, similar to a light switch that can only be either on (`true`) or off (`false`). Here's what it looks like in Go:
 
@@ -366,6 +370,10 @@ func main() {
 }
 ```
 Here, `destinationA` and `destinationB` store strings representing travel destinations. On the other hand, `hasVisitedA` and `hasVisitedB` are Boolean variables that, like an on-off switch, inform us whether these destinations have been visited.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 #### Getting Boolean Values from Expressions
 
@@ -427,20 +435,29 @@ These expressions are essential for making decisions in programming, enabling yo
 
 &nbsp;&nbsp;&nbsp;
 
+# Introduction to Simple Data Structures in Go
+
+![img02](images/02.webp)
+
 ## Introduction to Slices in Go
 
-### Introduction to Creating and Accessing Slices
+&nbsp;&nbsp;&nbsp;
+
+**Introduction to Creating and Accessing Slices**
 
 Welcome to an exciting journey in the world of programming with Go.
 
+&nbsp;&nbsp;&nbsp;
+
 Today, we will explore one of Go's key features: data structures, specifically **slices**. **Slices** are an integral part of Go, providing the functionality you need to manage collections of data efficiently. Let's dive into the world of **slices**!
 
-#### Packing Our Travel Bags with Slices!
+&nbsp;&nbsp;&nbsp;
+
+**Packing Our Travel Bags with Slices!**
 
 In Go, a **slice** is a flexible and powerful data structure that allows you to work with sequences of data. It's similar to creating a travel list of all the locations you'll visit in your adventure. For this travel-themed exploration, we'll create a **slice** of travel destinations. Go's strong typing ensures that all elements in a **slice** are of the same type.
 
 Consider the following **slice** of travel destinations to explore:
-
 ```go
 package main
 
@@ -456,13 +473,15 @@ func main() {
 ```
 This **slice** contains five elements, all of which are strings. Note the syntax here: elements in a **slice** are enclosed in curly braces `({})`, and we use the `[]` notation to declare a **slice**.
 
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
 #### Accessing the Elements of Travel
 
 Accessing elements from a **slice** is like selecting a travel destination from your list. Go uses a zero-index system, meaning the first element within a **slice** is accessible via the index `0`. Let's see how you can access different elements from our **slice**.
 
 To access an element from the **slice**, you refer to its index. For instance, if you want the first destination on our list, which is "Paris," you can do the following:
-
-&nbsp;&nbsp;&nbsp;
 
 ```go 
 package main
@@ -479,9 +498,6 @@ func main() {
 }
 ```
 Note that Go does not support negative indexing to access elements from the end of a **slice**. To access the last element, you'll directly use its position:
-
-&nbsp;&nbsp;&nbsp;
-
 ```go
 package main
 
@@ -502,6 +518,7 @@ In this code, `len(travelDestinations)` returns the length of the **slice**, and
 
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE1 :
 ```go
 package main
 
@@ -519,7 +536,7 @@ func main() {
 }
 ```
 
-
+EXAMPLE2 
 ```go
 package main
 
@@ -540,6 +557,7 @@ func main() {
     
 }
 ```
+&nbsp;&nbsp;&nbsp;
 
 &nbsp;&nbsp;&nbsp;
 
@@ -551,9 +569,15 @@ func main() {
 
 Welcome back, traveler! As part of our travel-themed journey, we'll be managing a slice of countries for our hypothetical world tour! Just as it is in real-world travel, our itinerary may change, prompting us to add or remove countries from our slice. In Go, slices provide a powerful way to work with collections of elements. Today, we'll explore how to append new items and manually remove items from slices.
 
-#### What You'll Learn
+&nbsp;&nbsp;&nbsp;
+
+ **What You'll Learn**
 
 Let's learn how to manipulate slices in Go, focusing on how to add and remove items. We will use the built-in function `append()`, which is used to add an item to the end of a slice. For removing items, we'll demonstrate slicing techniques to manually handle the removal of elements.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
 
 #### Slicing with Indexes in Go
 
@@ -561,11 +585,18 @@ Before we cover modifying slices, let's talk about slicing slices! By using slic
 
 1. **Basic Slicing Syntax**:
 
-The slicing operation is performed using a colon : inside square brackets to specify the start and end indexes. The syntax follows the format `slice[startIndex:endIndex]`.
+- The slicing operation is performed using a colon : inside square brackets to specify the start and end indexes. The syntax follows the format `slice[startIndex:endIndex]`.
+
+```go
+numbers := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+
+subSlice := numbers[2:5] // Creates a new slice with elements {2, 3, 4}
+```
 
 - **Start Index**: Specifies the index at which the new slice begins (inclusive).
 
-- **End Index**: Specifies the index at which the new slice ends (exclusive). The element at endIndex is not included in the new slice.
+- **End Index**: Specifies the index at which the new slice ends (exclusive). The element at `endIndex` is not included in the new slice.
+
 
 2. **Omitting Indexes**:
 
@@ -580,7 +611,9 @@ entireSlice := numbers[:] // Creates a copy of the entire slice {0, 1, 2, 3, 4, 
 ```
 Slicing with indexes is an essential feature in Go that provides flexibility in accessing and manipulating collections of data efficiently. By understanding how to define start and end points, you can leverage slices to perform complex data operations seamlessly.
 
-#### Using the "append" Function
+&nbsp;&nbsp;&nbsp;
+
+**Using the "append" Function**
 
 Now, let's take a closer look at how to use `append()` in various ways while working with slices:
 
@@ -607,7 +640,6 @@ func main() {
     numbers = append(numbers[:indexToRemove], numbers[indexToRemove+1:]...)
 }
 ```
-
 1. **Initial Slice**:
 
 - `numbers := []int{1, 2, 3}` initializes a slice of integers with the elements `1`, `2`, and `3`.
@@ -615,7 +647,6 @@ func main() {
 2. **Appending a Single Element**:
 
 - `numbers = append(numbers, 4)` appends the integer `4` to the end of the `numbers` slice. Notice that we assign the result of the `append` function to the `numbers` variable. This is because `append` doesn't modify the original slice, but rather returns the new structure as its result. We then choose to store it in the same variable so that it holds the updated state of the slice.
-
 
 3. **Appending Multiple Elements**:
 
@@ -626,7 +657,6 @@ func main() {
 - `moreNumbers := []int{8, 9, 10}` creates another slice named moreNumbers.
 
 - `numbers = append(numbers, moreNumbers...)` appends all elements of the `moreNumbers` slice to numbers. The `...` operator is used to unpack `moreNumbers` and append all of its elements as individual arguments to `append`. It is a convenient way of supplying all of the elements of a slice one by one to the append function.
-
 
 5. **Removing an Element**:
 
@@ -693,6 +723,7 @@ By practicing different scenarios, you will strengthen your understanding of the
 
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE 1: 
 ```go
 package main
 
@@ -712,7 +743,7 @@ func main() {
 ```
 &nbsp;&nbsp;&nbsp;
 
-
+EXAMPLE 2:
 ```go
 package main
 
@@ -733,6 +764,7 @@ func main() {
 
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE 3: 
 ```go
 package main
 
@@ -750,6 +782,7 @@ func main() {
 }
 ```
 
+EXAMPLE 4: 
 ```go
 package main
 
@@ -780,18 +813,15 @@ func main() {
 
 &nbsp;&nbsp;&nbsp;
 
-
 ### Exploring Arrays in Go
-
-&nbsp;&nbsp;&nbsp;
-
-#### Exploring Arrays in Go
 
 Welcome to our continuing adventure through Go's data structures! In this lesson, we'll shift our focus from slices to **arrays**. Let's dive in!
 
 &nbsp;&nbsp;&nbsp;
 
-#### Creating an Array
+&nbsp;&nbsp;&nbsp;
+
+**Creating an Array**
 
 **Arrays** in Go are a fundamental way to store multiple items in a single variable, but unlike slices, their size is fixed upon creation. Arrays are explicitly defined with square brackets that specify the number of elements they hold. Let's track the cities you've planned to visit on your travels using an array:
 ```go
@@ -836,8 +866,7 @@ fmt.Println("Updated city:", citiesPlanned[2])
 
 &nbsp;&nbsp;&nbsp;
 
-&nbsp;&nbsp;&nbsp;
-
+EXAMPLE:
 ```go
 package main
 
@@ -852,8 +881,10 @@ func main() {
     fmt.Println("Last city visited:", newCitiesVisited[4])
 }
 ```
+
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE 2: 
 ```go
 package main
 
@@ -875,6 +906,7 @@ func main() {
 ```
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE 3 :
 ```go
 package main
 
@@ -900,7 +932,9 @@ func main() {
 
 ### Exploring Maps in Go
 
-### Welcoming Maps
+&nbsp;&nbsp;&nbsp;
+
+**Welcoming Maps**
 
 Having explored slices and arrays, let's take another step in our Go journey. Imagine you're traveling and need to remember the capitals of various countries. While you could memorize each one individually, wouldn't it be more efficient to have a **map** that links each country to its capital? In Go, **maps** allow you to establish such relationships between keys and values, like countries and their capitals.
 
@@ -955,7 +989,7 @@ fmt.Println("The capital of Japan is:", capital)  // Output: The capital of Japa
 
 &nbsp;&nbsp;&nbsp;
 
-### Updating an Existing Value
+#### Updating an Existing Value
 
 To update an existing value in a **map**, use the key to assign a new value.
 
@@ -970,7 +1004,7 @@ fmt.Println("The updated capital of France is:", capitalCities["France"])  // Ou
 
 &nbsp;&nbsp;&nbsp;
 
-### Removing a Value
+#### Removing a Value
 
 To remove a key-value pair from a map, use the delete function, specifying the **map** and the key.
 
@@ -990,6 +1024,7 @@ if !exists {
 
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE :
 ```go
 package main
 
@@ -1014,6 +1049,7 @@ func main() {
 ```
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE 2:
 ```go
 package main
 
@@ -1040,6 +1076,7 @@ func main() {
 ```
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE 3:
 ```go
 package main
 
@@ -1062,9 +1099,9 @@ func main() {
     fmt.Println("Countries and their capitals:", visitedCapitals)
 }
 ```
-
 &nbsp;&nbsp;&nbsp;
 
+EXAMPLE 4:
 ```go
 package main
 
@@ -1089,14 +1126,72 @@ func main() {
 
 }
 ```
+&nbsp;&nbsp;&nbsp;
 
+&nbsp;&nbsp;&nbsp;
 
+&nbsp;&nbsp;&nbsp;
 
-### 
+&nbsp;&nbsp;&nbsp;
 
+### Exploring Nested Maps in Go: Creating Complex Data Structures
 
+Welcome back! You’ve started with **maps** in Go; now, let's delve deeper. In this unit, we’ll explore **nested maps** — think of them as a multi-level travel guide with detailed information on various destinations around the globe.
 
+&nbsp;&nbsp;&nbsp;
 
+**What You'll Learn**
+
+Moving beyond the basic key-value pairs, we'll focus on **nested maps** in Go. Imagine organizing airports worldwide, each described by its code, location, and available amenities, all within nested structures. We'll cover:
+
+- Creating **nested maps** for structured, multi-level data organization in Go.
+
+- Accessing, manipulating, and updating data within these complex **map** structures.
+
+- Efficiently adding new information to **nested maps**.
+
+&nbsp;&nbsp;&nbsp;
+
+Here's a simple example to showcase how to model **nested maps** in Go:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // Creating a nested map to represent airports
+    airports := map[string]map[string]string{
+        "JFK": {
+            "Location":  "New York, USA",
+            "Amenities": "Free WiFi, Lounges",
+        },
+        "LHR": {
+            "Location":  "London, UK",
+            "Amenities": "Shopping, Lounges",
+        },
+    }
+
+    // Accessing nested map elements
+    fmt.Println("JFK Location: ", airports["JFK"]["Location"])
+    fmt.Println("LHR Amenities: ", airports["LHR"]["Amenities"])
+
+    // Updating a nested map element
+    airports["JFK"]["Amenities"] = "Free WiFi, Lounges, Priority Boarding"
+    fmt.Println("Updated JFK Amenities: ", airports["JFK"]["Amenities"])
+
+    // Adding a new airport
+    airports["NRT"] = map[string]string{
+        "Location":  "Tokyo, Japan",
+        "Amenities": "Restaurants, Duty-Free Shops",
+    }
+    fmt.Println("NRT Location: ", airports["NRT"]["Location"])
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+EXAMPLE 1 :
 ```go
 package main
 
@@ -1114,5 +1209,835 @@ func main() {
 
     // TODO: Access and print the city and country that corresponds to a particular airport code.
     fmt.Println(airportCodes["LHR"]["city"] + " - " + airportCodes["LHR"]["country"])
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+EXAMPLE 2:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // A map to handle airport codes
+    airportCodes := map[string]map[string]string{
+        "JFK": {"city": "New York", "country": "USA"},
+        "LAX": {"city": "Los Angeles", "country": "USA"},
+        "LHR": {"city": "London", "country": "UK"},
+        "HND": {"city": "Tokyo", "country": "Japan"},
+        "SYD": {"city": "Sydney", "country": "Australia"},
+    }
+
+    // TODO: Update 'country' of 'LHR' to 'England'
+    airportCodes["LHR"]["country"] = "England"
+    fmt.Println(airportCodes)
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+![img03](images/03.webp)
+
+## Introduction to Control Structures in Go
+
+Are you ready to dive deeper into Go? In this lesson, we will learn about **control structures**. **Control structures** are fundamental building blocks in programming that empower your code to take different actions based on various situations.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**What You'll Learn**
+
+We'll be focusing on the `if` and `else` statements. These are the cornerstones of decision making in Go. To illustrate, suppose you want to travel, but your ability to do so depends on whether you have a passport. In programming terms, we model this real-world scenario as follows:
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    hasPassport := true
+
+    if hasPassport {
+        fmt.Println("You are eligible to travel.")
+    } else {
+        fmt.Println("You cannot travel without a passport.")
+    }
+}
+```
+As you can see, the `if` statement checks whether the condition — in this case, having the passport being `true` is met. If so, the action within the `if` block, printing "You are eligible to travel," is executed. Otherwise, the code within the `else` block, which states "You cannot travel without a passport," is executed.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**A Note on Syntax**
+
+In addition to understanding the `if` and else statements, mastering the syntax, particularly the use of braces `{}` that delineate blocks of code, is crucial. Braces, in combination with the `if` and `else` keywords, define the scope and block of instructions attached to each condition in Go.
+```go
+if passport {
+    fmt.Println("You are eligible to travel.")  // This statement belongs to the if condition
+    // Any additional code dependent on the passport being true would be placed here
+} else {
+    fmt.Println("You cannot travel without a passport.")  // This statement belongs to the else condition
+    // Code to execute when the passport condition is false would be placed here
+}
+// Any code here would not be part of the if-else block and executes regardless of the passport condition
+```
+After each `if` or else statement, a block of code is enclosed within braces `{}` to introduce the instructions that should be executed if the condition is met. This syntax structure ensures your program can clearly follow which instructions belong to which condition, thereby facilitating an organized and error-free decision-making process.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Role of Parentheses in if Statements**
+
+Unlike some other programming languages, Go does not require parentheses around the condition of an `if` statement. This helps make the code cleaner and easier to read.
+```go
+if hasPassport {
+    fmt.Println("You are eligible to travel.")
+}
+```
+However, if you prefer, you can still use them for clarity, though it is not a common practice in Go:
+```go
+if (hasPassport) {
+    fmt.Println("You are eligible to travel.")
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Boolean Checks and Operators**
+
+In Go, you can use both shorthand and full syntax for boolean checks. The shorthand simply uses the boolean variable itself:
+```go
+if hasPassport {
+    fmt.Println("You can travel.")
+}
+```
+Alternatively, you can compare the boolean variable with a boolean literal using equality/inequality operators. This is often used for clarity or when dealing with more complex boolean expressions:
+```go
+if hasPassport == true {
+    fmt.Println("You can travel.")
+} else if hasPassport != true {
+    fmt.Println("You cannot travel.")
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Using "if" Without "else"**
+
+In Go, an `if` statement can also be used independently, without the accompanying `else` block. This allows you to execute a block of code only when a certain condition is true, without needing to define alternate actions if the condition is false. This can be particularly useful when you only need to check for or handle specific cases. Here’s an example:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    temperature := 30
+
+    if temperature > 25 {
+        fmt.Println("It's a hot day!")  // This statement will execute only if the temperature is greater than 25
+    }
+    // No else block is used here, so nothing else is executed only if the temperature is not greater than 25
+}
+```
+In this example, `"It's a hot day!"` is printed only if the temperature is greater than 25. If the condition isn't met, the program simply continues without executing any additional actions related to this condition. Keep in mind that any code following the `if` check is still executed, regardless of the condition state.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+EXAMPLE 1:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // Declaring an initial balance of $4500
+    balance := 4500
+
+    // Checking if the Visa Application Balance is greater than or equal to 5000
+    if balance >= 5000 {
+        fmt.Println( "You are eligible to apply for a visa.")
+    } else {
+        fmt.Println("You must maintain a balance of at least $5,000 to apply for a visa.")
+    }
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+EXAMPLE 2:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // Declaring a Boolean variable "hasPassport"
+    hasPassport := true
+
+    if hasPassport == true {
+        fmt.Println("You are eligible to travel.")
+    } else {
+        fmt.Println("You cannot travel without a passport.")
+    }
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+## Exploring Multiple Conditions with If-Else and Else If in Go
+
+Are you ready to level up your programming skills? In the previous lesson on **control structures**, a foundation was laid. We now venture further into the world of handling multiple conditions.
+
+**What You'll Learn**
+
+In this unit, we will fortify our understanding of the `if` and `else` commands by incorporating another useful control structure called else `if`. The `else if` statement enables us to handle multiple conditions more flexibly in Go.
+
+Before we dive in, here's a quick reminder on comparison operators used within conditionals: the `>` (greater than) and `<` (less than) operators are critical for comparing values, allowing the program to decide which path to follow based on the resultant Boolean (`true` or `false`) value.
+
+Let us illustrate this using an example: suppose a travel agency offers different travel packages based on a user's `age`. A children's package is allocated to anyone below `18`, an adult's package is designated for those between `18` and `59`, and any individuals aged `60` and above receive a senior citizen's package.
+
+Below is a code snippet that models this scenario using `if`, else `if`, and `else`:
+```go
+Go
+Copy to clipboard
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    age := 20 // Example age
+
+    if age < 18 {
+        fmt.Println("You are eligible for the children's travel package.")
+    } else if age < 60 {
+        fmt.Println("You are eligible for the adult's travel package.")
+    } else {
+        fmt.Println("You are eligible for the senior citizen's travel package.")
+    }
+}
+```
+As demonstrated, we can manage three distinct age conditions using the `else if` statement.
+
+
+EXAMPLE :
+```go 
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    // TODO: Check age and assign a travel package accordingly
+    age := 60  // Example age
+
+    // TODO: Use an if statement to check if the age is less than 18
+    if age < 18 {
+        fmt.Println("You are eligible for the children's travel package.")
+    // TODO: Use an else if statement to check if the age is less than 60
+    } else if age <= 59 {
+        fmt.Println("You are eligible for the adult's travel package.")
+    // TODO: Use an else statement for individuals 60 and older
+    } else {
+        fmt.Println("You are eligible for the senior citizen's travel package.")
+    }
+}
+ ```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+### Building on If-Else and Else If: Introducing Nested Conditions in Go
+
+Are you excited to build upon our previous exploration of the `if`, `else if`, and else constructs in Go? As we've seen, these are powerful tools for decision-making. Now, we're taking a step further by delving into **nested conditions**. This concept allows us to introduce even more flexibility and sophistication into our programming logic.
+
+&nbsp;&nbsp;&nbsp;
+
+**What You'll Learn**
+
+Nested conditions occur when an `if`,`else if`, or `else` construct is embedded within another `if`, `else if`, or `else` construct. By creating this hierarchy of conditions, we can effectively handle more complex decision-making processes.
+
+Let's reconsider the travel agency example. Suppose that now, in addition to age, we also want to consider the customer's budget. People over the age of `18` with a budget above `$1000` receive an international travel package, while those with smaller budgets receive a local travel package. Here's how we can use **nested conditions** to model this in Go:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    age := 23
+    budget := 1500
+
+    if age > 18 {
+        if budget > 1000 {
+            fmt.Println("You are eligible for the international travel package.")
+        } else {
+            fmt.Println("You are eligible for the local travel package.")
+        }
+    } else {
+        fmt.Println("You are eligible for the children's travel package.")
+    }
+}
+```
+As demonstrated, we formed a nested construct by placing an `if-else` condition inside another `if` condition. Similar to concentric structures, these **nested conditions** allow for managing intricate complexities in our code.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Combining Conditionals with Maps in Go
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Deepening Our Journey: Combining Conditionals with Data Structures
+
+Remember our last exciting unit on **nested conditions** in Go? It was much like a thrilling ride, wasn't it? Now, it's time to up the ante on our knowledge quest. In this unit, we will uncover a vital concept: **combining conditionals with maps** in Go.
+
+&nbsp;&nbsp;&nbsp;
+
+**What You'll Learn**
+
+&nbsp;&nbsp;&nbsp;
+
+In Go, conditionals and data structures are not just separate elements. When they merge, your code gains enhanced depth and capability.
+
+Imagine a scenario where a traveler is planning trips to multiple countries. In the previous unit, we discussed a traveler example. Now, envisage this traveler having a Go **map** of destinations containing key information on whether the traveler has visited a country.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    travelDestinations := map[string]map[string]string{
+        "France": {"capital": "Paris", "visited": "no"},
+        "Italy":  {"capital": "Rome", "visited": "yes"},
+        "Spain":  {"capital": "Madrid", "visited": "no"},
+    }
+
+    destination := "France"
+
+    if travelDestinations[destination]["visited"] == "yes" {
+        fmt.Printf("You have already visited %s!\n", destination)
+    } else {
+        fmt.Printf("It seems you haven't visited %s yet. Get ready for an exciting adventure in %s!\n", 
+                   destination, travelDestinations[destination]["capital"])
+    }
+}
+```
+
+As demonstrated, integrating conditionals with data structures like **maps** can significantly enhance the versatility and robustness of your code.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Understanding the Access Pattern for Nested Maps**
+
+Before delving deeper, let's revisit a fundamental syntax frequently used: accessing nested map elements. When dealing with **maps** within **maps** (nested **maps**), as shown in our travel example, you will use` map[outerKey][nestedKey]` syntax to retrieve nested values.
+
+&nbsp;&nbsp;&nbsp;
+
+For instance, to obtain the capital of France from our `travelDestinations` **map**, you would write `travelDestinations["France"]["capital"]`. This first retrieves the **map** associated with `"France"` and then extracts the value for `"capital"` within that **map**. Always ensure the existence of the key in the outer **map** to avoid errors.
+
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Why Combining Conditionals and Data Structures Matters**
+
+Imagine crafting a strategy for complex decision-making processes. Based on various criteria, you may decide not just the next move but also systematically store that decision. When conditionals converge with data structures, they exponentially empower your Go code, unlocking a realm of exciting possibilities.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+
+![img04](images/04.webp)
+
+&nbsp;&nbsp;&nbsp;
+
+## Introduction to for Loops in Go Programming
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Introduction to for Loops**
+
+Are you ready to level up your Go programming skills? We are moving into more advanced techniques to take full control of Go's capabilities. This lesson focuses on the **for loop** — a versatile and powerful tool in Go that will enhance your coding efficiency tremendously.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Exploring for Loops**
+
+In Go, a **for loop** allows us to execute a block of code a certain number of times or over a collection. It's incredibly useful for handling repetitive tasks without manually programming each repetition.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Classic "for" Loop Syntax**
+
+The traditional syntax for a **for loop** in Go consists of three components: initialization, condition, and increment. This is typically used when you know in advance how many times you'd like the loop to run. Here's an example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 0; i < 5; i++ {
+        fmt.Println("Iteration", i)
+    }
+}
+```
+In this example:
+
+- Initialization: `i := 0` sets up a loop variable `i` starting at `0`.
+
+- Condition: `i < 5` continues the loop as long as `i` is less than `5`.
+
+- Increment: `i++` increases `i` by `1` after each iteration.
+
+Running this loop, you'd see:
+
+```go
+Iteration 0
+Iteration 1
+Iteration 2
+Iteration 3
+Iteration 4
+```
+This structure provides a clear and controlled way to run code a specified number of times.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Using for Loops with Collections**
+
+**For loops** become even more powerful when combined with Go's capability to iterate over collections. For example, consider visiting each country in a list for a trip. Let's see what it looks like in Go:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    tripCountries := []string{"France", "Italy", "Spain", "Japan"}
+
+    for _, country := range tripCountries {
+        fmt.Println("Considering", country, "for the trip.")
+    }
+}
+```
+In this scenario, the loop iterates over `tripCountries`, with `range` used to specify the collection to iterate over. The loop assigns each element to the variable `country` during each iteration and executes the block of code with `fmt.Println`.
+
+
+
+Running the loop, you would see:
+
+```go
+Considering France for the trip.
+Considering Italy for the trip.
+Considering Spain for the trip.
+Considering Japan for the trip.
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+Example 1:
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // Suppose we have a list of countries we are considering for a trip
+    tripCountries := []string{"France", "Italy", "Spain", "Japan"}
+
+    // TODO: Identify the bug with this for loop preventing it from running correctly
+    for _, country := range tripCountries {
+        fmt.Printf("Considering %s for the trip.\n", country)
+    }
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+### Discover the Power of Nested Loops in Go
+
+
+I trust you're as excited as I am to delve further into this intriguing topic. Having established a solid foundation with for loops, it is now time to elevate your understanding of these looping concepts by exploring **nested loops**. **Nested loops** enable us to tackle more complex situations and enhance the power of our code.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Unfolding Nested Loops**
+
+**Nested loops** signify the placement of one loop inside another. These loops prove particularly useful when we need to address scenarios involving more than one sequence or when the number of iterations depends on the data itself. The setup could involve a `for` loop inside another `for` loop, or even a combination of `for` loops and conditional logic.
+
+Consider the following example. Suppose you're planning a trip and desire to list the key sights in the countries you intend to visit.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    // We might want to do some sightseeing in each country. For each country, we have a list of sights.
+    countrySights := map[string][]string{
+        "France": {"Eiffel Tower", "Louvre Museum"},
+        "Italy":  {"Colosseum", "Piazza San Marco"},
+        "Spain":  {"Park Güell", "The Alhambra"},
+        "Japan":  {"Mt. Fuji", "Fushimi Inari Taisha"},
+    }
+
+    for country, sights := range countrySights {
+        fmt.Printf("***In %s, I want to see:\n", country)
+        for _, sight := range sights {
+            fmt.Println(sight)
+        }
+    }
+}
+```
+In this code snippet, we have a `for` loop that iterates over all countries, and within that loop, there is another `for` loop that cycles through all the sights `for` the current country. There you have it: a **nested loop!** Here is what you'd get if you run the code above:
+
+```
+***In France, I want to see:
+Eiffel Tower
+Louvre Museum
+***In Italy, I want to see:
+Colosseum
+Piazza San Marco
+***In Spain, I want to see:
+Park Güell
+The Alhambra
+***In Japan, I want to see:
+Mt. Fuji
+Fushimi Inari Taisha
+```
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+Example:
+```go
+
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    // Organizing a photo exhibition of iconic landmarks from around the world.
+    exhibitionLandmarks := map[string][]string{
+        "France": {"Louvre Museum", "Mont Saint Michel"},
+        "Italy":  {"Leaning Tower of Pisa", "Venice Canals"},
+        "Spain":  {"Sagrada Familia", "Royal Palace of Madrid"},
+        "Japan":  {"Tokyo Tower", "Kiyomizu-dera"},
+    }
+
+    // TODO: Implement the loop to iterate through the countries and their landmarks
+    for a, b := range exhibitionLandmarks {
+        fmt.Printf("**countries who have landmarks: %s .\n", a)
+        for _, c := range b {
+            fmt.Println(c)
+        }
+    } 
+}
+```
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+### Refining Your Loop Skills
+
+Let's take your understanding of **for loops** in Go to the next level by delving deeper into loop controls. You'll learn how to skillfully manage loop execution using the `break` and `continue` statements, which can be indispensable in crafting efficient code.
+
+**Dive Deeper into Loop Controls**
+
+Consider you're embarking on a journey and need to double-check your packing. Imagine realizing you've either forgotten essential items or mistakenly packed non-essentials. Loop controls in Go are your coding assistant here.
+
+The `break` statement stops the loop prematurely, and the `continue` statement skips to the next iteration of the loop. Let's explore how you can use both effectively through a practical example of checking a packing list while avoiding unnecessary checks.
+
+```Go
+package main
+
+import "fmt"
+
+func main() {
+    packingList := []string{"passport", "tickets", "camera", "clothes", "snacks"}
+    packedItems := []string{"passport", "camera", "clothes", "snacks"}
+    nonEssentialItems := map[string]bool{"snacks": true}
+    
+    forgetting := false
+    for _, item := range packingList {
+        if nonEssentialItems[item] {
+            // Skip non-essential items
+            continue
+        }
+
+        present := false
+        for _, packedItem := range packedItems {
+            if item == packedItem {
+                present = true
+                break
+            }
+        }
+        
+        if !present {
+            fmt.Printf("Forgot to pack %s\n", item)
+            forgetting = true
+            // Stop checking further as we've already identified a missing item
+            break
+        }
+    }
+    
+    if !forgetting {
+        fmt.Println("All essential items packed!")
+    }
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Explanation**
+
+In this enhanced packing scenario, we iterate through the `packingList` but skip non-essential items using the `continue` statement if the item is found in the `nonEssentialItems` map. This ensures our check focuses solely on essentials.
+
+The nested loop then verifies each essential item against the `packedItems`. If an item is missing, the break statement halts further iterations, signaling an oversight. Finally, the code provides feedback on whether all essential items are packed.
+
+This approach, using both `break` and `continue`, optimizes the loop process: it avoids redundant checks and breaks out swiftly when an issue is detected, mimicking an intuitive checklist execution.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+Example : 
+```go
+package main
+
+import "fmt"
+
+func main() {
+    gadgetList := []string{"smartphone", "camera", "power bank", "headphones"}
+    packedGadgets := []string{"smartphone", "power bank", "headphones"}
+    
+    // TODO: Write a for loop to iterate through each gadget in gadgetList
+    for _, item := range gadgetList {
+        found := true
+        // TODO: Inside the loop, write a nested loop to iterate through packedGadgets
+        for _, packedGadget := range packedGadgets {
+        // TODO: Use a boolean variable to check if the current gadget is in packedGadgets
+            if item == packedGadget {
+                found = false
+                break
+            }
+        }
+        // TODO: If the gadget is not in packedGadgets, print "Forgot to pack {gadget}" and use the break statement to exit the loop   
+        if found {
+            fmt.Printf("Forgot to pack %s. \n", item)
+            break
+        }    
+    }
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+### Mastering Conditional Iteration with Go's for Loop
+
+Welcome back! I hope you're prepared for another exciting lesson. Our journey through loops in Go continues. You've already built a strong foundation. Now, we'll enrich that knowledge by exploring how to use a conditional `for` loop in Go.
+
+What Should You Expect?
+Think of a `for` loop with a condition in Go as your reliable companion that continues performing a task as long as the condition remains true. It keeps iterating until the condition fails or a `break` statement intervenes. Let's illustrate how this works with a code snippet related to planning a trip based on the `budget` for the countries you want to visit:
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    // We have a budget for the trip, and each country costs a certain amount
+    travelBudget := 5000
+    countryCosts := map[string]int{"France": 1000, "Italy": 800, "Spain": 900, "Japan": 1200}
+
+    totalCost := 0
+    chosenCountries := []string{}
+
+    // Let's add countries to our trip until our budget runs out using a for loop
+    for totalCost < travelBudget && len(countryCosts) > 0 {
+        // Iterate over map to get a country and its cost
+        tried := 0
+        for country, cost := range countryCosts {
+            if totalCost+cost <= travelBudget {
+                totalCost += cost
+                chosenCountries = append(chosenCountries, country)
+                delete(countryCosts, country)
+            } else {
+                tried++
+            }
+        }
+        
+        if len(countryCosts) == tried {
+            // we don't have any more options that can fit within our budget so we can safely exist the loop
+            break;
+        }
+    }
+
+    fmt.Println("Countries chosen for the trip:", chosenCountries)
+}
+```
+This code features a `for` loop that checks two conditions — whether our `totalCost` is less than our `travelBudget`, and whether there are still countries left in the countryCosts map. The loop continues iterating, removing countries from the map, and adding them to our trip until one of the conditions fails.
+
+We are also monitoring how many countries we have checked within our loop. If it so happens that the count of countries checked matches the length of the collection of contries, we have exhausted our options and can exit our loop.
+
+In this case, our budget permits travel to all the countries, so the loop stops when countryCosts is empty and there are no more countries to consider. If you adjust the travelBudget to a lower number, the loop will halt sooner when the first condition is no longer met.
+
+
+Example :
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    tourBudget := 3500
+    cityVisitCosts := map[string]int{"Rome": 850, "Paris": 900, "Berlin": 600, "Madrid": 700}
+
+    totalSpent := 0
+    citiesChosen := []string{}
+
+
+    // TODO: Use a for loop to selectively add cities to the tour list based on the budget
+    for totalSpent < tourBudget && len(cityVisitCosts) > 0 {
+        
+        tried := 0 
+        
+    // TODO: Retrieve a city and its associated cost  
+        for city, cost := range cityVisitCosts {
+    //	TODO: Check if adding this city would exceed your budget
+            if totalSpent+cost <= tourBudget {
+                totalSpent += cost
+                citiesChosen = append(citiesChosen, city)
+                delete(cityVisitCosts, city)
+            } else {
+                tried++
+            }
+        }
+    
+    
+        // TODO: ensure that we can exit the loop if no more valid options are available
+        if tried == len(cityVisitCosts) {
+           break
+        }
+    }
+    // TODO: Print the list of cities chosen for the cultural tour
+    fmt.Println("List of cities chosen for the cultural tour:", citiesChosen)
+    
+    
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+![img05](images/05.webp)
+
+## Diving Into Go Functions
+
+Having introduced yourself to the fundamentals of programming, it's time to dive deeper. In today's lesson, we'll explore one of the most critical components of Go — **defining and using functions**. As you progress through this unit, you'll gain a comprehensive understanding of what **functions** entail, their syntax, and their application in Go.
+
+
+
+
+
+---
+
+---
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var planetsInSolarSystem int = 8 // Initially, we have 8 planets
+    fmt.Println("Planets in our Solar System:", planetsInSolarSystem) // Prints: Planets in our Solar System: 8
+
+    // TODO: Update the number of planets to 9 as if a new planet has been discovered.
+    planetsInSolarSystem = 9
+    fmt.Println("Updated Planet count:", planetsInSolarSystem) // Prints: Updated Planet count: 9
 }
 ```
