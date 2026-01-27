@@ -2250,3 +2250,275 @@ By using named return values (`sum` and `product`), the code becomes self-docume
 You might be pondering why return values are so crucial. Well, **return values** essentially transform our functions into data factories - they process data and then deliver it for us to use. This practice makes our code modular, flexible, and efficient, as we can reuse functions to create different outputs based on our input data.
 
 Understanding **return values** deepens your mastery of functions and presents a world of programming possibilities. With **return values**, your functions aren't simply processing tasks - they're creating something for you to use elsewhere in your program, saving you repetitive work and making your code cleaner and more efficient.
+
+
+
+example1 :
+
+```go
+package main
+
+import "fmt"
+
+// TODO: Add a second return value of type bool
+func calculateDivision(a float64, b float64) (float64, bool) {
+    // TODO: Check if b is zero
+    if b == 0 {
+    //  return 0 and true if so
+        return 0, true
+    }
+    //  return the division result and false if not
+    return a/b, false
+}
+
+func main() {
+    var a, b float64 = 5, 0
+
+    // TODO: capture both values from the function
+    division, isError := calculateDivision(a, b)
+    // TODO: check if we were dividing by zero
+    if isError {
+        //  if so, write to the console that this isn't allowed
+        fmt.Printf("Division by zero isn't allowed")
+        } else { 
+        //  otherwise print out the result of the division
+        fmt.Println("The result of the division is:", division)
+        }
+
+}
+```
+
+example2:
+
+```go
+package main
+
+import "fmt"
+
+// Define a function to calculate the transportation cost.
+func calculateTransportationCost(countries []string, transportationCosts map[string]int) int {
+    totalCost := 0
+    for _, country := range countries {
+        totalCost += transportationCosts[country]
+    }
+    // TODO: Return the total cost
+    return totalCost
+}
+func main() {
+    // Presuming the countries you'll visit and the expected transportation costs for each
+    plannedCountries := []string{"Germany", "Austria", "Switzerland"}
+    expectedCosts := map[string]int{"Germany": 200, "Austria": 180, "Switzerland": 220}
+
+    // TODO: Call the function and assign return value to transportationCost
+    transportationCost := calculateTransportationCost(plannedCountries, expectedCosts)
+    fmt.Printf("The total transportation cost for the trip is: $%d\n", transportationCost)
+}
+```
+
+example 3 :
+
+```go
+package main
+
+import (
+	"fmt"
+)
+
+// TODO: Define a function called calculateSouvenirBudget
+// TODO: The function should take two parameters: countries (a slice of countries) and souvenirCosts (a map with countries as keys and costs as values)
+func calculateSouvenirBudget(counteries []string, souvenirCosts map[string]int) int{
+// TODO: Inside the function, create a variable to hold the total budget and set it to 0
+    totalbudget := 0
+// TODO: Use a for loop to iterate through the slice of countries
+    for _, country := range counteries {        
+// TODO: For each country, add the corresponding souvenir cost to the total budget
+        totalbudget += souvenirCosts[country]
+    }
+// TODO: The function should return the total budget
+        return totalbudget
+}
+
+func main() {
+    // Assuming the countries you'll visit and the average souvenir costs
+    countries := []string{"France", "Italy", "Spain"}
+    souvenirCosts := map[string]int{"France": 150, "Italy": 100, "Spain": 75}
+
+    // Call the function
+    totalSouvenirBudget := calculateSouvenirBudget(countries, souvenirCosts)
+    fmt.Printf("The total souvenir budget for the trip is: $%d\n", totalSouvenirBudget)
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+#### Introduction to Variable Scope: Local and Package-Level Variables
+
+Welcome back! We are advancing swiftly to another significant terrain: **variable scope** in Go. You've already learned how to create and call functions, as well as how to incorporate return statements. Now, we move to one of the crucial aspects of functions — understanding the scope of variables both within and outside of these functions. Are you thrilled to dive in? We guarantee it's going to be enlightening!
+
+
+
+**Understanding Local and Package-Level Variables**
+
+In Go, a variable defined within a function has a scope confined to that function, making it a local variable. This simply means that you cannot access a local variable outside the function in which it's declared.
+
+What happens if we want a variable that is accessible across functions within the same package? That's where package-level variables come in! Package-level variables are those defined outside any function and are accessible throughout your code — both inside and outside functions within the same package.
+
+Let's step through an example to illustrate:
+
+```go
+package main
+
+import "fmt"
+
+// Define a package-level variable
+var chosenCountries = []string{"France", "Italy"}
+
+func addCountry(country string) {
+    chosenCountries = append(chosenCountries, country)  // This modifies the package-level variable
+}
+
+func main() {
+    addCountry("Spain") // Invoke the function
+    fmt.Println(chosenCountries) // Output: ["France", "Italy", "Spain"]
+}
+```
+Here, chosenCountries is a package-level variable. We are able to append a new country to our slice within the function `addCountry()`. After invoking a`ddCountry()` with "Spain," we printed `chosenCountries` and found its value to be `["France", "Italy", "Spain"]`.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Trying to Access a Variable Not in Scope**
+
+Attempting to access a variable that is not within your current scope is a common mistake. This occurs when you try to access a local variable outside the function in which it is defined.
+
+Consider this example:
+```go
+package main
+
+import "fmt"
+
+func bookFlight() {
+    destination := "Paris"  // Local variable defined within the function
+}
+
+func main() {
+    bookFlight()
+    fmt.Println(destination)  // Attempt to access the local variable outside its function
+}
+```
+Running this code will result in a compilation error because `destination` is not declared in the package scope. Go enforces scope rules to maintain clarity and prevent unexpected alterations to data.
+
+
+
+Example 
+```go
+package main
+
+import "fmt"
+
+// TODO: Declare a package-level slice to keep track of visited landmarks
+var landmarks []string 
+// TODO: Define a function named logLandmark that takes two parameters: landmark and city
+func logLandmark(landmark string, city string) {
+    // TODO: Add the landmark and its city to the package-level slice in the format "landmark in city"
+    entry:= fmt.Sprintf("%s in %s", landmark, city) 
+    landmarks = append(landmarks, entry)
+}
+    
+
+func main() {
+    // TODO: Call the logLandmark function with examples e.g. "Eiffel Tower" and "Paris", "Statue of Liberty" and "New York"
+    logLandmark("Eiffel Tower", "Paris")
+	logLandmark("Statue of Liberty", "New York")
+
+
+    // TODO: Print the slice of visited landmarks
+    fmt.Println(landmarks)
+    
+}
+```
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+
+### Combining Functions to Solve Complex Problems
+
+Welcome back, Go enthusiast! In our last lesson, we successfully navigated the intricacies of **variable scope** in Go. Today, we're elevating our skills. We'll learn how to combine multiple functions to tackle more complex problems. Picture it as constructing a multi-star engineer's toolkit; each tool is a function, and employing the right combination can assist you in crafting an architectural masterpiece.
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+**Breaking Down Problems using Functions**
+
+Imagine embarking on a European trip; you need to compute the cost of your visits to various countries based on a budget. It seems daunting, doesn't it? But fear not; with Go functions, we can dissect this problem into smaller, more manageable tasks.
+
+Before diving into function creation, let's consider some sample data to work with:
+
+``Go
+package main
+
+import "fmt"
+
+var travelBudget = 5000
+var countryCosts = map[string]int{"France": 1200, "Italy": 1500, "Spain": 800, "Germany": 900, "Greece": 1100}
+```
+Here, we have a travel budget of `5000`, and the costs of visiting France, Italy, Spain, Germany, and Greece are outlined in our **map**, `countryCosts`. These values will serve as the basis for crafting and demonstrating our functions.
+
+
+**Selecting Countries within Budget**
+
+First, let's focus on selecting which countries we can visit without exceeding our budget using the `chooseCountries` function:
+```go
+func chooseCountries(budget int, costs map[string]int) []string {
+    totalCost := 0
+    chosenCountries := []string{}
+    for country, cost := range costs {
+        if totalCost+cost > budget {
+            break
+        }
+        totalCost += cost
+        chosenCountries = append(chosenCountries, country)
+    }
+    return chosenCountries
+}
+
+func main() {
+    chosenCountries := chooseCountries(travelBudget, countryCosts)
+    fmt.Println(chosenCountries) // Prints [France Italy Spain Germany]
+}
+```
+This function iterates through each country and its associated cost, adding countries to our visit list until we reach our budget limit. This direct approach ensures that our travel experience is always within budgetary constraints.
+
+
+**Calculating the Total Cost**
+
+Next, we will calculate the total cost of visiting the selected countries with the calculateCost function:
+```go
+func calculateCost(countries []string, costs map[string]int) int {
+    totalCost := 0
+    for _, country := range countries {
+        totalCost += costs[country]
+    }
+    return totalCost
+}
+
+func main() {
+    chosenCountries := chooseCountries(travelBudget, countryCosts)
+    totalCost := calculateCost(chosenCountries, countryCosts)
+    fmt.Println(totalCost) // Prints 4400
+}
+```
+After selecting our countries, this function calculates the total expenditure. By iterating through the list of chosen countries, it sums up their associated costs from our **map**, `countryCosts`, providing us with a clear tally of our planned expenses.
