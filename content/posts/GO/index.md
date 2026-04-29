@@ -2522,3 +2522,80 @@ func main() {
 }
 ```
 After selecting our countries, this function calculates the total expenditure. By iterating through the list of chosen countries, it sums up their associated costs from our **map**, `countryCosts`, providing us with a clear tally of our planned expenses.
+
+
+
+example :
+```go
+package main
+
+import "fmt"
+
+// Partial function to add another country to your trip plan if it fits the budget.
+func addCountryIfFitsBudget(currentBudget int, currentCost int, newCountryCost int) bool {
+    // TODO: Add the missing code to check if you can add the new country without exceeding the budget
+    totalCost := currentCost + newCountryCost
+    if totalCost <= currentBudget {
+        return true
+    }
+    return false
+}
+
+func main() {
+    // Assuming sample values for demonstration
+    currentBudget := 5000
+    currentCost := 3000
+    newCountryCost := 1200
+
+    // Check if adding the new country fits the budget
+    canAddCountry := addCountryIfFitsBudget(currentBudget, currentCost, newCountryCost)
+    fmt.Printf("Can add new country within budget? %v\n", canAddCountry)
+}
+```
+
+
+example:
+```go
+package main
+
+import "fmt"
+
+// Adjusted function to consider both budget and cost preference.
+func chooseCountries(budget int, costThreshold int, costs map[string]int) []string {
+    totalCost := 0
+    chosenCountries := []string{}
+    for country, cost := range costs {
+        // TODO: Modify the condition below to also reject countries whose cost exceeds the costThreshold
+        if totalCost+cost > budget {
+            continue
+        }
+        if cost > costThreshold {
+            continue
+        }
+        totalCost += cost
+        chosenCountries = append(chosenCountries, country)
+    }
+    return chosenCountries
+}
+
+func calculateCost(countries []string, costs map[string]int) int {
+    totalCost := 0
+    for _, country := range countries {
+        totalCost += costs[country]
+    }
+    return totalCost
+}
+
+func main() {
+    // Assuming sample data for budget, cost threshold, and costs for demonstration
+    travelBudget := 5000
+    costThreshold := 1000 // New cost preference limit
+    countryCosts := map[string]int{"France": 1200, "Italy": 1500, "Spain": 800, "Germany": 900, "Greece": 1100}
+
+    chosenCountries := chooseCountries(travelBudget, costThreshold, countryCosts)
+    tripCost := calculateCost(chosenCountries, countryCosts)
+
+    fmt.Printf("The countries selected within budget and cost preference are: %v\n", chosenCountries)
+    fmt.Printf("The total cost of the trip is: $%d\n", tripCost)
+}
+```

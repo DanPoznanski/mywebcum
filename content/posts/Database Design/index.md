@@ -2345,6 +2345,25 @@ So, the choice of the database depends on the business need. If your application
 
 ### Your first duty: Have a look at the PostgreSQL database
 
+A relational database:
+
+- real-life entities become tables
+
+- reduced redundancy
+
+- data integrity by relationships
+
+- e.g. `professors`, `universities`, `companies`
+
+- e.g. only one entry in `companies` for the bank "Credit Suisse"
+
+- e.g. a `professor` can work at multiple `universities` and `companies`, a `company` can employ multiple `professors`
+
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
+Your first duty: Have a look at the PostgreSQL database
 ```sql
 SELECT table_schema, table_name
 FROM information_schema.tables;
@@ -2365,7 +2384,7 @@ pg_catalog      | pg_settings
 
 &nbsp;&nbsp;&nbsp;
 
-### Have a look at the columns of a certain table
+Have a look at the columns of a certain table
 ```sql
 SELECT table_name, column_name, data_type
 FROM information_schema.columns
@@ -2426,7 +2445,6 @@ SELECT *
 FROM university_professors
 LIMIT 3;
 ```
-
 ```sql
 -[ RECORD 1 ]----------+--------------------------------
 firstname              | Karl
@@ -2457,7 +2475,6 @@ organization           | Fondation IDIAP
 &nbsp;&nbsp;&nbsp;
 
 #### Currently: One "entity type" in the database
-
 
 ![img56](images/img56.webp)
 
@@ -2506,7 +2523,7 @@ New structure:
 
 &nbsp;&nbsp;&nbsp;
 
-#### Create new tables with CREATE TABLE
+**Create new tables with CREATE TABLE**
 ```sql
 CREATE TABLE table_name (
     column_a data_type,
@@ -2514,8 +2531,8 @@ CREATE TABLE table_name (
     column_c data_type
 );
 ```
+&nbsp;&nbsp;&nbsp;
 
-Example :
 ```sql
 CREATE TABLE weather (
     clouds text,
@@ -2523,13 +2540,15 @@ CREATE TABLE weather (
     weather_station char(5)
 );
 ```
-&nbsp;&nbsp;&nbsp;
+![img62](images/img62.webp)
 
 &nbsp;&nbsp;&nbsp;
 
 &nbsp;&nbsp;&nbsp;
 
-### CREATE your first few TABLEs
+&nbsp;&nbsp;&nbsp;
+
+***CREATE your first few TABLEs***
 You'll now start implementing a better database model. For this, you'll create tables for the `professors` and `universities` entity types. The other tables will be created for you.
 
 The syntax for creating simple tables is as follows:
@@ -2573,7 +2592,7 @@ FROM universities
 
 &nbsp;&nbsp;&nbsp;
 
-#### ADD a COLUMN with ALTER TABLE
+**ADD a COLUMN with ALTER TABLE**
 Oops! We forgot to add the `university_shortname` column to the `professors` table. You've probably already noticed
 
 ![img57](images/img57.png)
@@ -2601,9 +2620,13 @@ FROM professors
 
 &nbsp;&nbsp;&nbsp;
 
+&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;
+
 ### Update your database as the structure changes
 
-#### The current database model
+**The current database model**
 
 ![img58](images/img58.webp)
 
@@ -2611,7 +2634,7 @@ FROM professors
 
 &nbsp;&nbsp;&nbsp;
 
-#### Only store DISTINCT data in the new tables
+**Only store DISTINCT data in the new tables**
 
 ```sql
 SELECT COUNT(*)
@@ -2620,8 +2643,11 @@ FROM university_professors;
 ```
 count
 -----
-1577
+1377
 ```
+&nbsp;&nbsp;&nbsp;
+
+
 ```sql
 SELECT COUNT(DISTINCT organization)
 FROM university_professors;
@@ -2635,7 +2661,10 @@ count
 
 &nbsp;&nbsp;&nbsp;
 
-#### INSERT DISTINCT records INTO the new tables
+**INSERT DISTINCT records INTO the new tables**
+
+
+
 ```sql
 INSERT INTO organizations
 SELECT DISTINCT organization,
@@ -2645,6 +2674,8 @@ FROM university_professors;
 ```
 OUTPUT: INSERT 0 1287
 ```
+&nbsp;&nbsp;&nbsp;
+
 ```sql
 INSERT INTO organizations
 SELECT organization,
@@ -2652,23 +2683,22 @@ SELECT organization,
 FROM university_professors;
 ```
 ```
-OUTPUT: INSERT 0 1577
+OUTPUT: INSERT 0 1377
 ```
 &nbsp;&nbsp;&nbsp;
 
 &nbsp;&nbsp;&nbsp;
 
-#### The INSERT INTO statement
-
+**The INSERT INTO statement**
 ```sql
 INSERT INTO table_name (column_a, column_b)
-VALUES ('value_a', 'value_b');
+VALUES ("value_a", "value_b");
 ```
 &nbsp;&nbsp;&nbsp;
 
 &nbsp;&nbsp;&nbsp;
 
-#### RENAME a COLUMN in affiliations
+**RENAME a COLUMN in affiliations**
 ```sql
 CREATE TABLE affiliations (
     firstname text,
@@ -2686,7 +2716,7 @@ RENAME COLUMN old_name TO new_name;
 
 &nbsp;&nbsp;&nbsp;
 
-#### DROP a COLUMN in affiliations
+**DROP a COLUMN in affiliations** 
 ```sql
 CREATE TABLE affiliations (
     firstname text,
@@ -2701,10 +2731,6 @@ ALTER TABLE table_name
 DROP COLUMN column_name;
 ```
 &nbsp;&nbsp;&nbsp;
-
-&nbsp;&nbsp;&nbsp;
-
-#### 
 
 ```sql
 SELECT DISTINCT firstname, lastname,
@@ -2735,7 +2761,6 @@ SELECT DISTINCT firstname, lastname
 FROM university_professors
 ORDER BY lastname;
 ```
-
 ```
 -[ RECORD 1 ]---+------------
 firstname       | Karl
@@ -2752,17 +2777,14 @@ lastname        | Abou Jaoudé
 ```
 &nbsp;&nbsp;&nbsp;
 
-&nbsp;&nbsp;&nbsp;
-
-#### A professor is uniquely identified by firstname, lastname only
-
+**A professor is uniquely identified by firstname, lastname only**
 ![img59](images/img59.webp)
 
 &nbsp;&nbsp;&nbsp;
 
 &nbsp;&nbsp;&nbsp;
 
-#### RENAME and DROP COLUMNs in affiliations
+**RENAME and DROP COLUMNs in affiliations**
 
 As mentioned in the video, the still empty affiliations table has some flaws. In this exercise, you'll correct them as outlined in the video.
 
@@ -2799,7 +2821,7 @@ DROP COLUMN university_shortname;
 
 &nbsp;&nbsp;&nbsp;
 
-#### Migrate data with INSERT INTO SELECT DISTINCT
+**Migrate data with INSERT INTO SELECT DISTINCT**
 
 Now it's finally time to migrate the data into the new tables. You'll use the following pattern:
 
@@ -2854,7 +2876,7 @@ FROM professors;
 
 &nbsp;&nbsp;&nbsp;
 
-#### Delete tables with DROP TABLE
+**Delete tables with DROP TABLE**
 
 Obviously, the `university_professors` table is now no longer needed and can safely be deleted.
 
@@ -2879,7 +2901,8 @@ DROP TABLE university_professors;
 
 ## Better data quality with constraints
 
-### Why constraints?
+
+**Why constraints?**
 
 - Constraints give the data structure  
 
@@ -2893,7 +2916,7 @@ DROP TABLE university_professors;
 
 &nbsp;&nbsp;&nbsp;
 
-#### Data types as attribute constraints
+**Data types as attribute constraints**
 
 | Name    | Aliases    | Description    |
 |---------|------------|----------------|
@@ -2914,7 +2937,7 @@ From the PostgreSQL documentation.
 
 &nbsp;&nbsp;&nbsp;
 
-#### Dealing with data types (casting)
+**Dealing with data types (casting)**
 ```sql
 CREATE TABLE weather (
     temperature integer,
@@ -2937,8 +2960,9 @@ FROM weather;
 
 &nbsp;&nbsp;&nbsp;
 
+&nbsp;&nbsp;&nbsp;
 
-#### Conforming with data types
+**Conforming with data types**
 
 For demonstration purposes, I created a fictional database table that only holds three records. The columns have the data types `date`, `integer`, and `text`, respectively.
 ```sql
@@ -2954,6 +2978,8 @@ Have a look at the contents of the `transactions` table.
 The `transaction_date` accepts `date` values. According to the PostgreSQL documentation, it accepts values in the form of `YYYY-MM-DD`, `DD/MM/YY`, and so forth.
 
 Both columns `amount` and `fee` appear to be numeric, however, the latter is modeled as `text` – which you will account for in the next exercise.
+
+***Instructions***
 
 - Execute the given sample code.
 
@@ -2971,24 +2997,34 @@ FROM transactions;
 
 &nbsp;&nbsp;&nbsp;
 
-#### Type CASTs
+&nbsp;&nbsp;&nbsp;
+
+**Type CASTs**
 
 In the video, you saw that type casts are a possible solution for data type issues. If you know that a certain column stores numbers as `text`, you can cast the column to a numeric form, i.e. to `integer`.
+
 ```sql
 SELECT CAST(some_column AS integer)
 FROM table;
 ```
+
 Now, the `some_column` column is temporarily represented as `integer` instead of `text`, meaning that you can perform numeric calculations on the column.
 
+***Instructions***
 - Execute the given sample code.
 
 - As it doesn't work, add an integer type cast at the right place and execute it again.
+
 
 ```sql
 -- Calculate the net amount as amount + fee
 SELECT transaction_date, amount + CAST(fee AS integer) net_amount 
 FROM transactions;
 ```
+
+
+
+
 &nbsp;&nbsp;&nbsp;
 
 &nbsp;&nbsp;&nbsp;

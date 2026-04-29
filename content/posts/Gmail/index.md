@@ -10,15 +10,25 @@ showTableOfContents: true
 
 
 
+Settings :
 
-SMTP
+![img01](images/pop3.webp)
+
+
+```
+pop.gmail.com
+```
 ```
 smtp.gmail.com
-port 587 STARTTLS
-port 465 SSL\TLS
-```ho
-
-app password link:
+```
+```
+POP3 = 995 
+SMTP = 587
+```
+WEB:
 ```
 https://myaccount.google.com/apppasswords
 ```
+![img02](images/web.webp)
+
+
