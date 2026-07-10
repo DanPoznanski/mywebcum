@@ -1731,13 +1731,94 @@ func main() {
 
 &nbsp;&nbsp;&nbsp;
 
+Crafting Custom Data Types: An Introduction to Structs in Go
+Example: Modeling a Library Using Structs in Go
+```Go
+package main
+
+import (
+    "fmt"
+)
+
+// TODO: Define a struct to represent a book. Include fields like Title, Author, and Year.
+type Book struct {
+    Title  string
+    Author string
+    Year   int
+}
+
+func main (){
+// TODO: Create a slice to represent a collection of books within a library.
+    library := []Book{
+        {Title: "The Hobbit", Author: "J.R.R. Tolkien", Year: 1937},
+    }
+// TODO: Add a couple of books to your library collection.
+    library = append(library, Book{
+        Title: "WW2",
+        Author: "Mister Pister",
+        Year: 2026,  
+        }) 
+    // TODO: Use a loop to iterate through each book and print its details to the console.
+    for _, book := range library {
+    fmt.Printf("Book: %s, Author: %s, Year: %d\n", book.Title, book.Author, book.Year)
+    }
+       
+}
+```
+
+
+Example : Understanding Methods in Go: Extending Data Types with Functionality
+```Go
+package main
+
+import "fmt"
+
+type Automobile struct {
+    model string
+    year  int
+}
+
+// Method to display the information of the Automobile
+func (a Automobile) displayInfo() {
+    fmt.Println("Model:", a.model, "Year:", a.year)
+}
+
+func main() {
+    car := Automobile{"Model X", 2021}
+    car.displayInfo()  // Should display: Model: Model X Year: 2021
+}
+```
 
 
 
+Example: Add Drive Method Implementation to Car Struct in Go
+```Go
+package main
 
+import "fmt"
 
+// Car struct represents an automobile with a model and mileage
+type Car struct {
+    model   string
+    mileage int
+}
 
+// drive method increases the mileage of the Car when it is driven
+func (c *Car) drive(miles int) {
+    // Increase mileage
+    c.mileage += miles
+}
 
+func main() {
+    myCar := Car{"Thunderbolt", 20000}
+
+    // вызываем метод drive
+    myCar.drive(150)
+
+    // печатаем структуру
+    fmt.Println(myCar)
+}
+```
 
 
 
@@ -2776,5 +2857,249 @@ func travelToGalaxy(galaxy string, commanders ...string) {
 
 func main() {
     travelToGalaxy("Andromeda", "voyage commander")
+}
+```
+
+Example : Write a Go Program for Car Struct with a Display Method
+```Go
+package main
+
+import "fmt"
+
+// TODO: Define a 'Car' struct with 'model' (string) and 'year' (int) fields
+type Car struct {
+    model string
+    year int
+}
+
+// TODO: Define a 'displayInfo' method for the 'Car' struct that returns a string
+func (c Car) displayInfo() string {
+    // return a formatted string here
+    return fmt.Sprintf("Model: %s, Year: %d", c.model, c.year)
+}
+        
+func main() {
+    // TODO: Create an instance of 'Car' with model "Roadrunner" and year 1968
+    car := Car{"Roadrunner", 1968}
+    
+
+    // TODO: Call the 'displayInfo' method on your car instance and print the result
+    fmt.Println(car.displayInfo())
+}
+```
+
+
+Example: Go: Athlete Training Sessions
+```Go
+package main
+
+import "fmt"
+
+type Athlete interface {
+    Train()
+}
+
+type Swimmer struct {
+    StrokeStyle string
+}
+
+func (s Swimmer) Train() {
+    fmt.Println("Training with style:", s.StrokeStyle)
+}
+
+func main() {
+    var michael Athlete = Swimmer{"Butterfly"}
+    michael.Train() // Output: Training with style: Butterfly
+}
+```
+
+
+Example: 
+```Go
+package main
+
+import (
+    "fmt"
+)
+
+// TODO: Define the Coach interface with TrainAthlete and GiveMotivation methods
+type Coach interface {
+    TrainAthlete()
+    GiveMotivation()
+}
+// TODO: Define the AthleticCoach struct
+type AthleticCoach struct {
+    Name string
+}
+
+// TODO: Implement the Coach interface for AthleticCoach
+func (ac AthleticCoach) TrainAthlete() {
+    fmt.Println(ac.Name, "is training athletes!")
+}
+
+func (ac AthleticCoach) GiveMotivation(){
+    fmt.Println(ac.Name, "Says: You can do it!")
+}
+
+
+
+func main() {
+    // TODO: Create an instance of AthleticCoach and call its methods through the Coach interface
+    var c Coach = AthleticCoach{Name: "Coach Carter"}
+    c.TrainAthlete()
+    c.GiveMotivation()
+}
+```
+
+example : Add Training Methods for Athletes
+```go
+package main
+
+import "fmt"
+
+// Defining the Athlete interface with the method Train
+type Athlete interface {
+    Train()
+}
+
+// Runner struct represents an athletic discipline
+type Runner struct {
+    Distance int // distance in meters
+}
+
+// Swimmer struct represents another athletic discipline
+type Swimmer struct {
+    Style string
+}
+
+// Implementing the Train method for Runner
+func (r Runner) Train() {
+    fmt.Printf("Training for a %dm run.\n", r.Distance)
+}
+
+// TODO: Implement the Train method for Swimmer in such a manner that it prints out the swimmer's training style.
+func (s Swimmer) Train() {
+    fmt.Printf("Training for a %s swimming.\n", s.Style)
+}
+
+
+func main() {
+    var athlete Athlete
+
+    // Runner implements Athlete interface
+    athlete = Runner{Distance: 5000}
+    athlete.Train()
+
+    // Swimmer also implements Athlete interface
+    athlete = Swimmer{Style: "freestyle"}
+    // TODO: Call the Train method for the Swimmer instance
+    athlete.Train()
+}
+```
+
+
+
+Example : Composing Code in Go: A Beginner's Guide to Structs and Interfaces
+```Go
+package main
+
+import "fmt"
+
+type School struct {
+    Name    string
+    Address string
+}
+
+type Student struct {
+    School           // Embedding School struct into Student
+    Name      string
+    Age       int
+}
+
+func main() {
+    eagleHigh := School{
+        Name:    "Eagle High School",
+        Address: "123 Bird St",
+    }
+
+    studentAlex := Student{
+        School:      eagleHigh,
+        Name: "Alex",
+        Age:  15,
+    }
+
+    fmt.Println(studentAlex.School.Name) // Output: Eagle High School
+}
+```
+
+
+
+Example : "Understanding Polymorphism in Go: From Theory to Practice"
+
+```Go
+package main
+
+import "fmt"
+
+// Animal interface
+type Animal interface {
+    Behavior() string
+}
+
+// Lion struct
+type Lion struct{}
+
+// Monkey struct
+type Monkey struct{}
+
+// Behavior method for Lion
+func (l Lion) Behavior() string {
+    return "Roar!"
+}
+
+// Behavior method for Monkey
+func (m Monkey) Behavior() string {
+    return "Screech!"
+}
+
+func main() {
+    var animal Animal = Lion{}
+    fmt.Println(animal.Behavior()) // This will print "Roar!"
+
+    animal = Monkey{}
+    fmt.Println(animal.Behavior()) // This will print "Screech!"
+}
+```
+
+
+Example 2 : Add the Elephant Struct to the Zoo Simulator
+```Go
+package main
+
+import "fmt"
+
+type Animal interface {
+    Speak() string
+}
+
+type Lion struct{}
+
+func (l Lion) Speak() string {
+    return "Roar"
+}
+
+// TODO: Define the Elephant struct and implement the Speak method for it.
+type Elephant struct{}
+
+func (E Elephant) Speak() string {
+    return "Wooooo"
+}
+
+func main() {
+    var animal Animal = Lion{}
+    fmt.Println(animal.Speak()) // Expected output: Roar
+    // TODO: Use the Elephant struct and print its Speak method's output.
+    var Big Animal = Elephant{}
+    fmt.Println(Big.Speak())
 }
 ```
