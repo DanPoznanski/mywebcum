@@ -56,10 +56,10 @@
     <loc>http://localhost:60118/tags/postsql/</loc>
     <lastmod>2025-10-01T21:29:01+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:60118/posts/sql/</loc>
+    <loc>http://localhost:60118/tags/sql/</loc>
     <lastmod>2025-10-01T21:29:01+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:60118/tags/sql/</loc>
+    <loc>http://localhost:60118/posts/sql/</loc>
     <lastmod>2025-10-01T21:29:01+08:00</lastmod>
   </url><url>
     <loc>http://localhost:60118/posts/bash/</loc>
@@ -89,10 +89,13 @@
     <loc>http://localhost:60118/posts/windows-terminal-free/</loc>
     <lastmod>2025-05-01T21:29:01+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:60118/posts/windows-server-2025/</loc>
+    <loc>http://localhost:60118/tags/active-directory/</loc>
     <lastmod>2025-03-13T21:29:01+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:60118/tags/windows-server-ad-gpo/</loc>
+    <loc>http://localhost:60118/tags/group-policy/</loc>
+    <lastmod>2025-03-13T21:29:01+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:60118/posts/windows-server-2025/</loc>
     <lastmod>2025-03-13T21:29:01+08:00</lastmod>
   </url><url>
     <loc>http://localhost:60118/tags/macos/</loc>
@@ -135,7 +138,7 @@
     <lastmod>2024-12-13T21:29:01+08:00</lastmod>
   </url><url>
     <loc>http://localhost:60118/posts/windows-server-change-domain/</loc>
-    <lastmod>2024-12-13T21:29:01+08:00</lastmod>
+    <lastmod>2024-12-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:60118/posts/openwrt/</loc>
     <lastmod>2024-11-01T21:29:01+08:00</lastmod>
@@ -323,17 +326,20 @@
     <loc>http://localhost:60118/posts/windows-server/</loc>
     <lastmod>2022-05-01T21:29:01+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:60118/posts/windows-app-v/</loc>
-    <lastmod>2022-05-01T21:29:01+08:00</lastmod>
-  </url><url>
     <loc>http://localhost:60118/posts/windows-server-ca/</loc>
     <lastmod>2022-05-01T21:29:01+08:00</lastmod>
   </url><url>
     <loc>http://localhost:60118/posts/windows-server-wds/</loc>
     <lastmod>2022-05-01T21:29:01+08:00</lastmod>
   </url><url>
-    <loc>http://localhost:60118/tags/windows-server-virtulization-app-v-/</loc>
-    <lastmod>2022-05-01T21:29:01+08:00</lastmod>
+    <loc>http://localhost:60118/tags/app-v/</loc>
+    <lastmod>2022-05-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:60118/tags/virtulization/</loc>
+    <lastmod>2022-05-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:60118/posts/windows-app-v/</loc>
+    <lastmod>2022-05-01T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:60118/tags/golang/</loc>
     <lastmod>2021-05-18T00:00:00+00:00</lastmod>
