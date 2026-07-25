@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Check Healt on myblog</title>
+		<link>http://localhost:60118/tags/check-healt/</link>
+		<description>Recent content in Check Healt on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 08 May 2023 21:29:01 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:60118/tags/check-healt/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Consul</title>
+				<link>http://localhost:60118/posts/consul/</link>
+				<pubDate>Mon, 08 May 2023 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/consul/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;images/consul1.svg&#34; alt=&#34;consul1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Consul provides feature such as:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Service discovery&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Tagging&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Health checks&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Secure Service Communication&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Multi Datacenter&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;System-wide key/value storage&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/consul2.webp&#34; alt=&#34;consul2&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;server-vs-client&#34;&gt;Server vs Client&lt;/h2&gt;&#xA;&lt;p&gt;Server:&lt;/p&gt;&#xA;&lt;p&gt;running on individual machine&lt;/p&gt;&#xA;&lt;p&gt;form a failsafe cluster&lt;/p&gt;&#xA;&lt;p&gt;communicating with client machine&lt;/p&gt;&#xA;&lt;p&gt;Client:&lt;/p&gt;&#xA;&lt;p&gt;working on machine were running service&lt;/p&gt;&#xA;&lt;p&gt;checking health of server&lt;/p&gt;&#xA;&lt;p&gt;sending information on server&lt;/p&gt;&#xA;&lt;p&gt;example config registration service&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;`&lt;/span&gt;{ &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;service&amp;#34;&lt;/span&gt;:{&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;web&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;tags&amp;#34;&lt;/span&gt;:[&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;be&amp;#34;&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;port&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt;,&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;check&amp;#34;&lt;/span&gt;:{&lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;args&amp;#34;&lt;/span&gt;: [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;curl&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;localhost&amp;#34;&lt;/span&gt;], &lt;span style=&#34;color:#f92672&#34;&gt;&amp;#34;interval&amp;#34;&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;10s&amp;#34;&lt;/span&gt; }}}&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;`&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;instal-consul&#34;&gt;Instal consul&lt;/h2&gt;&#xA;&lt;p&gt;create account consul&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;useradd -s /bin/false -m consul&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;download binar file &lt;a href=&#34;https://developer.hashicorp.com/consul/downloads&#34;&gt;https://developer.hashicorp.com/consul/downloads&lt;/a&gt; for ubuntu&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

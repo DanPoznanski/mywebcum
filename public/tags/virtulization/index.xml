@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Virtulization on myblog</title>
+		<link>http://localhost:1313/tags/virtulization/</link>
+		<description>Recent content in Virtulization on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 01 May 2022 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/virtulization/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Windows Server APP-V</title>
+				<link>http://localhost:1313/posts/windows-app-v/</link>
+				<pubDate>Sun, 01 May 2022 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/windows-app-v/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;images/img.svg&#34; alt=&#34;img0&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;tools-for-create-app-v--and-office&#34;&gt;Tools for Create APP-V &amp;amp; and Office&lt;/h2&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Download ADK for Windows.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install&#34;&gt;https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install&lt;/a&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;Download Office Deployment Tool&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://www.microsoft.com/en-us/download/details.aspx?id=49117&#34;&gt;https://www.microsoft.com/en-us/download/details.aspx?id=49117&lt;/a&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;3&#34;&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;install and open&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;code&gt;outlook.xml&lt;/code&gt; its config for 32 bit outlook&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;&amp;lt;!-- Office 365 client configuration file sample. To be used for Office 365 ProPlus apps, &#xD;&#xA;     Office 365 Business apps, Project Pro for Office 365 and Visio Pro for Office 365. &#xD;&#xA;&#xD;&#xA;     For detailed information regarding configuration options visit: http://aka.ms/ODT. &#xD;&#xA;     To use the configuration file be sure to remove the comments&#xD;&#xA;&#xD;&#xA;     The following sample allows you to download and install the 64 bit version of the Office 365 ProPlus apps &#xD;&#xA;     and Visio Pro for Office 365 directly from the Office CDN using the Current Channel&#xD;&#xA;     settings  --&amp;gt;&#xD;&#xA;&#xD;&#xA;&amp;lt;Configuration&amp;gt;&#xD;&#xA;  &amp;lt;Add OfficeClientEdition=&amp;#34;32&amp;#34; Channel=&amp;#34;PerpetualVL2024&amp;#34;&amp;gt;&#xD;&#xA;    &amp;lt;Product ID=&amp;#34;Outlook2024Volume&amp;#34;&amp;gt;&#xD;&#xA;      &amp;lt;Language ID=&amp;#34;he-il&amp;#34; /&amp;gt;&#xD;&#xA;    &amp;lt;/Product&amp;gt;&#xD;&#xA;  &amp;lt;/Add&amp;gt;&#xD;&#xA;&#xD;&#xA;  &amp;lt;!--  &amp;lt;Updates Enabled=&amp;#34;TRUE&amp;#34; Channel=&amp;#34;Current&amp;#34; /&amp;gt; --&amp;gt;&#xD;&#xA;&#xD;&#xA;  &amp;lt;!--  &amp;lt;Display Level=&amp;#34;None&amp;#34; AcceptEULA=&amp;#34;TRUE&amp;#34; /&amp;gt;  --&amp;gt;&#xD;&#xA;&#xD;&#xA;  &amp;lt;!--  &amp;lt;Property Name=&amp;#34;AUTOACTIVATE&amp;#34; Value=&amp;#34;1&amp;#34; /&amp;gt;  --&amp;gt;&#xD;&#xA;&#xD;&#xA;&amp;lt;/Configuration&amp;gt;&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(all file download files in folder &lt;code&gt;office&lt;/code&gt;)&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

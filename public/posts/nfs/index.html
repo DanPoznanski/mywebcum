@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>NFS</title>
+    <meta name="description" content="Install Server NFS update sudo apt update install nfs server sudo apt install nfs-kernal-server view if nfs ok rpcinfo -p | grep nfs other ways view if ok cat …">
+    <meta name="keywords" content='Linux, NFS'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/nfs/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="NFS">
+    <meta property="og:description" content="Install Server NFS update sudo apt update install nfs server sudo apt install nfs-kernal-server view if nfs ok rpcinfo -p | grep nfs other ways view if ok cat …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NFS">
+    <meta name="twitter:description" content="Install Server NFS update sudo apt update install nfs server sudo apt install nfs-kernal-server view if nfs ok rpcinfo -p | grep nfs other ways view if ok cat …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/nfs/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/nfs/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/nfs/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>NFS</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              April 1, 2024
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/nfs">NFS</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <h2 id="install-server-nfs">Install Server NFS</h2>
+<ol>
+<li>update</li>
+</ol>
+<pre tabindex="0"><code>sudo apt update
+</code></pre><ol start="2">
+<li>install nfs server</li>
+</ol>
+<pre tabindex="0"><code>sudo apt install nfs-kernal-server
+</code></pre><ol start="3">
+<li>view if nfs ok</li>
+</ol>
+<pre tabindex="0"><code>rpcinfo -p | grep nfs
+</code></pre><ol start="4">
+<li>other ways view if ok</li>
+</ol>
+<pre tabindex="0"><code>cat /proc/filesystems | grep nfs
+</code></pre><ol start="5">
+<li>enable nfs-server start after restart</li>
+</ol>
+<pre tabindex="0"><code>sudo systemctl enable nfs-server
+</code></pre><ol start="6">
+<li>create folder</li>
+</ol>
+<pre tabindex="0"><code>sudo mkdir /mnt/nfs
+</code></pre><pre tabindex="0"><code>chown nobody:nogroup /mnt/nfs
+</code></pre><ol start="7">
+<li>admin privilege on folder</li>
+</ol>
+<pre tabindex="0"><code>sudo chmod -R 777 /mnt/nfs
+</code></pre><ol start="8">
+<li>edit exports file</li>
+</ol>
+<pre tabindex="0"><code>sudo nano /etc/exports
+</code></pre><ol start="9">
+<li>The /etc/exports Options</li>
+</ol>
+<table>
+	<thead>
+			<tr>
+					<th>General Options</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>secure</td>
+					<td>Requires request originate on secure ports, those less than 1024. This is on by default.</td>
+			</tr>
+			<tr>
+					<td>insecure</td>
+					<td>Turns off the secure option.</td>
+			</tr>
+			<tr>
+					<td>ro</td>
+					<td>Allows only read-only access. This is the default.</td>
+			</tr>
+			<tr>
+					<td>rw</td>
+					<td>Allows read/write access.</td>
+			</tr>
+			<tr>
+					<td>sync</td>
+					<td>Performs all writes when requested. This is the default.</td>
+			</tr>
+			<tr>
+					<td>async</td>
+					<td>Performs all writes when the server is ready.</td>
+			</tr>
+			<tr>
+					<td>no_wdelay</td>
+					<td>Performs writes immediately, not checking to see if they are related.</td>
+			</tr>
+			<tr>
+					<td>wdelay</td>
+					<td>Checks to see if writes are related, and, if so, waits to perform them together. Can degrade performance. This is the default.</td>
+			</tr>
+			<tr>
+					<td>hide</td>
+					<td>Automatically hides an exported directory that is the subdirectory of another exported directory. The subdirectory has to be explicitly mounted to be accessed. Mounting the parent directory does not allow access. This is the default.</td>
+			</tr>
+			<tr>
+					<td>no_hide</td>
+					<td>Does not hide an exported directory that is the subdirectory of another exported directory (opposite of hide). Only works for single hosts and can be unreliable.</td>
+			</tr>
+			<tr>
+					<td>subtree_check</td>
+					<td>Checks parent directories in a file system to validate an exported subdirectory. This is the default.</td>
+			</tr>
+			<tr>
+					<td>no_subtree_check</td>
+					<td>Does not check parent directories in a file system to validate an exported subdirectory.</td>
+			</tr>
+			<tr>
+					<td>insecure_locks</td>
+					<td>Does not require authentication of locking requests. Used for older NFS versions.</td>
+			</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+			<tr>
+					<th>User ID Mapping</th>
+					<th>Description</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>all_squash</td>
+					<td>Maps all UIDs and GIDs to the anonymous user. Useful for NFS-exported public FTP directories, news spool directories, and so forth.</td>
+			</tr>
+			<tr>
+					<td>no_all_squash</td>
+					<td>The opposite option to all_squash. This is the default setting.</td>
+			</tr>
+			<tr>
+					<td>root_squash</td>
+					<td>Maps requests from remote root user to the anonymous UID/GID. This is the default.</td>
+			</tr>
+			<tr>
+					<td>no_root_squash</td>
+					<td>Turns off root squashing. Allows the root user to access as the remote root.</td>
+			</tr>
+			<tr>
+					<td>anonuid</td>
+					<td></td>
+			</tr>
+			<tr>
+					<td>anongid</td>
+					<td>Sets explicitly the UID and GID of the anonymous account used for all_squash and root_squash options. The defaults are nobody and nogroup.</td>
+			</tr>
+	</tbody>
+</table>
+<p>exemple:</p>
+<pre tabindex="0"><code>/var/nfs 127.0.0.1(rw,sync,no_subtree_check,check,crossmnt)
+</code></pre><pre tabindex="0"><code>/var/nfs 192.168.1.0/24(rw,sync,no_subtree_check)
+</code></pre><p>for all ip = 0.0.0.0/0 or *</p>
+<pre tabindex="0"><code>var/nfs 192.168.1.0/24(rw,sync,all_squash,no_subtree_check,root_squash,anonuid=1001,anongid=1001)
+</code></pre><blockquote>
+<p>iMPORTANT for update settings</p>
+</blockquote>
+<pre tabindex="0"><code>exportfs -a
+</code></pre><ol start="10">
+<li>restart systemctl</li>
+</ol>
+<pre tabindex="0"><code>sudo systemctl restart nfs-server
+</code></pre><h3 id="firewall">FIREWALL</h3>
+<p>Need open ports 111 and 2049</p>
+<pre tabindex="0"><code>sudo ufw allow 111
+sudo ufw allow 2049 
+</code></pre><p>show client on server</p>
+<pre tabindex="0"><code>showmount -e 10.20.1.36
+export list for 10.20.3.36:
+/mnt/nfs 10.20.1.56
+
+### On Client
+
+1. install client nfs common
+</code></pre><p>sudo apt install nfs-common</p>
+<pre tabindex="0"><code>2. mount (ip server) + (shared link) (to folder)
+</code></pre><p>sudo mount 192.168.1.149:/mnt/nfs /mnt/</p>
+<pre tabindex="0"><code>3. test if all ok 
+</code></pre><p>cd /mnt/</p>
+<pre tabindex="0"><code>for always attach add to fstab service 
+</code></pre><p>sudo /etc/fstab</p>
+<pre tabindex="0"><code></code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#install-server-nfs">Install Server NFS</a>
+      <ul>
+        <li><a href="#firewall">FIREWALL</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

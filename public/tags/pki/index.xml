@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>PKI on myblog</title>
+		<link>http://localhost:60118/tags/pki/</link>
+		<description>Recent content in PKI on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Sun, 01 May 2022 21:29:01 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:60118/tags/pki/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Windows Server CA</title>
+				<link>http://localhost:60118/posts/windows-server-ca/</link>
+				<pubDate>Sun, 01 May 2022 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/windows-server-ca/</guid>
+				<description>&lt;p&gt;In this Tutorial we’re going to configure a Two-Tier Enterprise PKI with Microsoft Server 2019 intended for Lab use. The advantage of a Two-Tier Enterprise PKI Hierarchy is that clients only trust the Root CA.  So if a Subordinate server gets compromised the Root CA does not have to be replaced. During normal operation the Root CA will be offline and Certificate requests are handled by the Subordinate CA. The Root CA is a non-domain joined device and will only be turned on issue a certificate for the Subordinate CA or to update the  Certificate Revocation List (CRL).&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

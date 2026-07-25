@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Logging on myblog</title>
+		<link>http://localhost:60118/tags/logging/</link>
+		<description>Recent content in Logging on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 01 Aug 2023 21:29:01 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:60118/tags/logging/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Loki</title>
+				<link>http://localhost:60118/posts/loki/</link>
+				<pubDate>Tue, 01 Aug 2023 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/loki/</guid>
+				<description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;The architecture of Loki&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/loki1.webp&#34; alt=&#34;loki1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;A brief overview of components in Loki architecture:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Promtail - It is the log collection agent that runs on each node of a Kubernetes cluster.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Distributor - The first component to receive logs from promtail.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Ingestor - It builds compressed chunks of log data and flushes them out as chunks.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Querior - It handles the read path, scanning the index to figure out which chunks match&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

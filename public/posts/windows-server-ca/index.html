@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Windows Server CA</title>
+    <meta name="description" content="In this Tutorial we’re going to configure a Two-Tier Enterprise PKI with Microsoft Server 2019 intended for Lab use. The advantage of a Two-Tier Enterprise PKI …">
+    <meta name="keywords" content='PKI, CA, Windows Server'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/windows-server-ca/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Windows Server CA">
+    <meta property="og:description" content="In this Tutorial we’re going to configure a Two-Tier Enterprise PKI with Microsoft Server 2019 intended for Lab use. The advantage of a Two-Tier Enterprise PKI …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Windows Server CA">
+    <meta name="twitter:description" content="In this Tutorial we’re going to configure a Two-Tier Enterprise PKI with Microsoft Server 2019 intended for Lab use. The advantage of a Two-Tier Enterprise PKI …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/windows-server-ca/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/windows-server-ca/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/windows-server-ca/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Windows Server CA</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              May 1, 2022
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/pki">PKI</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/ca">CA</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/windows-server">Windows Server</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>In this Tutorial we’re going to configure a Two-Tier Enterprise PKI with Microsoft Server 2019 intended for Lab use. The advantage of a Two-Tier Enterprise PKI Hierarchy is that clients only trust the Root CA.  So if a Subordinate server gets compromised the Root CA does not have to be replaced. During normal operation the Root CA will be offline and Certificate requests are handled by the Subordinate CA. The Root CA is a non-domain joined device and will only be turned on issue a certificate for the Subordinate CA or to update the  Certificate Revocation List (CRL).</p>
+<ul>
+<li>
+<p>Overview</p>
+</li>
+<li>
+<p>Setup  Standalone Root CA</p>
+</li>
+<li>
+<p>Setup  Enterprise Subordinate CA</p>
+</li>
+<li>
+<p>Setup Group policy</p>
+</li>
+<li>
+<p>Deploy Policy Templates</p>
+</li>
+</ul>
+<p>In this setup we are going to build this Lab setup.</p>
+<p>Before you start with this tutorial create the following servers and install them with Microsoft Server 2019. In this tutorial we are only configuring the servers.</p>
+<p><img src="images/ws800.svg" alt="ws800"></p>
+<table>
+	<thead>
+			<tr>
+					<th>Servername</th>
+					<th>OS</th>
+					<th>Role</th>
+					<th>Notes</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>DC01</td>
+					<td>MS Server 2019</td>
+					<td>Domain Controller</td>
+					<td></td>
+			</tr>
+			<tr>
+					<td>OFFENT-CA01</td>
+					<td>MS Server 2019</td>
+					<td>Offline Standalone Root CA</td>
+					<td>non-domain joined</td>
+			</tr>
+			<tr>
+					<td>SUBENT-CA02</td>
+					<td>MS Server 2019</td>
+					<td>Online Enterprise Subordinate CA</td>
+					<td>Domain joined</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="offline-root-ca">Offline Root CA</h3>
+<h4 id="setup-offline-root-ca">Setup Offline Root CA</h4>
+<p>First we will create the <code>CApolicy.inf</code>. This is a configuration file that defines multiple settings that are applied to the root CA certificate and all other certificates issued by the root CA. This file needs to be created before the ADCS is installed on the root CA. For more information about the Syntax go here.</p>
+<ol>
+<li>Start Powershell and type the following line and press <strong>Enter</strong>:</li>
+</ol>
+<pre tabindex="0"><code>notepad c:\windows\capolicy.inf
+</code></pre><p><img src="images/ws801.webp" alt="ws801"></p>
+<ol start="2">
+<li>
+<p>Select <strong>yes</strong> to create the new file
+<img src="images/ws802.webp" alt="ws802"></p>
+</li>
+<li>
+<p>Because this is a lab setup I will only setup some basic settings for the Root CA. I will configure the following settings:</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>Renewalinformation for the CA certificate.</p>
+</li>
+<li>
+<p>The validity period for the base CRL.</p>
+</li>
+<li>
+<p>Disable the AlternateSignatureAlgorithm</p>
+</li>
+<li>
+<p>Disable the DefaultTemplates, these are not used because this is an offline CA.</p>
+</li>
+</ul>
+<p>For this lab I will use a random generated OID which is based on the Microsoft OID. Because these generated OID may not be unique you should request a private enterprise number at IANA (link). This number can be added to the CAPolicy.inf.</p>
+<pre tabindex="0"><code>[Version]
+Signature=&#34;$Windows NT$&#34;
+
+[Certsrv_Server]
+RenewalKeyLength=4096 
+RenewalValidityPeriod=Years
+RenewalValidityPeriodUnits=20
+CRLPeriod=Years
+CRLPeriodUnits=1
+AlternateSignatureAlgorithm=0
+LoadDefaultTemplates=0
+</code></pre><ol start="4">
+<li>
+<p>Save the file as <strong>capolicy.inf</strong> using <strong>All files</strong> and <strong>ANSI</strong> Encoding.
+<img src="images/ws803.webp" alt="ws803"></p>
+</li>
+<li>
+<p>Now we the role can be added and configured. Start the Server manager and select <strong>Add roles and features</strong>
+<img src="images/ws804.webp" alt="ws804"></p>
+</li>
+<li>
+<p>The <strong>Add Roles and Features Wizard</strong> will start, press <strong>Next</strong> to continue.
+<img src="images/ws805.webp" alt="ws805"></p>
+</li>
+<li>
+<p>Select <strong>Role-based or feature-based installation</strong> and press <strong>Next</strong>
+<img src="images/ws806.webp" alt="ws806"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong> to continue.
+<img src="images/ws807.webp" alt="ws807"></p>
+</li>
+<li>
+<p>Select <strong>Active Directory Certificate Services</strong>
+<img src="images/ws808.webp" alt="ws808"></p>
+</li>
+<li>
+<p>A pop-up will appear, press <strong>Add Features</strong> to continue.
+<img src="images/ws809.webp" alt="ws809"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> to continue
+<img src="images/ws810.webp" alt="ws810"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> to continue.
+<img src="images/ws811.webp" alt="ws811"></p>
+</li>
+<li>
+<p>Check if the Servername is correct and press <strong>Next</strong> to continue.
+<img src="images/ws812.webp" alt="ws812"></p>
+</li>
+<li>
+<p>Check if the Servername is correct and press <strong>Next</strong> to continue.
+<img src="images/ws813.webp" alt="ws813"></p>
+</li>
+<li>
+<p>Press <strong>install</strong> to add the Active Directory Certificate Services to the server.
+<img src="images/ws814.webp" alt="ws814"></p>
+</li>
+<li>
+<p>When the installation has completed, press the link <strong>Configure Active Directory Certificate Services on the destination server</strong>
+<img src="images/ws815.webp" alt="ws815"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong>
+<img src="images/ws816.webp" alt="ws816"></p>
+</li>
+<li>
+<p>Select <strong>Certification Authority</strong> and press <strong>Next</strong>
+<img src="images/ws817.webp" alt="ws817"></p>
+</li>
+<li>
+<p>Because this server is non-domain joined only Standalone CA can be selected. Press <strong>Next</strong> to continue.
+<img src="images/ws818.webp" alt="ws818"></p>
+</li>
+<li>
+<p>As this server is the root of the PKI hierarchy select <strong>Root CA</strong> and press <strong>Next</strong>
+<img src="images/ws819.webp" alt="ws819"></p>
+</li>
+<li>
+<p>Select <strong>Create a new private key</strong> and press <strong>Next</strong> to continue.
+<img src="images/ws820.webp" alt="ws820"></p>
+</li>
+<li>
+<p>Because this is the Root CA Certificate I use a longer Key length of 4096. This will increase the security.
+<img src="images/ws821.webp" alt="ws821"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong> to continue.
+<img src="images/ws822.webp" alt="ws822"></p>
+</li>
+<li>
+<p>Because this server will be used in a Test Environment I extend the validity period to 10 years. Press <strong>Next</strong> to continue.
+<img src="images/ws823.webp" alt="ws823"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong> to continue.
+<img src="images/ws824.webp" alt="ws824"></p>
+</li>
+<li>
+<p>Press <strong>Configure</strong> to configure the server.
+<img src="images/ws825.webp" alt="ws825"></p>
+</li>
+<li>
+<p>Press <strong>Close</strong> to continue.
+<img src="images/ws826.webp" alt="ws826"></p>
+</li>
+<li>
+<p>Press <strong>Tools</strong> in the Server Manager and select <strong>Certification Authority</strong>
+<img src="images/ws827.webp" alt="ws827"></p>
+</li>
+<li>
+<p>Right click the Servername and select <strong>Properties</strong>
+<img src="images/ws828.webp" alt="ws828"></p>
+</li>
+<li>
+<p>Select the <strong>Extensions</strong> tab
+<img src="images/ws829.webp" alt="ws829"></p>
+</li>
+<li>
+<p>In the <strong>Extensions tab</strong> select the extension <strong>CRL Distribution Point (CDP)</strong> and remove all locations except the <code>C:\*</code> Location.
+<img src="images/ws830.webp" alt="ws830"></p>
+</li>
+<li>
+<p>Because this server will be offline it cannot be contacted, therefore a location needs to be added to the subordinate server. Press <strong>Add</strong> to add the CDP on the Subordinate Server.
+<img src="images/ws831.webp" alt="ws831"></p>
+</li>
+<li>
+<p>Enter the following location and press <strong>OK</strong></p>
+</li>
+</ol>
+<pre tabindex="0"><code>http://&lt;ServerDNSName&gt;/CertEnroll/&lt;CaName&gt;&lt;CRLNameSuffix&gt;&lt;DeltaCRLAllowed&gt;.crl
+</code></pre><p>Replace <!-- raw HTML omitted --> with the dnsname of the Subordinateserver in this demo the location will be:</p>
+<pre tabindex="0"><code>http://subent-ca02.vmlabblog.com/CertEnroll/%3CCaName%3E%3CCRLNameSuffix%3E%3CDeltaCRLAllowed%3E.crl
+</code></pre><p><img src="images/ws832.webp" alt="ws832"></p>
+<p>Check the boxes beginning with <strong>Include in CRLs*</strong> and <strong>Include in the CDP*</strong> and press <strong>Apply</strong>
+<img src="images/ws833.webp" alt="ws833"></p>
+<ol start="35">
+<li>
+<p>Press <strong>No</strong> when asked to restart the service.
+<img src="images/ws834.webp" alt="ws834"></p>
+</li>
+<li>
+<p>Select in <strong>Select extension</strong> the <strong>Authority Information Access (AIA)</strong> and remove all locations except the <code>C:\*</code> Location.
+<img src="images/ws835.webp" alt="ws835"></p>
+</li>
+<li>
+<p>Press <strong>Add</strong> to add the AIA location on the Subordinate Server.
+<img src="images/ws836.webp" alt="ws836"></p>
+</li>
+<li>
+<p>Enter the following location and press <strong>OK</strong></p>
+</li>
+</ol>
+<pre tabindex="0"><code>http://&lt;ServerDNSName&gt;/CertEnroll/&lt;ServerDNSName&gt;_&lt;CaName&gt;&lt;CertificateName&gt;.crt
+</code></pre><p>Replace <!-- raw HTML omitted --> with the dnsname of the Subordinateserver in this demo the location will be:</p>
+<pre tabindex="0"><code>http://SUBENT-CA02.vmlabblog.com/CertEnroll/&lt;ServerDNSName&gt;_&lt;CaName&gt;&lt;CertificateName&gt;.crt
+</code></pre><p><img src="images/ws837.webp" alt="ws837"></p>
+<ol start="39">
+<li>
+<p>Check the box <strong>Include in the AIA extension of issued certificates</strong> and press <strong>Apply</strong>
+<img src="images/ws838.webp" alt="ws838"></p>
+</li>
+<li>
+<p>Press <strong>Yes</strong> when asked to restart the service.
+<img src="images/ws839.webp" alt="ws839"></p>
+</li>
+<li>
+<p>Select the <strong>General</strong> and select the Root Certificate and press <strong>View Certificate</strong>.
+<img src="images/ws840.webp" alt="ws840"></p>
+</li>
+<li>
+<p>Select the tab <strong>Details</strong> and press <strong>Copy to File…</strong>.
+<img src="images/ws841.webp" alt="ws841"></p>
+</li>
+<li>
+<p>In the Certificate Export Wizard press <strong>Next</strong>.
+<img src="images/ws842.webp" alt="ws842"></p>
+</li>
+<li>
+<p>Select <strong>DER encoded binary X.509 (.CER)</strong> and press <strong>Next</strong>.
+<img src="images/ws843.webp" alt="ws843"></p>
+</li>
+<li>
+<p>In File name enter <strong>C:\Windows\System32\CertSrv\CertEnroll&lt;CA-NAME&gt;-CA.cer</strong> and press <strong>Next</strong>.
+<img src="images/ws844.webp" alt="ws844"></p>
+</li>
+<li>
+<p>Press <strong>Finish</strong> to export the RootCA Certificate.
+<img src="images/ws845.webp" alt="ws845"></p>
+</li>
+<li>
+<p>A popup will appear when the export was successful, press <strong>OK</strong> to continue.
+<img src="images/ws846.webp" alt="ws846"></p>
+</li>
+</ol>
+<p>The setup of the Offline RootCA is now completed.</p>
+<h3 id="subordinate-ca">Subordinate CA</h3>
+<p>With the Offline Root CA completed, we can now setup of the Subordinate CA server. This server is authorized by the Root CA to issue the certificates. During the setup the CA role will be added and configured. The server will also be authorized by the Root CA  The Subordinate CA Server is the SUBENT-CA02. Make sure that the server Subordinate server is domain joined before you start with the ADCS setup and that you have a domain account which is member of the Enterprise admins group.</p>
+<p><strong>Setup Subordinate CA</strong></p>
+<ol>
+<li>
+<p>Start the Server manager and select <strong>Add roles and features</strong>
+<img src="images/ws847.webp" alt="ws847"></p>
+</li>
+<li>
+<p>The <strong>Add Roles and Features Wizard</strong> will start, press <strong>Next</strong> to continue.
+<img src="images/ws848.webp" alt="ws848"></p>
+</li>
+<li>
+<p>Select <strong>Role-based or feature-based installation</strong> and press <strong>Next</strong>
+<img src="images/ws849.webp" alt="ws849"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong> to continue.
+<img src="images/ws850.webp" alt="ws850"></p>
+</li>
+<li>
+<p>Select <strong>Active Directory Certificate Services</strong>
+<img src="images/ws851.webp" alt="ws851"></p>
+</li>
+<li>
+<p>A pop-up will appear, press <strong>Add Features</strong> to continue.
+<img src="images/ws852.webp" alt="ws852"></p>
+</li>
+<li>
+<p>Select <strong>Web Server (IIS)</strong>
+<img src="images/ws853.webp" alt="ws853"></p>
+</li>
+<li>
+<p>A pop-up will appear, press <strong>Add Features</strong> to continue.
+<img src="images/ws854.webp" alt="ws854"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> to continue
+<img src="images/ws855.webp" alt="ws855"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> to continue.
+<img src="images/ws856.webp" alt="ws856"></p>
+</li>
+<li>
+<p>Check if the Servername before you start, this cannot be changed after the AD CS role has been installed and press <strong>Next</strong> to continue
+<img src="images/ws857.webp" alt="ws857"></p>
+</li>
+<li>
+<p>Keep the default role services <strong>Certication Authority</strong> and press <strong>Next</strong>
+<img src="images/ws858.webp" alt="ws858"></p>
+</li>
+<li>
+<p>On the Web Server Role (IIS) page press <strong>Next</strong>
+<img src="images/ws859.webp" alt="ws859"></p>
+</li>
+<li>
+<p>On the Role Services page select <strong>Basic Authentication</strong> and <strong>Windows Authentication</strong>. Press <strong>Next</strong> to continue.
+<img src="images/ws860.webp" alt="ws860"></p>
+</li>
+<li>
+<p>In the confirmation screen press <strong>Install</strong> to start the installation.
+<img src="images/ws861.webp" alt="ws861"></p>
+</li>
+<li>
+<p>When the installation has completed, press the link <strong>Configure Active Directory Certificate Services on the destination server</strong>
+<img src="images/ws862.webp" alt="ws862"></p>
+</li>
+<li>
+<p>Make sure your Domain credentials have been entered and not your local admin credentials. Otherwise you will not be able to configure a Enterprise CA. Press <strong>Next</strong> to continue.
+<img src="images/ws863.webp" alt="ws863"></p>
+</li>
+<li>
+<p>Select the box <strong>Certification Authority</strong> and press <strong>Next</strong> to continue.
+<img src="images/ws864.webp" alt="ws864"></p>
+</li>
+<li>
+<p>Select <strong>Enterprise CA</strong> and press <strong>Next</strong> to continue. (if Enterprise CA is not available check if the server is domain joined and the credentials entered in step 17)
+<img src="images/ws865.webp" alt="ws865"></p>
+</li>
+<li>
+<p>Select <strong>Subordinate CA</strong> and press <strong>Next</strong> to continue.
+<img src="images/ws866.webp" alt="ws866"></p>
+</li>
+<li>
+<p>Select <strong>Create a new private key</strong> and press <strong>Next</strong>.
+<img src="images/ws867.webp" alt="ws867"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong> to continue.
+<img src="images/ws868.webp" alt="ws868"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong> to continue
+<img src="images/ws869.webp" alt="ws869"></p>
+</li>
+<li>
+<p>Select the folder to save the Certificate Request and press <strong>Next</strong> to continue. (default is **c:**)
+<img src="images/ws870.webp" alt="ws870"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong> to continue.
+<img src="images/ws871.webp" alt="ws871"></p>
+</li>
+<li>
+<p>Press <strong>Configure</strong> to apply the configuration.
+<img src="images/ws872.webp" alt="ws872"></p>
+</li>
+<li>
+<p>When the configuration has succeeded a warning is shown. This is just a notification that the untill a certificate of the RootCA has been obtained and applied to the subordinate ca the Configuration is not completed.
+<img src="images/ws873.webp" alt="ws873"></p>
+</li>
+<li>
+<p>Switch over to the Offline Root CA (OFFENT-CA01) and browse to the folder <code>c:\windows\system32\certsrv\certenroll</code>. There should be three files, select and copy all files
+<img src="images/ws874.webp" alt="ws874"></p>
+</li>
+<li>
+<p>Switch back to the Subordinate CA (SUBENT-CA02) and browse to the folder <code>c:\windows\system32\certsrv\certenroll</code>. Paste all the files copied in the previous step.
+<img src="images/ws875.webp" alt="ws875"></p>
+</li>
+<li>
+<p>Rightclick the Root CA certificate which you just copied and select <strong>Install Certificate</strong>
+<img src="images/ws876.webp" alt="ws876"></p>
+</li>
+<li>
+<p>Select <strong>Local Machine</strong> and press <strong>Next</strong>
+<img src="images/ws877.webp" alt="ws877"></p>
+</li>
+<li>
+<p>Press <strong>Browse</strong> and select the <strong>Trusted Root Certification Authorities</strong> store. Press <strong>Next</strong> to continue.
+<img src="images/ws878.webp" alt="ws878"></p>
+</li>
+<li>
+<p>Press <strong>Finish</strong> to continue.
+<img src="images/ws879.webp" alt="ws879"></p>
+</li>
+<li>
+<p>After some time a popup will appear when the import has finished. Press <strong>OK</strong> to continue
+<img src="images/ws880.webp" alt="ws880"></p>
+</li>
+<li>
+<p>Create a new folder in <code>C:\inetpub\wwwroot</code> with the name <code>CertEnroll</code>
+<img src="images/ws881.webp" alt="ws881"></p>
+</li>
+<li>
+<p>Copy the RootCA Certificate and Certifate Revocation List from <code>C:\Windows\System32\CertSrv\CertEnroll</code> to <code>C:\inetpub\wwwroot\CertEnroll</code>
+<img src="images/ws882.webp" alt="ws882"></p>
+</li>
+<li>
+<p>Browse to the location entered in step 20 (default <code>c:\</code>) and copy the <strong>*.Req</strong> file to the C: Drive on RootCA server.
+<img src="images/ws883.webp" alt="ws883"></p>
+</li>
+<li>
+<p>On the Root CA Server open <strong>Certification Authority</strong> rightclick the servername and select <strong>All Tasks -&gt; Submit new request…</strong>
+<img src="images/ws884.webp" alt="ws884"></p>
+</li>
+<li>
+<p>Browse to the request file on the C: driver and press <strong>Open</strong>
+<img src="images/ws885.webp" alt="ws885"></p>
+</li>
+<li>
+<p>Select <strong>Pending Requests</strong>. Rightclick the pending request and select <strong>All Tasks</strong> -&gt; <strong>Issue</strong>
+<img src="images/ws886.webp" alt="ws886"></p>
+</li>
+<li>
+<p>Select <strong>Issued Certificates</strong>. Rightclick the issued certificate and select <strong>Open</strong>
+<img src="images/ws887.webp" alt="ws887"></p>
+</li>
+<li>
+<p>Select <strong>Details</strong> and press <strong>Copy to file…</strong>
+<img src="images/ws888.webp" alt="ws888"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> to continue
+<img src="images/ws889.webp" alt="ws889"></p>
+</li>
+<li>
+<p>Select <strong>Cryptographic Message Syntax Standard – PKCS #7 Certificates (.P7B)</strong> and check the box <strong>Include all certificates in the certification path if possible</strong>. Press <strong>Next</strong> to continue
+<img src="images/ws890.webp" alt="ws890"></p>
+</li>
+<li>
+<p>Press <strong>Browse…</strong>
+<img src="images/ws891.webp" alt="ws891"></p>
+</li>
+<li>
+<p>Enter a name for the certificate and press <strong>Save</strong> (the default location is the Documents folder)
+<img src="images/ws892.webp" alt="ws892"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> to continue.
+<img src="images/ws893.webp" alt="ws893"></p>
+</li>
+<li>
+<p>Press <strong>Finish</strong> to export the CA Certificate.
+<img src="images/ws894.webp" alt="ws894"></p>
+</li>
+<li>
+<p>After some time a popup will appear when the export has finished. Press <strong>OK</strong> to continue.
+<img src="images/ws895.webp" alt="ws895"></p>
+</li>
+<li>
+<p>Copy the CA Certificate from the RootCA ( step 46) and switch to the subordinate server to paste the file.
+<img src="images/ws896.webp" alt="ws896"></p>
+</li>
+<li>
+<p>On the Subordinate CA open the Certification Authority. Rightclick the Servername and select <strong>All Tasks</strong> -&gt; <strong>Install CA Certificate</strong>
+<img src="images/ws897.webp" alt="ws897"></p>
+</li>
+<li>
+<p>Select the copied CA Certificate and press <strong>Open</strong>
+<img src="images/ws898.webp" alt="ws898"></p>
+</li>
+<li>
+<p>Rightclick the Servername and select <strong>All Tasks</strong> -&gt; <strong>Start Service</strong>
+<img src="images/ws899.webp" alt="ws899"></p>
+</li>
+</ol>
+<h3 id="setup-group-policy">Setup Group Policy</h3>
+<p>The CA Servers are now configured. Now the domain computers/servers need to trust the certificates which are created by the Subordinate Server. This is done by adding the Root CA certificate to the “Trusted Root Certification Authorities” store.  The certificate can be added in multiple ways, but the easiest way is by adding it with a Group Policy. In this example a separate policy is created on the Domain Controller in the root of the domain. This is not required but just an example on how it’s possible.</p>
+<ol>
+<li>
+<p>Open <strong>Group Policy Management</strong>
+<img src="images/ws900.webp" alt="ws900"></p>
+</li>
+<li>
+<p>Expand <strong>Group Policy Management</strong> &gt; <strong>Forest: <!-- raw HTML omitted --></strong> &gt; <strong>Domains</strong> and Rightclick your domain. Select <strong>Create a GPO in this domain, and link it here…</strong>
+<img src="images/ws901.webp" alt="ws901"></p>
+</li>
+<li>
+<p>Enter a name for the policy for example <strong>Root CA Distribution policy</strong> and press <strong>OK</strong>
+<img src="images/ws902.webp" alt="ws902"></p>
+</li>
+<li>
+<p>Select the created policy and press <strong>Edit</strong>
+<img src="images/ws903.webp" alt="ws903"></p>
+</li>
+<li>
+<p>Go to: <strong>Computer Configuration</strong> &gt; <strong>Policies</strong> &gt; <strong>Windows Settings</strong> &gt; <strong>Security Settings</strong> &gt; <strong>Public Key Policies</strong> and Rightclick <strong>Trusted Root Certification Authorities</strong> and select <strong>Import</strong>
+<img src="images/ws904.webp" alt="ws904"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> to continue
+<img src="images/ws905.webp" alt="ws905"></p>
+</li>
+<li>
+<p>Press <strong>Browse</strong>
+<img src="images/ws906.webp" alt="ws906"></p>
+</li>
+<li>
+<p>Browse to <code>&lt;subordinate-ca&gt;\c$\inetpub\wwwroot\CertEnroll</code> and select the RootCA certificate. Press <strong>Open</strong> to continue
+<img src="images/ws907.webp" alt="ws907"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> to continue
+<img src="images/ws908.webp" alt="ws908"></p>
+</li>
+<li>
+<p>Use the default settings and press <strong>Next</strong>
+<img src="images/ws909.webp" alt="ws909"></p>
+</li>
+<li>
+<p>Press <strong>Finish</strong> to import the Root CA Certificate.
+<img src="images/ws910.webp" alt="ws910"></p>
+</li>
+<li>
+<p>After some time when the import has finished a popup will appear. Press <strong>OK</strong> to continue
+<img src="images/ws911.webp" alt="ws911">
+The Root CA Certificate is now distributed to all domain devices.</p>
+</li>
+</ol>
+<h3 id="deploy-policy-templates">Deploy Policy Templates</h3>
+<p>After Setting up an Enterprise CA some Certificate policies are available without additional configuration. In this post I will demonstrate how to add Certificate Template and publish it.</p>
+<p>Deploy Policy Templates</p>
+<ol>
+<li>
+<p>On the Subordinate CA start the <strong>Certification Authority</strong> and select <strong>Certificate Templates</strong>. In the right pane all the out of the box templates are visible. These can be requested by Users, Computers, etc depending on the type.
+<img src="images/ws912.webp" alt="ws912"></p>
+</li>
+<li>
+<p>To add a new template rightclick <strong>Certificat Templates</strong> and select <strong>Manage</strong>
+<img src="images/ws913.webp" alt="ws913"></p>
+</li>
+<li>
+<p>An overview with all available templates will appear.
+<img src="images/ws914.webp" alt="ws914"></p>
+</li>
+<li>
+<p>To avoid editing the original template Right click the template and select <strong>Duplicate Template</strong>
+<img src="images/ws915.webp" alt="ws915"></p>
+</li>
+<li>
+<p>Give the new template a unique name and press <strong>OK</strong>
+<img src="images/ws916.webp" alt="ws916"></p>
+</li>
+<li>
+<p>Rightclick <strong>Certificat Templates</strong> and select <strong>New</strong> &gt; <strong>Certificate Template to Issue</strong>
+<img src="images/ws917.webp" alt="ws917"></p>
+</li>
+<li>
+<p>Select in the <strong>Enable Certificate Templates</strong> list the template which was created and press <strong>OK</strong>
+<img src="images/ws918.webp" alt="ws918"></p>
+</li>
+<li>
+<p>The certificate is now visible in the <strong>Certificate Templates</strong> Pane
+<img src="images/ws919.webp" alt="ws919"></p>
+</li>
+</ol>
+<p><strong>Test the certificate</strong></p>
+<ol start="9">
+<li>
+<p>Logon to a domain joined computer. Start <strong>MMC</strong> and select <strong>file</strong> &gt; <strong>Add/Remove Snap-in</strong>.
+<img src="images/ws920.webp" alt="ws920"></p>
+</li>
+<li>
+<p>Select the <strong>Certificates</strong> snap-in and press <strong>Add</strong>.
+<img src="images/ws921.webp" alt="ws921"></p>
+</li>
+<li>
+<p>Select <strong>My user account</strong> in the Certificates snap-in popup and press <strong>Finish</strong>. Press <strong>OK</strong> to close the snap-in manager. (Only select <strong>my user account</strong> for user templates, for computer related templates select <strong>Computer account</strong>)
+<img src="images/ws922.webp" alt="ws922"></p>
+</li>
+<li>
+<p>Right click <strong>Personal</strong> and select <strong>All Tasks</strong> &gt; <strong>Request New Certificate</strong>
+<img src="images/ws923.webp" alt="ws923"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong>
+<img src="images/ws924.webp" alt="ws924"></p>
+</li>
+<li>
+<p>Press <strong>Next</strong> (by default <strong>Active Directory Enrollment Policy</strong> is selected)
+<img src="images/ws925.webp" alt="ws925"></p>
+</li>
+<li>
+<p>In the <strong>Request Certificates</strong> overview all available user related policy templates are displayed. The created template should appear. Check the box of the created template and press <strong>Enroll</strong>
+<img src="images/ws926.webp" alt="ws926"></p>
+</li>
+<li>
+<p>The template will be requested. After a while the status should be <strong>Succeeded</strong>. Press <strong>Finish</strong> to continue.
+<img src="images/ws927.webp" alt="ws927"></p>
+</li>
+<li>
+<p>The new certificate is now visible.
+<img src="images/ws928.webp" alt="ws928"></p>
+</li>
+<li>
+<p>When you double click the Certificate and select <strong>Certification Path</strong> you should see the RootCA, SubordinateCA and requested Certificate. All Certificates should be <strong>OK</strong></p>
+</li>
+</ol>
+<p><img src="images/ws929.webp" alt="ws929"></p>
+<p>This was the final post of the Setup Server 2019 Enterprise CA tutorial.</p>
+<hr>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#offline-root-ca">Offline Root CA</a></li>
+        <li><a href="#subordinate-ca">Subordinate CA</a></li>
+        <li><a href="#setup-group-policy">Setup Group Policy</a></li>
+        <li><a href="#deploy-policy-templates">Deploy Policy Templates</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

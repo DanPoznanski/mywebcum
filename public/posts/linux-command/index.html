@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Linux Basic Command and Map</title>
+    <meta name="description" content="Linux command and map">
+    <meta name="keywords" content='Linux'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/linux-command/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Linux Basic Command and Map">
+    <meta property="og:description" content="Linux command and map">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Linux Basic Command and Map">
+    <meta name="twitter:description" content="Linux command and map">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/linux-command/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/linux-command/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/linux-command/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Linux Basic Command and Map</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle">Linux command and map</small>
+	
+
+	
+          <p class="post-date">
+              
+
+              May 18, 2019
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <h3 id="process">Process</h3>
+<p>all process <code>ps -auxf</code></p>
+<p>see all zombie process <code>ps -aux | grep 'Z'</code></p>
+<p>see systemd
+<code>ps -p 1</code></p>
+<p>SIGKILL &ndash;9
+SIGKILL &ndash;15</p>
+<p>kill -9 PID</p>
+<h3 id="symlink--hardlink">Symlink &amp; Hardlink</h3>
+<p>Symlink example:</p>
+<p><code>ln original_file symlink1</code></p>
+<p>for Read: <code>readlink symlink1</code></p>
+<p>for search <code>find . -type l</code></p>
+<p>for see inode <code>stat original_file</code></p>
+<p>Hardlink example:</p>
+<p><code>ln original_file hardlink1</code></p>
+<p>see number of <strong>inode</strong> &lsquo;stat original_file&rsquo;</p>
+<p>see how many hardlinks <code>find . -inum 672135</code></p>
+<p>inode - inode is a data structure that stores information about a file or directory in a file system.</p>
+<p>Hardlink its like original file</p>
+<p><strong>Hardlink -&gt; inode &lt;- file &lt;- Symlink</strong></p>
+<h3 id="password">Password</h3>
+<p><code>etc/password</code> and <code>etc/shadow</code></p>
+<p>change password</p>
+<p><code>passwd username</code></p>
+<h3 id="group">Group</h3>
+<p>were can find group <code>etc/group</code>and password of groups <code>etc/gshadow</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo groupadd devops
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo usermod -a -G devops username
+</span></span></code></pre></div><p>delete group <code>delgroup</code></p>
+<p>name</p>
+<h3 id="add-users">Add users</h3>
+<p><code>useradd username -b /home/username -c &quot;Username Usernamov&quot; -g usergroup -p password</code></p>
+<p>new command</p>
+<p><code>adduser  username</code></p>
+<p>change home directory to user:</p>
+<p><code>sudo usermod -d /home/evil -m username</code></p>
+<p>delete <code>userdel username</code></p>
+<h3 id="find-someting">find someting..</h3>
+<p><code>whereis passwd</code></p>
+<p>`ls -la /usr/bin/passwd</p>
+<h3 id="suid-gsid-sticky">SUID GSID Sticky</h3>
+<p><strong>USER + S(pecial)</strong></p>
+<p>Commonly noted as <strong>SUID</strong>, the special permission for the user access level has a single function: A file with <strong>SUID</strong> always executes as the user who owns the file, regardless of the user passing the command. If the file owner doesn&rsquo;t have execute permissions, then use an uppercase <strong>S</strong> here.</p>
+<p>Now, to see this in a practical light, let&rsquo;s look at the <code>/usr/bin/passwd</code> command. This command, by default, has the <strong>SUID</strong> permission set:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>tcarrigan@server ~<span style="color:#f92672">]</span>$ ls -l /usr/bin/passwd 
+</span></span><span style="display:flex;"><span>-rwsr-xr-x. <span style="color:#ae81ff">1</span> root root <span style="color:#ae81ff">33544</span> Dec <span style="color:#ae81ff">13</span>  <span style="color:#ae81ff">2019</span> /usr/bin/passwd
+</span></span></code></pre></div><p>Note: the <strong>s</strong> where <strong>x</strong> would usually indicate execute permissions for the user.\</p>
+<p>command
+<code>chmod u+s file</code></p>
+<p><strong>Group + S(pecial)</strong></p>
+<p>Commonly noted as <strong>SGID</strong>, this special permission has a couple of functions:</p>
+<ul>
+<li>
+<p>If set on a file, it allows the file to be executed as the <strong>group</strong> that owns the file (similar to <strong>SUID</strong>)</p>
+</li>
+<li>
+<p>If set on a directory, any files created in the directory will have their <strong>group</strong> ownership set to that of the directory owner</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>tcarrigan@server article_submissions<span style="color:#f92672">]</span>$ ls -l 
+</span></span><span style="display:flex;"><span>total <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>drwxrws---. <span style="color:#ae81ff">2</span> tcarrigan tcarrigan  <span style="color:#ae81ff">69</span> Apr  <span style="color:#ae81ff">7</span> 11:31 my_articles
+</span></span></code></pre></div><p>This permission set is noted by a lowercase <strong>s</strong> where the <strong>x</strong> would normally indicate <strong>execute</strong> privileges for the <strong>group</strong>. It is also especially useful for directories that are often used in collaborative efforts between members of a group. Any member of the group can access any new file. This applies to the execution of files, as well. <strong>SGID</strong> is very powerful when utilized properly.</p>
+<p>As noted previously for SUID, if the owning group does not have execute permissions, then an uppercase S is used.
+ 
+command: <code>chmod g+s directory</code></p>
+<p><strong>Other + t (sticky)</strong>
+The last special permission has been dubbed the &ldquo;sticky bit.&rdquo; This permission does not affect individual files. However, at the directory level, it restricts file deletion. Only the <strong>owner</strong> (and root) of a file can remove the file within that directory. A common example of this is the /tmp directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>tcarrigan@server article_submissions<span style="color:#f92672">]</span>$ ls -ld /tmp/
+</span></span><span style="display:flex;"><span>drwxrwxrwt. <span style="color:#ae81ff">15</span> root root <span style="color:#ae81ff">4096</span> Sep <span style="color:#ae81ff">22</span> 15:28 /tmp/
+</span></span></code></pre></div><p>The permission set is noted by the lowercase <strong>t</strong>, where the <strong>x</strong> would normally indicate the execute privilege.</p>
+<p>command &lsquo;chmod +t directory&rsquo;</p>
+<h3 id="programs-for-working-with-packages">Programs for working with packages</h3>
+<p>internal:</p>
+<p>see all packages in system</p>
+<p><code>dpkg -l</code></p>
+<p>search packages in system</p>
+<p><code>dpkg -s firefox-dbg</code></p>
+<p>know what files</p>
+<p><code>dpkg -s</code></p>
+<p>what files belong to the package</p>
+<p><code>dpkg -L openssh-client</code></p>
+<p>for install <code>dpkg -i program.deb</code> for remove  <code>dpkg -r program.deb</code></p>
+<p>search package</p>
+<p><code>apt-cache search telegram</code></p>
+<p>for search version of package</p>
+<p><code>apt-cache policy openssh-client</code></p>
+<p>and install version 1.8 <code>apt-get install openssh-client=1.8</code></p>
+<h3 id="link-from-where-download-files">link from where download files</h3>
+<p><code>cat etc/sources.list</code></p>
+<h3 id="systemd">Systemd</h3>
+<p>where <code>usr/lib/systemd/system</code></p>
+<p>all units <code>systemctl list-units</code> for service <code>systemctl list-units type=service</code></p>
+<p>reload after change <code>systemctl daemon-reload</code></p>
+<p>for see logs <code>systemctl -u unitname</code></p>
+<p>Create unit in systemd</p>
+<p><code>nano etc/systemd/system/apt.updater.service</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>Example of Systemd Unit
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Type<span style="color:#f92672">=</span>oneshot
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>apt-get update
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi.user.target
+</span></span></code></pre></div><p>Create unit in systemd timer</p>
+<p><code>nano etc/systemd/system/apt.updater.timer</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>Runs apt-get update every hour
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Timer<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>onUnitActiveSec<span style="color:#f92672">=</span>1h
+</span></span><span style="display:flex;"><span>Unit<span style="color:#f92672">=</span>apt-updater.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi.user.target
+</span></span></code></pre></div><p> </p>
+<h3 id="mount-disk-iso">Mount disk iso</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mkdir /media/ubuntu_iso 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo mount /home/victor/Downloads/ubuntu-20.04.2-live-server.amd64.iso /media/ubuntu_iso/ -o loop
+</span></span></code></pre></div><p>see mount disk <code>df -h</code>  advanced <code>mount | grep ubuntu_iso</code></p>
+<p> </p>
+<p><strong>dd</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;123456&#34;</span> &gt; file 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>file 
+</span></span></code></pre></div><p><strong>img</strong> from disk</p>
+<pre tabindex="0"><code>dd if=/dev/sda1 of=sda1.img bs=4096
+</code></pre><ul>
+<li>bs - block of file = 4096 kb</li>
+</ul>
+<p>delete all files with zero  0000000000000</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dd <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>/dev/zero of<span style="color:#f92672">=</span>/dev/sdx bs<span style="color:#f92672">=</span><span style="color:#ae81ff">4096</span>
+</span></span></code></pre></div><h3 id="mount-hardisk">Mount hardisk</h3>
+<p>see all partition <code>fdisk -l</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo fdisk /dev/sdb
+</span></span></code></pre></div><ul>
+<li>
+<p>m - see all command</p>
+</li>
+<li>
+<p>g - create new GPT partition table</p>
+</li>
+<li>
+<p>w - write</p>
+</li>
+</ul>
+<p>to create ext4</p>
+<pre tabindex="0"><code>sudo mkfs.ext4 -F /dev/sdb1
+</code></pre><p> </p>
+<p>mount manual but after restart will disappear</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo mkdir /media/data/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo mount /dev/sdb1/ /media/data/
+</span></span></code></pre></div><p>to auto mount after restart, to know <strong>UUID</strong> <code>sudo blkid </code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo  nana /etc/fstab/
+</span></span></code></pre></div><h2 id="deb">.deb</h2>
+<p>see in deb package</p>
+<pre tabindex="0"><code>ar t package.deb
+</code></pre><ul>
+<li>tar.xz - its zip arhive</li>
+</ul>
+<p>see in archive files</p>
+<pre tabindex="0"><code>ar p package.deb debian-binary
+</code></pre><p>for see <code>tar.zx</code> files</p>
+<pre tabindex="0"><code>ar p package.deb debian.tar.xz | tar -tv -J
+</code></pre><p>unzip arhive</p>
+<pre tabindex="0"><code>ar x package.deb
+</code></pre><p>unzip archive <code>tar.xz</code></p>
+<pre tabindex="0"><code>tar xfv control.tar.xz
+</code></pre><h3 id="create-deb">Create .deb</h3>
+<p>fist</p>
+<pre tabindex="0"><code>sudo apt install dh-make devscripts
+</code></pre><p>create need folder</p>
+<pre tabindex="0"><code>mkdir mvdir-0.1
+</code></pre><p>need in directory</p>
+<pre tabindex="0"><code>cd mvdir
+</code></pre><p>copy file <code>mvdir.sh</code> to folder <code>mvdir-01</code></p>
+<pre tabindex="0"><code>cp ../../mvdir.sh .
+</code></pre><p>edit <code>bashrc</code></p>
+<pre tabindex="0"><code>nano /home/dan/.bashrc
+</code></pre><p>add it and save</p>
+<pre tabindex="0"><code>export CITY=Jerusalem
+export DEBMAIL=&#34;dan@local&#34;
+export DEBFULLNAME=&#34;Dan&#34;
+</code></pre><p>run command source and for test <code>echo $DEBMAIL</code></p>
+<pre tabindex="0"><code>source /home/dan/.bashrc
+</code></pre><p>for make sample deb need run in your folder <code>mvdir-01</code></p>
+<pre tabindex="0"><code>dh_make --indep --createorig
+</code></pre><ul>
+<li>
+<p>indep - its be run for all system linux where have bash</p>
+</li>
+<li>
+<p>createorig - the file specified with <code>-f</code>  is copied in place. If no <code>-f</code>  is supplied either but <code>--createorig</code> is, the current directory is created into a new archive</p>
+</li>
+</ul>
+<p> 
+ </p>
+<p>you can see new file in folder and remove all <code>.ex</code> files <code>rm *.ex</code> and  <code>rm README</code></p>
+<p>now need create new file <code>nano install</code> and write:</p>
+<pre tabindex="0"><code>mvdir.sh usr/bin/
+</code></pre><ul>
+<li>if we have many bash scripts use <code>*.sh usr/bin</code></li>
+</ul>
+<p>for change file <code>changelog</code> use command <code>dch</code></p>
+<p>for build .deb</p>
+<pre tabindex="0"><code>debuild -us -uc 
+</code></pre><ul>
+<li>
+<p><code>-us</code> - unsigned source it instructs no to sign the source files of the package with gpg key before create the package</p>
+</li>
+<li>
+<p><code>-uc</code> - unsigned changes it instructs no to sign <code>changelog</code> files before creating the package</p>
+</li>
+</ul>
+<p>to install deb package to remove <code>-r</code></p>
+<pre tabindex="0"><code>sudo dpkg -i  package.deb
+</code></pre><h3 id="sign-package-deb">Sign package deb</h3>
+<p>to create keys</p>
+<pre tabindex="0"><code>gpg --gen-key
+</code></pre><p>to change and update version of changelog file.(achtung! email and name must be the same gpg-keys)</p>
+<pre tabindex="0"><code>dch -i
+</code></pre><p><code>-i</code> - increment update change version of changelog</p>
+<p>see gpg keys</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpg --list-keys
+</span></span></code></pre></div><p>now sign build package</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>debuild -b
+</span></span></code></pre></div><p>to export gpg key</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpg --export -a <span style="color:#e6db74">&#34;dan@local&#34;</span> &gt; public.key
+</span></span></code></pre></div><p> </p>
+<p> </p>
+<h3 id="monitoring-and-proc">Monitoring and Proc</h3>
+<p>see version linux or <code>uname -a</code> uname take information from:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /proc/version
+</span></span></code></pre></div><p>see cpu info</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /proc/cpuinfo
+</span></span></code></pre></div><p>see time online</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /proc/uptime 
+</span></span></code></pre></div><p>see devices</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /proc/devices
+</span></span></code></pre></div><p>see what filesystems support</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /proc/filesystems
+</span></span></code></pre></div><p>see all mounts</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /proc/mounts
+</span></span></code></pre></div><p> </p>
+<p> </p>
+<p>see mem and swap ram</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>free -h
+</span></span></code></pre></div><p>oom killer score s</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /proc/13/oom_score_adj
+</span></span></code></pre></div><p>iftop to see internet traffic</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>iftop
+</span></span></code></pre></div><h3 id="ports">Ports</h3>
+<p>see if port <code>8080</code> open</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>netstat -lptun | grep <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><h2 id="firewall">Firewall</h2>
+<h3 id="iptables">Iptables</h3>
+<p>see all rules :</p>
+<pre tabindex="0"><code>sudo iptables -L
+</code></pre><p>for all rules and numbers and tables</p>
+<pre tabindex="0"><code>sudo iptables --line-numbers -L -v -n
+</code></pre><p>see rules only input :</p>
+<pre tabindex="0"><code>sudo iptables -L INPUT  
+</code></pre><p>all packet drop from 10.10.10.10</p>
+<pre tabindex="0"><code>sudo iptables INPUT -s 10.10.10.10 -j DROP 
+</code></pre><p>all packet go to 10.10.10.10 drop</p>
+<pre tabindex="0"><code>sudo iptables OUTPUT -s 10.10.10.10 -j DROP 
+</code></pre><p>all packege drop to 10.10.10.0/24</p>
+<pre tabindex="0"><code>sudo iptables OUTPUT -s 10.10.10.0/24 -j DROP 
+</code></pre><p>all packet from 10.10.10.10 be drop to port 22</p>
+<pre tabindex="0"><code>sudo iptables -A INPUT -p tcp --dport 22 -s 10.10.10.10 -j DROP 
+</code></pre><p>to accept all</p>
+<pre tabindex="0"><code>sudo iptables -P INPUT ACCEPT 
+</code></pre><p>disable ICMP answer</p>
+<pre tabindex="0"><code>sudo iptables -A INPUT -p icmp --icmp-type 8 -j DROP
+</code></pre><p>for delete rules:</p>
+<pre tabindex="0"><code>sudo iptables -D s 10.10.10.0 =j DROP
+</code></pre><p>all clean rules:</p>
+<pre tabindex="0"><code>iptables -F
+</code></pre><h3 id="iptables-persistent">Iptables persistent</h3>
+<p>we need iptables-persistent for be save after restart:</p>
+<p>install</p>
+<pre tabindex="0"><code>apt install iptables-persistent
+</code></pre><p>run and save rules</p>
+<pre tabindex="0"><code>sudo service netfilter-persistent save 
+</code></pre><p>to see changes netfilter file</p>
+<pre tabindex="0"><code>cat /etc/iptables/rules.v4
+</code></pre><p>to restore all rules in file</p>
+<pre tabindex="0"><code>iptables-restore &lt; /etc/iptables/rules.v4
+</code></pre><pre tabindex="0"><code>sudo sh -c &#34;iptables-restore &lt; /etc/iptables/rules.v4&#34;
+</code></pre><h3 id="nat-forward">NAT forward</h3>
+<p><img src="images/linux2.svg" alt="linux2"></p>
+<p>to destination</p>
+<pre tabindex="0"><code>iptables -t nat -A PREROUTING -p tcp -d 192.168.0.2 --dport 80 -j DNAT --to-destination 192.168.0.3:80
+</code></pre><p>to source</p>
+<pre tabindex="0"><code>iptables -t nat -A POSTROUTING -p tcp -d 192.168.0.3 --dport 80 -j SNAT --to-source 192.168.0.2:80
+</code></pre><p>to source use masquerade</p>
+<pre tabindex="0"><code>iptables -t nat -A POSTROUTING -p tcp -d 192.168.0.3 MASQUERADE 
+</code></pre><h2 id="mail">MAIL</h2>
+<h2 id="simple-command">Simple Command</h2>
+<h3 id="delete">Delete</h3>
+<p>delete files and folder</p>
+<pre tabindex="0"><code>rm -rf &lt;folder&gt;
+</code></pre><h3 id="program-dependencies">Program Dependencies</h3>
+<pre tabindex="0"><code>ldd /usr/bin/bash
+</code></pre><h3 id="tree">Tree</h3>
+<pre tabindex="0"><code>tree folder/
+</code></pre><p>all tree process</p>
+<pre tabindex="0"><code>sudo pstree
+</code></pre><p>dmidecode is a tool for dumping a computer&rsquo;s DMI (all hardware about machine)</p>
+<pre tabindex="0"><code>dmidecode
+</code></pre><pre tabindex="0"><code></code></pre><pre tabindex="0"><code></code></pre><pre tabindex="0"><code></code></pre><pre tabindex="0"><code></code></pre><pre tabindex="0"><code></code></pre><pre tabindex="0"><code></code></pre><h2 id="system_commands">System_Commands</h2>
+<p>List the file/folder in the current directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls 
+</span></span></code></pre></div><p>List files/folders in a current directory in detailed format.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -larth
+</span></span></code></pre></div><p>Shows detailed information about the file or directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>stat &lt;fileName/dirName&gt;
+</span></span></code></pre></div><p>View calendar.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cal
+</span></span></code></pre></div><p>Shows the name of the system host.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hostname
+</span></span></code></pre></div><p>Shows the host id of the system assigned by the OS.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hostid
+</span></span></code></pre></div><p>Show the current data and time in UTC format</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>date 
+</span></span></code></pre></div><p>Shows the currently logged-in username of the terminal.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>whoami
+</span></span></code></pre></div><p>Shows the elapsed time duration since the machine logged in.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uptime
+</span></span></code></pre></div><p>Unix name.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>uname
+</span></span></code></pre></div><p>Clears the screen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>clear
+</span></span></code></pre></div><p>Lists all the commands executed until now.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>history
+</span></span></code></pre></div><p>Super User Do</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo -i
+</span></span></code></pre></div><p>Shows the exit status of the last executed command (0 — success, 1–255 — error/failure).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo $?
+</span></span></code></pre></div><p>Restart the machine immediately (-r restart).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>shutdown -r now
+</span></span></code></pre></div><p>Displays all the environment variables of the Linux system.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>printenv
+</span></span></code></pre></div><p>Shows previous logins in the Linux system.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Last
+</span></span></code></pre></div><h2 id="directory-commands">Directory Commands</h2>
+<p>Shows the present working directory (abbr. Print Working Directory).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pwd
+</span></span></code></pre></div><p>Change directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd
+</span></span></code></pre></div><p>Changes to its parent directory (i.e.) one level up.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ..
+</span></span></code></pre></div><p>Change to the directory mentioned.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd &lt;dirName&gt;
+</span></span></code></pre></div><p>Changes to the currently logged-in user’s home directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ~ or cd
+</span></span></code></pre></div><p>Changes the directory two levels up.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ../..
+</span></span></code></pre></div><p>Changes to the last working directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd 
+</span></span></code></pre></div><p>Creates the directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir &lt;dirName&gt;
+</span></span></code></pre></div><p>Creates a directory with its parent directories if it does not exist (-p parent).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p &lt;pathOftheDir&gt; 
+</span></span></code></pre></div><h2 id="file-commands-">File Commands →</h2>
+<p>Creates an empty file or updates the timestamp of the existing file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>touch
+</span></span></code></pre></div><p>Creates a single empty file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>touch &lt;fileName&gt;
+</span></span></code></pre></div><p>Creates file1, file2 empty files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>touch &lt;file1&gt; &lt;file2&gt;
+</span></span></code></pre></div><p>Concatenates and displays the contents of files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat
+</span></span></code></pre></div><p>Displays the contents of the file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat &lt;fileName&gt;
+</span></span></code></pre></div><p>Creates a new file, allows to input content interactively and redirects inputted content to the created file (&gt; redirection operator).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat &gt; &lt;fileName&gt;
+</span></span></code></pre></div><p>Displays first 10 lines of the file by default.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>head &lt;fileName&gt;
+</span></span></code></pre></div><p>Displays first 5 lines of the file (-n number)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>head -n <span style="color:#ae81ff">5</span> &lt;fileName&gt;
+</span></span></code></pre></div><p>Displays the last 10 lines of the file by default.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tail &lt;fileName&gt;
+</span></span></code></pre></div><p>Displays last 5 lines of the file (-n number).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">5</span> &lt;fileName&gt;
+</span></span></code></pre></div><p>Displays contents of the file in real-time even when the file is rotated or replaced (used for log file monitoring).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tail -F &lt;fileName&gt; 
+</span></span></code></pre></div><p>Used to view large files (log files) in a paginated manner.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>less &lt;fileName&gt;
+</span></span></code></pre></div><p>rm — remove commands</p>
+<p>Removes the file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm &lt;fileName&gt; 
+</span></span></code></pre></div><p>Removes files &amp; folders of directory recursively (-r recursive).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -r &lt;dirName&gt;
+</span></span></code></pre></div><p>Force remove the files &amp; folders of directory recursively (-f force).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -rf &lt;dirName&gt; 
+</span></span></code></pre></div><p>cp — copy commands</p>
+<p>Copy the files and folders from source to destination.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp &lt;source&gt; &lt;destination&gt;
+</span></span></code></pre></div><p>Copy dir1 directory to dir2 directory recursively (-r recursive).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp -r &lt;dir1&gt; &lt;dir2&gt; 
+</span></span></code></pre></div><p>Move or rename commands</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mv
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mv &lt;fileName&gt; &lt;newFileName&gt; — renames the file to a new name.
+</span></span></code></pre></div><p>Moves the file to new path.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mv &lt;oldFilePath&gt; &lt;newFilePath&gt; 
+</span></span></code></pre></div><h2 id="file-permission-commands">File Permission Commands</h2>
+<p>Changes mode/permissions of the file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod &lt;octalNumber&gt; &lt;fileName&gt;
+</span></span></code></pre></div><p>Changes mode/permissions of the directory recursively.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chmod &lt;octalNumber&gt; -R &lt;dirName&gt;
+</span></span></code></pre></div><p>Changes the user ownership of a file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chown &lt;newUser&gt; &lt;fileName&gt;
+</span></span></code></pre></div><p>Changes the user &amp; group ownerships of a file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chown &lt;newUser&gt;:&lt;newGroup&gt; &lt;fileName&gt; 
+</span></span></code></pre></div><p>Updates the group name for file/directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chgrp &lt;groupName&gt; &lt;fileName/dirName&gt;
+</span></span></code></pre></div><p>Shows the file/directory access control list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>getfacl &lt;fileName/dirName&gt; 
+</span></span></code></pre></div><p>Modifies the current acl of the file/directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>setfacl -m u:&lt;userName&gt;:rwx &lt;fileName/dirName&gt;
+</span></span></code></pre></div><p>Removes the acl permissions for the file/directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>setfacl -x u:&lt;userName&gt;: &lt;fileName/dirName&gt;
+</span></span></code></pre></div><p>Modifies the group acls for the file/directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>setfacl -m g:&lt;groupName&gt;:rwx &lt;fileName/dirName&gt;
+</span></span></code></pre></div><p>Removes the group acl permissions for the file/directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>setfacl -x g:&lt;groupName&gt;: &lt;fileName/dirName&gt;
+</span></span></code></pre></div><blockquote>
+<p>File Permission Octal Numbers
+read (r) — 4, write (w)- 2, execute (x) — 1 =&gt; chmod 777 &lt; file /folder_name &gt;</p>
+</blockquote>
+<h3 id="user-management-commands-">User Management Commands →</h3>
+<p>Creates a user account.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>useradd
+</span></span></code></pre></div><p>Creates user account without home &amp; mail spool directories.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>useradd &lt;userName&gt;
+</span></span></code></pre></div><p>Creates user account with home &amp; mail spool directories.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>useradd -m &lt;userName&gt; 
+</span></span></code></pre></div><p>Creates a password for the user and stores it in <code>/etc/shadow</code> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>passwd &lt;userName&gt;
+</span></span></code></pre></div><p>User delete.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>userdel
+</span></span></code></pre></div><p>Deletes the user from the system.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>userdel &lt;userName&gt;
+</span></span></code></pre></div><p>Deletes the user from the system along with home and mail spool directories (-r remove).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>userdel -r &lt;userName&gt;
+</span></span></code></pre></div><p>Stores information about user accounts.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/etc/passwd
+</span></span></code></pre></div><p>Displays the complete list of users on that machine.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/passwd
+</span></span></code></pre></div><p>Stores the password for users in an encrypted format.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/etc/shadow 
+</span></span></code></pre></div><p>Displays the complete list of user passwords on that machine.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/shadow 
+</span></span></code></pre></div><p>Substitute user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>su
+</span></span></code></pre></div><p>Switches to the user mentioned.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>su &lt;userName&gt;
+</span></span></code></pre></div><p>To log out from that user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exit 
+</span></span></code></pre></div><p>Modify user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>usermod 
+</span></span></code></pre></div><p>Adds the user to another group (-aG append the user to the group without removing from other groups).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>usermod -aG &lt;groupName&gt; &lt;userName&gt;
+</span></span></code></pre></div><p>Change shell.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chsh
+</span></span></code></pre></div><p>Changes the shell to bash for the user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chsh -s /bin/bash &lt;user&gt;
+</span></span></code></pre></div><p>Changes the shell to sh for the user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chsh -s /bin/sh &lt;user&gt;
+</span></span></code></pre></div><h3 id="group-management-commands-">Group Management Commands →</h3>
+<p>Creates the group.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>groupadd &lt;groupName&gt;
+</span></span></code></pre></div><p>Delete the group.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>groupdel &lt;groupName&gt; 
+</span></span></code></pre></div><p>Stores the information of the groups.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/etc/group
+</span></span></code></pre></div><p>Displays the complete list of groups on that machine.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/group 
+</span></span></code></pre></div><p>Creates a password for the group.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpasswd &lt;groupName&gt;
+</span></span></code></pre></div><p>Adds the user to the group.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpasswd -a &lt;userName&gt; &lt;groupName&gt; 
+</span></span></code></pre></div><p>Removes the user from the group.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpasswd -d &lt;userName&gt; &lt;groupName&gt; 
+</span></span></code></pre></div><p>Adds multiple users to the group and removes the existing ones of the group.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpasswd -M &lt;userName1&gt;,&lt;userName2&gt;,&lt;userName3&gt; &lt;groupName&gt;
+</span></span></code></pre></div><h3 id="searching-commands-">Searching Commands →</h3>
+<p>Used to search for files/directories based on names.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate
+</span></span></code></pre></div><p>Updates the database so the results are up-to-date.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo updatedb 
+</span></span></code></pre></div><p>Locates the file/directory and displays the path.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>locate &lt;fileName/dirName&gt; 
+</span></span></code></pre></div><h3 id="grep-command-s-global-regular-expression-print-">GREP Command s— Global Regular Expression Print →</h3>
+<p>Used to find text patterns within files.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep &lt;textToSearch&gt; &lt;fileName&gt;
+</span></span></code></pre></div><p>Used to find text patterns within the file ignoring the case (-i ignore case).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -i &lt;textToSearch&gt; &lt;fileName&gt;
+</span></span></code></pre></div><p>Used to find non matching lines of text patterns (-v invert-match).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -v &lt;textToSearch&gt; &lt;fileName&gt;
+</span></span></code></pre></div><p>Used to display the matching string file names.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -l &lt;textToSearch&gt; &lt;fileNames&gt; 
+</span></span></code></pre></div><h3 id="find-commands-">Find Commands →</h3>
+<p>Finds the mentioned file if available in the current directory (.(period) represents current directory).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find. -name &lt;fileName&gt; 
+</span></span></code></pre></div><p>Finds the mentioned file in the directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find &lt;dirName&gt; -name &lt;fileName&gt;
+</span></span></code></pre></div><p>Finds the files in the directory having 754 permission.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find &lt;dirName&gt; -perm <span style="color:#ae81ff">754</span>
+</span></span></code></pre></div><h3 id="hardware-commands-">Hardware Commands →</h3>
+<p>Shows systems memory information ( -h human-readable format).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>free -h  
+</span></span></code></pre></div><p>Shows the disk space usage of mounted file systems.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>df -h 
+</span></span></code></pre></div><p>Disk usage.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>du
+</span></span></code></pre></div><p>Displays disk usage information (-h human-readable format).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>du -h 
+</span></span></code></pre></div><p>Displays the total size of the directory instead of individual files in human-readable format (-s summarize).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>du -sh 
+</span></span></code></pre></div><p>Displays the total size of the file/directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>du -sh &lt;fileName/dirName&gt;
+</span></span></code></pre></div><h3 id="network-commands-">Network Commands →</h3>
+<p>Tests the reachability &amp; responsiveness of the remote host.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ping &lt;hostName&gt;
+</span></span></code></pre></div><p>Shows DNS information of the domain.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dig &lt;domainName&gt;
+</span></span></code></pre></div><p>Used to retrieve/download files from the internet.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget &lt;url&gt;
+</span></span></code></pre></div><p>Used to retrieve/download files from the internet.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl &lt;url&gt;
+</span></span></code></pre></div><p>Display available network interfaces.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ifconfig
+</span></span></code></pre></div><p>Display and manipulate network interface info.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip addr 
+</span></span></code></pre></div><p>Shows the public IP address of the machine.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl ifconfig.me
+</span></span></code></pre></div><p>Shows all TCP open ports (-a all, t-tcp, n-active, p protocol).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>netstat -antp
+</span></span></code></pre></div><p>Traces the route using packets from source to destination host.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>traceroute &lt;url&gt;
+</span></span></code></pre></div><h3 id="process-info-commands-">Process Info Commands →</h3>
+<p>ps — process status.</p>
+<p>Shows the currently running process.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ps
+</span></span></code></pre></div><p>Shows the process of the username</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ps -u &lt;userName&gt;
+</span></span></code></pre></div><p>Shows all the processes of the system.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ps -ef 
+</span></span></code></pre></div><p>Shows the real-time, dynamic view of the running processes of a system.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>top
+</span></span></code></pre></div><p>Gracefully terminates the process pid.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kill &lt;pid&gt;
+</span></span></code></pre></div><p>Shows process ID of processes based on name/other criteria.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pgrep &lt;processName&gt;
+</span></span></code></pre></div><p>Background, sends the process to the background &amp; continues execution without interruption.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>bg 
+</span></span></code></pre></div><p>foreground, brings the process to the foreground and makes it an active process.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fg
+</span></span></code></pre></div><p>No hangup, runs command/script in the background even after the terminal is closed or the user logs out.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># nohup </span>
+</span></span></code></pre></div><h3 id="archiving-file-commands-">Archiving File Commands →</h3>
+<p>Tape archive.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar 
+</span></span></code></pre></div><p>Creates the tar file with the fileName for the directory mentioned (-c create, -v verbose, -f output file name).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar -cvf &lt;fileName&gt; &lt;directory&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar -xvf &lt;sourceTarFileName&gt; -C &lt;destinationDir&gt;
+</span></span></code></pre></div><h2 id="package-manager--linux-distros">Package Manager — LINUX DISTROS</h2>
+<ul>
+<li>
+<p>apt — Package Manager for Debian-based Linux distributions Eg: Ubuntu.</p>
+</li>
+<li>
+<p>yum — Package Manager for Redhat-based Linux distributions Eg: Amazon_Linux.</p>
+</li>
+</ul>
+<h2 id="repository">Repository</h2>
+<p>Disable</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get update --allow-unauthenticated
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get update --allow-insecure-repositories
+</span></span></code></pre></div><h2 id="crontab">Crontab</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">0</span> <span style="color:#ae81ff">12</span> <span style="color:#ae81ff">1</span> * * /opt/wordpress/tls_renew.sh &gt;&gt; /var/log/cron.log 2&gt;&amp;<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># *  *  *  *  *</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># |  |  |  |  |</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># |  |  |  |  |</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># |  |  |  |  +-------------------- day of week [0 - 6] [Sunday=0]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># |  |  |  +-------------------- month [1-12]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># |  |  +--------------------- day of month [1-31]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># |  +---------------------- hour [0-23]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># +----------------------- min [0-59]</span>
+</span></span></code></pre></div><p>edit</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crontab -e
+</span></span></code></pre></div><p>list</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crontab -l
+</span></span></code></pre></div><p>edit other user <code>root</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>crontab -eu root
+</span></span></code></pre></div><h2 id="systemd-timer">Systemd Timer</h2>
+<p>Option</p>
+<p><code>OnActiveSec=</code>	Defines a timer relative to the moment the timer unit itself is activated.
+<code>OnBootSec=</code>	Defines a timer relative to when the machine was booted up. In containers, for the system manager instance, this is mapped to OnStartupSec=, making both equivalent.
+<code>OnStartupSec=</code>	Defines a timer relative to when the service manager was first started. For system timer units this is very similar to OnBootSec= as the system service manager is generally started very early at boot. It&rsquo;s primarily useful when configured in units running in the per-user service manager, as the user service manager is generally started on first login only, not already during boot.
+<code>OnUnitActiveSec=</code>	Defines a timer relative to when the unit the timer unit is activating was last activated.
+<code>OnUnitInactiveSec=</code>	Defines a timer relative to when the unit the timer unit is activating was last deactivated.</p>
+<p>1.Create the file <code>/etc/systemd/system/helloworld.service</code> with the following content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#66d9ef">[Unit]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Hello World script&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Service]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/local/bin/helloworld.sh</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">[Install]</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">multi-user.target</span>
+</span></span></code></pre></div><p>2.Create the file <code>/etc/systemd/system/helloworld.timer</code> with the following content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Run helloworld.service 5min after boot and every 24 hours relative to activation time&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Timer<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>OnBootSec<span style="color:#f92672">=</span>5min
+</span></span><span style="display:flex;"><span>OnUnitActiveSec<span style="color:#f92672">=</span>24h
+</span></span><span style="display:flex;"><span>OnCalendar<span style="color:#f92672">=</span>Mon..Fri *-*-* 10:00:*
+</span></span><span style="display:flex;"><span>Unit<span style="color:#f92672">=</span>helloworld.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi-user.target
+</span></span></code></pre></div><p>This is the timer file that controls the activation of the respective service file.</p>
+<p>3.Verify that the files you created above contain no errors:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemd-analyze verify /etc/systemd/system/helloworld.*
+</span></span></code></pre></div><p>4.Start the timer:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start helloworld.timer
+</span></span></code></pre></div><p>5.Enable the timer to make sure that it is activated on boot</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start helloworld.timer
+</span></span></code></pre></div><p>from cron to systemd</p>
+<pre tabindex="0"><code>Cron     : systemd timer
+-------- : ----------------------------
+@reboot  : OnBootSec=1s
+@yearly  : OnCalendar=*-01-01 00:00:00
+@annually: OnCalendar=*-01-01 00:00:00
+@monthly : OnCalendar=*-*-01 00:00:00
+@weekly  : OnCalendar=Sun *-*-* 00:00:00
+@daily   : OnCalendar=*-*-* 00:00:00
+@hourly  : OnCalendar=*-*-* *:00:00
+</code></pre><p><strong>Getting e-mail notifications when a timer fails</strong></p>
+<p>In the following example, we are using the <strong>mailx</strong> command from package mailx. It requires the Postfix e-mail server to be installed and correctly configured.</p>
+<p>Create the script <code>/usr/local/bin/send_systemd_email</code>.</p>
+<p>The script requires two parameters: $1, the e-mail address, and $2, the name of the service file for which the failure notification is received. Both parameters are supplied by the unit file running the mail script.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!/bin/sh
+</span></span></span><span style="display:flex;"><span>systemctl status --full <span style="color:#e6db74">&#34;</span>$2<span style="color:#e6db74">&#34;</span> | mailx -S sendwait<span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span> -s <span style="color:#e6db74">&#34;Service failure for </span>$2<span style="color:#e6db74">&#34;</span> -r root@$HOSTNAME $1
+</span></span></code></pre></div><p>Make sure the script is executable:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chmod <span style="color:#ae81ff">755</span> /usr/local/bin/send_systemd_email
+</span></span></code></pre></div><p>Create the file <code>/etc/systemd/system/send_email_to_USER@.service</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>Send systemd status information by email <span style="color:#66d9ef">for</span> %i to USER
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Type<span style="color:#f92672">=</span>oneshot
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/usr/local/bin/send_systemd_email EMAIL_ADDRESS %i
+</span></span><span style="display:flex;"><span>User<span style="color:#f92672">=</span>root
+</span></span><span style="display:flex;"><span>Group<span style="color:#f92672">=</span>systemd-journal
+</span></span></code></pre></div><p>Replace USER and <code>EMAIL_ADDRESS</code> in the file with the login and e-mail address of the user that should receive the e-mail. <code>%i</code> is the name of the service that has failed (it is passed on to the e-mail service by the <code>%n</code> parameter).</p>
+<p>Verify the service file and fix the reported issues:
+systemd-analyze verify <code>/etc/systemd/system/send_email_to_USER@.service</code></p>
+<pre tabindex="0"><code>
+Verify the service file and fix the reported issues:
+```bash
+sudo systemctl start send_email_to_USER@dbus.service
+</code></pre><p>If the command returns no output, the file has passed the verification successfully.</p>
+<p>To verify the complete procedure, start the service using the dbus instance for testing. (You can use any other service that is currently running. dbus is used in this example because the service is guaranteed to run on any installation.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start send_email_to_USER@dbus.service
+</span></span></code></pre></div><p>If successful, <em><strong>EMAIL_ADDRESS</strong></em> receives an e-mail with the subject Service failure for dbus containing dbus status messages in the body. (This is just a test, there is no problem with the dbus service. You can safely delete the e-mail, no action is required).</p>
+<p>If the test e-mail has been successfully sent, proceed by integrating it into your service file.</p>
+<p>To add an e-mail notification to the service, add an OnFailure option to the Unit section of the service file for which you would like to get notified in the event of failure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Hello World script&#34;</span>
+</span></span><span style="display:flex;"><span>OnFailure<span style="color:#f92672">=</span>send_email_to_USER@%n.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/usr/local/bin/helloworld.sh
+</span></span></code></pre></div><p>The e-mail service file has the recipient&rsquo;s e-mail address hard-coded. To send notification e-mails to a different user, copy the e-mail service file, and replace the user login in the file name and the e-mail address within the copy.</p>
+<p>To send a failure notification to several recipients simultaneously, add the respective service files to the service file (use spaces as a separator):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>OnFailure<span style="color:#f92672">=</span>send_email_to_tux@%n.service send_email_to_wilber@%n.service
+</span></span></code></pre></div>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#symlink--hardlink">Symlink &amp; Hardlink</a></li>
+        <li><a href="#password">Password</a></li>
+        <li><a href="#group">Group</a></li>
+        <li><a href="#add-users">Add users</a></li>
+        <li><a href="#find-someting">find someting..</a></li>
+        <li><a href="#suid-gsid-sticky">SUID GSID Sticky</a></li>
+        <li><a href="#programs-for-working-with-packages">Programs for working with packages</a></li>
+        <li><a href="#link-from-where-download-files">link from where download files</a></li>
+        <li><a href="#systemd">Systemd</a></li>
+        <li><a href="#mount-disk-iso">Mount disk iso</a></li>
+        <li><a href="#mount-hardisk">Mount hardisk</a></li>
+      </ul>
+    </li>
+    <li><a href="#deb">.deb</a>
+      <ul>
+        <li><a href="#create-deb">Create .deb</a></li>
+        <li><a href="#sign-package-deb">Sign package deb</a></li>
+        <li><a href="#monitoring-and-proc">Monitoring and Proc</a></li>
+        <li><a href="#ports">Ports</a></li>
+      </ul>
+    </li>
+    <li><a href="#firewall">Firewall</a>
+      <ul>
+        <li><a href="#iptables">Iptables</a></li>
+        <li><a href="#iptables-persistent">Iptables persistent</a></li>
+        <li><a href="#nat-forward">NAT forward</a></li>
+      </ul>
+    </li>
+    <li><a href="#mail">MAIL</a></li>
+    <li><a href="#simple-command">Simple Command</a>
+      <ul>
+        <li><a href="#delete">Delete</a></li>
+        <li><a href="#program-dependencies">Program Dependencies</a></li>
+        <li><a href="#tree">Tree</a></li>
+      </ul>
+    </li>
+    <li><a href="#system_commands">System_Commands</a></li>
+    <li><a href="#directory-commands">Directory Commands</a></li>
+    <li><a href="#file-commands-">File Commands →</a></li>
+    <li><a href="#file-permission-commands">File Permission Commands</a>
+      <ul>
+        <li><a href="#user-management-commands-">User Management Commands →</a></li>
+        <li><a href="#group-management-commands-">Group Management Commands →</a></li>
+        <li><a href="#searching-commands-">Searching Commands →</a></li>
+        <li><a href="#grep-command-s-global-regular-expression-print-">GREP Command s— Global Regular Expression Print →</a></li>
+        <li><a href="#find-commands-">Find Commands →</a></li>
+        <li><a href="#hardware-commands-">Hardware Commands →</a></li>
+        <li><a href="#network-commands-">Network Commands →</a></li>
+        <li><a href="#process-info-commands-">Process Info Commands →</a></li>
+        <li><a href="#archiving-file-commands-">Archiving File Commands →</a></li>
+      </ul>
+    </li>
+    <li><a href="#package-manager--linux-distros">Package Manager — LINUX DISTROS</a></li>
+    <li><a href="#repository">Repository</a></li>
+    <li><a href="#crontab">Crontab</a></li>
+    <li><a href="#systemd-timer">Systemd Timer</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

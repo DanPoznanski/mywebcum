@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>CI/CD on myblog</title>
+		<link>http://localhost:60118/tags/ci/cd/</link>
+		<description>Recent content in CI/CD on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Tue, 01 Aug 2023 21:29:01 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:60118/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Puppet</title>
+				<link>http://localhost:60118/posts/puppet/</link>
+				<pubDate>Tue, 01 Aug 2023 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/puppet/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;images/Puppet1.svg&#34; alt=&#34;Puppet1&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;crm-configuration-management-system&#34;&gt;CRM Configuration Management System&lt;/h2&gt;&#xA;&lt;p&gt;Diagram of Work Puppet Push/Pull&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/Puppet2.svg&#34; alt=&#34;Puppet2&#34;&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Jenkins</title>
+				<link>http://localhost:60118/posts/jenkins/</link>
+				<pubDate>Fri, 08 May 2020 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/jenkins/</guid>
+				<description>&lt;h2 id=&#34;jenkins&#34;&gt;Jenkins&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/jenkins.svg&#34; alt=&#34;jenkins&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Check for the latest updates and install &lt;code&gt;wget&lt;/code&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get update &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo apt install wget&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;configuring-limits&#34;&gt;Configuring limits&lt;/h3&gt;&#xA;&lt;p&gt;Edit the file &lt;code&gt;limit.conf&lt;/code&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo vi /etc/security/limits.conf&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Adding content:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;jenkins      soft     core    unlimited&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;jenkins      hard     hard    unlimited&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;jenkins      soft     fsize   unlimited&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;jenkins      soft     fsize   unlimited&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;jenkins      soft     nofile  &lt;span style=&#34;color:#ae81ff&#34;&gt;4096&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;jenkins      hard     nofile  &lt;span style=&#34;color:#ae81ff&#34;&gt;8192&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;jenkins      soft     nproc   &lt;span style=&#34;color:#ae81ff&#34;&gt;30654&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;jenkins      hard     nproc   &lt;span style=&#34;color:#ae81ff&#34;&gt;30654&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;configure-the-firewall&#34;&gt;Configure the firewall&lt;/h3&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get install ufw&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw allow OpenSSH&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw allow &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo ufw enable&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Check ufw’s status to confirm the new rules:&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

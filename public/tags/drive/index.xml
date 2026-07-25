@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Drive on myblog</title>
+		<link>http://localhost:60118/tags/drive/</link>
+		<description>Recent content in Drive on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 01 Apr 2024 21:29:01 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:60118/tags/drive/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Rclone Gdrive Windows 10</title>
+				<link>http://localhost:60118/posts/rclone-gdrive/</link>
+				<pubDate>Mon, 01 Apr 2024 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/rclone-gdrive/</guid>
+				<description>&lt;h2 id=&#34;create-api-for-google-drive&#34;&gt;Create API for Google Drive&lt;/h2&gt;&#xA;&lt;p&gt;go to&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;https://console.cloud.google.com/&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;api &amp;amp; services&#xA;&lt;img src=&#34;images/1.webp&#34; alt=&#34;1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;open new project&#xA;&lt;img src=&#34;images/2.webp&#34; alt=&#34;2&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Create new project &lt;code&gt;Google Drive&lt;/code&gt;&#xA;&lt;img src=&#34;images/3.webp&#34; alt=&#34;3&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Open &lt;code&gt;Enable Apis and Services&lt;/code&gt;&#xA;&lt;img src=&#34;images/4.webp&#34; alt=&#34;4&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/5.webp&#34; alt=&#34;5&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Enable Google Drive&#xA;&lt;img src=&#34;images/6.webp&#34; alt=&#34;6&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/7.webp&#34; alt=&#34;7&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/8.webp&#34; alt=&#34;8&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/9.webp&#34; alt=&#34;9&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/10.webp&#34; alt=&#34;10&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/11.webp&#34; alt=&#34;11&#34;&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Don`t forget add test accaunt&#xA;&lt;img src=&#34;images/20.webp&#34; alt=&#34;20&#34;&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/12.webp&#34; alt=&#34;12&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Create new credentials&#xA;&lt;img src=&#34;images/13.webp&#34; alt=&#34;13&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/14.webp&#34; alt=&#34;14&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/15.webp&#34; alt=&#34;15&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Save password&#xA;&lt;img src=&#34;images/16.webp&#34; alt=&#34;16&#34;&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;download-rclone&#34;&gt;Download RClone&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;https://rclone.org/downloads/&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;images/17.webp&#34; alt=&#34;17&#34;&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;download-nssm&#34;&gt;Download NSSM&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;https://nssm.cc/download&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;images/18.webp&#34; alt=&#34;18&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;copy &lt;code&gt;nssm.exe&lt;/code&gt; to rclone folder&#xA;&lt;img src=&#34;images/19.webp&#34; alt=&#34;19&#34;&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;configuration-rclone&#34;&gt;Configuration RClone&lt;/h3&gt;&#xA;&lt;p&gt;open &lt;code&gt;cmd&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;C:\Users\Burzum&amp;gt;cd Downloads&#xD;&#xA;&#xD;&#xA;C:\Users\Burzum\Downloads&amp;gt;cd rclone-v1.67.0-windows-amd64&#xD;&#xA;&#xD;&#xA;C:\Users\Burzum\Downloads\rclone-v1.67.0-windows-amd64&amp;gt;rclone config&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;No remotes found, make a new one?&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

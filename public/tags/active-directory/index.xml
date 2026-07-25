@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Active Directory on myblog</title>
+		<link>http://localhost:60118/tags/active-directory/</link>
+		<description>Recent content in Active Directory on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 13 Mar 2025 21:29:01 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:60118/tags/active-directory/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Windows Server</title>
+				<link>http://localhost:60118/posts/windows-server-2025/</link>
+				<pubDate>Thu, 13 Mar 2025 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/windows-server-2025/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;images/logo.svg&#34; alt=&#34;img1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;First i need change on server dns on localhost&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/2.png&#34; alt=&#34;img2&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;After change the name of server and restart&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/3.png&#34; alt=&#34;img3&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;add-dc&#34;&gt;Add DC&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/4.png&#34; alt=&#34;img4&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/5.png&#34; alt=&#34;img5&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/6.png&#34; alt=&#34;img6&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/7.png&#34; alt=&#34;img7&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/8.png&#34; alt=&#34;img8&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/9.png&#34; alt=&#34;img9&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/10.png&#34; alt=&#34;img10&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/11.png&#34; alt=&#34;img11&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Install&#xA;&lt;img src=&#34;images/12.png&#34; alt=&#34;img12&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Wait&#xA;&lt;img src=&#34;images/13.png&#34; alt=&#34;img13&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Promote this server to a domain controller&#xA;&lt;img src=&#34;images/14.png&#34; alt=&#34;img14&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;dan.local name of my dc&#xA;&lt;img src=&#34;images/15.png&#34; alt=&#34;img15&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/16.png&#34; alt=&#34;img16&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/17.png&#34; alt=&#34;img17&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/18.png&#34; alt=&#34;img18&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/19.png&#34; alt=&#34;img19&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/20.png&#34; alt=&#34;img20&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Install&#xA;&lt;img src=&#34;images/21.png&#34; alt=&#34;img21&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Wait&#xA;&lt;img src=&#34;images/22.png&#34; alt=&#34;img22&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Done !&lt;/p&gt;&#xA;&lt;h3 id=&#34;dns-reverse-ip&#34;&gt;DNS Reverse IP&lt;/h3&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/23.png&#34; alt=&#34;img23&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;DNS &amp;gt; Reverse Lookup Zone &amp;gt; New Zone&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/24.png&#34; alt=&#34;img24&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/25.png&#34; alt=&#34;img25&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/26.png&#34; alt=&#34;img26&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/27.png&#34; alt=&#34;img27&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Enter Zone IP my its &lt;code&gt;192.168.1&lt;/code&gt;&#xA;&lt;img src=&#34;images/28.png&#34; alt=&#34;img28&#34;&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

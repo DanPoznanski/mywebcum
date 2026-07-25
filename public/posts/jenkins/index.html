@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Jenkins</title>
+    <meta name="description" content="Jenkins Check for the latest updates and install wget
+sudo apt-get update &amp;&amp; sudo apt install wget Configuring limits Edit the file limit.conf
+sudo vi …">
+    <meta name="keywords" content='CI/CD, Devops'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/jenkins/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Jenkins">
+    <meta property="og:description" content="Jenkins Check for the latest updates and install wget
+sudo apt-get update &amp;&amp; sudo apt install wget Configuring limits Edit the file limit.conf
+sudo vi …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Jenkins">
+    <meta name="twitter:description" content="Jenkins Check for the latest updates and install wget
+sudo apt-get update &amp;&amp; sudo apt install wget Configuring limits Edit the file limit.conf
+sudo vi …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/jenkins/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/jenkins/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/jenkins/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Jenkins</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              May 8, 2020
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/ci/cd">CI/CD</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/devops">Devops</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <h2 id="jenkins">Jenkins</h2>
+<p><img src="images/jenkins.svg" alt="jenkins"></p>
+<p>Check for the latest updates and install <code>wget</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get update <span style="color:#f92672">&amp;&amp;</span> sudo apt install wget
+</span></span></code></pre></div><h3 id="configuring-limits">Configuring limits</h3>
+<p>Edit the file <code>limit.conf</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vi /etc/security/limits.conf
+</span></span></code></pre></div><p>Adding content:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>jenkins      soft     core    unlimited
+</span></span><span style="display:flex;"><span>jenkins      hard     hard    unlimited
+</span></span><span style="display:flex;"><span>jenkins      soft     fsize   unlimited
+</span></span><span style="display:flex;"><span>jenkins      soft     fsize   unlimited
+</span></span><span style="display:flex;"><span>jenkins      soft     nofile  <span style="color:#ae81ff">4096</span>
+</span></span><span style="display:flex;"><span>jenkins      hard     nofile  <span style="color:#ae81ff">8192</span>
+</span></span><span style="display:flex;"><span>jenkins      soft     nproc   <span style="color:#ae81ff">30654</span>
+</span></span><span style="display:flex;"><span>jenkins      hard     nproc   <span style="color:#ae81ff">30654</span>
+</span></span></code></pre></div><h3 id="configure-the-firewall">Configure the firewall</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install ufw
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ufw allow OpenSSH
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ufw allow <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ufw enable
+</span></span></code></pre></div><p>Check ufw’s status to confirm the new rules:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo ufw status
+</span></span></code></pre></div><h3 id="checking-java">Checking java</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java --version
+</span></span></code></pre></div><p>If java is missing, install</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install openjdk-11-jre-headless
+</span></span></code></pre></div><p>Java 11 Docker installation instructions are included in &ldquo;Downloading and running Jenkins in Docker&rdquo;. Alternatively, the jenkins/jenkins:jdk17 Docker image allows you to run the Jenkins controller on Java 17.</p>
+<p>All other Java versions are not supported.
+The Jenkins project performs a full test flow with the following JDK/JREs:</p>
+<p>OpenJDK JDK / JRE 11 - 64 bits</p>
+<p>OpenJDK JDK / JRE 17 - 64 bits</p>
+<h3 id="installing-jenkins">Installing Jenkins</h3>
+<p>The version of Jenkins included with the default Ubuntu packages is often behind the latest available version from the project itself. To ensure you have the latest fixes and features, use the project-maintained packages to install Jenkins.</p>
+<p>First, add the repository key to your system:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key |sudo gpg --dearmor -o /usr/share/keyrings/jenkins.gpg
+</span></span></code></pre></div><p>The <code>gpg --dearmor</code> command is used to convert the key into a format that <code>apt</code> recognizes.</p>
+<p>Next, let’s append the Debian package repository address to the server’s <code>sources.list</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo sh -c <span style="color:#e6db74">&#39;echo deb [signed-by=/usr/share/keyrings/jenkins.gpg] http://pkg.jenkins.io/debian-stable binary/ &gt; /etc/apt/sources.list.d/jenkins.list&#39;</span>
+</span></span></code></pre></div><p>The <code>[signed-by=/usr/share/keyrings/jenkins.gpg]</code> portion of the line ensures that <code>apt</code> will verify files in the repository using the GPG key that you just downloaded.</p>
+<p>After both commands have been entered, run apt update so that apt will use the new repository.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span></code></pre></div><p>Finally, install Jenkins and its dependencies:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install jenkins
+</span></span></code></pre></div><p>now that Jenkins is installed, start it by using <code>systemctl</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start jenkins.service
+</span></span></code></pre></div><p>Since <code>systemctl</code> doesn’t display status output, we’ll use the status command to verify that Jenkins started successfully:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl status jenkins
+</span></span></code></pre></div><p>auto run after restart</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl enable jenkins
+</span></span></code></pre></div><p>Configure additional Java parameters:</p>
+<p>Garbage collection options</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo vi /lib/systemd/system/jenkins.service
+</span></span></code></pre></div><pre tabindex="0"><code>&#34;JAVA_OPTS=-Djava.awt.headless=true -XX:+AlwaysPreTouch -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/lib/jenkins/log -XX:+UseG1GC -XX:+UseStringDeduplication -XX:+ParallelRefProcEnabled -XX:+DisableExplicitGC -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -Xlog:gc=info,gc+heap=debug,gc+ref*=debug,gc+ergo*=trace,gc+age*=trace:file=/var/lib/jenkins/gc.log:utctime,pid,level,tags:filecount=2,filesize=100M -Xmx512m -Xms512m&#34;
+</code></pre><p>Note: <code>-Xmx512m</code> <code>-Xms512m</code> set depending on the available memory in the virtual machine</p>
+<h3 id="setting-up-jenkins">Setting Up Jenkins</h3>
+<p>To set up your installation, visit Jenkins on its default port, <code>8080</code>, using your server domain name or IP address: <code>http://your_server_ip_or_domain:8080</code></p>
+<p>You should receive the Unlock Jenkins screen, which displays the location of the initial password:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+</span></span></code></pre></div><p>The next screen presents the option of installing suggested plugins or selecting specific plugins</p>
+<p>Slave and Master</p>
+<h3 id="agent-ssh-jenkins">Agent SSH Jenkins</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java -- version
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install openjdk-11-jre-headless
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>useradd -m -s /bin/bash jenkins 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>passwd jenkins
+</span></span></code></pre></div><p>openssh installed or not</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt list -installed | grep openssh-server
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo service ssh status
+</span></span></code></pre></div><p>install openssh-server</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install openssh-server
+</span></span></code></pre></div><h3 id="install-jenkins-on-docker-composeyml">install jenkins on docker-compose.yml</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo su
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi docker-compose.yml
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span> <span style="color:#75715e"># docker-compose.yml</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3.3&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">jenkins</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">jenkins/jenkins:lts-jdk11</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">privileged</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">user</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">8080</span>:<span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">50000</span>:<span style="color:#ae81ff">50000</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">container_name</span>: <span style="color:#ae81ff">jenkins</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">/home/${myname}/jenkins_compose/jenkins_configuration:/var/jenkins_home</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">/var/run/docker.sock:/var/run/docker.sock</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker-compose up -d
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /home/root/jenkins_compose/jenkins_configuration
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd secret
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat initialAdminPassword
+</span></span></code></pre></div><h3 id="ssh-key-generate">SSH-Key Generate</h3>
+<p>ssh-keygen -t rsa -f jenkins_slave -m PEM</p>
+<p>Execute the command and copy the contents of the file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat jenkins_slave
+</span></span></code></pre></div><p>Open the jenkins web interface, go to the Manager Jenkins -&gt; Manager Credentials</p>
+<p><img src="images/jenkins2.png" alt="jenkins2"></p>
+<p>Go to the global domain</p>
+<p><img src="images/jenkins3.png" alt="jenkins3"></p>
+<p>Click <code>Add Credentials</code>, fill in as in the screenshots below, enter the previously copied private key in the key field</p>
+<dl>
+<dt>Kind</dt>
+<dd><ul>
+<li><input checked="" disabled="" type="checkbox"> <code>SSH Username with private key</code></li>
+</ul>
+</dd>
+<dt>id</dt>
+<dd><code>team01-agent-ssh</code></dd>
+<dt>Username</dt>
+<dd><code>jenkins</code></dd>
+</dl>
+<p><img src="images/jenkins4.png" alt="jenkins4"></p>
+<p>and push button &ldquo;create&rdquo;</p>
+<h3 id="copy-private-key-to-slave-machine-agent">Copy private key to slave machine agent</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id -i jenkins_slave.pub jenkins@vs02slave
+</span></span></code></pre></div><p>Go to the Jenkins web interface - Manage Jenkins -&gt; Manage Node and Cloud</p>
+<p><img src="images/jenkins5.png" alt="jenkins5">
+Click New Node, enter name agent, and - [x] Permanent Agent box
+<img src="images/jenkins6.png" alt="jenkins6"></p>
+<p>Create and fill all:</p>
+<p>name node: <code>team01-agent</code></p>
+<p>discription: <code>agent for team01</code></p>
+<p>number of executors: <code>1</code></p>
+<p>remote root directory: <code>/home/jenkins</code></p>
+<p>labals: <code>linux</code></p>
+<p>Usage:</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> &lsquo;Only build jobs with label expressions matching this node&rsquo;</li>
+</ul>
+<p>launch method: <code>Launch agents via SSH</code></p>
+<p>host: `(number_of_slave_ip_machine) or dns host name of slave'</p>
+<p>Credentials: <code>jenkins</code></p>
+<p>Host Key Verification Strategy: <code>Non verifying Verification Strategy</code></p>
+<p><code>Save</code> and We return to Manage Node -&gt; select our agent</p>
+<p>push <code>Relaunch agent</code> and see log if all ok</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipline<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  agent
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="jenkins-plugins-installation">Jenkins Plugins Installation</h2>
+<ul>
+<li>Web UI</li>
+<li>CLI</li>
+<li>/var/lib/Jenkins/plugins</li>
+</ul>
+<h3 id="jenkins-plugin-most-useful">Jenkins Plugin. Most Useful</h3>
+<ul>
+<li>Rebuilder</li>
+<li>Config File Provider</li>
+<li>Ansi Color</li>
+<li>Active Choice</li>
+</ul>
+<p>Open the Jenkins web interface and go to Manage Jenkins-&gt; Manage Plugins</p>
+<p>In the Available list, look for plugins, select them and click “Download now and install after restart”</p>
+<p>It is important to remember that restarting Jenkins running in a production environment is not recommended during working hours, although Jenkins waits for all tasks to finish before starting and only then restarts the kernel. Still, it is better to postpone such work for non-working hours. Or try to use the option “Install without restart”
+You also need to remember that for such an installation of Jenkins plugins, the master must have access to the internet. If there is no direct access, you can use the proxy settings, for this you need to go to the Advanced tab</p>
+<h3 id="global-tool-configurations">Global Tool Configurations</h3>
+<ul>
+<li>Maven</li>
+<li>JDK</li>
+<li>Cradle</li>
+<li>SonarQube</li>
+<li>Allure</li>
+<li>Etc</li>
+</ul>
+<p>Add maven and npm to Global Tool Configuration</p>
+<p>Consider the example of installing maven, for this we go to Manage Jenkins-&gt; Tools</p>
+<h3 id="add-maven">Add Maven</h3>
+<pre tabindex="0"><code>Name: maven-3.9.4
+Version:
+
+- [x] 3.9.4
+</code></pre><p>apply and save</p>
+<h3 id="jenkins-credentials-id">Jenkins Credentials ID</h3>
+<p>best practices</p>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="jenkins-secret-password-decrypt">Jenkins Secret Password Decrypt</h3>
+<p>cat credentials.xml</p>
+<p>copy past password</p>
+<p><a href="https://jenkins.com/script/">https://jenkins.com/script/</a></p>
+<p>println(hudson.util.Secret.decrypt(&quot;{passwordcopypast}&quot;))</p>
+<h3 id="authentification">Authentification</h3>
+<ul>
+<li>Jenkins OWN database</li>
+<li>LDAP</li>
+<li>Unix User/Group Database</li>
+</ul>
+<h3 id="create-new-item-and-manage-roles">Create New item and Manage Roles</h3>
+<p>Opening the Jenkins web interface</p>
+<p>To do this, click New Item</p>
+<p>To get started, install the plugin Role-based Authorization Strategy</p>
+<p>Go to Manage Jenkins -&gt; Configure Security and activate Role-Base Strategy for Authorization</p>
+<p>Security Realm:</p>
+<ul>
+<li>
+<p><input checked="" disabled="" type="checkbox"> Jenkin&rsquo;s own user database</p>
+</li>
+<li>
+<p><input checked="" disabled="" type="checkbox"> Role-Based Strategy</p>
+</li>
+</ul>
+<p>Save!</p>
+<p>Go to Manage Jenkins -&gt; Manage and Assign Roles -&gt; Manage Roles</p>
+<p>Role to add:
+QA</p>
+<p>Pattern:
+<code>qa-.*</code></p>
+<h2 id="deployment">Deployment</h2>
+<h3 id="frestyle-jobs">Frestyle Jobs</h3>
+<p>one of the most popular configuration happens in web ui</p>
+<h3 id="folder">Folder</h3>
+<ul>
+<li>Common Namespace</li>
+<li>Shared Libraries</li>
+<li>Separate rights</li>
+</ul>
+<h3 id="multibranch-pipeline">Multibranch Pipeline</h3>
+<p><img src="images/jenkins7.webp" alt="jenkins7"></p>
+<h3 id="pipeline">Pipeline</h3>
+<p>Groovy DSL to describe tasks:</p>
+<ol>
+<li>Stored in SCM ( Jenkinsfile)</li>
+<li>Defined in task settings</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>node<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;worker01&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Source&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>   git <span style="color:#e6db74">&#39;http://github.com/silabeer/example-project&#39;</span>
+</span></span><span style="display:flex;"><span>   sh <span style="color:#960050;background-color:#1e0010">‘</span>mvn clean install<span style="color:#960050;background-color:#1e0010">’</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>pipeline features</p>
+<ul>
+<li>Independence from agent or worker
+directories</li>
+<li>Parallelization</li>
+<li>Resist from Master restart</li>
+<li>Resist from network break</li>
+</ul>
+<p>Building in Jenkins</p>
+<p>Pipeline always runs on <code>master</code></p>
+<p>Groovy DSL</p>
+<p>Scripted:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>node <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Hello world&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    sh <span style="color:#e6db74">&#39;echo Hello World&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Scripted pipline:</p>
+<p>Plus:</p>
+<ul>
+<li>Less number of sections and specifications</li>
+<li>Ability to use more procedural code</li>
+<li>More flexibility for custom operations</li>
+<li>Ability to model more complex processes
+Minus:</li>
+<li>Needs more programming</li>
+<li>Far from the traditional Jenkins model</li>
+<li>Potentially more complicated</li>
+</ul>
+<p>Declarative:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent any
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Hello World&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              sh <span style="color:#e6db74">&#39;echo Hello World&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Declarative Pipeline:
+Plus:</p>
+<ul>
+<li>More structured</li>
+<li>More readable</li>
+<li>Can be generated through Blue Ocean</li>
+<li>Better syntax checking</li>
+<li>Improved consistency
+Minus:</li>
+<li>Less support for iterative logic</li>
+<li>More stiffer construction</li>
+</ul>
+<p>Diagram of Declarative Pipeline sections</p>
+<p><img src="images/jenkins8.webp" alt="jenkins8"></p>
+<h3 id="snippet-generator">Snippet Generator</h3>
+<h3 id="environment-setup">Environment Setup</h3>
+<p>VS Code:</p>
+<ul>
+<li>Jenkins Jack</li>
+<li>Jenkins Pipeline Linter</li>
+<li>Jenkins Runner</li>
+<li>Jenkins Doc</li>
+</ul>
+<p>hostname test</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    stage <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test agent&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        sh <span style="color:#e6db74">&#39;hostname&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>    
+</span></span></code></pre></div><p>maven download and test version maven</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    tools <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        maven <span style="color:#e6db74">&#34;maven-3.9.4&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test marven&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#34;mvn --version&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>hello word stages</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>        label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;hello&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#39;echo &#34;Hello World&#34;&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;hello2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#39;echo &#34;Hello World2&#34;&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;hello3&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#39;echo &#34;Hello World3&#34;&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>first.Jenkinsfile</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    tools <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        maven <span style="color:#e6db74">&#34;maven-3.9.4&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;checkout&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                git credentialsId: <span style="color:#e6db74">&#39;team1&#39;</span><span style="color:#f92672">,</span> url: <span style="color:#e6db74">&#39;https://github.com/nayaks/spring-boot-rest-example.git&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#34;mvn clean install -Dmaven.test.skip&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>git branch: &lsquo;main&rsquo;, credentialsId: &lsquo;s043218-dev-gitlab&rsquo;, url: &lsquo;<a href="https://gitlab.slurm.io/jenkins/spring-boot-rest-example.git'">https://gitlab.slurm.io/jenkins/spring-boot-rest-example.git'</a></p>
+<p><code>mvn clean install -Dmaven.test.skip.</code> Tests are run with <code>mvn test</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>&lt;pipeline code&gt;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>The trigger section is used to define the pipeline launch schedule. It accepts 4 values: <code>cron</code>, <code>upstream</code>, <code>githubPush</code>, <code>pollSCM</code></p>
+<p>cron - runs a task according to a given schedule, and pollSCM launches a check for source code updates, if a change is detected, it starts the execution of the pipeline</p>
+<p>Example:</p>
+<p>Launch of the conveyor in a quarter of an hour
+<code>trigger { *cron(15 * * * ) }</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent any
+</span></span><span style="display:flex;"><span>    triggers <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        cron<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;H */4 * * 1-5&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Scan for SCM changes at 20-minute intervals</p>
+<p><code>trigger { pollSCM(/20 * * * ) }</code></p>
+<p><em><strong>upstream</strong></em> - starts a task based on the condition of another task being completed
+Example:</p>
+<p><code>trigger { upstream(upstreamProjects: 'trigger-job', threshold:hudson.model.Result.SUCCESS) }</code></p>
+<p>will start execution after successful completion of the trigger-job</p>
+<p><em><strong>githubPush</strong></em> - starts the pipeline in case of receiving a webhook from github</p>
+<p>For additional pipeline options, use the options section
+buildDiscarder - saves a given number of artifacts and console logs for a job
+Example:
+<code>options { buildDiscarder(logRotator(numToKeepStr: '20')) }</code>
+leaves a history of the last 20 builds
+disableConcurrentBuilds - disables parallel execution of the same pipeline
+Example:
+<code>options { disableConcurrentBuilds() }</code>
+retry - if the pipeline fails, it will be restarted the specified number of times
+Example:
+<code> options { retry(2) }</code>
+in case of failure, restart the pipeline
+timeout - sets the timeout value for the pipeline, if the execution time exceeds timeout, the pipeline will exit
+Example:
+<code>options { timeout (time: 15, unit: 'MINUTES') }</code>
+sets timeout to 15 minutes
+timestamps - adds a timestamp to the console log
+Example:
+<code>options { timestamps() }</code></p>
+<p>The environment directive allows you to specify the names and values of environment variables that will be available within the pipeline. Defining a variable at the top of the pipeline will make the variable available in all parts of the pipeline</p>
+<pre tabindex="0"><code>environment {
+TEST_VAR = &#34;test&#34;
+}
+</code></pre><p>in the pipeline itself can be used as follows:</p>
+<pre tabindex="0"><code>stage(&#39;test&#39;) {
+steps {
+echo &#34;${TEST_VAR}&#34;
+}
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"></code></pre></div><p>hostname test</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    stage <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;test agent&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        sh <span style="color:#e6db74">&#39;hostname&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>    
+</span></span></code></pre></div><p>maven download and test version maven</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    tools <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        maven <span style="color:#e6db74">&#34;maven-3.9.4&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test marven&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#34;mvn --version&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="environment">Environment</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Global environment exemple:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        MY_GLOBAL_VAR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;myEnv&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_GLOBAL_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>local environment exemple :</p>
+<p>only stage2 not stage3</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        MY_GLOBAL_VAR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;globalVar&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_GLOBAL_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          MY_STAGE_VAR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;stageVar&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_STAGE_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage3&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_STAGE_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        MY_GLOBAL_VAR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;globalVar&#39;</span>
+</span></span><span style="display:flex;"><span>        MY_RANDOM_VAR <span style="color:#f92672">=</span> sh<span style="color:#f92672">(</span>script: <span style="color:#e6db74">&#39;openssl rand -base64 32&#39;</span><span style="color:#f92672">,</span> returnStdout: <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        MY_SECRET_VAR <span style="color:#f92672">=</span> credentials<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;secret-username&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_GLOBAL_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          MY_STAGE_VAR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;stageVar&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_STAGE_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage3&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_STAGE_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage4&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_STAGE_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_SECRET_TEXT&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>only change in 1 stage</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        MY_GLOBAL_VAR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;globalVar&#39;</span>
+</span></span><span style="display:flex;"><span>        MY_RANDOM_VAR <span style="color:#f92672">=</span> sh<span style="color:#f92672">(</span>script: <span style="color:#e6db74">&#39;openssl rand -base64 32&#39;</span><span style="color:#f92672">,</span> returnStdout: <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        MY_SECRET_VAR <span style="color:#f92672">=</span> credentials<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;secret-username&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_GLOBAL_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;override variables&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                  script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                      env<span style="color:#f92672">.</span><span style="color:#a6e22e">MY_GLOBAL_VAR</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;IT DOES WORK&#34;</span>
+</span></span><span style="display:flex;"><span>                      println <span style="color:#e6db74">&#39;=====override=====&#39;</span>
+</span></span><span style="display:flex;"><span>                      println <span style="color:#e6db74">&#34;MY_GLOBAL_VAR&#34;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                  echo <span style="color:#e6db74">&#34;My_GLOBAL_VAR = ${env.MY_GLOBAL_VAR}&#34;</span>
+</span></span><span style="display:flex;"><span>                  withEnv<span style="color:#f92672">([</span><span style="color:#e6db74">&#34;MY_GLOBAL_VAR=localVar&#34;</span><span style="color:#f92672">])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                      echo <span style="color:#e6db74">&#34;MY_GLOBAL_VAR = ${env.MY_GLOBAL_VAR}&#34;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                  withEnv<span style="color:#f92672">([</span><span style="color:#e6db74">&#34;BUILD_NUMBER=1&#34;</span><span style="color:#f92672">])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                      echo <span style="color:#e6db74">&#34;BUILD_NUMBER = ${env.BUILD_NUMBER}&#34;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          MY_STAGE_VAR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;stageVar&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_STAGE_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage3&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_STAGE_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span>  
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage4&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_STAGE_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_SECRET_TEXT&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>def myTestVar before pipeline</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        MY_GLOBAL_VAR <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;globalVar&#39;</span>
+</span></span><span style="display:flex;"><span>        MY_RANDOM_VAR <span style="color:#f92672">=</span> sh<span style="color:#f92672">(</span>script: <span style="color:#e6db74">&#39;openssl rand -base64 19&#39;</span><span style="color:#f92672">,</span> returnStdout: <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        MY_SECRET_VAR <span style="color:#f92672">=</span> credentials<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;secret-username&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_GLOBAL_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;override variables&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                  script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">def</span> myTestVar <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;myTestVar&#34;</span>
+</span></span><span style="display:flex;"><span>                    println <span style="color:#e6db74">&#34;myTestVar&#34;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          script<span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              println <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;myTestVar&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo $MY_GLOBAL_VAR&#39;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;env | sort&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="catcherror">CatchError</h3>
+<p>catchError - ignore error step and go to stage 2</p>
+<p>&rsquo;exit 1&rsquo; - its exit from stage</p>
+<p>but pipeline finish with status <em><strong>FAILURE</strong></em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Hello&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          catchError <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#39;exit 1&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;echo stage2&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>if you want status <em><strong>UNSTABLE</strong></em>
+you can change in catch error command</p>
+<p><code>catchError(message:'Skip because unstable',buildResult:'UNSTABLE',stageResult:'UNSTABLE')</code></p>
+<p><code>retry</code>  - its retry code in { }</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Hello&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          catchError<span style="color:#f92672">(</span>message:<span style="color:#e6db74">&#39;Skip because unstable&#39;</span><span style="color:#f92672">,</span>buildResult:<span style="color:#e6db74">&#39;UNSTABLE&#39;</span><span style="color:#f92672">,</span>stageResult:<span style="color:#e6db74">&#39;UNSTABLE&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              retry<span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#39;exit 1&#39;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;echo stage2&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Script pipeline</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Hello&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              retry<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              sh <span style="color:#e6db74">&#39;exit 1&#39;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>err<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              currentBuild<span style="color:#f92672">.</span><span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Unstable&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;echo stage2&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="waituntil">WaitUntil</h3>
+<p>WaitUntil = wait to ..</p>
+<p>fileExists = file be</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>  agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>        sh <span style="color:#e6db74">&#39;touch 1&#39;</span>
+</span></span><span style="display:flex;"><span>        timeout<span style="color:#f92672">(</span><span style="color:#ae81ff">5</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          waitUntil <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            fileExists <span style="color:#e6db74">&#39;myFile.yaml&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="lockable-resource-database">Lockable Resource database</h3>
+<p>its plugin need install (lockable Resource) after</p>
+<p>Configure System =&gt; System =&gt; Lockable Resources Manager</p>
+<p>Resource:</p>
+<p>Name: SCHEMA_1</p>
+<p>Labels: database</p>
+<p><strong>SAVE</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>  agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>        lock<span style="color:#f92672">(</span>label: <span style="color:#e6db74">&#39;database&#39;</span><span style="color:#f92672">,</span> variable: <span style="color:#e6db74">&#39;LOCKED RESOURCE&#39;</span><span style="color:#f92672">,</span> quantity: <span style="color:#ae81ff">1</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          echo env<span style="color:#f92672">.</span><span style="color:#a6e22e">LOCKED_RESOURCE</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo Hello World&#39;</span>
+</span></span><span style="display:flex;"><span>          sleep <span style="color:#ae81ff">60</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>       
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="groovy-scripts">Groovy Scripts</h3>
+<ul>
+<li>
+<p>pipeline done failed its ok</p>
+</li>
+<li>
+<ul>
+<li>ansi color plugin</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>  agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  options <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    ansiColor<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;xterm&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>        script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          getFile<span style="color:#f92672">().</span><span style="color:#a6e22e">each</span> <span style="color:#f92672">{</span> p <span style="color:#f92672">-&gt;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;mkdir -p $p.folder&#34;</span>
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#34;touch $p.folder/$p.name&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        println <span style="color:#a6e22e">getProjectName</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        error<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;error message&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getProjectName</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;JenkinsPipeline&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> List <span style="color:#a6e22e">getFile</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>name: <span style="color:#e6db74">&#39;file01&#39;</span><span style="color:#f92672">,</span> folder: <span style="color:#e6db74">&#39;folder01&#39;</span><span style="color:#f92672">],</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span>name: <span style="color:#e6db74">&#39;file02&#39;</span><span style="color:#f92672">,</span> folder: <span style="color:#e6db74">&#39;folder02&#39;</span><span style="color:#f92672">],</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">loadColors</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  CEND <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\033[0m&#39;</span>
+</span></span><span style="display:flex;"><span>  CVIOLENTBG2 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\033[91m&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">error</span><span style="color:#f92672">(</span>String message<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  loadColors<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  sh <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  set +x; echo &#34;${CVIOLENTBG2} $message ${CEND}&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="from-pipeline-from-file-hellogroovy">From Pipeline from file hello.groovy</h3>
+<p>2 files :</p>
+<p>Jenkinsfile</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> code 
+</span></span><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Stage1&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo &#34;stage1&#34;&#39;</span>
+</span></span><span style="display:flex;"><span>          script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            code <span style="color:#f92672">=</span> load <span style="color:#e6db74">&#39;scripts/hello.groovy&#39;</span>
+</span></span><span style="display:flex;"><span>            code<span style="color:#f92672">.</span><span style="color:#a6e22e">example1</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;stage2&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          sh <span style="color:#e6db74">&#39;echo &#34;stage2&#34;&#39;</span>
+</span></span><span style="display:flex;"><span>          script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              code<span style="color:#f92672">.</span><span style="color:#a6e22e">example2</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span> 
+</span></span></code></pre></div><p>hello.groovy</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">example1</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  printnl <span style="color:#e6db74">&#39;Hello from example1&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">example2</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  printnl <span style="color:#e6db74">&#39;Hello from example2&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>
+</span></span></code></pre></div><h3 id="description">Description</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>getAllIteams<span style="color:#f92672">()?.</span>
+</span></span><span style="display:flex;"><span>findAll <span style="color:#f92672">{</span> <span style="color:#f92672">!</span>it<span style="color:#f92672">.</span><span style="color:#a6e22e">getDescription</span><span style="color:#f92672">()</span> <span style="color:#f92672">}?.</span>
+</span></span><span style="display:flex;"><span>each <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  println <span style="color:#e6db74">&#34;&#39;${it.fullName}&#39; doesn&#39;t explain it does...&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>println<span style="color:#e6db74">&#39;&#39;</span>
+</span></span></code></pre></div><h3 id="space-in-name">Space in name</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>getAllIteams<span style="color:#f92672">()?.</span>
+</span></span><span style="display:flex;"><span>findAll <span style="color:#f92672">{</span> <span style="color:#f92672">!</span>it<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">.</span><span style="color:#a6e22e">contains</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">}?.</span>
+</span></span><span style="display:flex;"><span>each <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  println <span style="color:#e6db74">&#34;&#39;${it.fullName}&#39; contains spaces!&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>println<span style="color:#e6db74">&#39;&#39;</span>
+</span></span></code></pre></div><h3 id="log-rotation">Log rotation</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>getAllItems<span style="color:#f92672">(</span>Job<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)?.</span>
+</span></span><span style="display:flex;"><span>each <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  found <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>it<span style="color:#f92672">.</span><span style="color:#a6e22e">getBuildDiscarder</span><span style="color:#f92672">()</span> <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    found <span style="color:#f92672">=</span> it<span style="color:#f92672">.</span><span style="color:#a6e22e">getBuildDiscarder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getArtifactDaysToKeep</span><span style="color:#f92672">()</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            it<span style="color:#f92672">.</span><span style="color:#a6e22e">getBuildDiscarder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getArtifactNumToKeep</span><span style="color:#f92672">()</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            it<span style="color:#f92672">.</span><span style="color:#a6e22e">getBuildDiscarder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getArtifactDaysToKeep</span><span style="color:#f92672">()</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            it<span style="color:#f92672">.</span><span style="color:#a6e22e">getBuildDiscarder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getDaysToKeep</span><span style="color:#f92672">()</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span>
+</span></span><span style="display:flex;"><span>            it<span style="color:#f92672">.</span><span style="color:#a6e22e">getBuildDiscarder</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getNumToKeep</span><span style="color:#f92672">()</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>found<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  println<span style="color:#e6db74">&#34;&#39;${it.fullName}&#39; doesn&#39;t have any log rotator configuration&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>println <span style="color:#e6db74">&#39;&#39;</span>
+</span></span></code></pre></div><h3 id="parameters-in-jenkins">Parameters in Jenkins</h3>
+<p>To add parameters to the Job, you must check the box &ldquo;This project is parameterised&rdquo;:</p>
+<p><img src="images/jenkins7.png" alt="jenkins7"></p>
+<p>To parameterize the pipeline in jenkins, the parameter section is used. The following types of parameters are available in the box:</p>
+<ul>
+<li><strong>Boolean Parameter</strong> - defines boolean parameters. Can take values <em><strong>true or false</strong></em>. You can also set a default value for a parameter.</li>
+</ul>
+<p><code>booleanParam (name: «DryRun», defaultValue: true, description: «test run»)</code></p>
+<ul>
+<li><strong>String Parameter</strong> - defines a single line parameter. Supports removing spaces on both sides of the entered value.</li>
+</ul>
+<p><code>string (name: «version», defaultValue: «r48», trim: false, description: «enter verision component»)</code></p>
+<ul>
+<li><strong>Multi-line String Parameter</strong> - define a multiline parameter.</li>
+</ul>
+<p><code>text (name: «releaseNotes», defaultValue: «none», description: «Оdescription of changes in the release»)</code></p>
+<ul>
+<li><strong>Password</strong> - allows you to define a password entry. Password details will not appear on startup <code>Job</code> and in <code>console log</code>.</li>
+</ul>
+<p><code>password (name: «password», defaultValue: «changeme», description: «enter password»)</code></p>
+<ul>
+<li><strong>Choice Parameter</strong> - allows you to select multiple options from a list of previously preset options.</li>
+</ul>
+<p><code>choice (name: «env», choices: [«PROD», «DEV», «UAT»], description: «choose an environment to install the release»)</code></p>
+<h3 id="how-to-declare-parameters-in-jenkinsfile">How to declare parameters in Jenkinsfile</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent any
+</span></span><span style="display:flex;"><span>    parameters <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        booleanParam<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#34;dryrun&#34;</span><span style="color:#f92672">,</span> defaultValue: <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> description: <span style="color:#e6db74">&#34;test run&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        string<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#34;version&#34;</span><span style="color:#f92672">,</span> defaultValue: <span style="color:#e6db74">&#34;r48&#34;</span><span style="color:#f92672">,</span> trim: <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> description: <span style="color:#e6db74">&#34;Entry verion of component&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        text<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#34;releaseNotes&#34;</span><span style="color:#f92672">,</span> defaultValue: <span style="color:#e6db74">&#34;Добавлены новые feature&#34;</span><span style="color:#f92672">,</span> description: <span style="color:#e6db74">&#34;Description of changes in the release&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        password<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#34;password&#34;</span><span style="color:#f92672">,</span> defaultValue: <span style="color:#e6db74">&#34;changeme&#34;</span><span style="color:#f92672">,</span> description: <span style="color:#e6db74">&#34;Entry password&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        choice<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#34;env&#34;</span><span style="color:#f92672">,</span> choices: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;PROD&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;DEV&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;UAT&#34;</span><span style="color:#f92672">],</span> description: <span style="color:#e6db74">&#34;Sample multi-choice parameter&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;DryRun&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            when <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                expression <span style="color:#f92672">{</span> params<span style="color:#f92672">.</span><span style="color:#a6e22e">dryrun</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                echo <span style="color:#e6db74">&#34;THIS IS DRYRUN!&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Build&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                echo <span style="color:#e6db74">&#34;Build stage.&#34;</span>
+</span></span><span style="display:flex;"><span>                echo <span style="color:#e6db74">&#34;Hello $params.version&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Test&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                echo <span style="color:#e6db74">&#34;Test stage.&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Release&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                echo <span style="color:#e6db74">&#34;Defined release notes $params.releaseNotes&#34;</span>
+</span></span><span style="display:flex;"><span>                echo <span style="color:#e6db74">&#34;Starting release on $params.env&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="active-choice-parameter">Active Choice Parameter</h3>
+<p>The Active Choice Parameter is not added by default. To use it, you first need to install the Active Choices plugin.</p>
+<p>Active Choices is used to parameterize a Jenkins Job and to create dynamic and interactive options.
+Active Choices options can be dynamically updated and displayed in the form of list fields, flags, switches, or user interface widgets with HTML..</p>
+<p><img src="images/jenkins8.png" alt="jenkins8"></p>
+<p>3 additional options in the parameters section:</p>
+<p><img src="images/jenkins9.png" alt="jenkins9"></p>
+<ul>
+<li>
+<p><em><strong>Active Choices Parameter</strong></em> - allows to use Groovy script or Scriplet(plugin), to identify, whether the input will be calculated or it&rsquo;s already predetermined, and return results depending on the scripts being executed.</p>
+</li>
+<li>
+<p><em><strong>Active Choices Reactive Parameter</strong></em> - like <strong>Active Choice Parameter</strong>. It will allow you to use Groovy or Scriplet, and its value varies depending on the value of the selected dependent parameter.</p>
+</li>
+<li>
+<p><em><strong>Active Choices Reactive Reference Parameter</strong></em> contains parameters Active Choice Parameter + Active Choice Reactive Parameter, also adds new options.For example, HTML-widget, labeled or numbered lists, and input fields.</p>
+</li>
+</ul>
+<p>Let&rsquo;s move to practice: case study of using Active Choice Parameter</p>
+<p>et&rsquo;s imagine that you have a task to make a Job that will allow development or L2 support to install a service of a certain version in the right environment. It seems that everything should be automated, but in practice there is a situation when a developer or QA engineer wants to test his version of a microservice on a certain environment. This could be done using regular string parameters, but let&rsquo;s simplify the task and provide a more user-friendly interface.</p>
+<p>Let&rsquo;s start by adding component selection using the gitlab api, write a simple groovy script to get a list of projects, and then create a Jenkinsfile and add our parameter definition to it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>properties<span style="color:#f92672">([</span>
+</span></span><span style="display:flex;"><span>    parameters<span style="color:#f92672">([</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">[</span>$class<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ChoiceParameter&#39;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>            choiceType: <span style="color:#e6db74">&#39;PT_SINGLE_SELECT&#39;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>            description: <span style="color:#e6db74">&#39;Select a choice&#39;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>            filterLength: <span style="color:#ae81ff">1</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>            filterable: <span style="color:#66d9ef">false</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>            name: <span style="color:#e6db74">&#39;component&#39;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>            script: <span style="color:#f92672">[</span>$class<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;GroovyScript&#39;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                fallbackScript: <span style="color:#f92672">[</span>classpath: <span style="color:#f92672">[],</span> sandbox: <span style="color:#66d9ef">false</span><span style="color:#f92672">,</span> script: <span style="color:#e6db74">&#39;return [&#34;Could not get component&#34;]&#39;</span><span style="color:#f92672">],</span>
+</span></span><span style="display:flex;"><span>                script: <span style="color:#f92672">[</span>classpath: <span style="color:#f92672">[],</span> sandbox: <span style="color:#66d9ef">false</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>                    script: <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                         import groovy.json.JsonSlurperClassic
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            def list = []
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            def connection = new URL(&#34;https://run.mocky.io/v3/e406ee99-be79-4d50-818f-b186dad7f4f4&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            .openConnection() as HttpURLConnection
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            connection.setRequestProperty(&#39;Accept&#39;, &#39;application/json&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            def json = connection.inputStream.text
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            data = new JsonSlurperClassic().parseText(json)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            data.each { component -&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                list += component.name
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            return list
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">]]]])</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">])</span>
+</span></span><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent any
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Component Name&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#34;echo Selected component  ${params.component}&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Don&rsquo;t forget that new scripts need to be validated</p>
+<p>Now let&rsquo;s move on to creating Active Choices Reactive Parameter. Depending on the selected component, we will be shown all versions of the component in the artifactor.</p>
+<p>Let&rsquo;s create a simple groovy script and add a description to Jenkinsfile:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span><span style="color:#f92672">[</span>$class<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;CascadeChoiceParameter&#39;</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>        choiceType: <span style="color:#e6db74">&#39;PT_SINGLE_SELECT&#39;</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>        description: <span style="color:#e6db74">&#39;Select Version&#39;</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>        filterLength: <span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>        filterable: <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>        name: <span style="color:#e6db74">&#39;version&#39;</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>        referencedParameters: <span style="color:#e6db74">&#39;component&#39;</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>        script: <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>            $class<span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;GroovyScript&#39;</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>            fallbackScript: <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>                classpath: <span style="color:#f92672">[],</span> 
+</span></span><span style="display:flex;"><span>                sandbox: <span style="color:#66d9ef">false</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>                script: 
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;return[\&#39;Could not get version\&#39;]&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">],</span> 
+</span></span><span style="display:flex;"><span>            script: <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>                classpath: <span style="color:#f92672">[],</span> 
+</span></span><span style="display:flex;"><span>                sandbox: <span style="color:#66d9ef">false</span><span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>                script: 
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            import groovy.json.JsonSlurperClassic
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            def list = []
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            def connection = new URL(&#34;https://run.mocky.io/v3/c782ae33-98a2-4994-acc4-14c0b5cc7655&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            .openConnection() as HttpURLConnection
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            connection.setRequestProperty(&#39;Accept&#39;, &#39;application/json&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            def json = connection.inputStream.text
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            data = new JsonSlurperClassic().parseText(json)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            data.data.each { it -&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                              if  (it.component == component ) {
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                                	list += it.version
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                              		}
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                               }
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            return list
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                            &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>An important change is the <code>referencedParameters</code> option. In it we specify the parameter on which the script execution depends. Run our Job, select the component and version and look at the result:</p>
+<p><img src="images/jenkins10.png" alt="jenkins10"></p>
+<h2 id="integration-with-gitlab">integration with Gitlab</h2>
+<p>To get started, install the <code>Gitlab</code> plugin and <code>Gitlab branch</code></p>
+<p><img src="images/jenkins11.png" alt="jenkins11"></p>
+<p>After installation, need restart Jenkins</p>
+<p>Go to Gitlab and go to project Access Tokens =&gt; Add New Token</p>
+<p><img src="images/jenkins12.png" alt="jenkins12"></p>
+<p>select all scopes and copy past personal access token (do not copy stars)</p>
+<p>Go to =&gt; Manage Jenkins =&gt; Credentials =&gt; Global =&gt; Add Credentials</p>
+<p><img src="images/jenkins13.png" alt="jenkins13"></p>
+<p>past personal access token to api token and <strong>create!</strong> do not copy stars</p>
+<p>Dashboard =&gt; Manage Jenkins =&gt; System</p>
+<p><img src="images/jenkins15.png" alt="jenkins15"></p>
+<p>test connection</p>
+<p>Create for user token</p>
+<p><img src="images/jenkins16.png" alt="jenkins16"></p>
+<p>Go to Gitlab -&gt; Settings -&gt; Webhook</p>
+<p><img src="images/jenkins17.png" alt="jenkins17"></p>
+<p><strong>!!! Webhook not work from local machine !!! i used ngrok</strong></p>
+<p><img src="images/jenkins18.png" alt="jenkins18"></p>
+<p>Webhook need for synchronization change jenkins branch</p>
+<p><a href="https://user:password@mywebrepository.com/project/nameofproject.git">https://user:password@mywebrepository.com/project/nameofproject.git</a></p>
+<p>Let&rsquo;s go to New Item =&gt; Multibranch pipeline</p>
+<p><strong>Click</strong> Add source</p>
+<p>Select <strong>Git</strong></p>
+<p>Enter your Repository URL (e.g.: <a href="mailto:git@your.gitlab.server">git@your.gitlab.server</a>:group/repo_name.git)</p>
+<p>save</p>
+<p>after it jenkins scan all branch <code>Jenkinsfile</code> on Gitlab</p>
+<p>for examlpe:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent any
+</span></span><span style="display:flex;"><span>    tools <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        maven <span style="color:#e6db74">&#39;maven-3.9.4&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Checkout&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                checkout scm
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Build&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#39;mvn clean install&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Test&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                sh <span style="color:#e6db74">&#39;mvn test&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span>Only <span style="color:#e6db74">&#39;MR&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          when <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            branch <span style="color:#e6db74">&#39;MR-*&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>          steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>MR = Merge Request</p>
+<p>\\</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent any
+</span></span><span style="display:flex;"><span>    post <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      failure <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        updateGitlabCommitStatus name: <span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">,</span> state: <span style="color:#e6db74">&#39;failed&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      success <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        updateGitlabCommitStatus name: <span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">,</span> state: <span style="color:#e6db74">&#39;success&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      aborted <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        updateGitlabCommitStatus name: <span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">,</span> state: <span style="color:#e6db74">&#39;canceled&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    options <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      gitLabConnection<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;your-gitlab-connection-name&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    triggers <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        gitlab<span style="color:#f92672">(</span>triggerOnPush: <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> triggerOnMergeRequest: <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> branchFilterType: <span style="color:#e6db74">&#39;All&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;build&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          updateGitlabCommitStatus name: <span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">,</span> state: <span style="color:#e6db74">&#39;running&#39;</span>
+</span></span><span style="display:flex;"><span>          echo <span style="color:#e6db74">&#34;hello world&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#f92672">[...]</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><strong>gitLabConnection</strong> - allows ours within a single Jenkins , work with multiple gitlab installations, by specifying the right one for each pipeline</p>
+<p><strong>triggers</strong> - Added an option to the triggers section: gitlab - allows you to configure a trigger by event from gitlab</p>
+<p><strong>gitlabCommitStatus</strong> - allows you to notify gitlab of build steps</p>
+<p><strong>updateGitlabCommitStatus</strong> - allow you to notify giltab of status pipeline
+\\</p>
+<p><img src="images/jenkins14.png" alt="jenkins14"></p>
+<h2 id="maven">Maven</h2>
+<p>Install plugin <code>pipeline maven integration</code></p>
+<p><img src="images/jenkins19.png" alt="jenkins19"></p>
+<p>After installation, we have an additional snippet inside steps</p>
+<p>Need Create new account in jenkins <code>name_of_user-gitlab-user</code></p>
+<p>if you get his error need install git on agents</p>
+<pre tabindex="0"><code>ERROR: Error cloning remote repo &#39;origin&#39;
+hudson.plugins.git.GitException: Could not init /home/jenkins/workspace/maven
+</code></pre><p>or path in gloobal jenkins =&gt; tools =&gt; git <code>/usr/bin/git</code></p>
+<p><em><strong>withMaven</strong></em> - any mvn command executed inside this block will be processed by the withMaven wrapper</p>
+<p><em><strong>maven</strong></em> - version of maven declared in Tools</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#39;linux&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;checkout&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          git branch: <span style="color:#e6db74">&#39;master&#39;</span><span style="color:#f92672">,</span> credentialsId: <span style="color:#e6db74">&#39;15388941-gitlab-user&#39;</span><span style="color:#f92672">,</span> url: <span style="color:#e6db74">&#39;https://gitlab.com/DanPoznanski/spring-boot-rest-example.git&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          withMaven<span style="color:#f92672">(</span>maven: <span style="color:#e6db74">&#39;maven-3.9.4&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;mvn clean install -DskipTests=true&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          withMaven<span style="color:#f92672">(</span>maven: <span style="color:#e6db74">&#39;maven-3.9.4&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;mvn test&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span> 
+</span></span></code></pre></div><h3 id="create-xml-manage-files">Create XML Manage Files</h3>
+<p>когда нету доступа к интернету.. и хранить секреты..</p>
+<p>its plugin</p>
+<p>when there is no access to the Internet.. and you nedd keep secrets..</p>
+<p>Manage Jenkins =&gt; Add new Config</p>
+<p><img src="images/jenkins20.png" alt="jenkins20"></p>
+<p><img src="images/jenkins22.png" alt="jenkins22"></p>
+<p>hot to integrate to pipeline xml file</p>
+<p><em><strong>mavenSettingsConfig</strong></em> - id settings.xml file from config file provider</p>
+<p>*** -s ${env.MVN_SETTINGS} *** - its take from tmp settings xml <code>/home/jenkins/workspace/maven@tmp/withMaven86ec651/setting.xml</code></p>
+<p><em><strong>mavenOpts</strong></em> - additional mvn options such as XmX, XmS, proxy settings and others</p>
+<p>*** &lsquo;-Xmx1G&rsquo; *** = 1G RAM MEMORY</p>
+<p><em><strong>mavenLocalRepo</strong></em> - path to the local repository</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#39;linux&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      ADDITIONAL_MVN_OPTS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;-Xmx1G&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;checkout&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          git branch: <span style="color:#e6db74">&#39;master&#39;</span><span style="color:#f92672">,</span> credentialsId: <span style="color:#e6db74">&#39;15388941-gitlab-user&#39;</span><span style="color:#f92672">,</span> url: <span style="color:#e6db74">&#39;https://gitlab.com/DanPoznanski/spring-boot-rest-example.git&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          withMaven<span style="color:#f92672">(</span>maven: <span style="color:#e6db74">&#39;maven-3.9.4&#39;</span><span style="color:#f92672">,</span> mavenSettingsConfig: <span style="color:#e6db74">&#39;my-project&#39;</span><span style="color:#f92672">,</span> mavenOpts: <span style="color:#e6db74">&#39;$ADDITIONAL_MVN_OPTS&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;env | sort&#34;</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;mvn clean install -s ${env.MVN_SETTINGS} -DskipTests=true&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          withMaven<span style="color:#f92672">(</span>maven: <span style="color:#e6db74">&#39;maven-3.9.4&#39;</span><span style="color:#f92672">,</span> mavenSettingsConfig: <span style="color:#e6db74">&#39;my-project&#39;</span><span style="color:#f92672">,</span> mavenOpts: <span style="color:#e6db74">&#39;$ADDITIONAL_MVN_OPTS&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;mvn test -s ${env.MVN_SETTINGS}&#34;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span> 
+</span></span></code></pre></div><p>Also withMaven offers the ability to work with &lsquo;.jar&rsquo; files obtained as a result of pipeline execution and test results.
+<code>artifactsPublisher(disabled: true)</code>  - publish jar files</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#e6db74">&#34;linux&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        ADDITIONAL_MVN_OPS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;-Xmx1G&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;checkout&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          git branch: <span style="color:#e6db74">&#39;master&#39;</span><span style="color:#f92672">,</span> credentialsId: <span style="color:#e6db74">&#39;user15388941-gitlab-token&#39;</span><span style="color:#f92672">,</span> url: <span style="color:#e6db74">&#39;https://gitlab.com/DanPoznanski/spring-boot-rest-example.git&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          withMaven<span style="color:#f92672">(</span>maven: <span style="color:#e6db74">&#39;3.9.4&#39;</span><span style="color:#f92672">,</span>mavenSettingConfig: <span style="color:#e6db74">&#39;my-project&#39;</span> mavenOpts: <span style="color:#e6db74">&#39;${ADDITIONAL_MVN_OPS}&#39;</span><span style="color:#f92672">,</span>options: <span style="color:#f92672">[</span>artifactsPublisher<span style="color:#f92672">(</span>disabled: <span style="color:#66d9ef">true</span><span style="color:#f92672">)])</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;evn | sort&#34;</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;mvn clean install -s ${env.MVN_SETTINGS} -DskipTests=true&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          withMaven<span style="color:#f92672">(</span>maven: <span style="color:#e6db74">&#39;3.8.6&#39;</span> mavenOpts: <span style="color:#e6db74">&#39;${ADDITIONAL_MVN_OPS}&#39;</span><span style="color:#f92672">,</span>options: <span style="color:#f92672">[</span>artifactsPublisher<span style="color:#f92672">(</span>disabled: <span style="color:#66d9ef">true</span><span style="color:#f92672">)])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;mvn test -s ${env.MVN_SETTINGS}&#34;</span>
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span> 
+</span></span></code></pre></div><h3 id="sonarqube">Sonarqube</h3>
+<p>Install plugin <code>sonarqube scanner</code></p>
+<p>need server sonarqube</p>
+<h3 id="email">EMAIL</h3>
+<p>plugin in stock <code>extension email notifaction</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              label:linux
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    parameters <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      choice<span style="color:#f92672">(</span>name: <span style="color:#e6db74">&#34;env&#34;</span><span style="color:#f92672">,</span> choices: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;PROD&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;DEV&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;AUT&#34;</span><span style="color:#f92672">],</span> description: <span style="color:#e6db74">&#34;choice env&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span>maintenance <span style="color:#e6db74">&#39;PROD&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          when <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              expression <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                params<span style="color:#f92672">.</span><span style="color:#a6e22e">env</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;PROD&#39;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>          steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                   sh <span style="color:#e6db74">&#39;sleep 10&#39;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>  
+</span></span><span style="display:flex;"><span>        post <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        always <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            emailext body: <span style="color:#e6db74">&#39;SUCCESS&#39;</span><span style="color:#f92672">,</span> subject: <span style="color:#e6db74">&#39;Maintenance finished&#39;</span><span style="color:#f92672">,</span> to <span style="color:#e6db74">&#39;danpoznansky@gmail.com&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="nexus">Nexus</h3>
+<p>Install plugin <code>nexus artifact upload</code></p>
+<p>pupeline utility steps</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      label <span style="color:#e6db74">&#39;linux&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        ADDITIONAL_MVN_OPTS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;-Xmx256m -Xx:+UseConcMarkSweepGC&#39;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_VERSION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;nexus3&#39;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_PROTOCOL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;http&#39;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_URL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;192.168.1.333:8081&#34;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_REPOSITORY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;maven-local&#39;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_CREDENTIALID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;dev-nexus&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;checkout&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          git branch: <span style="color:#e6db74">&#39;main&#39;</span><span style="color:#f92672">,</span>  url: <span style="color:#e6db74">&#39;https://github.com./silabeer/spring-boot-example.git&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;build&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span> 
+</span></span><span style="display:flex;"><span>          withMaven<span style="color:#f92672">(</span>maven: <span style="color:#e6db74">&#39;3.8.6&#39;</span><span style="color:#f92672">,</span>mavenSettingConfig: <span style="color:#e6db74">&#39;my-project&#39;</span> mavenOpts: <span style="color:#e6db74">&#39;${ADDITIONAL_MVN_OPS}&#39;</span><span style="color:#f92672">,</span>options: <span style="color:#f92672">[</span>artifactsPublisher<span style="color:#f92672">(</span>disabled: <span style="color:#66d9ef">true</span><span style="color:#f92672">)])</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;evn | sort&#34;</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;mvn clean install -s ${env.MVN_SETTINGS} -DskipTests=true&#34;</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;test&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>          withMaven<span style="color:#f92672">(</span>maven: <span style="color:#e6db74">&#39;3.8.6&#39;</span> mavenOpts: <span style="color:#e6db74">&#39;${ADDITIONAL_MVN_OPS}&#39;</span><span style="color:#f92672">,</span>options: <span style="color:#f92672">[</span>artifactsPublisher<span style="color:#f92672">(</span>disabled: <span style="color:#66d9ef">true</span><span style="color:#f92672">)])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            sh <span style="color:#e6db74">&#34;mvn test -s ${env.MVN_SETTINGS}&#34;</span>
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>pipeline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        label <span style="color:#e6db74">&#34;master&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    tools <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        maven <span style="color:#e6db74">&#34;Maven&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    environment <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        NEXUS_VERSION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nexus3&#34;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_PROTOCOL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http&#34;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_URL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;you-ip-addr-here:8081&#34;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_REPOSITORY <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;maven-nexus-repo&#34;</span>
+</span></span><span style="display:flex;"><span>        NEXUS_CREDENTIAL_ID <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nexus-user-credentials&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Clone code from VCS&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    git <span style="color:#e6db74">&#39;https://github.com/javaee/cargotracker.git&#39;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Maven Build&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    sh <span style="color:#e6db74">&#34;mvn package -DskipTests=true&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Publish to Nexus Repository Manager&#34;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                    pom <span style="color:#f92672">=</span> readMavenPom file: <span style="color:#e6db74">&#34;pom.xml&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                    filesByGlob <span style="color:#f92672">=</span> findFiles<span style="color:#f92672">(</span>glob: <span style="color:#e6db74">&#34;target/*.${pom.packaging}&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                    echo <span style="color:#e6db74">&#34;${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}&#34;</span>
+</span></span><span style="display:flex;"><span>                    artifactPath <span style="color:#f92672">=</span> filesByGlob<span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">].</span><span style="color:#a6e22e">path</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                    artifactExists <span style="color:#f92672">=</span> fileExists artifactPath<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>artifactExists<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        echo <span style="color:#e6db74">&#34;*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                        nexusArtifactUploader<span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>                            nexusVersion: NEXUS_VERSION<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                            protocol: NEXUS_PROTOCOL<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                            nexusUrl: NEXUS_URL<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                            groupId: pom<span style="color:#f92672">.</span><span style="color:#a6e22e">groupId</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                            version: pom<span style="color:#f92672">.</span><span style="color:#a6e22e">version</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                            repository: NEXUS_REPOSITORY<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                            credentialsId: NEXUS_CREDENTIAL_ID<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                            artifacts: <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>                                <span style="color:#f92672">[</span>artifactId: pom<span style="color:#f92672">.</span><span style="color:#a6e22e">artifactId</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                classifier: <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                file: artifactPath<span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                type: pom<span style="color:#f92672">.</span><span style="color:#a6e22e">packaging</span><span style="color:#f92672">],</span>
+</span></span><span style="display:flex;"><span>                                <span style="color:#f92672">[</span>artifactId: pom<span style="color:#f92672">.</span><span style="color:#a6e22e">artifactId</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                classifier: <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                file: <span style="color:#e6db74">&#34;pom.xml&#34;</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>                                type: <span style="color:#e6db74">&#34;pom&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                        <span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                        error <span style="color:#e6db74">&#34;*** File: ${artifactPath}, could not be found&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="jenkins-template-engine">Jenkins Template Engine</h2>
+<p>Plugin need install <code>Tempating Engine</code></p>
+<h3 id="directory-structure">Directory structure</h3>
+<p><img src="images/jenkins26.svg" alt="jenkins26"></p>
+<p><img src="images/jenkins23.png" alt="jenkins23"></p>
+<p>Manage Jenkins -&gt; System -&gt; Jenkins Template Engine</p>
+<p><code>Library Sources</code> Add <code>From SCM</code></p>
+<p><code>SCM</code> -&gt; <code>Git</code></p>
+<p><code>Base Directory</code>-&gt; your folder in gitlab</p>
+<p><code>Credentials</code> -&gt; Gitlab-user-token</p>
+<p><img src="images/jenkins24.png" alt="jenkins24"></p>
+<p>after New Item -&gt; Pipeline</p>
+<p>copy past Jenkinsfile and Pipeline Configuration from gitlab</p>
+<p><img src="images/jenkins25.png" alt="jenkins25"></p>
+<h2 id="jenkins-shared-library">Jenkins Shared Library</h2>
+<h3 id="directory-structure-1">Directory structure</h3>
+<pre tabindex="0"><code>(root)
++- src                     # Groovy source files
+|   +- org
+|       +- foo
+|           +- Bar.groovy  # for org.foo.Bar class
++- vars
+|   +- foo.groovy          # for global &#39;foo&#39; variable
+|   +- foo.txt             # help for &#39;foo&#39; variable
++- resources               # resource files (external libraries only)
+|   +- org
+|       +- foo
+|           +- bar.json    # static helper data for org.foo.Bar
+</code></pre><p>Add</p>
+<p>Name:</p>
+<p>Manage Jenkins -&gt; System -&gt; Global Pipeline Libraries</p>
+<p>Тhe name is important</p>
+<p><img src="images/jenkins27.png" alt="jenkins27"></p>
+<p>net items -&gt; pipeline</p>
+<p>&lsquo;_&rsquo; all import in</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span><span style="color:#a6e22e">@libraty</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;jenkins-shared-libraty&#39;</span><span style="color:#f92672">)</span> _
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> com.example.Notification
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pileline <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    agent <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      label <span style="color:#e6db74">&#39;linux&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    stages <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      stage<span style="color:#f92672">(</span><span style="color:#e6db74">&#39;Demo&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        steps <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            script <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#66d9ef">def</span> msg <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Notification<span style="color:#f92672">(</span><span style="color:#66d9ef">this</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            withCredentials<span style="color:#f92672">([</span>string<span style="color:#f92672">(</span>credentialsId: <span style="color:#e6db74">&#39;telegram api&#39;</span><span style="color:#f92672">,</span> variable <span style="color:#e6db74">&#39;TOKEN&#39;</span><span style="color:#f92672">)])</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            msg<span style="color:#f92672">.</span><span style="color:#a6e22e">sendMessage</span><span style="color:#f92672">(</span>env<span style="color:#f92672">.</span> <span style="color:#f92672">[</span>
+</span></span><span style="display:flex;"><span>                 chatID: <span style="color:#e6db74">&#34;1564161&#34;</span>
+</span></span><span style="display:flex;"><span>                 token: <span style="color:#e6db74">&#34;${TOKEN}&#34;</span><span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span> 
+</span></span></code></pre></div><h2 id="docker-slave">Docker Slave</h2>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jenkins">Jenkins</a>
+      <ul>
+        <li><a href="#configuring-limits">Configuring limits</a></li>
+        <li><a href="#configure-the-firewall">Configure the firewall</a></li>
+        <li><a href="#checking-java">Checking java</a></li>
+        <li><a href="#installing-jenkins">Installing Jenkins</a></li>
+        <li><a href="#setting-up-jenkins">Setting Up Jenkins</a></li>
+        <li><a href="#agent-ssh-jenkins">Agent SSH Jenkins</a></li>
+        <li><a href="#install-jenkins-on-docker-composeyml">install jenkins on docker-compose.yml</a></li>
+        <li><a href="#ssh-key-generate">SSH-Key Generate</a></li>
+        <li><a href="#copy-private-key-to-slave-machine-agent">Copy private key to slave machine agent</a></li>
+      </ul>
+    </li>
+    <li><a href="#jenkins-plugins-installation">Jenkins Plugins Installation</a>
+      <ul>
+        <li><a href="#jenkins-plugin-most-useful">Jenkins Plugin. Most Useful</a></li>
+        <li><a href="#global-tool-configurations">Global Tool Configurations</a></li>
+        <li><a href="#add-maven">Add Maven</a></li>
+        <li><a href="#jenkins-credentials-id">Jenkins Credentials ID</a></li>
+        <li><a href="#jenkins-secret-password-decrypt">Jenkins Secret Password Decrypt</a></li>
+        <li><a href="#authentification">Authentification</a></li>
+        <li><a href="#create-new-item-and-manage-roles">Create New item and Manage Roles</a></li>
+      </ul>
+    </li>
+    <li><a href="#deployment">Deployment</a>
+      <ul>
+        <li><a href="#frestyle-jobs">Frestyle Jobs</a></li>
+        <li><a href="#folder">Folder</a></li>
+        <li><a href="#multibranch-pipeline">Multibranch Pipeline</a></li>
+        <li><a href="#pipeline">Pipeline</a></li>
+        <li><a href="#snippet-generator">Snippet Generator</a></li>
+        <li><a href="#environment-setup">Environment Setup</a></li>
+        <li><a href="#environment">Environment</a></li>
+        <li><a href="#catcherror">CatchError</a></li>
+        <li><a href="#waituntil">WaitUntil</a></li>
+        <li><a href="#lockable-resource-database">Lockable Resource database</a></li>
+        <li><a href="#groovy-scripts">Groovy Scripts</a></li>
+        <li><a href="#from-pipeline-from-file-hellogroovy">From Pipeline from file hello.groovy</a></li>
+        <li><a href="#description">Description</a></li>
+        <li><a href="#space-in-name">Space in name</a></li>
+        <li><a href="#log-rotation">Log rotation</a></li>
+        <li><a href="#parameters-in-jenkins">Parameters in Jenkins</a></li>
+        <li><a href="#how-to-declare-parameters-in-jenkinsfile">How to declare parameters in Jenkinsfile</a></li>
+        <li><a href="#active-choice-parameter">Active Choice Parameter</a></li>
+      </ul>
+    </li>
+    <li><a href="#integration-with-gitlab">integration with Gitlab</a></li>
+    <li><a href="#maven">Maven</a>
+      <ul>
+        <li><a href="#create-xml-manage-files">Create XML Manage Files</a></li>
+        <li><a href="#sonarqube">Sonarqube</a></li>
+        <li><a href="#email">EMAIL</a></li>
+        <li><a href="#nexus">Nexus</a></li>
+      </ul>
+    </li>
+    <li><a href="#jenkins-template-engine">Jenkins Template Engine</a>
+      <ul>
+        <li><a href="#directory-structure">Directory structure</a></li>
+      </ul>
+    </li>
+    <li><a href="#jenkins-shared-library">Jenkins Shared Library</a>
+      <ul>
+        <li><a href="#directory-structure-1">Directory structure</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-slave">Docker Slave</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

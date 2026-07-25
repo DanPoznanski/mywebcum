@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Terminal on myblog</title>
+		<link>http://localhost:60118/tags/terminal/</link>
+		<description>Recent content in Terminal on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Thu, 01 May 2025 21:29:01 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:60118/tags/terminal/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Windows Server Terminal (RDS)</title>
+				<link>http://localhost:60118/posts/windows-terminal-free/</link>
+				<pubDate>Thu, 01 May 2025 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/windows-terminal-free/</guid>
+				<description>&lt;h2 id=&#34;termenal-for-free&#34;&gt;Termenal for Free&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/0.webp&#34; alt=&#34;img0&#34;&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;add-terminal-to--domain&#34;&gt;Add Terminal to  Domain&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;set DNS of DC server (if not work disable IPv6)&#xA;&lt;img src=&#34;images/1.webp&#34; alt=&#34;img1&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Change&#xA;&lt;img src=&#34;images/3.webp&#34; alt=&#34;img3&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Choose domain my domain &lt;code&gt;dan.local&lt;/code&gt;&#xA;&lt;img src=&#34;images/4.webp&#34; alt=&#34;img4&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Done !&#xA;&lt;img src=&#34;images/6.webp&#34; alt=&#34;img6&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h3 id=&#34;troubleshooter-problems&#34;&gt;Troubleshooter Problems&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;If  doesn&amp;rsquo;t connect to domain - disable ipv6&#xA;&lt;img src=&#34;images/5.webp&#34; alt=&#34;img5&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Network Level Authentication&#xA;&lt;img src=&#34;images/7.webp&#34; alt=&#34;img7&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Run &lt;code&gt;sysdm.cpl&lt;/code&gt;&#xA;&lt;img src=&#34;images/9.webp&#34; alt=&#34;img9&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Disable NLA&#xA;&lt;img src=&#34;images/8.webp&#34; alt=&#34;img8&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h3 id=&#34;create-terminal-and-adds-roles&#34;&gt;Create Terminal and Adds Roles&lt;/h3&gt;&#xA;&lt;ol start=&#34;10&#34;&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Manage &amp;gt; Add Roles and Features&#xA;&lt;img src=&#34;images/10.webp&#34; alt=&#34;img10&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/11.webp&#34; alt=&#34;img11&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Select Role-based or feature-based installation and Next&#xA;&lt;img src=&#34;images/12.webp&#34; alt=&#34;img12&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Next&#xA;&lt;img src=&#34;images/13.webp&#34; alt=&#34;img13&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; Remote Desktop Services , Next&#xA;&lt;img src=&#34;images/14.webp&#34; alt=&#34;img14&#34;&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; NET. Framework 4.8 Features, Next&#xA;&lt;img src=&#34;images/15.webp&#34; alt=&#34;img15&#34;&gt;&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Docker</title>
+    <meta name="description" content="
+Install using the Apt repository # Add Docker&#39;s official GPG key: sudo apt-get update sudo apt-get install ca-certificates curl gnupg sudo install -m 0755 …">
+    <meta name="keywords" content='Linux, Container'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/docker/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Docker">
+    <meta property="og:description" content="
+Install using the Apt repository # Add Docker&#39;s official GPG key: sudo apt-get update sudo apt-get install ca-certificates curl gnupg sudo install -m 0755 …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Docker">
+    <meta name="twitter:description" content="
+Install using the Apt repository # Add Docker&#39;s official GPG key: sudo apt-get update sudo apt-get install ca-certificates curl gnupg sudo install -m 0755 …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/docker/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/docker/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/docker/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Docker</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              September 3, 2023
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux-container">Linux, Container</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/docker1.svg" alt="docker1"></p>
+<h2 id="install-using-the-apt-repository">Install using the Apt repository</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Add Docker&#39;s official GPG key:</span>
+</span></span><span style="display:flex;"><span>sudo apt-get update
+</span></span><span style="display:flex;"><span>sudo apt-get install ca-certificates curl gnupg
+</span></span><span style="display:flex;"><span>sudo install -m <span style="color:#ae81ff">0755</span> -d /etc/apt/keyrings
+</span></span><span style="display:flex;"><span>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+</span></span><span style="display:flex;"><span>sudo chmod a+r /etc/apt/keyrings/docker.gpg
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Add the repository to Apt sources:</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;deb [arch=&#34;</span><span style="color:#66d9ef">$(</span>dpkg --print-architecture<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#34;</span><span style="color:#66d9ef">$(</span>. /etc/os-release <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#e6db74">&#34;</span>$VERSION_CODENAME<span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34; stable&#34;</span> | <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span><span style="display:flex;"><span>sudo apt-get update
+</span></span></code></pre></div><h2 id="simple-commands">Simple commands</h2>
+<p>watch version</p>
+<pre tabindex="0"><code>docker --version
+</code></pre><p>for see if all ok</p>
+<pre tabindex="0"><code>docker run hello-world
+</code></pre><p>docker list</p>
+<pre tabindex="0"><code>docker ps
+</code></pre><pre tabindex="0"><code>docker run -d -p 80:80 docker/getting-started
+</code></pre><p><code>-d</code> run docker in detached mode
+<code>-p</code> ports</p>
+<p><code>docker images</code> see all imgaes <code>-a</code> see all images and no running</p>
+<p><code>docker ps</code> see all containers <code>-a</code> see all containers and no running</p>
+<h3 id="delete-image">Delete Image</h3>
+<pre tabindex="0"><code>docker rmi -f &lt;IMAGE ID&gt;
+</code></pre><h3 id="stop-and-delete-all-containers">Stop and Delete all Containers</h3>
+<pre tabindex="0"><code>docker rm -f $(docker ps -a -q)
+</code></pre><h3 id="delete-image-1">Delete image</h3>
+<pre tabindex="0"><code>docker image rm &lt;name_of_image&gt;
+</code></pre><h3 id="login-to-hubdockercom">Login to hub.docker.com</h3>
+<pre tabindex="0"><code>docker login username &lt;My_user&gt; --password &lt;your_password&gt;
+</code></pre><h3 id="push-to-repository">Push to Repository</h3>
+<p>before need tag <code>IMAGE ID</code></p>
+<pre tabindex="0"><code>docker push dan/dotnet
+</code></pre><h3 id="save-image-from-image-to-archive">Save image from image to archive</h3>
+<pre tabindex="0"><code>docker image -o busybox busybox:lates
+</code></pre><h3 id="import-from-archive">Import from archive</h3>
+<p>command import do new image from arhive with mew hash</p>
+<pre tabindex="0"><code>docker image import -m &#34;test&#34; busybox
+</code></pre><h3 id="load-from-archive">load from archive</h3>
+<p>command load old image with old hash just as his is</p>
+<pre tabindex="0"><code>docker load -i busybox
+</code></pre><h3 id="save-docker-to-tar">Save docker to tar</h3>
+<pre tabindex="0"><code>docker &lt;CONTAINER_ID&gt; &gt; start.tar
+</code></pre><h3 id="load-container-from-tar">Load Container from tar</h3>
+<pre tabindex="0"><code>docker load &lt; start.tar
+</code></pre><h3 id="tag-image">Tag Image</h3>
+<pre tabindex="0"><code>docker tag &lt;IMAGE ID&gt; nginx:alpine 
+</code></pre><h3 id="enter-in-docker">Enter in Docker</h3>
+<pre tabindex="0"><code>docker exec -it &lt;CONTAINER_ID&gt; sh
+</code></pre><pre tabindex="0"><code>docker exec -it &lt;CONTAINER_ID&gt; /bin/bash/
+</code></pre><pre tabindex="0"><code>docker run --rm -it --entrypoint /usr/bin/bash &lt;Container_Name&gt;
+</code></pre><p>see version in container <code>cat /etc/os-release</code></p>
+<h3 id="enter-in-docker-and-create-file-one-command">Enter in Docker and Create File (one command)</h3>
+<pre tabindex="0"><code>docker exec &lt;CONTAINER_ID&gt; sh touch file.txt
+</code></pre><h3 id="enter-in-docker-and-watch-processes">Enter in Docker and Watch processes</h3>
+<pre tabindex="0"><code>docker exec &lt;CONTAINER_ID&gt; ps -ef
+</code></pre><h3 id="rename-container">Rename Container</h3>
+<pre tabindex="0"><code>docker rename &lt;CONTAINER ID&gt; &lt;YOUR_NAME&gt; 
+</code></pre><h3 id="commit-and-create-new-container">Commit and Create New Container</h3>
+<pre tabindex="0"><code>docker container commit -m &#34;add Your commit&#34; &lt;Name_of_your_container&gt; &lt;New_Name&gt;
+</code></pre><h3 id="copy-files-from-container">Copy Files from Container</h3>
+<pre tabindex="0"><code>docker cp &lt;Container ID&gt;:/file.txt .
+</code></pre><h3 id="copy-files-in-container">Copy Files in Container</h3>
+<pre tabindex="0"><code>docker cp busybox.txt &lt;CONTANER ID&gt;:/busybox.txt
+</code></pre><h3 id="monitoring-containers">Monitoring Containers</h3>
+<pre tabindex="0"><code>docker container stats
+</code></pre><h3 id="docker-port">Docker port</h3>
+<pre tabindex="0"><code>docker port &lt;CONTAINER_ID&gt;
+</code></pre><h3 id="docker-logs">Docker logs</h3>
+<p>command not be work if container be stop</p>
+<pre tabindex="0"><code>docker logs &lt;CONTAINER ID&gt;
+</code></pre><h3 id="search-images">Search images</h3>
+<pre tabindex="0"><code>docker search &lt;name_of_image&gt; 
+</code></pre><h3 id="download-images-for-hub">Download images for hub</h3>
+<pre tabindex="0"><code>docker pull &lt;name_of_image&gt;
+</code></pre><h3 id="view-details-in-image">View details in image</h3>
+<pre tabindex="0"><code>docker image inspect &lt;name_of_image&gt;
+</code></pre><h2 id="mount-and-volume">Mount and Volume</h2>
+<pre tabindex="0"><code>docker run it -v /home/dan/mount/:/mount ubuntu
+</code></pre><p>command mount</p>
+<pre tabindex="0"><code>docker run -it --mount type=bind,source=/home/dan/mount,destination=/mount ubuntu
+</code></pre><h3 id="create-volume">Create Volume</h3>
+<pre tabindex="0"><code>docker volume create --name myvolume
+</code></pre><h3 id="volume-list">Volume list</h3>
+<pre tabindex="0"><code>docker volume list
+</code></pre><h3 id="watch-details-of-volume">Watch Details of Volume</h3>
+<pre tabindex="0"><code>docker volume inspect &lt;Name_of_Volume&gt;
+</code></pre><h3 id="mount-volume-to-container">Mount Volume to Container</h3>
+<pre tabindex="0"><code>docker run -it --mount type=volume,source=&lt;Name_of_Volume&gt;,destination=/&lt;Name_of_Volume&gt; ubuntu
+</code></pre><h3 id="mount-temp-volume-to-container">Mount Temp Volume to Container</h3>
+<p><code>--mount type=tmpfs,destination=/mount,tmpfs-size=1000</code> you can add fix disk space</p>
+<pre tabindex="0"><code>docker run -it --mount type=tmpfs,destination=/mount ubuntu
+</code></pre><p>or</p>
+<pre tabindex="0"><code>docker run -it --tmpfs /mount ubuntu
+</code></pre><h2 id="network">Network</h2>
+<h3 id="watch-all-network-in-docker">watch all Network in Docker</h3>
+<pre tabindex="0"><code>docker network ls
+</code></pre><h3 id="create-network-in-docker">Create Network in Docker</h3>
+<pre tabindex="0"><code>docker network create -d bridge &lt;Your_Name_Network&gt;
+</code></pre><h3 id="attach-network-to-container">Attach Network to Container</h3>
+<pre tabindex="0"><code>docker run -it --network=&lt;Your_Name_Network&gt; &lt;Name_of_Container&gt;
+</code></pre><h3 id="attach-network-to-running-container">Attach Network to Running Container</h3>
+<pre tabindex="0"><code>Docker network connect none &lt;Name_of_Container&gt;
+</code></pre><p>for disconnect</p>
+<pre tabindex="0"><code>docker network disconnect &lt;Name_of_Container&gt;
+</code></pre><h3 id="forward-ports-from-host-to-docker">Forward Ports from Host to Docker</h3>
+<pre tabindex="0"><code>docker run -d -p 2000:80 nginx
+</code></pre><p>first port Host second Container</p>
+<h2 id="context">Context</h2>
+<h3 id="list-context">List Context</h3>
+<pre tabindex="0"><code>docker context ls
+</code></pre><h3 id="create-context">Create context</h3>
+<pre tabindex="0"><code>docker context create test-test --default-stack-orchestrator=swarm --docker host=unix:///var/run/docker.sock
+</code></pre><h3 id="view-in-context">View in Context</h3>
+<pre tabindex="0"><code>docker context inspect test-test
+</code></pre><h3 id="export-context">Export Context</h3>
+<pre tabindex="0"><code>docker context export test-test
+</code></pre><h3 id="import-context">Import Context</h3>
+<pre tabindex="0"><code>docker context import test-test test-test.dockercontext
+</code></pre><h3 id="switch-between-context">Switch between Context</h3>
+<p><code>*</code> - your context used now</p>
+<pre tabindex="0"><code>docker use &lt;Name_of_Context&gt;
+</code></pre><h2 id="dockerfile">Dockerfile</h2>
+<pre tabindex="0"><code>|Dockerfile| =Build==&gt; |Docker Image| =Run==&gt; |Docker Container| 
+</code></pre><pre tabindex="0"><code>FROM &gt; RUN &gt; ENTRYPOINT &gt; CMD
+</code></pre><p>!! CONTEINER WORK IF PID 1 WORK !!</p>
+<p>COPY OR ADD = COPY !</p>
+<pre tabindex="0"><code>FROM ubuntu
+RUN apt update &amp;&amp; apt install iputils-ping
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+ENTRYPOINT [&#34;ping&#34;]
+CMD [&#34;127.0.0.1&#34;]
+</code></pre><p>all be copy in <code>/var/www</code></p>
+<pre tabindex="0"><code>WORKDIR /var/www
+COPY file1 file2
+</code></pre><pre tabindex="0"><code>EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]
+EXPOSE 80
+EXPOSE 80/tcp
+</code></pre><p>build from archive to docker</p>
+<pre tabindex="0"><code>FROM ubuntu
+ENV NODE_VERSION=v16.8.0
+ENV NODE_DISTRO=linux-x64
+RUN apt update &amp;&amp; apt install curl -xz-utils
+WORKDIR /tmp
+RUN curl https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$NODE_DISTRO.tar.xz -o node-$NODE_VERSION-$NODE_DISTRO.tar.xz
+RUN mkdir -p /usr/local/lib/nodejs &amp;&amp; tar -xJvf node-$NODE_VERSION-$NODE_DISTRO.tar.xz -C /usr/local/lib/nodejs
+RUN ln -s /usr/local/lib/nodejs/node-$NODE_VERSION-$NODE_DISTRO/bin/node /usr/bin/node &amp;&amp; \
+    ln -s /usr/local/lib/nodejs/node-$NODE_VERSION-$NODE_DISTRO/bin/npm /usr/bin/npm &amp;&amp; \
+    ln -s /usr/local/lib/nodejs/node-$NODE_VERSION-$NODE_DISTRO/bin/npx /usr/bin/npx &amp;&amp; \
+    node -v &amp;&amp; npm version &amp;&amp; npx -v
+RUN npx create-react-app my-app
+WORKDIR /tmp/my-app
+EXPOSE 3000
+ENTRYPOINT [&#34;npm&#34;, &#34;start&#34;]
+</code></pre><h3 id="multi-stage-building">Multi-stage building</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">ubuntu:focal</span> <span style="color:#66d9ef">AS</span> <span style="color:#e6db74">build</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> export DEBIAN FRONTEND<span style="color:#f92672">=</span>noninteractive <span style="color:#f92672">&amp;&amp;</span> apt-get update <span style="color:#f92672">&amp;&amp;</span> apt-get -q -y install apt-utils git cmake g++ <span style="color:#f92672">&amp;&amp;</span> git clone https://github.com/toprakkeskin/Cpp-Socket-Simple-TCP-Echo-Server-Client.git <span style="color:#f92672">&amp;&amp;</span> cp Cpp-Socket-Simple-TCP-Echo-Server-Client/server <span style="color:#f92672">&amp;&amp;</span> cmake CMakeLists.txt <span style="color:#f92672">&amp;&amp;</span> make <span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">EXPOSE</span> <span style="color:#e6db74">8080/tcp</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WORKDIR</span> <span style="color:#e6db74">/Cpp-Socket-Simple-TCP-Echo-Server-Client/server</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./tcp-echo-server,8080&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">ubuntu:focal</span> <span style="color:#66d9ef">AS</span> <span style="color:#e6db74">prod</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WORKDIR</span> <span style="color:#e6db74">/server</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>build Cpp-Socket-Simple-TCP-Echo-Server-Client/server/tcp-echo-server /server<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">EXPOSE</span> <span style="color:#e6db74">8080/tcp</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./tcp-echo-server,8080&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p><code>-t</code> - tag name of docker for example <code>tcpserver:latest</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker build -t tcpserver .
+</span></span></code></pre></div><h3 id="image-optimization">Image Optimization</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-dockerfile" data-lang="dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">From</span> <span style="color:#e6db74">alpine</span> <span style="color:#66d9ef">As</span> <span style="color:#e6db74">build</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> apk add git gcc g++ cmake make libgcc libstdc++ <span style="color:#f92672">&amp;&amp;</span> git clone https://github.com/toprakkeskin/Cpp-Socket-Simple-TCP-Echo-Server-Client.git <span style="color:#f92672">&amp;&amp;</span> cp cp Cpp-Socket-Simple-TCP-Echo-Server-Client/server <span style="color:#f92672">&amp;&amp;</span> cmake CMakeLists.txt <span style="color:#f92672">&amp;&amp;</span> make<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">EXPOSE</span> <span style="color:#e6db74">8080/tcp</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WORKDIR</span> <span style="color:#e6db74">/Cpp-Socket-Simple-TCP-Echo-Server-Client/server</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./tcp-echo-server,8080&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#e6db74">alpine</span> <span style="color:#66d9ef">AS</span> <span style="color:#e6db74">prod</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">RUN</span> apk --no-cache add libstdc++ libgcc<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span>WORKDIR  root/server<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">COPY</span> --from<span style="color:#f92672">=</span>build Cpp-Socket-Simple-TCP-Echo-Server-Client/server/tcp-echo-server root/server<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">EXPOSE</span> <span style="color:#e6db74">8080/tcp</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;./tcp-echo-server,8080&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><p><code>-f</code> from</p>
+<pre tabindex="0"><code>docker build -t tcpserver -f dockerfile1 .
+</code></pre><p>docker history</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker image history &lt;image&gt;
+</span></span></code></pre></div><p>time of build</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>time docker build -t tcpserver -f dockerfile1 .
+</span></span></code></pre></div><h3 id="docker-builder">Docker Builder</h3>
+<p>from .dockerfile</p>
+<pre tabindex="0"><code>docker build .
+</code></pre><p>from file</p>
+<pre tabindex="0"><code>docker build -t &lt;Name_of_NEW_Image&gt; -f &lt;Name_of_Dockerfile&gt;
+</code></pre><h3 id="overlayfs-and-overlay2">OverlayFS and Overlay2</h3>
+<p><img src="images/docker2.webp" alt="docker2"></p>
+<h3 id="docker-trust">Docker Trust</h3>
+<pre tabindex="0"><code>docker trust key generate
+</code></pre><h3 id="docker-registry">Docker Registry</h3>
+<p>its docker hub but local</p>
+<pre tabindex="0"><code>docker run -d p 6666:6666 --name local_registry registry:2
+</code></pre><p>push to registry</p>
+<pre tabindex="0"><code>docker tag test:boi localhost:5000/testboi
+
+docker push local:5000/test_boi
+</code></pre><p>pull from registry</p>
+<pre tabindex="0"><code>docker pull local:5000/test_boi
+</code></pre><p>redhut query or harbor</p>
+<p>Docker-Compose Registry</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;3&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">registry</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">registry:2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;127.0.0.1:5000:5000&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY</span>: <span style="color:#ae81ff">/data</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">REGISTRY_AUTH</span>: <span style="color:#ae81ff">htpasswd</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">REGISTRY_AUTH_HTPASSWD_REALM</span>: <span style="color:#ae81ff">Registry</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">REGISTRY_AUTH_HTPASSWD_PATH</span>: <span style="color:#ae81ff">./auth/registry.password</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./:/data</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./auth:/auth</span>
+</span></span></code></pre></div><p><code>htpasswd</code> create list name and password</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>htpasswd -B -c ./auth/registry.password dan
+</span></span></code></pre></div><p>command with work to privet registry</p>
+<p>login in registry</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker login https://docker.example.com
+</span></span></code></pre></div><p>tag image</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker tag tcpserver:apline docker.example.com/tcpserver
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">``</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>upload image
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">```</span>bash
+</span></span><span style="display:flex;"><span>docker push docker.example.com/tcpserver
+</span></span></code></pre></div><p>download image</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker pull docker.example.com/tcpserver
+</span></span></code></pre></div><h2 id="dockerd">DockerD</h2>
+<pre tabindex="0"><code>cat daemon.json 
+</code></pre><pre tabindex="0"><code>{
+  &#34;debug&#34;:true
+}
+</code></pre><pre tabindex="0"><code>journalctl -xu docker.service
+</code></pre><h3 id="change-driver-for-docker">Change driver for docker</h3>
+<p><code>daemon.json</code></p>
+<pre tabindex="0"><code>{
+  &#34;storage-driver&#34;:&#34;aufs&#34;
+}
+</code></pre><h2 id="docker-compose">Docker-Compose</h2>
+<p>example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;v3&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>: 
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">application</span>:
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">depends_on</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">postgresql</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker.example.com/tcpserver</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;127.0.0.1:8080:8080&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">postqresql</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">postgress</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">POSTGRES_USER</span>: <span style="color:#ae81ff">dan</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">POSTGRES_PASSWORD</span>: <span style="color:#ae81ff">strongpass</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">POSTGRES_DB</span>: <span style="color:#ae81ff">test</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>       - <span style="color:#e6db74">&#34;127.0.0.1:5432:5432&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>       - <span style="color:#ae81ff">./postgresql_data:/var/lib/postgresql/data</span>
+</span></span></code></pre></div><p><code>depends_on</code> - תלוי ב</p>
+<hr>
+<p>to add docker rootgroup</p>
+<pre tabindex="0"><code>sudo usermod -aG docker administrator
+</code></pre><p>Test</p>
+<pre tabindex="0"><code>docker run -d  --name ng1 -p 8080:80
+</code></pre><h3 id="see-logs">See logs</h3>
+<pre tabindex="0"><code>docker logs -f ng1
+</code></pre><h3 id="create-root-folder">Create Root folder</h3>
+<pre tabindex="0"><code>sudo mkdir /opt/nginx-compose-example 
+sudo chown $USER. /opt/nginx-compose-example 
+</code></pre><h3 id="example-compose-file">Example Compose file</h3>
+<pre tabindex="0"><code>service:
+  ng1:
+    image: nginx
+    port: 
+      - &#34;8080:80&#34;
+</code></pre><h3 id="run-docker-compose">Run Docker-Compose</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker-compose up
+</span></span></code></pre></div><p>to stop <code>down</code></p>
+<p>logs service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker-compose logs -f <span style="color:#f92672">[</span>sevice name<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>list of running container</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker-compose ps 
+</span></span></code></pre></div><p>list of docker images used docker-compose</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker-compose images
+</span></span></code></pre></div><p>running service command</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker-compose exec <span style="color:#f92672">[</span>service name<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>command<span style="color:#f92672">]</span>
+</span></span></code></pre></div><h3 id="compose-profile">Compose. Profile</h3>
+<p>example:</p>
+<pre tabindex="0"><code>services:
+  foo:
+    image: foo
+  bar:
+    image: bar
+    depends_on:
+      - bar
+    profiles:
+      - test
+  baz:
+    images: baz
+    depends_on:
+      - bar
+    profiles:
+      - test
+  zot:
+     image: zot
+     depends_on:
+       - bar
+     profile:
+       - debug
+</code></pre><pre tabindex="0"><code>$ docker compose --profile test up
+$ COMPOSE_PROFILES=test docker compose up
+$
+$ docker compose --profile test  --profile debug up
+$ COMPOSE_PROFILES=test, debug docker compose up
+$
+$ # profile test activated
+$ docker compose up baz
+$ 
+$ # profle test and service bar
+$ docker compose up baz
+$ 
+$ # invalid model
+$ docker compose up zot
+$
+$ zor bar and baz activated
+$ docker compose --profile test up zot
+</code></pre><h3 id="compose-environment">Compose. Environment</h3>
+<p>Map syntex:</p>
+<pre tabindex="0"><code>environment:
+  RACK_ENV: development
+  SHOW: &#34;true&#34;
+  USER_INPUT:  
+</code></pre><p>Array syntex:</p>
+<pre tabindex="0"><code>environment:
+  - RACK_ENV: development
+  - SHOW=true
+  - USER_INPUT
+</code></pre><h3 id="compose-file-env">Compose. File .env</h3>
+<pre tabindex="0"><code>$ head .env
+##### NGiNX ##################
+
+NGINX_SSL_PATH=./nginx/ssl/
+###### TO-DO APP CONFIG ##############
+NGINX_TODO_HOST_HTTP_PORT=8081
+NGINX_TODO_HOST_HTTPS_PORT=8081
+NGINX_TODO_SITE_PATH=./nginx/sites/todo.conf
+NGINX_TODO_HOST_LOG_PATH=./../logs/nginx_todo
+APP_CODE_TODO_PATH_HOST=./../todo
+APP_CODE_TODO_PATH_CONTAINER=/var/www/todo
+
+$ head docker-compose.yml
+version: &#39;2&#39;
+
+service: 
+  env_file .env
+  nginx_todo:
+    build:
+      context: ./nginx
+    volumes:
+      - ${APP_CODE_TODO_PATH_HOST}:${APP_CODE_TODO_PATH_CONTAINER}
+      - ${NGINX_TODO_HOST_LOG_PATH}:/var/log/nginx
+      - ${NGINX_TODO_SITE_PATH}:/etc/nginx/site-available/todo.conf
+</code></pre><h3 id="compose-nеtwork">Compose. Nеtwork</h3>
+<pre tabindex="0"><code>services:
+  frontend:
+    image: awesome/webapp
+    network:
+      - front-tier
+      - back-tier
+
+networks:
+  front-tier:
+  back-tier:
+</code></pre><pre tabindex="0"><code>network
+  outside:
+    external: true
+</code></pre><h3 id="compose-secrets">Compose. Secrets</h3>
+<pre tabindex="0"><code>services:
+  frontend:
+  image: awesome/webapp
+  sercets:
+    - server-certificate
+secrets:
+  server-certificate:
+    file: ./server.cert
+</code></pre><h3 id="compose-healtchecks">Compose. Healtchecks</h3>
+<pre tabindex="0"><code>test: [&#34;CMD&#34;,&#34;curl&#34;, &#34;-f&#34; &#34;http://localhost&#34;]
+interval: 1m30s
+timeout: 1m30s
+retries: 3
+start_period: 40s 
+</code></pre><h3 id="compose-volumes">Compose. Volumes</h3>
+<pre tabindex="0"><code>services:
+  ng1:
+    images: nginx
+    volumes:
+      - type: bind
+        source: /tmp
+        target: /tmp/ng1_tmp
+  ng2:
+    image: nginx
+    volumes:
+      - type: bind
+        source: /tmp
+        target: /tmp/ng2_tmp
+</code></pre><h3 id="compose-full-example">Compose. Full Example</h3>
+<pre tabindex="0"><code>version &#34;3.1&#34;
+
+services:
+  reverse_proxy:
+    build: ./reverse_proxy
+     user: nginx
+    ports: 
+      - &#34;433:433&#34;
+  networks:
+    - front-tier
+  secrets:
+    - revprox_cert
+    - revprox_key
+
+database:
+  build: 
+    context: ./database
+  image: atsea_db
+  user: postgres
+  environment:
+    POSTGRES_USER: dordonuser
+    POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    POSTGRES_DB: atsea
+  ports:
+    - &#34;5432:5432&#34;
+  network:
+    - back-tier
+  secrets:
+    - postgres_password
+  
+
+  appserver:
+    build:
+      context: app
+      dockerfile: Dockerfile
+    image: atsea_app
+    user: gordon
+    ports:
+      - &#34;8080:8080&#34;
+      - &#34;5005:5005&#34;
+  networks:
+    - front-tier
+    - back-tier
+  secrets:
+    - postgres_password
+
+networks:
+  front-tier:
+  back-tier:
+  payment:
+#     driver: overlay
+
+secrets:
+  postgres_password:
+    file: ./debsecrets/postgres_password
+  payment_token:
+    file: ./devsecrets/payment_token
+  revprox_cert:
+    file: ./certs/domain.crt
+  revprox_key:
+    file: ./certs/domain.key
+</code></pre><h2 id="docker-swarm">Docker Swarm</h2>
+<p>min need 2 node</p>
+<p><img src="images/docker3.webp" alt="docker3"></p>
+<p>Services, tasks, and containers
+When you deploy the service to the swarm, the swarm manager accepts your service definition as the desired state for the service. Then it schedules the service on nodes in the swarm as one or more replica tasks. The tasks run independently of each other on nodes in the swarm.</p>
+<p>For example, imagine you want to load balance between three instances of an HTTP listener. The diagram below shows an HTTP listener service with three replicas. Each of the three instances of the listener is a task in the swarm.</p>
+<p><img src="images/docker4.webp" alt="docker4"></p>
+<h3 id="docker-swarm-stack">Docker Swarm Stack</h3>
+<p>example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">version</span>: <span style="color:#e6db74">&#39;v3&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">services</span>: 
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">application</span>:
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">depends_on</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">postgresql</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">restart</span>: <span style="color:#ae81ff">always</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">image</span>: <span style="color:#ae81ff">docker.example.com/tcpserver</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;127.0.0.1:8080:8080&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">deploy</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">replicated</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">postqresql</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">image</span>: <span style="color:#ae81ff">postgress</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">POSTGRES_USER</span>: <span style="color:#ae81ff">dan</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">POSTGRES_PASSWORD</span>: <span style="color:#ae81ff">strongpass</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">POSTGRES_DB</span>: <span style="color:#ae81ff">test</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>       - <span style="color:#e6db74">&#34;127.0.0.1:5432:5432&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>       - <span style="color:#ae81ff">./postgresql_data:/var/lib/postgresql/data</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">deploy</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">mode</span>: <span style="color:#ae81ff">replicated</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">replicas</span>: <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker stack deploy -c docker-compose.yml --with-registry-auth application 
+</span></span></code></pre></div><p>do add to group root user docker</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo usermod -aG docker administrator
+</span></span></code></pre></div><p>to change name</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/hostname
+</span></span></code></pre></div><p>to create master node, key <code>--advertise-addr</code> <code>192.168.0.1</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker swarm init
+</span></span></code></pre></div><p>after Create Master сreated link copy past to other machine to add Worker or Manager</p>
+<pre tabindex="0"><code>docker swarm join --tokern &lt;Token&gt; &lt;IP&gt;:&lt;Port&gt;
+</code></pre><p>Docker Node List</p>
+<pre tabindex="0"><code>docker node ls
+</code></pre><p>add replication to hosts</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker update --replicas <span style="color:#ae81ff">5</span> <span style="color:#f92672">[</span>image:latest<span style="color:#f92672">]</span>
+</span></span></code></pre></div><p>remove services</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service rm tcpserver
+</span></span></code></pre></div><p>for other docker node pull containers need local repository</p>
+<pre tabindex="0"><code>docker service create --name registry --publish publish=5000,target=5000 registry:2
+</code></pre><p>for tag image</p>
+<pre tabindex="0"><code>docker tag sw1 192.168.88.113:5000/sw1
+</code></pre><p>For push to local repository</p>
+<pre tabindex="0"><code>docker image push 192.168.88.113:5000/sw1
+</code></pre><h3 id="for-disable-ssl-cetificates-in-local-repository">For disable SSL Cetificates in local repository</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/docker/daemon.json
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;insecure-registries&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;192.168.88.113:5000&#34;</span><span style="color:#f92672">]}</span> 
+</span></span></code></pre></div><p>After in need restart docker daemon and push image</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl restart docker 
+</span></span></code></pre></div><p>to run docker swarm container</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service create --replicas <span style="color:#ae81ff">1</span> --publish 8000:8000 --name sw1 192.168.88.113/sw1
+</span></span></code></pre></div><p>This command lists services are running in the swarm</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service ls
+</span></span></code></pre></div><p>Lists the tasks that are running as part of the specified services.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service ps sw1 
+</span></span></code></pre></div><h3 id="to-scale-containers">To Scale containers</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service scale SERVICE<span style="color:#f92672">=</span>REPLICAS
+</span></span><span style="display:flex;"><span>docker service scale sw1<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>
+</span></span></code></pre></div><h3 id="for-update-containers">for update containers</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service update --image 192.168.88.113/sw1 sw1
+</span></span></code></pre></div><h3 id="to-remove-all-service">to remove all service</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker service rm sw1
+</span></span></code></pre></div><h3 id="like-docker-compose-for-docker-swarm-stackyml">Like docker-compose for docker swarm (stack.yml)</h3>
+<p>file <code>stack.yml</code></p>
+<p>for example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>version: <span style="color:#e6db74">&#34;3.9&#34;</span>
+</span></span><span style="display:flex;"><span>services:
+</span></span><span style="display:flex;"><span>  web:
+</span></span><span style="display:flex;"><span>    image: 192.168.88.113:5000/sw1
+</span></span><span style="display:flex;"><span>    ports:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;8000:8000&#34;</span>
+</span></span><span style="display:flex;"><span>    network:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;back-tier&#34;</span>
+</span></span><span style="display:flex;"><span>    deploy:
+</span></span><span style="display:flex;"><span>      mode: replicated
+</span></span><span style="display:flex;"><span>      replicas: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  redis:
+</span></span><span style="display:flex;"><span>    images: redis:alphane
+</span></span><span style="display:flex;"><span>    network:
+</span></span><span style="display:flex;"><span>      - back-tier
+</span></span><span style="display:flex;"><span>networks:
+</span></span><span style="display:flex;"><span>  back-tier:
+</span></span><span style="display:flex;"><span>    driver: overlay
+</span></span></code></pre></div><pre tabindex="0"><code>docker stack deploy --compose-file stack.yml sw1 
+</code></pre><p>to stop all</p>
+<pre tabindex="0"><code>docker stack rm sw1
+</code></pre><h2 id="docker-network">Docker Network</h2>
+<p>for connect to network</p>
+<pre tabindex="0"><code>docker network connect &lt;my-net&gt; my-nginx
+</code></pre><p>for disconnect</p>
+<pre tabindex="0"><code>docker network connect &lt;my-net&gt; my-nginx
+</code></pre><h3 id="overlay">Overlay</h3>
+<p>create <code>overlay</code> lan for use with service Swarm</p>
+<pre tabindex="0"><code>docker network create -d overlay my-overlay
+</code></pre><p>To create an overlay network which can be used by swarm services or standalone containers to communicate with other standalone containers running on other Docker daemons, add the <code>--attachable</code>  flag:</p>
+<pre tabindex="0"><code>docker network create -d overlay --attachable my-attachable-overlay
+</code></pre><p>You can use the overlay network feature with both <code>--opt encrypted --attachable</code>  and attach unmanaged containers to that network:</p>
+<pre tabindex="0"><code>docker network create -d --opt encrypted --driver overlay --attachable my-attachable-multi-host-network
+</code></pre><pre tabindex="0"><code></code></pre><h3 id="macvlan">MacVlan</h3>
+<p>To create a <code>macvlan</code> network which bridges with a given physical network interface, use <code>--driver macvlan</code>  with the docker network create command. You also need to specify the parent, which is the interface the traffic will physically go through on the Docker host.</p>
+<pre tabindex="0"><code>$ docker network create -d macvlan \
+  --subnet=172.16.86.0/24 \
+  --gateway=172.16.86.1 \
+  -o parent=eth0 pub_net
+</code></pre><p><strong>Bridge mode</strong></p>
+<p>If you need to exclude IP addresses from being used in the <code>macvlan</code>  network, such as when a given IP address is already in use, use <code>--aux-addresses</code>:</p>
+<pre tabindex="0"><code>$ docker network create -d macvlan \
+  --subnet=192.168.32.0/24 \
+  --ip-range=192.168.32.128/25 \
+  --gateway=192.168.32.254 \
+  --aux-address=&#34;my-router=192.168.32.129&#34; \
+  -o parent=eth0 macnet32
+</code></pre><p><strong>802.1Q trunk bridge mode</strong></p>
+<p>If you specify a parent interface name with a dot included, such as eth0.50, Docker interprets that as a sub-interface of <code>eth0</code> and creates the sub-interface automatically.</p>
+<pre tabindex="0"><code>$ docker network create -d macvlan \
+    --subnet=192.168.50.0/24 \
+    --gateway=192.168.50.1 \
+    -o parent=eth0.50 macvlan50
+</code></pre><p><strong>Use an IPvlan instead of Macvlan</strong></p>
+<p>In the above example, you are still using a L3 bridge. You can use ipvlan instead, and get an L2 bridge. Specify <code>-o ipvlan_mode=l2</code> .</p>
+<pre tabindex="0"><code>$ docker network create -d ipvlan \
+    --subnet=192.168.210.0/24 \
+    --subnet=192.168.212.0/24 \
+    --gateway=192.168.210.254 \
+    --gateway=192.168.212.254 \
+     -o ipvlan_mode=l2 -o parent=eth0 ipvlan210
+</code></pre><p><strong>Use IPv6</strong></p>
+<p>If you have configured the Docker daemon to allow IPv6, you can use dual-stack IPv4/IPv6 macvlan networks.</p>
+<pre tabindex="0"><code>$ docker network create -d macvlan \
+    --subnet=192.168.216.0/24 --subnet=192.168.218.0/24 \
+    --gateway=192.168.216.1 --gateway=192.168.218.1 \
+    --subnet=2001:db8:abc8::/64 --gateway=2001:db8:abc8::10 \
+     -o parent=eth0.218 \
+     -o macvlan_mode=bridge macvlan216
+</code></pre><p>Generate SSL certificat for docker</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir ssl
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cd ssl
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/ssl/openssl.cnf
+</span></span></code></pre></div><p>add ip your IP</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span> v3_ca <span style="color:#f92672">]</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>subjectAltName <span style="color:#f92672">=</span> IP:85.41.11.8
+</span></span></code></pre></div><p>generate ssl key</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl req -x509  -nodes -days <span style="color:#ae81ff">365</span> -newkey rsa:2048 -keyout selfsigned.key -out selfsigned.crt
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl dhparam -out dhparam.pem  <span style="color:#ae81ff">2048</span>
+</span></span></code></pre></div><p>mkdir site-available</p>
+<pre tabindex="0"><code class="language-conf" data-lang="conf">  server {
+    # listen 443 default deferred; # for Linux
+    # listen 443 default accept_filter=httpready; # for FreeBSD
+    listen 443 http2; # for OSX
+    server_name docker.example.com;
+    client_max_body_size 4G;
+    
+    access_log /var/log/nginx/docker.example.com.access.log;
+    error_log /var/log/nginx/docker.examlpe.matveev.com.error.log error;
+
+    server_tokens off;
+
+    ssl_session_cache shared:SSL:50m;
+    ssl-session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    ssl_protocols TLSv1.3 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+
+    add
+</code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#install-using-the-apt-repository">Install using the Apt repository</a></li>
+    <li><a href="#simple-commands">Simple commands</a>
+      <ul>
+        <li><a href="#delete-image">Delete Image</a></li>
+        <li><a href="#stop-and-delete-all-containers">Stop and Delete all Containers</a></li>
+        <li><a href="#delete-image-1">Delete image</a></li>
+        <li><a href="#login-to-hubdockercom">Login to hub.docker.com</a></li>
+        <li><a href="#push-to-repository">Push to Repository</a></li>
+        <li><a href="#save-image-from-image-to-archive">Save image from image to archive</a></li>
+        <li><a href="#import-from-archive">Import from archive</a></li>
+        <li><a href="#load-from-archive">load from archive</a></li>
+        <li><a href="#save-docker-to-tar">Save docker to tar</a></li>
+        <li><a href="#load-container-from-tar">Load Container from tar</a></li>
+        <li><a href="#tag-image">Tag Image</a></li>
+        <li><a href="#enter-in-docker">Enter in Docker</a></li>
+        <li><a href="#enter-in-docker-and-create-file-one-command">Enter in Docker and Create File (one command)</a></li>
+        <li><a href="#enter-in-docker-and-watch-processes">Enter in Docker and Watch processes</a></li>
+        <li><a href="#rename-container">Rename Container</a></li>
+        <li><a href="#commit-and-create-new-container">Commit and Create New Container</a></li>
+        <li><a href="#copy-files-from-container">Copy Files from Container</a></li>
+        <li><a href="#copy-files-in-container">Copy Files in Container</a></li>
+        <li><a href="#monitoring-containers">Monitoring Containers</a></li>
+        <li><a href="#docker-port">Docker port</a></li>
+        <li><a href="#docker-logs">Docker logs</a></li>
+        <li><a href="#search-images">Search images</a></li>
+        <li><a href="#download-images-for-hub">Download images for hub</a></li>
+        <li><a href="#view-details-in-image">View details in image</a></li>
+      </ul>
+    </li>
+    <li><a href="#mount-and-volume">Mount and Volume</a>
+      <ul>
+        <li><a href="#create-volume">Create Volume</a></li>
+        <li><a href="#volume-list">Volume list</a></li>
+        <li><a href="#watch-details-of-volume">Watch Details of Volume</a></li>
+        <li><a href="#mount-volume-to-container">Mount Volume to Container</a></li>
+        <li><a href="#mount-temp-volume-to-container">Mount Temp Volume to Container</a></li>
+      </ul>
+    </li>
+    <li><a href="#network">Network</a>
+      <ul>
+        <li><a href="#watch-all-network-in-docker">watch all Network in Docker</a></li>
+        <li><a href="#create-network-in-docker">Create Network in Docker</a></li>
+        <li><a href="#attach-network-to-container">Attach Network to Container</a></li>
+        <li><a href="#attach-network-to-running-container">Attach Network to Running Container</a></li>
+        <li><a href="#forward-ports-from-host-to-docker">Forward Ports from Host to Docker</a></li>
+      </ul>
+    </li>
+    <li><a href="#context">Context</a>
+      <ul>
+        <li><a href="#list-context">List Context</a></li>
+        <li><a href="#create-context">Create context</a></li>
+        <li><a href="#view-in-context">View in Context</a></li>
+        <li><a href="#export-context">Export Context</a></li>
+        <li><a href="#import-context">Import Context</a></li>
+        <li><a href="#switch-between-context">Switch between Context</a></li>
+      </ul>
+    </li>
+    <li><a href="#dockerfile">Dockerfile</a>
+      <ul>
+        <li><a href="#multi-stage-building">Multi-stage building</a></li>
+        <li><a href="#image-optimization">Image Optimization</a></li>
+        <li><a href="#docker-builder">Docker Builder</a></li>
+        <li><a href="#overlayfs-and-overlay2">OverlayFS and Overlay2</a></li>
+        <li><a href="#docker-trust">Docker Trust</a></li>
+        <li><a href="#docker-registry">Docker Registry</a></li>
+      </ul>
+    </li>
+    <li><a href="#dockerd">DockerD</a>
+      <ul>
+        <li><a href="#change-driver-for-docker">Change driver for docker</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-compose">Docker-Compose</a>
+      <ul>
+        <li><a href="#see-logs">See logs</a></li>
+        <li><a href="#create-root-folder">Create Root folder</a></li>
+        <li><a href="#example-compose-file">Example Compose file</a></li>
+        <li><a href="#run-docker-compose">Run Docker-Compose</a></li>
+        <li><a href="#compose-profile">Compose. Profile</a></li>
+        <li><a href="#compose-environment">Compose. Environment</a></li>
+        <li><a href="#compose-file-env">Compose. File .env</a></li>
+        <li><a href="#compose-nеtwork">Compose. Nеtwork</a></li>
+        <li><a href="#compose-secrets">Compose. Secrets</a></li>
+        <li><a href="#compose-healtchecks">Compose. Healtchecks</a></li>
+        <li><a href="#compose-volumes">Compose. Volumes</a></li>
+        <li><a href="#compose-full-example">Compose. Full Example</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-swarm">Docker Swarm</a>
+      <ul>
+        <li><a href="#docker-swarm-stack">Docker Swarm Stack</a></li>
+        <li><a href="#for-disable-ssl-cetificates-in-local-repository">For disable SSL Cetificates in local repository</a></li>
+        <li><a href="#to-scale-containers">To Scale containers</a></li>
+        <li><a href="#for-update-containers">for update containers</a></li>
+        <li><a href="#to-remove-all-service">to remove all service</a></li>
+        <li><a href="#like-docker-compose-for-docker-swarm-stackyml">Like docker-compose for docker swarm (stack.yml)</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker-network">Docker Network</a>
+      <ul>
+        <li><a href="#overlay">Overlay</a></li>
+        <li><a href="#macvlan">MacVlan</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

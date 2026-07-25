@@ -1,7 +1,7 @@
 ---
 title: "Exchange online"
 discription: Exchange online
-date: 2026-01-021T21:29:01+08:00 
+date: 2026-01-21
 draft: false
 type: post
 tags: ["365","Exchange","Powershell"]

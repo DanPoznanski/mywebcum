@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Proxmox</title>
+    <meta name="description" content="Before Create Datacenter add ssh public key to hosts
+nano /etc/ssh/ssh_config PermitRootLogin yes copy key to node1
+ssh-copy-id -i root@192.168.1.128 copy key …">
+    <meta name="keywords" content='Virtualization'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/proxmox/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Proxmox">
+    <meta property="og:description" content="Before Create Datacenter add ssh public key to hosts
+nano /etc/ssh/ssh_config PermitRootLogin yes copy key to node1
+ssh-copy-id -i root@192.168.1.128 copy key …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Proxmox">
+    <meta name="twitter:description" content="Before Create Datacenter add ssh public key to hosts
+nano /etc/ssh/ssh_config PermitRootLogin yes copy key to node1
+ssh-copy-id -i root@192.168.1.128 copy key …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/proxmox/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/proxmox/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/proxmox/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Proxmox</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              May 1, 2023
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/virtualization">Virtualization</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <h2 id="before-create-datacenter">Before Create Datacenter</h2>
+<p>add ssh public key to hosts</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/ssh/ssh_config
+</span></span></code></pre></div><pre tabindex="0"><code>PermitRootLogin yes
+</code></pre><p>copy key to node1</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id -i root@192.168.1.128
+</span></span></code></pre></div><p>copy key to node2</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id -i root@192.168.1.129
+</span></span></code></pre></div><p>copy key t node3</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-copy-id -i root@192.168.1.130
+</span></span></code></pre></div><h3 id="config-local-dns">Config Local DNS</h3>
+<p><strong>Node1</strong></p>
+<p>connect to ssh</p>
+<pre tabindex="0"><code>ssh root@192.168.1.129
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/hosts 
+</span></span></code></pre></div><pre tabindex="0"><code>192.168.1.128 pve1.local pve1
+192.168.1.129 pve2.local pve2
+192.168.1.130 pve3.local pve3
+</code></pre><blockquote>
+<p>test for ping  <code>ping pve2</code> and <code>ping pve3</code></p>
+</blockquote>
+<p><strong>Wrong Repository</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nano /etc/apt/sources.list
+</span></span></code></pre></div><pre tabindex="0"><code># deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise
+
+dev https://download.proxmox.com/debian/pve stretch no-subscription 
+</code></pre><p>install htop and mc</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install htop mc 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt update
+</span></span></code></pre></div><p><strong>Node2</strong></p>
+<p>connect to ssh</p>
+<pre tabindex="0"><code>ssh root@192.168.1.129
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/hosts 
+</span></span></code></pre></div><pre tabindex="0"><code>192.168.1.128 pve1.local pve1
+192.168.1.129 pve2.local pve2
+192.168.1.130 pve3.local pve3
+</code></pre><blockquote>
+<p>test for ping  <code>ping pve1</code> and <code>ping pve3</code></p>
+</blockquote>
+<p><strong>Wrong Repository</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nano /etc/apt/sources.list
+</span></span></code></pre></div><pre tabindex="0"><code># deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise
+
+dev https://download.proxmox.com/debian/pve stretch no-subscription 
+</code></pre><p>install htop and mc</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install htop mc 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt update
+</span></span></code></pre></div><hr>
+<p><strong>Node3</strong></p>
+<p>connect to ssh</p>
+<pre tabindex="0"><code>ssh root@192.168.1.130
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/hosts 
+</span></span></code></pre></div><pre tabindex="0"><code>192.168.1.128 pve1.local pve1
+192.168.1.129 pve2.local pve2
+192.168.1.130 pve3.local pve3
+</code></pre><blockquote>
+<p>test for ping  <code>ping pve1</code> and <code>ping pve2</code></p>
+</blockquote>
+<p><strong>Wrong Repository</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nano /etc/apt/sources.list
+</span></span></code></pre></div><pre tabindex="0"><code># deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise
+
+dev https://download.proxmox.com/debian/pve stretch no-subscription 
+</code></pre><p>Install <code>htop</code> and <code>mc</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install htop mc 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt update
+</span></span></code></pre></div><hr>
+<h2 id="create-cluster">Create Cluster</h2>
+<p><strong>On Node1</strong></p>
+<p>on Website:</p>
+<p>Datacenter &gt; Create Cluster &gt;</p>
+<pre tabindex="0"><code>Cluster Name : cluster1
+Ring 0 Address: 
+</code></pre><p>Datacenter &gt; Cluster &gt; Join Information &gt; Copy information (copy)</p>
+<hr>
+<p><strong>On Node2</strong></p>
+<p>Datacenter &gt; Cluster &gt; Join Cluster &gt; Past (ctrl+V) &gt;</p>
+<pre tabindex="0"><code>password: *******  # from Node1 
+</code></pre><hr>
+<p><strong>On Node3</strong></p>
+<p>Datacenter &gt; Cluster &gt; Join Cluster &gt; Past (ctrl+V) &gt;</p>
+<pre tabindex="0"><code>password: *******  # from Node1 
+</code></pre><hr>
+<h2 id="cli-command">CLI Command</h2>
+<p>Status node</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pvecm status
+</span></span></code></pre></div><p>if you only want a list of all nodes, use:</p>
+<pre tabindex="0"><code>pvecm nodes
+</code></pre><pre tabindex="0"><code>qm list
+</code></pre><p>migrate machine from node1 (101 = id of machine), to (pve2 = name of node2)</p>
+<pre tabindex="0"><code>qm migrate 101 --online pve2 --with-local-disks
+</code></pre><h2 id="root">Root</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># PermitRootLogin yes</span>
+</span></span><span style="display:flex;"><span>PermitRootLogin without-password
+</span></span></code></pre></div><h3 id="repository-non-subscription">Repository non-subscription</h3>
+<p><img src="images/1.png" alt="img1"></p>
+<p><img src="images/2.png" alt="img2"></p>
+<h3 id="notifications">Notifications</h3>
+<p><img src="images/3.png" alt="img3"></p>
+<h3 id="trusted-tls-certifications-requirements">Trusted TLS Certifications Requirements</h3>
+<h3 id="windows-virtio-drivers">Windows VirtIO Drivers</h3>
+<p>after install windows need install <code>virtio.iso</code> last versions:</p>
+<pre tabindex="0"><code>https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/archive-virtio/?C=M;O=D
+</code></pre><h3 id="ventoy-install-of-proxmox-81-halts-at-loading-initial-ramdisk">Ventoy Install of Proxmox 8.1 halts at &ldquo;Loading initial ramdisk&rdquo;</h3>
+<p>I ran into the exact same problem.
+(installed <code>proxmox-ve_8.1-2.iso</code> using <code>ventoy-1.0.97-linux.tar.gz</code>)</p>
+<p>The file <code>/etc/default/grub.d/installer.cfg</code> introduces the <code>rdinit=/vtoy/vtoy</code> option:</p>
+<pre tabindex="0"><code>GRUB_CMDLINE_LINUX=&#34;$GRUB_CMDLINE_LINUX    rdinit=/vtoy/vtoy&#34;
+</code></pre><p>In order to remove the vtoy grub leftovers permanently, change it to:</p>
+<pre tabindex="0"><code>GRUB_CMDLINE_LINUX=&#34;$GRUB_CMDLINE_LINUX&#34;
+</code></pre><p>Then run <code>update-grub</code> and reboot.</p>
+<p>Edit the sources list:</p>
+<pre tabindex="0"><code>nano /etc/apt/sources.list
+</code></pre><p>Add these lines at the bottom:</p>
+<pre tabindex="0"><code># Proxmox VE pve-no-subscription repository provided by proxmox.com
+# NOT recommended for production use
+deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+
+# Security updates
+deb http://security.debian.org/debian-security bookworm-security main contrib
+</code></pre><p>Disable the Production Repository</p>
+<p>Next, disable the production repository by commenting out these lines in pve-enterprise.list:</p>
+<pre tabindex="0"><code>#deb https://enterprise.proxmox.com/debian/pve bookworm pve-enterprise
+</code></pre><p>Configure Ceph for No-Subscription</p>
+<pre tabindex="0"><code>nano /etc/apt/sources.list.d/ceph.list
+</code></pre><p>Comment out the enterprise repository: by adding this # in front of the next line</p>
+<pre tabindex="0"><code>#deb https://enterprise.proxmox.com/debian/ceph-quincy bookworm enterprise
+</code></pre><p>Add the no-subscription repository:</p>
+<pre tabindex="0"><code>deb http://download.proxmox.com/debian/ceph-quincy bookworm no-subscription
+</code></pre><pre tabindex="0"><code>apt-get update &amp;&amp; apt-get upgrade -y
+</code></pre><p>How to determing if you are using grub or cmdline use <code>efibootmgr -v</code></p>
+<p>If you see something like “File(\EFI\SYSTEMD\SYSTEMD-BOOTX64.EFI)” then you are using systemd, not GRUB.</p>
+<p>If you have GRUB edit config file:</p>
+<pre tabindex="0"><code>nano /etc/default/grub
+</code></pre><p>For Intel CPUs Intel CPUs add quiet intel_iommu=on:</p>
+<pre tabindex="0"><code>GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet intel_iommu=on pt=on&#34;
+</code></pre><p>For AMD CPUs add quiet amd_iommu=on:</p>
+<pre tabindex="0"><code>GRUB_CMDLINE_LINUX_DEFAULT=&#34;quiet amd_iommu=on pt=on&#34;
+</code></pre><p>Then update GRUB</p>
+<pre tabindex="0"><code>update-grub
+</code></pre><p>If you have cmdline edit config file</p>
+<pre tabindex="0"><code>nano /etc/kernel/cmdline
+</code></pre><p>insert in the end of the line <code>quiet amd_iommu=on iommu=pt</code></p>
+<p>Then refresh boot tool</p>
+<pre tabindex="0"><code>proxmox-boot-tool refresh
+</code></pre><p>Then reboot</p>
+<p>Add Modules</p>
+<pre tabindex="0"><code>vfio
+vfio_iommu_type1
+vfio_pci
+vfio_virqfd #not necessary if kernel 6.2
+</code></pre><p>Update modules</p>
+<pre tabindex="0"><code>update-initramfs -u -k all
+</code></pre><p>Reboot</p>
+<p>Verify</p>
+<p><code>dmesg | grep -e DMAR -e IOMMU</code> or <code>dmesg | grep -e DMAR -e IOMMU -e AMD-Vi</code></p>
+<p>GPU Isolation From the Host (amend the below to include the IDs of the device you want to isolate)</p>
+<p>Get device IDs: <code>lspci -nn</code></p>
+<pre tabindex="0"><code>echo &#34;options vfio-pci ids=10de:____,10de:____ disable_vga=1&#34; &gt; /etc/modprobe.d/vfio.conf
+</code></pre><p>Blacklist GPU drivers</p>
+<pre tabindex="0"><code>echo &#34;blacklist radeon&#34; &gt;&gt; /etc/modprobe.d/blacklist.conf 
+echo &#34;blacklist nouveau&#34; &gt;&gt; /etc/modprobe.d/blacklist.conf 
+echo &#34;blacklist nvidia&#34; &gt;&gt; /etc/modprobe.d/blacklist.conf 
+echo &#34;blacklist nvidiafb&#34; &gt;&gt; /etc/modprobe.d/blacklist.conf
+echo &#34;blacklist nvidia_drm&#34; &gt;&gt; /etc/modprobe.d/blacklist.conf
+echo &#34;blacklist i915&#34; &gt;&gt; /etc/modprobe.d/blacklist.conf
+</code></pre><p>Passing HDD</p>
+<pre tabindex="0"><code>ls -n /dev/disk/by-id/
+</code></pre><p>then</p>
+<pre tabindex="0"><code>/sbin/qm set [VM-ID] -virtio2 /dev/disk/by-id/[DISK-ID]
+</code></pre><p>Disable No-Subscription Pop-Up</p>
+<pre tabindex="0"><code>sed -Ezi.bak &#34;s/(Ext.Msg.show\(\{\s+title: gettext\(&#39;No valid sub)/void\(\{ \/\/\1/g&#34; /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js
+</code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#before-create-datacenter">Before Create Datacenter</a>
+      <ul>
+        <li><a href="#config-local-dns">Config Local DNS</a></li>
+      </ul>
+    </li>
+    <li><a href="#create-cluster">Create Cluster</a></li>
+    <li><a href="#cli-command">CLI Command</a></li>
+    <li><a href="#root">Root</a>
+      <ul>
+        <li><a href="#repository-non-subscription">Repository non-subscription</a></li>
+        <li><a href="#notifications">Notifications</a></li>
+        <li><a href="#trusted-tls-certifications-requirements">Trusted TLS Certifications Requirements</a></li>
+        <li><a href="#windows-virtio-drivers">Windows VirtIO Drivers</a></li>
+        <li><a href="#ventoy-install-of-proxmox-81-halts-at-loading-initial-ramdisk">Ventoy Install of Proxmox 8.1 halts at &ldquo;Loading initial ramdisk&rdquo;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

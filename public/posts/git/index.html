@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Git</title>
+    <meta name="description" content="Git">
+    <meta name="keywords" content='GIT'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/git/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Git">
+    <meta property="og:description" content="Git">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Git">
+    <meta name="twitter:description" content="Git">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/git/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/git/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/git/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Git</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle">Git</small>
+	
+
+	
+          <p class="post-date">
+              
+
+              May 18, 2021
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/git">GIT</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/git1.svg" alt="git1"></p>
+<p>Create a repository in an existing directory:</p>
+<p>Linux:</p>
+<pre tabindex="0"><code>cd home user my_project
+</code></pre><p>MacOS:</p>
+<pre tabindex="0"><code>cd Users user my_project
+</code></pre><p>Windows:</p>
+<pre tabindex="0"><code>cd C:/Users/user/my_project
+</code></pre><p>then run the command:</p>
+<pre tabindex="0"><code>git init
+</code></pre><p>Add existing files under version control:</p>
+<pre tabindex="0"><code>git add *.c
+git add LICENSE
+git commit -m ‘Initial project version’
+</code></pre><p>Clone an existing repository</p>
+<pre tabindex="0"><code>git clone https://github.com/libgit2/libgit2
+</code></pre><p>Clone the repository to a directory named mylibgit:
+$ git clone <a href="https://github.com/libgit2/libgit2">https://github.com/libgit2/libgit2</a> mylibgit</p>
+<h2 id="working-with-git">Working with Git</h2>
+<h3 id="git-add">Git Add</h3>
+<p>Add existing files under version control:</p>
+<pre tabindex="0"><code>$ git status
+
+On branch main
+Your branch is up to date with &#39;origin/main&#39;.
+
+nothing to commit, working tree clean  
+</code></pre><p>Adding README + status:</p>
+<pre tabindex="0"><code>$ echo ‘My project’ &gt; README
+$ git status
+On the master branch
+Your branch is updated with ‘origin/master’.
+Untraceable files:
+(use ‘git add &lt;file&gt;...’ to include them in what will be committed)
+README
+nothing added to the commit, but untracked files are present (use ‘git add’ to
+track)
+</code></pre><p>Tracking new files:</p>
+<pre tabindex="0"><code>$ git add README
+$ git status
+On the master branch
+Your branch has been updated to ‘origin/master’.
+The changes should be committed:
+(use ‘git restore --staged &lt;file&gt;...’ to uncommit)
+new file: README
+</code></pre><h3 id="git-status">Git Status</h3>
+<p>Indexing the modified files:</p>
+<pre tabindex="0"><code>$ git status
+On the master branch
+Your branch has been updated to ‘origin/master’.
+The changes should be committed:
+(use ‘git reset HEAD &lt;file&gt;...’ to uncommit)
+new file: README
+Changes not placed to commit:
+(use ‘git add &lt;file&gt;...’ to update what will be committed)
+(use ‘git checkout -- &lt;file&gt;...’ to remove changes in the working directory)
+modified: CONTRIBUTING.md
+</code></pre><p>Add this content to the next commit:</p>
+<pre tabindex="0"><code>$ git add CONTRIBUTING.md
+$ git status
+On branch master
+Your branch is up-to-date with ‘origin/master’.
+Changes to be committed:
+new file: README
+modified: CONTRIBUTING.md
+</code></pre><p>Let&rsquo;s make changes to the file via <code>vim</code> and request a new status:</p>
+<pre tabindex="0"><code>$ git status
+On branch master
+Your branch is up-to-date with &#39;origin/master&#39;.
+Changes to be committed:
+new file: README
+modified: CONTRIBUTING.md
+Changes not staged for commit:
+(use &#34;git add &lt;file&gt;...&#34; to update what will be committed)
+(use &#34;git checkout -- &lt;file&gt;...&#34; to discard changes in working directory)
+modified: CONTRIBUTING.md
+</code></pre><p>A shorter status output:</p>
+<pre tabindex="0"><code>$ git status -s
+</code></pre><pre tabindex="0"><code>M README
+MM Rakefile
+A lib/git.rb
+M lib/simplegit.rb
+?? LICENSE.txt
+</code></pre><h3 id="git-ignore">Git Ignore</h3>
+<p>Ignore files:</p>
+<pre tabindex="0"><code>$ cat .gitignore
+</code></pre><pre tabindex="0"><code>*.[oa].
+*~
+</code></pre><p>The following rules apply to templates in the <code>.gitignore</code> file:</p>
+<ul>
+<li>Blank lines, as well as lines beginning with #, are ignored</li>
+<li>Default templates are global and are applied recursively
+for the entire directory tree</li>
+<li>To avoid recursion, use a slash (/) at the beginning of the template.</li>
+<li>To exclude a directory, add a slash (/) at the end of the template</li>
+<li>You can invert the template by using an exclamation mark (!) as the first character in the template.
+as the first character</li>
+</ul>
+<p>Example <code>.gitignore</code>:
+Exclude all files with the extension <code>.a</code></p>
+<pre tabindex="0"><code>*.a
+</code></pre><p>But keep track of the lib.a file even if it falls under the rules listed</p>
+<pre tabindex="0"><code>!lib.a
+</code></pre><p>Exclude the TODO file in the root directory, but not the file in subdir/TODO</p>
+<pre tabindex="0"><code>/TODO
+</code></pre><p>Ignore all files in the <code>build/</code> directory</p>
+<pre tabindex="0"><code>build/
+</code></pre><p>Ignore the file <code>doc/notes.txt</code>, but not the file <code>doc/server/arch.txt</code></p>
+<pre tabindex="0"><code>doc/*.txt
+</code></pre><p>Ignore all <code>.txt</code> files in the <code>doc/</code> directory.</p>
+<pre tabindex="0"><code>doc/**/*.txt
+</code></pre><p>for more details <code>.gitignore</code> are available in manual</p>
+<pre tabindex="0"><code>$ man gitignore.
+</code></pre><h3 id="git-diff">Git Diff</h3>
+<p>View indexed and unindexed changes:</p>
+<pre tabindex="0"><code>$ git diff
+</code></pre><pre tabindex="0"><code>diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+index 8ebb991..643e24f 100644
+--- a/CONTRIBUTING.md
++++ b/CONTRIBUTING.md
+@@ -65,7 +65,8 @@ branches directly, things can get confusing.
+Please include a nice description of the changes when submitting PRs;
+If we have to read the entire diff to understand why you are contributing
+in the first place, you&#39;ll be less likely to get feedback and get your changes
+-included.
++included. Also, break your changes into extensive chunks if your patch is
++longer than a dozen lines.
+If you start working on a specific area, feel free to send a PR
+describing your work (and mention in the title of the PR that it&#39;s 
+</code></pre><p>See what you&rsquo;ve indexed and what will go into the next commit:</p>
+<pre tabindex="0"><code>$ git diff --staged
+</code></pre><pre tabindex="0"><code>diff --git a/README b/README
+new file mode 100644
+index 0000000..03902a1
+--- /dev/null
++++ b/README
+@@ -0,0 +1 @@
++My Project
+</code></pre><p>View changes to the file in different programs:</p>
+<pre tabindex="0"><code>$ git difftool
+</code></pre><p>Difftool Help:</p>
+<pre tabindex="0"><code>$ git difftool --tool-help
+</code></pre><h3 id="git-commit">Git Commit</h3>
+<p>Commit changes:</p>
+<pre tabindex="0"><code>$ git commit
+</code></pre><p>VIM window example:</p>
+<pre tabindex="0"><code># Please enter a message to commit your changes. Lines starting
+# with ‘#’ will be ignored, and an empty message will abort the commit.
+# On the master branch
+# Your branch is updated at ‘origin/master’.
+# Changes that will be committed:
+# new file: README
+# changed: CONTRIBUTING.md
+‘.git/COMMIT_EDITMSG’ 9L, 283C
+</code></pre><p>Detailed changes:</p>
+<pre tabindex="0"><code>$ git commit -v
+</code></pre><p>Add your comment to the commit:</p>
+<pre tabindex="0"><code>$ git commit -m ‘Story 182: fix benchmarks for speed’
+</code></pre><pre tabindex="0"><code>[master 463dc4f] Story 182: fix benchmarks for speed
+2 files modified, 2 inserts(+)
+creation mode 100644 README
+</code></pre><p>Ignoring indexing:</p>
+<pre tabindex="0"><code>$ git status
+</code></pre><pre tabindex="0"><code>On the master branch
+Your branch has been updated to ‘origin/master’.
+The changes have not been put on commit:
+(use ‘git add &lt;file&gt;...’ to update what will be committed)
+(use ‘git checkout -- &lt;file&gt;...’ to remove changes in the working directory)
+changed: CONTRIBUTING.md
+changes not added to commit (use ‘git add’ and/or ‘git commit -a’)
+</code></pre><ul>
+<li>
+<p><code>-a</code> automatic add all changed files to commit</p>
+</li>
+<li>
+<p><code>-m</code> its need to add quotes commit ’new cicd&rsquo;
+f</p>
+</li>
+</ul>
+<pre tabindex="0"><code>$ git commit -a -m ‘Add new benchmarks’
+</code></pre><pre tabindex="0"><code>[master 83e38c7] Add new benchmarks
+1 file modified, 5 inserts(+), 0 deletes(-)
+</code></pre><h3 id="git-remove">Git Remove</h3>
+<p>Deleting files:</p>
+<pre tabindex="0"><code>$ rm PROJECTS.md.
+</code></pre><pre tabindex="0"><code>$ git status
+</code></pre><pre tabindex="0"><code>On the master branch.
+Your branch is updated with ‘origin/master’.
+Changes are not put on commit:
+(use ‘git add/rm &lt;file&gt;...’ to update what will be committed)
+(use ‘git checkout -- &lt;file&gt;...’ to remove changes in the working directory)
+removed: PROJECTS.md
+changes not added to commit (use ‘git add’ and/or ‘git commit -a’)
+</code></pre><p>If you run the git rm command:</p>
+<pre tabindex="0"><code>$ git rm PROJECTS.md
+rm ‘PROJECTS.md’
+</code></pre><pre tabindex="0"><code>$ git status
+</code></pre><pre tabindex="0"><code>On the master branch.
+Your branch has been updated to ‘origin/master’.
+The changes should be committed:
+deleted: PROJECTS.md
+</code></pre><p>Removing wrongly indexed files:</p>
+<pre tabindex="0"><code>$ git rm --cached README
+</code></pre><p>Delete files mistakenly indexed with files, directories:</p>
+<pre tabindex="0"><code>$ git rm log/\**.log # or you can do it this way $ git rm \*~
+</code></pre><h3 id="gi-moving">Gi Moving</h3>
+<p>Moving files:</p>
+<pre tabindex="0"><code>$ git mv file_from file_to
+</code></pre><p>Example:</p>
+<pre tabindex="0"><code>$ git mv README.md README
+</code></pre><pre tabindex="0"><code>$ git status
+</code></pre><pre tabindex="0"><code>On branch master
+Your branch is up-to-date with ‘origin/master’.
+Changes to be committed:
+renamed: README.md -&gt; README
+</code></pre><p>Similarly:</p>
+<pre tabindex="0"><code>$ mv README.md README
+</code></pre><pre tabindex="0"><code>$ git rm README.md
+$ git add README
+</code></pre><h3 id="git-amend">Git Amend</h3>
+<p>Cancellation operation:</p>
+<pre tabindex="0"><code>$ git commit --amend
+</code></pre><p>Example:</p>
+<pre tabindex="0"><code>$ git commit -m ‘Initial commit’
+$ git add forgotten_file
+$ git commit --amend
+</code></pre><p>Similarly:</p>
+<pre tabindex="0"><code>$ mv README.md README
+$ git rm README.md
+$ git add README
+</code></pre><p>Cancelling the indexing of the file:</p>
+<pre tabindex="0"><code>$ git add *
+</code></pre><pre tabindex="0"><code>$ git status
+</code></pre><pre tabindex="0"><code>On the master branch.
+Changes should be committed:
+(use ‘git reset HEAD &lt;file&gt;...’ to uncommit)
+renamed: README.md -&gt; README
+changed: CONTRIBUTING.md
+</code></pre><p>Let&rsquo;s unindex the &lsquo;CONTRIBUTING.md&rsquo; file:</p>
+<pre tabindex="0"><code>$ git reset HEAD CONTRIBUTING.md
+</code></pre><pre tabindex="0"><code>Uninstalled changes after reset:
+CONTRIBUTING.md
+</code></pre><pre tabindex="0"><code>$ git status
+</code></pre><pre tabindex="0"><code>On the master branch.
+Changes to be committed:
+renamed: README.md -&gt; README
+Changes not submitted for committing:
+changed: CONTRIBUTING.md.
+</code></pre><!-- raw HTML omitted -->
+<h3 id="git-remote">Git Remote</h3>
+<p>View deleted repositories:</p>
+<pre tabindex="0"><code>$ git clone https://github.com/schacon/ticgit
+</code></pre><pre tabindex="0"><code>Cloning into ‘ticgit’...
+remote: Reusing existing pack: 1857, done.
+remote: Total 1857 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (1857/1857), 374.35 KiB | 268.00 KiB/s, done.
+Resolving deltas: 100% (772/772), done.
+Checking connectivity... done.
+</code></pre><pre tabindex="0"><code>$ cd ticgit
+</code></pre><pre tabindex="0"><code>$ git remote
+</code></pre><pre tabindex="0"><code>origin
+</code></pre><p>View the addresses bound to the repository:</p>
+<pre tabindex="0"><code>$ git remote -v
+</code></pre><pre tabindex="0"><code>origin https://github.com/schacon/ticgit (fetch)
+origin https://github.com/schacon/ticgit (push)
+</code></pre><p>Adding remote repositories:</p>
+<pre tabindex="0"><code>$ git remote
+origin
+</code></pre><pre tabindex="0"><code>$ git remote add pb https://github.com/paulboone/ticgit
+</code></pre><p>view status:</p>
+<pre tabindex="0"><code>$ git remote -v
+</code></pre><pre tabindex="0"><code>origin https://github.com/schacon/ticgit (fetch)
+origin https://github.com/schacon/ticgit (push)
+pb https://github.com/paulboone/ticgit (fetch)
+pb https://github.com/paulboone/ticgit (push)
+</code></pre><p>Get the changes that Paul has:</p>
+<pre tabindex="0"><code>$ git fetch pb
+</code></pre><pre tabindex="0"><code>remote: Counting objects: 43, done.
+remote: Compressing objects: 100% (36/36), done.
+remote: Total 43 (delta 10), reused 31 (delta 5)
+Unpacking objects: 100% (43/43), done.
+From https://github.com/paulboone/ticgit
+* [new branch] master -&gt; pb/master
+* [new branch] ticgit -&gt; pb/ticgit
+</code></pre><h3 id="git-fetch">Git Fetch</h3>
+<p>Getting changes from a remote repository - Fetch and Pull:</p>
+<pre tabindex="0"><code>$ git fetch [remote-name])
+</code></pre><p>Send changes to the remote repository (Push):</p>
+<pre tabindex="0"><code>$ git push origin master
+</code></pre><p>View remote repository:</p>
+<pre tabindex="0"><code>$ git remote show origin
+</code></pre><pre tabindex="0"><code>* remote origin
+Fetch URL: https://github.com/schacon/ticgit
+Push URL: https://github.com/schacon/ticgit
+HEAD branch: master
+Remote branches:
+master                        tracked
+dev-branch                    tracked
+Local branch configured for &#39;git pull&#39;:
+   master merges with remote master
+Local ref configured for &#39;git push&#39;:
+   gmaster pushes to master (up to date)
+</code></pre><h3 id="git-rename-repository">Git rename repository</h3>
+<p>Delete and rename remote repositories:</p>
+<pre tabindex="0"><code>$ git remote rename pb paul
+</code></pre><pre tabindex="0"><code>$ git remote
+</code></pre><pre tabindex="0"><code>origin
+paul
+</code></pre><p>Remove a deleted repository:</p>
+<pre tabindex="0"><code>$ git remote remove paul
+</code></pre><p>View Status:</p>
+<pre tabindex="0"><code>$ git remote
+</code></pre><pre tabindex="0"><code>origin
+</code></pre><h3 id="git-tag">Git Tag</h3>
+<p>View tag list:</p>
+<pre tabindex="0"><code>$ git tag
+</code></pre><pre tabindex="0"><code>v1.0
+v2.0
+</code></pre><p>Searching for a tag by pattern:</p>
+<pre tabindex="0"><code>$ git tag -l ‘v1.8.5*’
+</code></pre><pre tabindex="0"><code>v1.8.5
+v1.8.5-rc0
+v1.8.5-rc1
+</code></pre><p>Creating tags with annotation:</p>
+<pre tabindex="0"><code>$ git tag -a v1.4 -m &#34;my version 1.4&#34;
+</code></pre><p>View tag:</p>
+<pre tabindex="0"><code>$ git tag
+</code></pre><pre tabindex="0"><code>v0.1
+v1.3
+v1.4
+</code></pre><p>View tag information:</p>
+<pre tabindex="0"><code>$ git show v1.4
+</code></pre><pre tabindex="0"><code>tag v1.4
+Tagger: Ben Straub &lt;ben@straub.cc&gt;
+Date: Sat May 3 20:19:12 2014 -0700
+my version 1.4
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon &lt;schacon@gee-mail.com&gt;
+Date: Mon Mar 17 21:52:11 2008 -0700
+    Change version number
+</code></pre><p>Creating a lightweight tag:</p>
+<pre tabindex="0"><code>$ git tag v1.4-lw
+</code></pre><p>View tags</p>
+<pre tabindex="0"><code>$ git tag
+</code></pre><pre tabindex="0"><code>v0.1
+v1.3
+v1.4
+v1.4-lw
+</code></pre><p>Deferred tagging:</p>
+<pre tabindex="0"><code>$ git log --pretty=oneline
+</code></pre><pre tabindex="0"><code>15027957951b64cf874c3557a0f3547bd83b3b3ff6 Merge branch ‘experiment’
+a6b4c97498bd301d84096da251c98a07c7723e65 Create write support
+0d52aaab4479697da7686c15f77a3d64d9165190 One more thing
+</code></pre><p>Commit tag:</p>
+<pre tabindex="0"><code>$ git tag -a v1.2 9fceb02
+</code></pre><h4 id="tag-exchange">Tag Exchange:</h4>
+<pre tabindex="0"><code>$ git push origin v1.5
+</code></pre><pre tabindex="0"><code>Object count: 14, done.
+Delta compression using up to 8 threads.
+Object compression: 100% (12/12), done.
+Recording objects: 100% (14/14), 2.05 KiB | 0 bytes/sec, done.
+Total 14 (delta 3), reused 0 (delta 0)
+From git@github.com:schacon/simplegit.git
+* [new tag]               v1.5 -&gt; v1.5
+Send to remote server:
+</code></pre><pre tabindex="0"><code>$ git push origin --tags
+</code></pre><pre tabindex="0"><code>Object count: 1, done.
+Recording objects: 100% (1/1), 160 bytes | 0 bytes/sec, done.
+Total 1 (delta 0), reused 0 (delta 0)
+From git@github.com:schacon/simplegit.git
+* [new tag]             v1.4 -&gt; v1.4
+* [new tag]             v1.4-lw -&gt; v1.4-lw
+</code></pre><h4 id="tag-delete">Tag delete:</h4>
+<pre tabindex="0"><code>$ git tag -d v1.4-lw
+</code></pre><pre tabindex="0"><code>Removed tag ‘v1.4-lw’ (was e7d5add)
+</code></pre><p>Remove tag on external resource:</p>
+<pre tabindex="0"><code>$ git push origin :refs/tags/v1.4-lw # 1 method
+</code></pre><pre tabindex="0"><code>$ git push origin --delete &lt;tagname&gt; # 2nd way
+</code></pre><h4 id="tag-checkout">Tag checkout:</h4>
+<pre tabindex="0"><code>$ git checkout v2.0.0.
+</code></pre><pre tabindex="0"><code>Note: switching to &#39;v2.0.0&#39;.
+Example:
+git switch -c &lt;new-branch-name&gt;
+Or undo this operation with:
+git switch -
+</code></pre><pre tabindex="0"><code>$ git checkout v2.0-beta-0.1
+</code></pre><pre tabindex="0"><code>Previous HEAD position was 99ada87... Merge pull request #89 from
+schacon/appendix-final
+HEAD is now at df3f601... Add atlas.json and cover image
+</code></pre><h3 id="tag-alies">Tag Alies</h3>
+<p>Example aliases:</p>
+<pre tabindex="0"><code>$ git config --global alias.co checkout
+$ git config --global alias.br branch
+$ git config --global alias.ci commit
+$ git config --global alias.st status
+</code></pre><p>Exclude the file from the index:</p>
+<pre tabindex="0"><code>$ git config --global alias.unstage ‘reset HEAD --’
+</code></pre><p>Equivalent to:</p>
+<pre tabindex="0"><code>$ git unstage fileA
+</code></pre><pre tabindex="0"><code>$ git reset HEAD -- fileA
+</code></pre><p>With the addition of last:</p>
+<pre tabindex="0"><code>$ git config --global alias.last ‘log -1 HEAD’
+</code></pre><p>View last commit:</p>
+<pre tabindex="0"><code>$ git last
+</code></pre><pre tabindex="0"><code>commit 66938dae3329c7aebe598c2246a8e6af90d04646
+</code></pre><h3 id="about-branching">About branching</h3>
+<p>Suppose you have a catalogue with three files, and you
+add them all to the index and create a commit</p>
+<pre tabindex="0"><code>$ git add README test.rb LICENSE
+</code></pre><pre tabindex="0"><code>$ git commit -m &#39;Initial commit
+</code></pre><p><img src="images/git10.webp" alt="git10"></p>
+<h3 id="creating-a-new-branch">Creating a new branch</h3>
+<p>A new branch is created by the command:</p>
+<pre tabindex="0"><code>$ git branch testing
+</code></pre><p>You can easily see this with a simple git log, which will show you where the branch pointers are pointing. This
+option is called &ndash;decorate.</p>
+<pre tabindex="0"><code>$ git log --oneline --decorate
+</code></pre><pre tabindex="0"><code>f30ab (HEAD -&gt; master, testing) Add feature #32 - ability to
+add new formats to the central interface
+34ac2 Fix bug #1328 - stack overflow under certain conditions
+98ca9 Initial commit
+</code></pre><p><img src="images/git11.webp" alt="git11"></p>
+<h3 id="switching-branches">Switching branches</h3>
+<p>To switch to an existing branch, run the git checkout command:</p>
+<pre tabindex="0"><code>$ git checkout testing
+</code></pre><p>Let&rsquo;s do one more commit:</p>
+<pre tabindex="0"><code>$ git commit -a -m &#39;made a change&#39;
+</code></pre><p><img src="images/git12.webp" alt="git12"></p>
+<h3 id="branching-basics">Branching basics</h3>
+<p>Create a new branch and switch to it with the git checkout command with the
+<code>-b</code> parameter:</p>
+<pre tabindex="0"><code>$ git checkout -b iss53
+</code></pre><pre tabindex="0"><code>Switched to a new branch &#34;iss53&#34;
+</code></pre><p>Commit:</p>
+<pre tabindex="0"><code>$ vim index.html
+</code></pre><pre tabindex="0"><code>$ git commit -a -m ‘Create new footer [issue 53]’
+</code></pre><p><img src="images/git13.webp" alt="git13"></p>
+<p><img src="images/git14.webp" alt="git14"></p>
+<p>Now suppose you have committed all your changes and can
+switch to the master branch:</p>
+<pre tabindex="0"><code>$ git checkout master
+</code></pre><pre tabindex="0"><code>Switched to branch &#39;master&#39;
+</code></pre><p>Create a new branch:</p>
+<pre tabindex="0"><code>$ git checkout -b hotfix
+</code></pre><pre tabindex="0"><code>Switched to a new branch &#39;hotfix&#39;
+</code></pre><pre tabindex="0"><code>$ git commit -a -m &#39;Fix broken email address&#39;
+</code></pre><pre tabindex="0"><code>[hotfix 1fb7853] Fix broken email address
+1 file changed, 2 insertions(+)
+</code></pre><p><img src="images/git15.webp" alt="git15"></p>
+<h3 id="merge-basics">Merge Basics</h3>
+<p>To merge a branch, you need to switch to the branch to which you
+you want to include changes to, and run the git merge command:</p>
+<pre tabindex="0"><code>$ git checkout master
+</code></pre><pre tabindex="0"><code>Switched to branch &#39;master&#39;
+</code></pre><pre tabindex="0"><code>$ git merge iss53
+</code></pre><pre tabindex="0"><code>Merge made by the &#39;recursive&#39; strategy.
+index.html | 1 +
+1 file changed, 1 insertion(+)
+</code></pre><p><img src="images/git16.webp" alt="git16"></p>
+<h4 id="the-basic-conflicts-of-the-merger">The Basic conflicts of the merger</h4>
+<p>Sometimes the merger process doesn&rsquo;t go smoothly:</p>
+<pre tabindex="0"><code>$ git merge iss53
+</code></pre><pre tabindex="0"><code>Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre><p>Special markers are added:</p>
+<pre tabindex="0"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:index.html
+&lt;div id=&#34;footer&#34;&gt;contact : email.support@github.com&lt;/div&gt;
+=======
+&lt;div id=&#34;footer&#34;&gt;
+please contact us at support@github.com
+&lt;/div&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; iss53:index.html
+</code></pre><h3 id="deleted-branches">Deleted branches</h3>
+<p>Deleted links are links (pointers) in your deleted
+repositories, including branches, tags, and so on. A complete list of
+of remote links can be obtained by using the <code>git lsremote &lt;remote&gt;</code> command or the <code>git remote show &lt;remote&gt;</code> command to retrieve remote branches and information.to get deleted branches and more information</p>
+<p><img src="images/git17.webp" alt="git17"></p>
+<p>If you do something in your local master branch, and in the meantime someone sends the changes to the git.ourcompany.com server and
+Meanwhile, someone sends the changes to the git.ourcompany.com server and
+update the master branch there, your stories will continue in different ways.
+As long as you don&rsquo;t contact the origin server, your origin/master pointer
+pointer will remain in place.</p>
+<p><img src="images/git18.webp" alt="git18"></p>
+<p>To synchronise your changes with the remote server, run the
+<code>git fetch &lt;remote&gt;</code> command (in our case git fetch origin). This command
+determines which server ‘origin’ corresponds to (in our case it is
+git.ourcompany.com), fetches data from there that you don&rsquo;t already have, and
+updates the local database by shifting the origin/master pointer to a new
+position.</p>
+<h3 id="sending-changes">Sending changes</h3>
+<p>If you have a <code>serverfix</code> branch that you want someone else to work on.
+you can submit it the same way you submitted your first branch.
+branch. Run the <code>git push &lt;remote&gt; &lt;branch&gt;</code> command:</p>
+<pre tabindex="0"><code>$ git push origin serverfix
+</code></pre><pre tabindex="0"><code>Counting objects: 24, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (24/24), 1.91 KiB | 0 bytes/s, done.
+Total 24 (delta 2), reused 0 (delta 0)
+To https://github.com/schacon/simplegit
+* [new branch] serverfix -&gt; serverfix
+</code></pre><h3 id="tracking-branches">Tracking branches</h3>
+<p>Tracking branches are local branches that are directly connected to a
+a remote branch. If you perform a git pull while on a tracking branch, git will already know which server to pull data from and which branch to pull from.
+Git will already know which server to pull data from and which branch to use for merging.</p>
+<pre tabindex="0"><code>$ git push origin serverfix
+</code></pre><pre tabindex="0"><code>Counting objects: 24, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (24/24), 1.91 KiB | 0 bytes/s, done.
+Total 24 (delta 2), reused 0 (delta 0)
+To https://github.com/schacon/simplegit
+* [new branch] serverfix -&gt; serverfix
+</code></pre><h3 id="fetching-changes">Fetching changes</h3>
+<p>The <code>git fetch</code> command fetches any changes from the server that you don&rsquo;t already have.
+but will not change the state of your working copy. This command
+just fetches the data and allows you to do the merge yourself.
+merge. However, there is a <code>git pull</code> command, which is in most cases
+most of the time is the <code>git fetch</code> command, which is followed
+directly followed by the git merge command.</p>
+<h3 id="git-tools">Git Tools</h3>
+<h4 id="revision-selection">Revision Selection</h4>
+<pre tabindex="0"><code>$ git log
+</code></pre><pre tabindex="0"><code>commit 734713bc047d87bf7eac9674765ae793478c50d3
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Fri Jan 2 18:32:33 2009 -0800
+
+    Fix refs handling, add gc auto, update tests
+
+commit d921970aadf03b3cf0e71becdaab3147ba71cdef
+Merge: 1c002dd... 35cfb2b...
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Thu Dec 11 15:08:43 2008 -0800
+
+    Merge commit &#39;phedders/rdocs&#39;
+
+commit 1c002dd4b536e7479fe34593e72e6c6c1819e53b
+Author: Scott Chacon &lt;schacon@gmail.com&gt;
+Date:   Thu Dec 11 14:58:32 2008 -0800
+
+    Add some blame and merge stuff
+</code></pre><p>In this case, say you’re interested in the commit whose hash begins with <code>1c002dd…​</code>. You can inspect that commit with any of the following variations of <code>git show</code> (assuming the shorter versions are unambiguous):</p>
+<pre tabindex="0"><code>$ git show 1c002dd4b536e7479fe34593e72e6c6c1819e53b
+$ git show 1c002dd4b536e7479f
+$ git show 1c002d
+</code></pre><h4 id="branch-references">Branch References</h4>
+<p>One straightforward way to refer to a particular commit is if it’s the commit at the tip of a branch; in that case, you can simply use the branch name in any Git command that expects a reference to a commit. For instance, if you want to examine the last commit object on a branch, the following commands are equivalent, assuming that the <code>topic1</code> branch points to commit <code>ca82a6d</code>…​</p>
+<pre tabindex="0"><code>$ git show ca82a6dff817ec66f44342007202690a93763949
+$ git show topic1
+</code></pre><p>View the SHA-1 of the object pointed to by the branch:</p>
+<pre tabindex="0"><code>$ git rev-parse topic1
+ca82a6dff817ec66f44342007202690a93763949
+</code></pre><h3 id="git-stashing-and-cleaning">Git Stashing and Cleaning</h3>
+<p>The stash operation takes the changed state of your working directory, that is, changed tracked files and indexed changes,
+and saves them to the pending changes repository, which you can apply back at any time.</p>
+<pre tabindex="0"><code>$ git stash
+</code></pre><pre tabindex="0"><code>Saved working directory and index state \
+&#34;WIP on master: 049d078 Create index file&#34;
+HEAD is now at 049d078 Create index file
+(To restore them type &#34;git stash apply&#34;)
+</code></pre><p>To see a list of stashed changes, you can use <code>git stash list</code>:</p>
+<pre tabindex="0"><code>$ git stash list
+</code></pre><pre tabindex="0"><code>stash@{0}: WIP on master: 049d078 Create index file
+stash@{1}: WIP on master: c264051 Revert &#34;Add file_size&#34;
+stash@{2}: WIP on master: 21d80a5 Add number to log
+</code></pre><p>To apply the changes you just stashed, you need to use the
+the command specified in the output of the original command: <code>git stash apply</code>.</p>
+<h3 id="creating-a-branch-from-stashed-changes">Creating a branch from stashed changes</h3>
+<pre tabindex="0"><code>$ git stash branch testchanges
+</code></pre><pre tabindex="0"><code>M index.html
+M lib/simplegit.rb
+Switched to a new branch &#39;testchanges&#39;
+On branch testchanges
+Changes to be committed:
+(use &#34;git reset HEAD &lt;file&gt;...&#34; to unstage)
+modified: index.html
+Changes not staged for commit:
+(use &#34;git add &lt;file&gt;...&#34; to update what will be committed)
+(use &#34;git checkout -- &lt;file&gt;...&#34; to discard changes in working directory)
+modified: lib/simplegit.rb
+Dropped refs/stash@{0} (29d385a81d163dfd45a452a2ce816487a6b8b014)
+</code></pre><h3 id="cleaning-up-the-working-directory">Cleaning up the working directory</h3>
+<p>Clearing the working directory of some changes and files:</p>
+<pre tabindex="0"><code>git clean
+</code></pre><p>A safer option is to use the command:</p>
+<pre tabindex="0"><code>git stash --all
+</code></pre><p>To delete all untraceable files in the working directory</p>
+<pre tabindex="0"><code>git clean -f -d
+</code></pre><p>To see what will be done, you need to run the command with the <code>-n</code> option</p>
+<pre tabindex="0"><code>$ git clean -d -n
+</code></pre><pre tabindex="0"><code>Would remove test.o
+Would remove tmp/
+</code></pre><h3 id="search-the-git-log">Search the Git log</h3>
+<p>For example, if you want to find when the constant
+<code>ZLIB_BUF_MAX</code>, you can use the <code>-S</code> option to ask Git to
+only show commits in which this string was added or removed.
+this string.</p>
+<pre tabindex="0"><code>$ git log -S ZLIB_BUF_MAX --oneline
+</code></pre><pre tabindex="0"><code>e01503b zlib: allow feeding more than 4GB in one go
+ef49a7a zlib: zlib can only process 4GB at a time
+</code></pre><h3 id="change-last-commit">Change last commit</h3>
+<pre tabindex="0"><code>$ git commit --amend
+</code></pre><h3 id="deleting-a-commit">Deleting a commit</h3>
+<p>If you want to get rid of a commit, you can remove it during <code>rebase -i</code>.
+during the rebase -i interactive rebase. Type the word
+“drop” in front of the commit you want to remove, or simply remove it
+from the list:</p>
+<pre tabindex="0"><code>pick 461cb2a This commit is OK
+drop 5aecc10 This commit is broken
+</code></pre><h3 id="merge-conflicts">Merge Conflicts</h3>
+<pre tabindex="0"><code>$ git checkout -b whitespace
+</code></pre><pre tabindex="0"><code>Switched to a new branch &#39;whitespace&#39;
+</code></pre><pre tabindex="0"><code>$ unix2dos hello.rb
+</code></pre><pre tabindex="0"><code>unix2dos: converting file hello.rb to DOS format ...
+</code></pre><pre tabindex="0"><code>$ git commit -am &#39;Convert hello.rb to DOS&#39;
+</code></pre><pre tabindex="0"><code>[whitespace 3270f76] Convert hello.rb to DOS
+1 file changed, 7 insertions(+), 7 deletions(-)
+</code></pre><pre tabindex="0"><code>$ git diff -b
+</code></pre><pre tabindex="0"><code>diff --git a/hello.rb b/hello.rb
+index ac51efd..e85207e 100755
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,7 +1,7 @@
+- puts &#39;hello world&#39;
++ puts &#39;hello mundo&#39;^M
+end
+</code></pre><pre tabindex="0"><code>$ git commit -am &#39;Use Spanish instead of English&#39;
+</code></pre><pre tabindex="0"><code>[whitespace 6d338d2] Use Spanish instead of English
+1 file changed, 1 insertion(+), 1 deletion(-)
+</code></pre><pre tabindex="0"><code>$ git checkout master
+</code></pre><pre tabindex="0"><code>Switched to branch &#39;master&#39;
+</code></pre><pre tabindex="0"><code>$ git diff
+</code></pre><pre tabindex="0"><code>diff --git a/hello.rb b/hello.rb
+index ac51efd..36c06c8 100755
+--- a/hello.rb
++++ b/hello.rb
+@@ -1,5 +1,6 @@
+#! /usr/bin/env ruby
++# prints out a greeting
+def hello
+puts &#39;hello world&#39;
+end
+</code></pre><pre tabindex="0"><code>$ git commit -am &#39;Add comment documenting the function&#39;
+</code></pre><pre tabindex="0"><code>[master bec6336] Add comment documenting the function
+1 file changed, 1 insertion(+)
+$ git merge whitespace
+Auto-merging hello.rb
+CONFLICT (content): Merge conflict in hello.rb
+Automatic merge failed; fix conflicts and then commit the result.
+</code></pre><h4 id="canceling-a-merge-attempt">Canceling a merge attempt</h4>
+<p>Option to resolve merge conflict:</p>
+<pre tabindex="0"><code>$ git status -sb
+</code></pre><pre tabindex="0"><code>## master
+UU hello.rb
+</code></pre><pre tabindex="0"><code>$ git merge --abort
+</code></pre><pre tabindex="0"><code>$ git status -sb
+</code></pre><pre tabindex="0"><code>## master
+</code></pre><h3 id="using-checkout-in-conflicts">Using checkout in conflicts</h3>
+<p>Let&rsquo;s look at the reason for the conflict:</p>
+<pre tabindex="0"><code>$ git log --graph --oneline --decorate --all
+</code></pre><pre tabindex="0"><code>* f1270f7 (HEAD, master) Update README
+* 9af9d3b Create README
+* 694971d Update phrase to &#39;hola world&#39;
+| * e3eb223 (mundo) Add more tests
+| * 7cff591 Create initial testing script
+| * c3ffff1 Change text to &#39;hello mundo&#39;
+|/
+* b7dcc89 Initial hello world code
+</code></pre><p>Checkout:</p>
+<pre tabindex="0"><code>$ git checkout --conflict=diff3 hello.rb
+</code></pre><p>Use it as default for future merge conflicts:</p>
+<pre tabindex="0"><code>$ git config --global merge.conflictstyle diff3
+</code></pre><h3 id="undo-commit">Undo commit</h3>
+<p>Recovery:</p>
+<pre tabindex="0"><code>$ git revert -m 1 HEAD
+</code></pre><p><img src="images/git21.webp" alt="git21"></p>
+<p><img src="images/git22.webp" alt="git22"></p>
+<p><img src="images/git23.webp" alt="git23"></p>
+<h3 id="credential-storage">Credential storage</h3>
+<p>Git out-of-the-box has several options:</p>
+<ul>
+<li>
+<p>By default, Git does not cache credentials at all. Each
+connection will ask you for your username and password.</p>
+</li>
+<li>
+<p>In “cache” mode, the credentials are stored in memory for a
+for a certain period of time.</p>
+</li>
+<li>
+<p>In “store” mode, the credentials are stored indefinitely in an open file on a disk.
+for an indefinite period of time in an open file on disk.</p>
+</li>
+<li>
+<p>In case you&rsquo;re using a Mac, Git has an “osxkeychain” mode,
+which stores credentials in a secure
+storage tied to your system account.</p>
+</li>
+<li>
+<p>In case you are using Windows, you can install a
+a helper called “Git Credential Manager for Windows”.</p>
+</li>
+</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>clone repository:</p>
+<pre tabindex="0"><code>git clone git@lab.com:danpoznanski/example.git
+</code></pre><p>take commit from outsorce need be in directory folder of project</p>
+<pre tabindex="0"><code>git remote add out git@github.com:danpoznanski/pythonrobotics.git
+</code></pre><p>see if all add you can :</p>
+<pre tabindex="0"><code>git remove -v 
+</code></pre><p>to get commit from outsource</p>
+<pre tabindex="0"><code>git fetch out
+</code></pre><p>to create new branch to secure project</p>
+<pre tabindex="0"><code>git branch develop out/master
+</code></pre><p>to choice other branch for example <code>develop</code></p>
+<pre tabindex="0"><code>git checkout develop
+</code></pre><p>to get code from remote repository</p>
+<pre tabindex="0"><code>git pull 
+</code></pre><p>to transfer code to your repository</p>
+<pre tabindex="0"><code>git push -u origin -o merge_request.create
+</code></pre><p><code>-u origin</code> - this option sets upsteam for your current branch contact to remote branch, this allows in the future use <code>git push</code> and <code>git pull</code> without indication remote repository and branch</p>
+<p><code>-o merge_request.create</code> its command for gitlab merge request create</p>
+<p>create script auto push and pull</p>
+<pre tabindex="0"><code>sudo nano autogit.sh
+</code></pre><pre tabindex="0"><code>#!/bin/bash
+cd ./folder/
+git checkout develop
+git pull 
+git push -u origin -o merge_request.create
+cd .. 
+</code></pre><p>after add rules <code>chmod +x autorun.sh</code></p>
+<p>to run ./autogit.sh</p>
+<p>to automatic i use cron
+crontab -e</p>
+<p>every 5 minute to run</p>
+<pre tabindex="0"><code>5 * * * * /home/admin/scripts/autogit.sh
+</code></pre><p>commit</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git commit -am <span style="color:#e6db74">&#39;new cicd&#39;</span>
+</span></span></code></pre></div><p><code>-a</code> automatic add all changed files to commit</p>
+<p><code>-m</code> its need to add quotes commit &rsquo;new cicd&rsquo;</p>
+<p>or</p>
+<pre tabindex="0"><code>git add .; git commit -m &#34;Update website&#34;; git push
+</code></pre><h3 id="git-commit-1">Git Commit</h3>
+<p>no need do <code>git add .</code></p>
+<pre tabindex="0"><code>git commit -a 
+</code></pre><p>no need open texteditor</p>
+<pre tabindex="0"><code>git commit -m
+</code></pre><p>(&ndash;no-edit) open commit through reset and do new commit</p>
+<pre tabindex="0"><code>git commit --amend  
+</code></pre><h3 id="git-reset">Git Reset</h3>
+<p>Mixed Reset: <code>git reset &lt;commit&gt;</code> resets the staging area to match the specified commit but it doesn&rsquo;t affect the working directory. Your changes are unstaged but not lost, allowing you review you changes before committing again</p>
+<pre tabindex="0"><code>git reset
+</code></pre><p>Soft Reset: <code>git reset --soft &lt;commit&gt;</code> keeps  you changes in the staging area. it means you can re-commit the changes after the reset.</p>
+<pre tabindex="0"><code>git reset --soft HEAD-1
+</code></pre><p>Hard Reset: <code>git reset --hard &lt;commit&gt;</code> resets the staging area and the working directory to match the specified commit. Be careful with this option as it discards all changes in the working directory</p>
+<p><code>HEAD-1</code> delete 1 commit</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git reset --hard  
+</span></span></code></pre></div><h3 id="git-rebase">Git rebase</h3>
+<p>Assume the following history exists and the current branch is &ldquo;topic&rdquo;:</p>
+<pre tabindex="0"><code>          A---B---C topic
+         /
+    D---E---F---G master
+</code></pre><p>From this point, the result of either of the following commands:</p>
+<pre tabindex="0"><code>git rebase master
+git rebase master topic
+</code></pre><p>would be:</p>
+<pre tabindex="0"><code>                  A&#39;--B&#39;--C&#39; topic
+                 /
+    D---E---F---G master
+</code></pre><h3 id="git-merge">Git Merge</h3>
+<pre tabindex="0"><code>	  A---B---C topic
+	 /
+    D---E---F---G master
+</code></pre><pre tabindex="0"><code>git merge topicg
+</code></pre><pre tabindex="0"><code>	  A---B---C topic
+	 /         \
+    D---E---F---G---H master
+</code></pre><h3 id="git-cherry-pick">Git cherry-pick</h3>
+<p>With the &ldquo;cherry-pick&rdquo; command, Git allows you to integrate selected, individual commits from any branch into your current HEAD branch.</p>
+<p>Contrast this with the way commit integration normally works in Git: when performing a Merge or Rebase, all commits from one branch are integrated.</p>
+<p><img src="images/git2.png" alt="git2"></p>
+<p>Cherry-pick, on the other hand, allows you to select individual commits for integration. In this example, only C2 is integrated into the master branch, but not C4.</p>
+<p><img src="images/git3.png" alt="git3"></p>
+<p>for example :</p>
+<pre tabindex="0"><code>git cherry-pick af02e0b
+</code></pre><h3 id="git-rebase-2-commit">git rebase 2 commit</h3>
+<pre tabindex="0"><code>git rebase -i HEAD~2
+</code></pre><p>in commit</p>
+<pre tabindex="0"><code>squash or fixup
+</code></pre><pre tabindex="0"><code>git rebase --continue
+</code></pre><pre tabindex="0"><code>git rebase -i HEAD~3
+</code></pre><p>in commit</p>
+<pre tabindex="0"><code>edit
+</code></pre><pre tabindex="0"><code>git rebase --continue
+</code></pre><h3 id="git-revert">git revert</h3>
+<pre tabindex="0"><code>git revert &lt;hash commit&gt;
+</code></pre><h3 id="how-restor-git-commit">How restor git commit</h3>
+<p><code>git reflog</code> or <code>git log -g</code></p>
+<pre tabindex="0"><code>git reset --hard master@{&#34;15 minutes ago&#34;}
+</code></pre><pre tabindex="0"><code>git fsck --full 
+</code></pre><p>git besect</p>
+<pre tabindex="0"><code>git besert &lt;hash-commit&gt;
+</code></pre><p>git besert good or bad</p>
+<p>git besert reset</p>
+<p>git slash</p>
+<p>git slash list</p>
+<p>git slash pop</p>
+<p>git slash apply</p>
+<pre tabindex="0"><code>git slash drop slash@{1}
+</code></pre><p>clear all git slash</p>
+<pre tabindex="0"><code>git slash clear
+</code></pre><p>git diff</p>
+<pre tabindex="0"><code>git diff master &lt;hash-commit1&gt; 
+</code></pre><p>git blame</p>
+<pre tabindex="0"><code>git blame index.html
+</code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#working-with-git">Working with Git</a>
+      <ul>
+        <li><a href="#git-add">Git Add</a></li>
+        <li><a href="#git-status">Git Status</a></li>
+        <li><a href="#git-ignore">Git Ignore</a></li>
+        <li><a href="#git-diff">Git Diff</a></li>
+        <li><a href="#git-commit">Git Commit</a></li>
+        <li><a href="#git-remove">Git Remove</a></li>
+        <li><a href="#gi-moving">Gi Moving</a></li>
+        <li><a href="#git-amend">Git Amend</a></li>
+        <li><a href="#git-remote">Git Remote</a></li>
+        <li><a href="#git-fetch">Git Fetch</a></li>
+        <li><a href="#git-rename-repository">Git rename repository</a></li>
+        <li><a href="#git-tag">Git Tag</a></li>
+        <li><a href="#tag-alies">Tag Alies</a></li>
+        <li><a href="#about-branching">About branching</a></li>
+        <li><a href="#creating-a-new-branch">Creating a new branch</a></li>
+        <li><a href="#switching-branches">Switching branches</a></li>
+        <li><a href="#branching-basics">Branching basics</a></li>
+        <li><a href="#merge-basics">Merge Basics</a></li>
+        <li><a href="#deleted-branches">Deleted branches</a></li>
+        <li><a href="#sending-changes">Sending changes</a></li>
+        <li><a href="#tracking-branches">Tracking branches</a></li>
+        <li><a href="#fetching-changes">Fetching changes</a></li>
+        <li><a href="#git-tools">Git Tools</a></li>
+        <li><a href="#git-stashing-and-cleaning">Git Stashing and Cleaning</a></li>
+        <li><a href="#creating-a-branch-from-stashed-changes">Creating a branch from stashed changes</a></li>
+        <li><a href="#cleaning-up-the-working-directory">Cleaning up the working directory</a></li>
+        <li><a href="#search-the-git-log">Search the Git log</a></li>
+        <li><a href="#change-last-commit">Change last commit</a></li>
+        <li><a href="#deleting-a-commit">Deleting a commit</a></li>
+        <li><a href="#merge-conflicts">Merge Conflicts</a></li>
+        <li><a href="#using-checkout-in-conflicts">Using checkout in conflicts</a></li>
+        <li><a href="#undo-commit">Undo commit</a></li>
+        <li><a href="#credential-storage">Credential storage</a></li>
+        <li><a href="#git-commit-1">Git Commit</a></li>
+        <li><a href="#git-reset">Git Reset</a></li>
+        <li><a href="#git-rebase">Git rebase</a></li>
+        <li><a href="#git-merge">Git Merge</a></li>
+        <li><a href="#git-cherry-pick">Git cherry-pick</a></li>
+        <li><a href="#git-rebase-2-commit">git rebase 2 commit</a></li>
+        <li><a href="#git-revert">git revert</a></li>
+        <li><a href="#how-restor-git-commit">How restor git commit</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Consul</title>
+    <meta name="description" content="
+Consul provides feature such as:
+Service discovery
+Tagging
+Health checks
+Secure Service Communication
+Multi Datacenter
+System-wide key/value storage
+Server vs …">
+    <meta name="keywords" content='Devops, Check Healt, Ansible'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/consul/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Consul">
+    <meta property="og:description" content="
+Consul provides feature such as:
+Service discovery
+Tagging
+Health checks
+Secure Service Communication
+Multi Datacenter
+System-wide key/value storage
+Server vs …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Consul">
+    <meta name="twitter:description" content="
+Consul provides feature such as:
+Service discovery
+Tagging
+Health checks
+Secure Service Communication
+Multi Datacenter
+System-wide key/value storage
+Server vs …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/consul/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/consul/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/consul/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Consul</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              May 8, 2023
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/devops">Devops</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/check-healt">Check Healt</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/ansible">Ansible</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/consul1.svg" alt="consul1"></p>
+<p>Consul provides feature such as:</p>
+<ul>
+<li>
+<p>Service discovery</p>
+</li>
+<li>
+<p>Tagging</p>
+</li>
+<li>
+<p>Health checks</p>
+</li>
+<li>
+<p>Secure Service Communication</p>
+</li>
+<li>
+<p>Multi Datacenter</p>
+</li>
+<li>
+<p>System-wide key/value storage</p>
+</li>
+</ul>
+<p><img src="images/consul2.webp" alt="consul2"></p>
+<h2 id="server-vs-client">Server vs Client</h2>
+<p>Server:</p>
+<p>running on individual machine</p>
+<p>form a failsafe cluster</p>
+<p>communicating with client machine</p>
+<p>Client:</p>
+<p>working on machine were running service</p>
+<p>checking health of server</p>
+<p>sending information on server</p>
+<p>example config registration service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">`</span>{ <span style="color:#f92672">&#34;service&#34;</span>:{<span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;web&#34;</span>, <span style="color:#f92672">&#34;tags&#34;</span>:[<span style="color:#e6db74">&#34;be&#34;</span>], <span style="color:#f92672">&#34;port&#34;</span>: <span style="color:#ae81ff">80</span>,<span style="color:#f92672">&#34;check&#34;</span>:{<span style="color:#f92672">&#34;args&#34;</span>: [<span style="color:#e6db74">&#34;curl&#34;</span>, <span style="color:#e6db74">&#34;localhost&#34;</span>], <span style="color:#f92672">&#34;interval&#34;</span>: <span style="color:#e6db74">&#34;10s&#34;</span> }}}<span style="color:#960050;background-color:#1e0010">`</span>
+</span></span></code></pre></div><h2 id="instal-consul">Instal consul</h2>
+<p>create account consul</p>
+<pre tabindex="0"><code>useradd -s /bin/false -m consul
+</code></pre><p>download binar file <a href="https://developer.hashicorp.com/consul/downloads">https://developer.hashicorp.com/consul/downloads</a> for ubuntu</p>
+<p>for example</p>
+<pre tabindex="0"><code>https://releases.hashicorp.com/consul/1.10.3/consul_1.10.3_linux_amd64.zip
+</code></pre><p>unzip</p>
+<pre tabindex="0"><code>unzip consul_1.10.3_linux_amd64.zip.
+</code></pre><p>Then move the file to <code>~/bin.</code></p>
+<pre tabindex="0"><code>cp consul ~/bin/
+</code></pre><p>After this, add the directory with the binary file to <code>$PATH</code>. For this you need
+open <code>~/.bashrc</code> and add the line</p>
+<pre tabindex="0"><code>export PATH=$PATH:~/bin.
+</code></pre><p>As a result, you will be able to call Consul from the command line by typing</p>
+<pre tabindex="0"><code>consul
+</code></pre><p>Option2:</p>
+<pre tabindex="0"><code> wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+ echo &#34;deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main&#34; | sudo tee /etc/apt/sources.list.d/hashicorp.list
+ sudo apt update &amp;&amp; sudo apt install consul
+</code></pre><p>for fix</p>
+<pre tabindex="0"><code>sudo apt install software-properties-common
+
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+
+sudo apt-add-repository &#34;deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main&#34;
+
+sudo apt-get update &amp;&amp; sudo apt-get install consul
+</code></pre><p>test:</p>
+<pre tabindex="0"><code>consul
+</code></pre><p>see status of service</p>
+<pre tabindex="0"><code>systemctl status consul
+</code></pre><p>see config of consul service</p>
+<pre tabindex="0"><code>cat /lib/systemd/system/consul.service
+</code></pre><p>Agents Configuration File Reference</p>
+<pre tabindex="0"><code>cd /etc/consul.d 
+
+nano consul.hcl
+</code></pre><pre tabindex="0"><code>datacenter = &#34;dc&#34;
+server = true
+data_dir = &#34;/opt/consul&#34;
+client_addr = &#34;192.168.0.1 127.0.0.1&#34;
+bootstrap_expect = 3
+bind_addr = &#34;192.168.0.1&#34;
+encrypt = &#34;8kKJSxjc6Hs7w5Qi/1ojxs2OPeZTnGskAIpZ2GRw4Eo=&#34;
+</code></pre><p><code>server = true</code> -work like server false work like client</p>
+<p><code>client_addr = &quot;192.168.0.1 127.0.0.1&quot;</code> ip of server and 127.0.0.1 need for cli</p>
+<p><code>bind_addr</code> my ip address</p>
+<p><code>bootstrap_expect = 3</code> min 3 servers
+<code>encrypt = &quot;8kKJSxjc6Hs7w5Qi/1ojxs2OPeZTnGskAIpZ2GRw4Eo=&quot;</code> its key for consul need generate first</p>
+<h2 id="generate-key-consul">Generate key consul</h2>
+<pre tabindex="0"><code>consul keygen
+</code></pre><h2 id="useful-commands">Useful commands</h2>
+<p><code>consul validate /etc/consul.d/consul.hcl</code> - checking the agent config</p>
+<p><code>consul join &lt;IP address or node name&gt;</code> — join to cluster, new member</p>
+<p><code>consul leave</code> — exclude a node from the cluster</p>
+<p><code>consul maint -enable</code> — enable service mode on the node</p>
+<p><code>consul maint -disable</code> — return to working mode from maintenance mode</p>
+<p><code>consul members</code> — show cluster members</p>
+<p><code>consul info</code> — general information about the cluster</p>
+<p><code>consul reload</code> — reread the agent configuration</p>
+<p><code>consul catalog services</code> — show a list of registered services in the cluster</p>
+<p><code>consul register backend.json</code> — register the service described in the fe.json file</p>
+<p><code>consul deregister backend.json</code> — deregister the service described in the fe.json file</p>
+<h2 id="configuratin-client-of-consul">Configuratin Client of Consul</h2>
+<p><code>nano /etc/consul.d/consul.hcl</code></p>
+<pre tabindex="0"><code>data_dir = &#34;/opt/consul&#34;
+client_addr = &#34;192.168.0.4 127.0.0.1&#34;
+bind_addr = &#34;192.168.0.4&#34;
+encrypt = &#34;8kKJSxjc6Hs7w5Qi/1ojxs2OPeZTnGskAIpZ2GRw4Eo=&#34;
+enable_local_script_checks = true
+</code></pre><p><code>enable_local_script_checks = true</code> enable check scripts to work service online</p>
+<p>start consul</p>
+<pre tabindex="0"><code>systemctl start consul
+</code></pre><h3 id="config-json-script">Config json script</h3>
+<p>in <code>/etc/consul.d</code> create new file <code>backend.json</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#e6db74">&#34;service&#34;</span><span style="color:#960050;background-color:#1e0010">:</span>
+</span></span><span style="display:flex;"><span>  { <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;be&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;tags&#34;</span>: [ <span style="color:#e6db74">&#34;be&#34;</span> ],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;check&#34;</span>:
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;id&#34;</span>: <span style="color:#e6db74">&#34;NGINX&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;Test check&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;http&#34;</span>: <span style="color:#e6db74">&#34;http://localhost&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;method&#34;</span>: <span style="color:#e6db74">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;interval&#34;</span>: <span style="color:#e6db74">&#34;10s&#34;</span>,
+</span></span><span style="display:flex;"><span>         <span style="color:#f92672">&#34;timeout&#34;</span>: <span style="color:#e6db74">&#34;1s&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">}</span>
+</span></span></code></pre></div><p>for test</p>
+<pre tabindex="0"><code>{ &#34;service&#34;: { &#34;name&#34;: &#34;be&#34;, &#34;tags&#34;: [ &#34;be&#34; ], &#34;port&#34;:
+80, &#34;check&#34;: { &#34;args&#34;: [ &#34;curl&#34;, &#34;localhost&#34; ],
+&#34;interval&#34;: &#34;10s&#34; } } }
+</code></pre><h2 id="dns-interface">DNS Interface</h2>
+<p>Get information about a node:</p>
+<pre tabindex="0"><code>dig @127.0.0.1 -p 8600 client.node.consul  # &lt;node&gt;.node[.datacenter].&lt;domain&gt;
+</code></pre><pre tabindex="0"><code>dig @127.0.0.1 -p 8600 vm-9918226g.node.consul
+</code></pre><p>Get information about a services:</p>
+<pre tabindex="0"><code>dig @127.0.0.1 -p8600 be.service.consul # [tag.]&lt;service&gt;.service[.datacenter].&lt;domain&gt;
+</code></pre><p>More details about the service:</p>
+<pre tabindex="0"><code>dig @127.0.0.1 -p8600 be.service.consul SRV
+</code></pre><h2 id="http-api">HTTP API</h2>
+<p>Show nodes in cluster&quot;</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://localhost:8500/v1/catalog/nodes?pretty
+</span></span></code></pre></div><p>Show services in cluster</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://127.0.0.1:8500/v1/catalog/services
+</span></span></code></pre></div><p>Show node vm-cb4c04f2 status</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://127.0.0.1:8500/v1/health/node/vm-cb4c04f2?pretty
+</span></span></code></pre></div><p>Show status serivce on local node <code>backend</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl http://localhost:8500/v1/agent/health/service/name/backend?pretty
+</span></span></code></pre></div><p><code>?pretty</code> format json</p>
+<h2 id="ui-config-enable">UI Config enable</h2>
+<p>graphic interface</p>
+<p><code>nano /etc/consul.d/consul.hcl</code></p>
+<pre tabindex="0"><code>ui_config{
+  enabled=true
+}
+</code></pre><p>need create tunnel for virtual machine</p>
+<pre tabindex="0"><code>ssh -L 8500:localhost:8500 root@&lt;ip_of_machine&gt;
+</code></pre><p>after goto <code>127.0.0.1:8500/ui</code></p>
+<h2 id="consul-template">Consul Template</h2>
+<p>install on new machine</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install software-properties-common
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-add-repository <span style="color:#e6db74">&#34;deb [arch=amd64] https://apt.releases.hashicorp.com </span><span style="color:#66d9ef">$(</span>lsb_release -cs<span style="color:#66d9ef">)</span><span style="color:#e6db74"> main&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get update <span style="color:#f92672">&amp;&amp;</span> sudo apt-get install consul-template
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir /etc/consul-template.d/
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> chown -R consul:consul /etc/consul-template.d
+</span></span></code></pre></div><h2 id="create-for-consul-template-systemd-unit">Create for Consul Template Systemd Unit</h2>
+<p><img src="images/consul3.png" alt="consul3"></p>
+<p>The deb package does not have a consul template start/stop service, need to create it in yourself.</p>
+<p>create service file</p>
+<pre tabindex="0"><code>nano /usr/lib/systemd/system/consul-template.service
+</code></pre><p>copy &amp;&amp; past</p>
+<pre tabindex="0"><code>[Unit]
+Description=Consul-Template Daemon
+Documentation=https://github.com/hashicorp/consul-template/
+Wants=basic.target
+After=network.target
+
+[Service]
+User=consul
+Group=consul
+ExecStart=/usr/bin/consul-template -config=/etc/consul-template.d/
+SuccessExitStatus=12
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><h2 id="work-with-key-value-storage">Work with key-value storage</h2>
+<p>add mykey value 5</p>
+<pre tabindex="0"><code>curl -X PUT -d 5 http://127.0.0.1:8500/v1/kv/mykey
+</code></pre><p>or</p>
+<pre tabindex="0"><code>consul kv put mykey 5
+</code></pre><p>get value mykey (get in base64 crypt)</p>
+<pre tabindex="0"><code>curl -X GET http://127.0.0.1:8500/v1/kv/mykey
+</code></pre><p>uncrypt key</p>
+<pre tabindex="0"><code>echo &#39;&lt;base64&gt;&#39; | base65 -d
+</code></pre><p>or</p>
+<pre tabindex="0"><code>consul kv get mykey
+</code></pre><h3 id="requests-to-the-consul-from-the-consul-template">Requests to the consul from the Consul-template</h3>
+<p>requests in catalog</p>
+<pre tabindex="0"><code>{{ service &#34;&lt;TAG&gt;.&lt;NAME&gt;@&lt;DATACENTER&gt;~&lt;NEAR&gt;|&lt;FILTER&gt;&#34; }}
+</code></pre><ul>
+<li>
+<p>TAG - tag of service, optional parametr</p>
+</li>
+<li>
+<p>NAME - name of service, required parameter</p>
+</li>
+<li>
+<p>DATACENTER - name of data server, optional parametr</p>
+</li>
+<li>
+<p>NEAR - order output by shortest path to the specified node, if not specified, the result will be
+in lexicographic order, optional parameter.</p>
+</li>
+<li>
+<p>FILTER — filtering nodes by state, optional
+parameter. Possible values: any, passing, warning</p>
+</li>
+</ul>
+<pre tabindex="0"><code>{{ services &#34;@&lt;DATACENTER&gt;&#34; }}
+</code></pre><ul>
+<li>DATACENTER — data center where the requested all services in catalog</li>
+</ul>
+<h3 id="language-constructs-for-templates">Language constructs for templates</h3>
+<p>template</p>
+<pre tabindex="0"><code>{{ range service &#34;be&#34; }}
+server {{ .Name }} {{ .Address }}:{{ .Port }}
+{{ end }}
+</code></pre><pre tabindex="0"><code>server be01 192.168.0.4
+{{range service “be”}}
+       server {{ .Name }} {{ .Address }}:{{ .Port }}
+       {{else}}
+       server 192.168.0.100
+       {{end}}
+</code></pre><h3 id="requests-to-requests-to-kv-storage">Requests to Requests to KV storage</h3>
+<pre tabindex="0"><code>{{ key &#34;&lt;PATH&gt;@&lt;DATACENTER&gt;&#34; }}
+</code></pre><pre tabindex="0"><code>{{ keyExists &#34;&lt;PATH&gt;@&lt;DATACENTER&gt;&#34; }}
+</code></pre><pre tabindex="0"><code>{{ keyOrDefault &#34;&lt;PATH&gt;@&lt;DATACENTER&gt;&#34; &#34;&lt;DEFAULT&gt;&#34; }}
+</code></pre><ul>
+<li>
+<p>PATH - path to the key, for example, service/redis/maxconns</p>
+</li>
+<li>
+<p>DATACENTER - data center, if not specified, the local one will be used</p>
+</li>
+<li>
+<p>DEFAULT - default value if key does not exist</p>
+</li>
+</ul>
+<h3 id="language-constructs-for-templates-1">language constructs for templates</h3>
+<pre tabindex="0"><code>{{ if keyExists &#34;nginx/mykey&#34; }}
+# ...
+{{ else }}
+# ...
+{{ end }}
+</code></pre><pre tabindex="0"><code>location /location/ {
+{{ if keyExists (printf &#34;balancer/internal/%s&#34; (env &#34;HOST&#34;)) }}
+proxy_pass http://{{ keyOrDefault &#34;mapping/internal&#34; &#34;internal&#34; }}/;
+{{ end }}
+}
+</code></pre><h2 id="inventory-files">Inventory files</h2>
+<p><img src="images/consul4.png" alt="consul4"></p>
+<p>on ansible machine edit <code>consul.inv</code></p>
+<p>consul.inv</p>
+<pre tabindex="0"><code>[consul_instances]
+192.168.0.1 consul_bind_address=192.168.0.1 consul_client_address=&#34;192.168.0.1 127.0.0.1&#34; \
+consul_node_role=server consul_bootstrap_expect=true
+192.168.0.2 consul_bind_address=192.168.0.2 consul_client_address=&#34;192.168.0.2 127.0.0.1&#34; \
+consul_node_role=server consul_bootstrap_expect=true
+192.168.0.3 consul_bind_address=192.168.0.3 consul_client_address=&#34;192.168.0.3 127.0.0.1&#34; \
+consul_node_role=server consul_bootstrap_expect=true
+192.168.0.4 consul_bind_address=192.168.0.4 consul_client_address=&#34;192.168.0.4 127.0.0.1&#34; \
+consul_node_role=client consul_enable_local_script_checks=true
+192.168.0.6 consul_bind_address=192.168.0.6 consul_client_address=&#34;192.168.0.6 127.0.0.1&#34; \
+consul_node_role=client
+
+[nginx]
+192.168.0.4
+192.168.0.6
+</code></pre><p>ansible file edit <code>site.yml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Assemble Consul cluster</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">consul_instances</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">any_errors_fatal</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">become_user</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">roles</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">ansible-consul</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Consul client and service</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">192.168.0.4</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">vars_files</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">consul_services.yaml</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">any_errors_fatal</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">become_user</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">roles</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">ansible-consul</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install Nginx</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">nginx</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">become_user</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">roles</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">ansible-role-nginx</span>
+</span></span></code></pre></div><p>run</p>
+<pre tabindex="0"><code>ansible-playbook -i consul.inv site.yaml
+</code></pre><p>after need install on consul-template machine file <code>consul-template-config.json</code></p>
+<p>configurate file consul-template-config.json for consul-template</p>
+<p>need add to  <code>/etc/consul-template.d/consul-template-config.json</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano <span style="color:#e6db74">`</span>consul-template-config.json<span style="color:#e6db74">`</span>
+</span></span></code></pre></div><p>in file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">consul</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">address</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#f92672">&#34;localhost:8500&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">retry</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">enabled</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#960050;background-color:#1e0010">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">attempts</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#960050;background-color:#1e0010">12</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">backoff</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#f92672">&#34;250ms&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">template</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">source</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#f92672">&#34;/etc/nginx/conf.d/load-balancer.conf.ctmpl&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">destination</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#e6db74">&#34;/etc/nginx/conf.d/load-balancer.conf&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">perms</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#ae81ff">0600</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#960050;background-color:#1e0010">command</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#e6db74">&#34;nginx -s reload&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="template-jinja2-nginx-for-ansible">Template Jinja2 Nginx for Ansible</h3>
+<p>on ansible machine need download in <code>./asnisble_playbook/roles/</code></p>
+<pre tabindex="0"><code>clone https://github.com/nginxinc/ansible-role-nginx.git
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd ansible-role-nginx-config
+</span></span></code></pre></div><p>need add  to<code>/roles/ansible-role-nginx-config/templates/stream/load-balancer.conf.ctmpl.j2.</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /templates/stream/load-balancer.conf.ctmpl.j2
+</span></span></code></pre></div><p>template jinja2</p>
+<pre tabindex="0"><code>{% if backend is defined %}
+upstream {{ backend }} {
+  server 127.0.0.1:8080;
+}
+{% else %}
+upstream python {
+{{&#39;{{&#39;}}- range service &#34;{{ servicename }}&#34; {{&#39;}}&#39;}}
+  server {{&#39;{{&#39;}} .Address {{&#39;}}&#39;}};
+{{&#39;{{&#39;}}- end {{&#39;}}&#39;}}
+}
+{% endif %}
+server {
+  listen 80;
+  location / {
+{% if backend is defined %}
+       proxy_pass http://{{ backend }};
+{% else %}
+       proxy_pass http://python;
+{% endif %}
+  }
+}
+</code></pre><h3 id="algorithm-generate-template">Algorithm generate template</h3>
+<p><img src="images/consul5.svg" alt="consul5"></p>
+<p>Create playbook for ansible <code>nginx-consul-template-ansible.yaml</code> in directory <code>~/asnible_playbooks/roles</code></p>
+<pre tabindex="0"><code>nano nginx-consul-template-ansible.yaml
+</code></pre><pre tabindex="0"><code>---
+# Playbook for configuring Nginx as a load balancer for consul-template
+- name: Configuring Nginx
+  hosts: 192.168.0.6
+  become: true
+  become_user: root
+  tasks:
+  - name: Getting backend name from consul KV storage
+    delegate_to: 127.0.0.1
+    ignore_errors: yes
+    set_fact:
+      backend: &#34;{{ lookup(&#39;consul_kv&#39;, &#39;backend&#39;, host=&#39;192.168.0.6&#39;) }}&#34;
+    when: backend | length &gt; 0
+  - name: Configure Nginx for consul-template
+  include_role: 
+    name: ansible-role-nginx-config
+  vars:
+    servicename: backend
+    nginx_config_stream_template_enable: true
+    nginx_config_stream_template:
+       - template_file: stream/load-balancer.conf.ctmpl.j2
+         conf_file_name: load-balancer.conf.ctmpl
+         conf_file_location: /etc/nginx/conf.d
+    nginx_config_cleanup: true
+    nginx_config_cleanup_paths:
+    - directory:
+      - /etc/nginx/conf.d
+      - /etc/nginx/sites-enabled
+      recurse: false
+    nginx_config_cleanup_files: 
+      - /etc/nginx/conf.d/default.conf
+      - /etc/nginx/sites-enabled/000-default
+</code></pre><p>run</p>
+<pre tabindex="0"><code>ansible-playbook -i consul.inv nginx-consul-template-ansible.yaml
+</code></pre><p>in consul-template machine <code>/</code>etc/nginx/conf.d/load-balance.conf.ctmpl`
+see if automatic create template file</p>
+<pre tabindex="0"><code>cat load-balance.conf.ctmpl
+</code></pre><p>run consul temlate</p>
+<pre tabindex="0"><code>systemctl start consul-temlate
+</code></pre><p>after it you can see automaticly create file for nginx <code>/etc/nginx/loadbalance.conf</code></p>
+<p>see if Nginx run</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemcl status nginx
+</span></span></code></pre></div><p>test if nginx running</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl 127.0.0.1 
+</span></span></code></pre></div><p>see logs on client if all running</p>
+<pre tabindex="0"><code>tail /var/logs/nginx/access.log 
+</code></pre><h2 id="cluster-3">cluster 3</h2>
+<p><img src="images/consul6.svg" alt="consul6"></p>
+<p>on ansible machine</p>
+<p>init consul (create role consul)</p>
+<pre tabindex="0"><code>ansible-galaxy init consul
+</code></pre><p>after go to <code>cd roles/consul/tasks/</code> and create new file <code>main.yml</code></p>
+<pre tabindex="0"><code>nano main.yml
+</code></pre><p>copy &amp;&amp; past:</p>
+<pre tabindex="0"><code>---
+# tasks file for consul
+- name: Install auxiliary applications
+  apt:
+   name:
+     - software-properties-common
+     - python3
+     - python3-pip
+     - python-setuptools
+  update_cache: yes
+- name: install python-consul for ansible searching plugin
+  run_once: true
+  delegate_to: 192.168.0.4
+  pip:
+    name: python_consul
+    executable: pip3
+- name: Install consul GPG key
+  apt_key:
+    url: https://apt.release.hashicorp.com/gpg
+    keyring: /etc/apt/trusted.gpg.d/hashicorp.gpg
+    state: present
+- name: add consul official repository
+  apt_repository:
+    repo: deb [arc=amd64 signed-by=/etc/apt/trusted.gpg.d/hashicorp.gpg] https://apt.releases.hasicorp.com focal main
+- name: Install consul
+  apt:
+    name: consul
+    update_cache: yes
+- name: Install consul-template
+  run_once: true
+  delegate_to: 192.168.0.4
+  apt:
+    name: consule-template
+- name: Copy systemd file or consul-template
+  run_once: true
+  delegate_to: 192.168.0.4
+  copy:
+    scr: consul-template.service
+    dest: /usr/lib/systemd/system/
+    owner: root
+    group: root
+- name: create directory for consul-template config
+  run_once: true
+  delegate_to: 192.168.0.4
+  file:
+    path: /etc/consul-template.d/
+    owner: consul
+    group: consul
+    state: directory
+- name: copy consul-template config
+  run_once: true
+  delegate_to: 192.168.0.4
+  copy:
+    scr: consul-template.json
+    dest: /etc/consul-template.d/
+    owner: consul
+    group: consul
+</code></pre><p>after create new file <code>site.yml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano site.yml
+</span></span></code></pre></div><p>copy &amp;&amp; past\</p>
+<pre tabindex="0"><code>---
+# File: site.yml - Example Consul site playbook
+
+- name: Install consul
+ hosts: consul_instances
+ roles:
+    - consul
+- name: Assemble Consul cluster
+ hosts: consul instances
+ any_errors_fatal: true
+ become: true
+ become_user: root
+ roles:
+   - ansible-consul
+
+- name: Install Nginx
+ hosts: 192.168.0.5
+ vars_files:
+   - consul_services_v1.yaml
+ any_errors_fatal: true
+ become: true
+ become_user: root
+ roles:
+   - ansible-consul
+
+- name: Install Nginx
+ hosts: 192.168.0.6
+ vars_files:
+   - consul_services_v2.yaml
+ any_errors_fatal: true
+ become: true
+ become_user: root
+ roles:
+   - ansible-consul
+</code></pre><h3 id="clone-ansible-console-to-ansible">Clone Ansible-console to Ansible</h3>
+<p>clone to /ansible_playbooks/roles/</p>
+<pre tabindex="0"><code>git clone https://github.com/ansible-community/ansible-consul.git
+</code></pre><h3 id="create-services">Create Services</h3>
+<p>create <code>consule_services_v1.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">consul_services</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;be_version_v1&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#34;web server v1&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tags</span>: [<span style="color:#e6db74">&#39;bev1&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">checks</span>:
+</span></span><span style="display:flex;"><span>        - { <span style="color:#f92672">name</span>: <span style="color:#f92672">&#39;Check Nginx availability&#39;, id</span>: <span style="color:#e6db74">&#39;Nginx&#39;</span><span style="color:#ae81ff">. http://127.0.0.1&#39;, method: &#39;GET&#39;, interval: &#39;10s&#39;, timeout: &#39;1s&#39; }</span>
+</span></span><span style="display:flex;"><span>    
+</span></span></code></pre></div><p>create <code>consule_services_v2.yaml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">consul_services</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;be_version_v2&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">id</span>: <span style="color:#e6db74">&#34;web server v2&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tags</span>: [<span style="color:#e6db74">&#39;bev2&#39;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">checks</span>:
+</span></span><span style="display:flex;"><span>        - { <span style="color:#f92672">name</span>: <span style="color:#f92672">&#39;Check Nginx availability&#39;, id</span>: <span style="color:#e6db74">&#39;Nginx&#39;</span><span style="color:#ae81ff">. http://127.0.0.1&#39;, method: &#39;GET&#39;, interval: &#39;10s&#39;, timeout: &#39;1s&#39; }</span>
+</span></span><span style="display:flex;"><span>    
+</span></span></code></pre></div><h3 id="consule-templatejson-config">consule-template.json config</h3>
+<p><a href="https://github.com/hashicorp/consul-template/blob/main/docs/templating-language.md#service">https://github.com/hashicorp/consul-template/blob/main/docs/templating-language.md#service</a></p>
+<p>need create <code>consul-template.json</code> and <code>consul-template.service</code> in <code>/ansible-playbooks/roles/consul/files/</code></p>
+<p>consul-template.json</p>
+<pre tabindex="0"><code>consul {
+  address: = &#34;localhost:8500&#34;
+
+  retry {
+    enable = true
+    attempts = 12
+    backoff = &#34;250ms&#34;
+  }
+}
+template {
+  source        = &#34;/etc/nginx/conf.d/load-balancer.conf.tmp&#34;
+  destination   = &#34;/etc/nginx/conf.d/load-balancer.conf&#34;
+  perms         = 0600
+  command       = &#34;nginx -s reload&#34;
+}
+</code></pre><p>consule-template.service</p>
+<pre tabindex="0"><code>[Unit]
+Description=Consul-Template Daemon
+Documentation=https://github.com/hashicorp/consul-template/
+Wants=basic.target
+After=network.target
+
+[Service]
+User=consul
+Group=consul
+ExecStart=/usr/bin/consul-template -config=/etc/consul-template.d/
+SuccessExitStatus=12
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+KillMode=process
+Restart=on-failure
+RestartSec=42s
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+</code></pre><h3 id="inventory-file">Inventory File</h3>
+<p>now need inventory file <code>consul.inv</code> create in directory <code>/ansibe-playbooks/</code></p>
+<p>consul.inv</p>
+<pre tabindex="0"><code>[consul_instances]
+
+192.168.0.1 consul_bind_address=192.168.0.1 consul_client_address=&#34;192.168.0.1 127.0.0.1&#34; consul_node_role=server consul_bootstrap_expect=true
+192.168.0.2 consul_bind_address=192.168.0.2 consul_client_address=&#34;192.168.0.2 127.0.0.1&#34; consul_node_role=server consul_bootstrap_expect=true
+192.168.0.3 consul_bind_address=192.168.0.3 consul_client_address=&#34;192.168.0.3127.0.0.1&#34; consul_node_role=server consul_bootstrap_expect=true
+192.168.0.4 consul_bind_address=192.168.0.4 consul_client_address=&#34;192.168.0.4 127.0.0.1&#34; consul_node_role=client consul_enable_local_script_checks=false
+192.168.0.5 consul_bind_address=192.168.0.4 consul_client_address=&#34;192.168.0.5 127.0.0.1&#34; consul_node_role=client consul_enable_local_script_checks=true
+192.168.0.6 consul_bind_address=192.168.0.4 consul_client_address=&#34;192.168.0.6 127.0.0.1&#34; consul_node_role=client consul_enable_local_script_checks=true
+
+[consul_template]
+192.168.0.4
+[nginx]
+192.168.0.4
+192.168.0.5
+192.168.0.6
+[backend]
+192.168.0.5
+192.168.0.6
+</code></pre><p>now run playbook</p>
+<pre tabindex="0"><code>ansible-playbook -i consul.inv site.yml
+</code></pre><h3 id="configuration-nginx">Configuration Nginx</h3>
+<p>download role to <code>/ansible-playbooks/roles/</code></p>
+<p>clone</p>
+<pre tabindex="0"><code>git clone https://github.com/nginxinc/ansible-role-nginx.git
+</code></pre><p>create new file <code>config_nginx.yml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-name</span>: <span style="color:#ae81ff">Configuring Nginx</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">consul_template</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">become</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">become_user</span>: <span style="color:#ae81ff">root</span>
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">tasks</span>:
+</span></span><span style="display:flex;"><span>   - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Getting backend name from consul KV storage</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">set_fact</span>:
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">version</span>: <span style="color:#e6db74">&#34;{{ lookup(&#39;consul_kv&#39;, &#39;version&#39;, host=&#39;192.168.0.4&#39;) | default(&#39;v2&#39;, true) }}&#34;</span> 
+</span></span><span style="display:flex;"><span>   - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">print version</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">debug</span>:
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">msg</span>: <span style="color:#e6db74">&#34;version= {{ version }}&#34;</span>
+</span></span><span style="display:flex;"><span>   - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Configure Nginx for consul-template</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">include_role</span>:
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">name</span>: <span style="color:#ae81ff">ansible-role-nginx-config</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#f92672">vars</span>:
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">nginx_config_stream_template_enable</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">nginx_config_stream_template</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">template_file</span>: <span style="color:#ae81ff">stream/load-balancer.conf.tmp.j2        </span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">conf_file_name</span>: <span style="color:#ae81ff">load-balancer.conf.tmp</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">conf_file_location:</span>: <span style="color:#ae81ff">/etc/nginx/conf.d</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">ngnix_config_cleanup</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">ngnix_config_cleanup_paths</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">directory</span>:
+</span></span><span style="display:flex;"><span>              - <span style="color:#ae81ff">/etc/nginx/conf.d</span>
+</span></span><span style="display:flex;"><span>              - <span style="color:#ae81ff">/etc/nginx/sites-enabled</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">recurse</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#f92672">ngnix_config_cleanup_files</span>:
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">/etc/nginx/conf.d/default.conf</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">/etc/nginx/sites-enabled/000-default</span>
+</span></span></code></pre></div><h3 id="ansible-role-ngnix-config">Ansible Role Ngnix Config</h3>
+<p><code>/roles/ansible-role-nginx-config/templates/stream/load-balancer.conf.tmp.js</code></p>
+<pre tabindex="0"><code class="language-j2" data-lang="j2">{% if version is defined %}
+  {% if version == &#34;v1&#34; %}
+   upsteam be_version_v1 {
+     {{&#39;{{&#39;}}- range service &#34;be_version_v1&#34; {{&#39;}}&#39;}}
+       server {{&#39;{{&#39;}} .Address {{&#39;}}&#39;}};
+     {{&#39;{{&#39;}}- end {{&#39;}}&#39;}}
+}
+{% elif version == &#34;v2&#34; %}
+  upsteam be_version_v2 {
+    {{&#39;{{&#39;}}- range service &#34;be_version_v2 {{&#39;}}&#39;}}
+       server {{&#39;{{&#39;}} .Address {{&#39;}}&#39;}};
+    {{&#39;{{&#39;}}- end {{&#39;}}&#39;}}
+  }
+  {% endif %}
+{% endif %}
+
+server {
+   listen 80;
+
+{% if version is defined %}
+  {% if version == &#34;v1&#34; %}
+   location /v1/ {
+       proxy_pass http://be_version_v1;
+}
+
+{% elif version == &#34;v2&#34; %}
+   location /v2/ {
+       proxy_pass http://be_version_v2;
+ }
+}
+
+  {% endif %}
+{% endif %}
+</code></pre><p>run</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ansible-playbook -i consul.inv configure-nginx.yml 
+</span></span></code></pre></div><h3 id="load-balance">Load Balance</h3>
+<p>on machine loadbalance</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /etc/nginx/conf.d/
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat load-balancer.conf.tmp
+</span></span></code></pre></div><p>get key value</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>consul kv get version
+</span></span></code></pre></div><p>put version</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>consul kv put version v1
+</span></span></code></pre></div><p>/etc/ngnix/conf.d/ use <code>cat load-balancer.conf.tmp</code></p>
+<pre tabindex="0"><code>{{ $keyname := keyOrDefault &#34;version&#34; &#34;v2&#34; }}
+{{ $service name := printf &#34;be_version_%s&#34; $keyname }}
+upstream {{ $service name }} {
+     {{- range service  $service_name }}
+       service {{ .Address }};
+     {{- end }}
+}
+server {
+   listen 80;
+
+     localion /{{ $keyname }}/ {
+       proxy_pass http://{{ $service_name }};
+     }
+}
+</code></pre><p>start consul-template</p>
+<pre tabindex="0"><code>systemctl start consul-template
+</code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#server-vs-client">Server vs Client</a></li>
+    <li><a href="#instal-consul">Instal consul</a></li>
+    <li><a href="#generate-key-consul">Generate key consul</a></li>
+    <li><a href="#useful-commands">Useful commands</a></li>
+    <li><a href="#configuratin-client-of-consul">Configuratin Client of Consul</a>
+      <ul>
+        <li><a href="#config-json-script">Config json script</a></li>
+      </ul>
+    </li>
+    <li><a href="#dns-interface">DNS Interface</a></li>
+    <li><a href="#http-api">HTTP API</a></li>
+    <li><a href="#ui-config-enable">UI Config enable</a></li>
+    <li><a href="#consul-template">Consul Template</a></li>
+    <li><a href="#create-for-consul-template-systemd-unit">Create for Consul Template Systemd Unit</a></li>
+    <li><a href="#work-with-key-value-storage">Work with key-value storage</a>
+      <ul>
+        <li><a href="#requests-to-the-consul-from-the-consul-template">Requests to the consul from the Consul-template</a></li>
+        <li><a href="#language-constructs-for-templates">Language constructs for templates</a></li>
+        <li><a href="#requests-to-requests-to-kv-storage">Requests to Requests to KV storage</a></li>
+        <li><a href="#language-constructs-for-templates-1">language constructs for templates</a></li>
+      </ul>
+    </li>
+    <li><a href="#inventory-files">Inventory files</a>
+      <ul>
+        <li><a href="#template-jinja2-nginx-for-ansible">Template Jinja2 Nginx for Ansible</a></li>
+        <li><a href="#algorithm-generate-template">Algorithm generate template</a></li>
+      </ul>
+    </li>
+    <li><a href="#cluster-3">cluster 3</a>
+      <ul>
+        <li><a href="#clone-ansible-console-to-ansible">Clone Ansible-console to Ansible</a></li>
+        <li><a href="#create-services">Create Services</a></li>
+        <li><a href="#consule-templatejson-config">consule-template.json config</a></li>
+        <li><a href="#inventory-file">Inventory File</a></li>
+        <li><a href="#configuration-nginx">Configuration Nginx</a></li>
+        <li><a href="#ansible-role-ngnix-config">Ansible Role Ngnix Config</a></li>
+        <li><a href="#load-balance">Load Balance</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

@@ -1,10 +1,10 @@
 ---
 title: "Windows Server APP-V"
 discription: Windows Server 
-date: 2022-05-01T21:29:01+08:00 
+date: 2022-05-01
 draft: false
 type: post
-tags: ["Windows Server, Virtulization, App-v "]
+tags: ["Windows Server", "Virtulization", "App-v"]
 showTableOfContents: true
 --- 
 

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Terraform</title>
+    <meta name="description" content="
+structura of terraform:
+main.tf
+outputs.tf
+terraform.tfstate
+terraform.tfstate.backup
+variable.tf
+used for create new project terraform init command in …">
+    <meta name="keywords" content='Linux, terraform, Go'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/terraform/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Terraform">
+    <meta property="og:description" content="
+structura of terraform:
+main.tf
+outputs.tf
+terraform.tfstate
+terraform.tfstate.backup
+variable.tf
+used for create new project terraform init command in …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Terraform">
+    <meta name="twitter:description" content="
+structura of terraform:
+main.tf
+outputs.tf
+terraform.tfstate
+terraform.tfstate.backup
+variable.tf
+used for create new project terraform init command in …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/terraform/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/terraform/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/terraform/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Terraform</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              April 3, 2023
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/terraform">terraform</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/go">Go</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/terraform1.svg" alt="terraform1"></p>
+<p>structura of terraform:</p>
+<p>main.tf</p>
+<p>outputs.tf</p>
+<p>terraform.tfstate</p>
+<p>terraform.tfstate.backup</p>
+<p>variable.tf</p>
+<p>used for create new project <code>terraform init</code> command in Terraform initializes a new or existing Terraform configuration, setting up the environment, downloading necessary plugins, modules, and configuring the backend to prepare for managing infrastructure as code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /path/to/your/terraform/project
+</span></span><span style="display:flex;"><span>terraform init
+</span></span></code></pre></div><p><code>terraform plan</code> command in Terraform creates an execution plan that outlines the actions Terraform will take to modify the infrastructure according to the configuration files. It shows the changes, additions, modifications, or deletions of resources without actually applying these changes, allowing users to review and validate the proposed modifications before execution.</p>
+<pre tabindex="0"><code> terraform plan
+</code></pre><p><code>terraform apply</code>  command in Terraform applies the changes specified in your configuration files to the infrastructure, creating, modifying, or destroying resources as necessary to achieve the desired state.</p>
+<pre tabindex="0"><code>terraform apply 
+</code></pre><p><code>-auto-approve</code></p>
+<p><code>terraform destroy</code>  command in Terraform destroys all the resources created by your Terraform configuration, effectively tearing down the entire infrastructure.</p>
+<pre tabindex="0"><code>terraform destroy
+</code></pre><p>terraform used syntex <code>HCL configuration syntax</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-hcl" data-lang="hcl"><span style="display:flex;"><span><span style="color:#75715e"># main.tf
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">provider</span> <span style="color:#e6db74">&#34;ilo&#34;</span> {
+</span></span><span style="display:flex;"><span>  host        <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;ILO_IP&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>  username    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;ILO_USERNAME&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>  password    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&lt;ILO_PASSWORD&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>  server_certificate_verification <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;false&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;ilo_server_profile&#34; &#34;example_server_profile&#34;</span> {
+</span></span><span style="display:flex;"><span>  name                   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ExampleServerProfile&#34;</span>
+</span></span><span style="display:flex;"><span>  server_hardware_type   <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;SY 480 Gen10&#34;</span>
+</span></span><span style="display:flex;"><span>  enclosure_group_uri    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/rest/enclosure-groups/&lt;ENCLOSURE_GROUP_URI&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>  server_hardware_uri    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/rest/server-hardware/&lt;SERVER_HARDWARE_URI&gt;&#34;</span>
+</span></span><span style="display:flex;"><span>  enclosure_index        <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">bios</span> {
+</span></span><span style="display:flex;"><span>    manage_bios <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">boot</span> {
+</span></span><span style="display:flex;"><span>    manage_boot <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>    order       <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;Cd&#34;, &#34;Hdd&#34;, &#34;Usb&#34;</span>]
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">local_storage</span> {
+</span></span><span style="display:flex;"><span>    manage_local_storage <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;ilo_virtual_media&#34; &#34;example_virtual_media&#34;</span> {
+</span></span><span style="display:flex;"><span>  name       <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ExampleVirtualMedia&#34;</span>
+</span></span><span style="display:flex;"><span>  boot       <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Once&#34;</span>
+</span></span><span style="display:flex;"><span>  image_uri  <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://path/to/your/iso/image.iso&#34;</span>
+</span></span><span style="display:flex;"><span>  server_uri <span style="color:#f92672">=</span> <span style="color:#66d9ef">ilo_server_profile</span>.<span style="color:#66d9ef">example_server_profile</span>.<span style="color:#66d9ef">uri</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;ilo_power&#34; &#34;example_power&#34;</span> {
+</span></span><span style="display:flex;"><span>  name      <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ExamplePower&#34;</span>
+</span></span><span style="display:flex;"><span>  server_uri <span style="color:#f92672">=</span> <span style="color:#66d9ef">ilo_server_profile</span>.<span style="color:#66d9ef">example_server_profile</span>.<span style="color:#66d9ef">uri</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">resource</span> <span style="color:#e6db74">&#34;ilo_user&#34; &#34;example_user&#34;</span> {
+</span></span><span style="display:flex;"><span>  name          <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ExampleUser&#34;</span>
+</span></span><span style="display:flex;"><span>  login_name    <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;exampleuser&#34;</span>
+</span></span><span style="display:flex;"><span>  password      <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;examplepassword&#34;</span>
+</span></span><span style="display:flex;"><span>  server_uri    <span style="color:#f92672">=</span> <span style="color:#66d9ef">ilo_server_profile</span>.<span style="color:#66d9ef">example_server_profile</span>.<span style="color:#66d9ef">uri</span>
+</span></span><span style="display:flex;"><span>  privileges    <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;Login&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents"></nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

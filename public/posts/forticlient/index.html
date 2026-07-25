@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Fortinet</title>
+    <meta name="description" content="fortinet basic">
+    <meta name="keywords" content='Route, Firewall'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/forticlient/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Fortinet">
+    <meta property="og:description" content="fortinet basic">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fortinet">
+    <meta name="twitter:description" content="fortinet basic">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/forticlient/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/forticlient/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/forticlient/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Fortinet</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle">fortinet basic</small>
+	
+
+	
+          <p class="post-date">
+              
+
+              November 14, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/route">Route</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/firewall">Firewall</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/00.png" alt="img00"></p>
+<h3 id="configuring-the-lan-interface-including-dhcp-server">Configuring the LAN interface, including DHCP server</h3>
+<p>Network &gt; Interfaces &gt; doble-click on <code>port5</code>
+<img src="images/01.webp" alt="img01"></p>
+<p>Alias: <code>LAN-HQ</code> Role: <code>LAN</code> IP/Netmask <code>172.16.10.1/24</code>
+<img src="images/02.webp" alt="img02"></p>
+<p>Administrative Access IPV4 : <code>HTTPS</code>, <code>PING</code>, <code>SSH</code> after Enable DHCP Server
+<img src="images/03.webp" alt="img03"></p>
+<p>Address range: <code>172.16.10.21-172.16.10.256</code>
+<img src="images/04.webp" alt="img04"></p>
+<p>Comments: <code>Lan port connected to HQ</code> and click <code>OK</code>
+<img src="images/05.webp" alt="img05"></p>
+<p>Double-click on <code>port6</code>
+<img src="images/06.webp" alt="img06"></p>
+<p>Alias: <code>WAN-ISP</code> Role: <code>WAN</code>
+<img src="images/07.webp" alt="img07"></p>
+<p>IP/Netmask: <code>172.16.20.1/30</code> and IPV4: <code>SSH</code>
+<img src="images/08.webp" alt="img08"></p>
+<p>Comments: <code>WAN port connected to ISP</code> and click <code>OK</code>
+<img src="images/09.webp" alt="img09"></p>
+<blockquote>
+<p>Configuration of the LAN and WAN interfaces is complete.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="configure-and-monitor-the-default-route">Configure and monitor the default route</h3>
+<p>Network &gt; Static Routes &gt; click create New
+<img src="images/10.webp" alt="img10"></p>
+<p>Destination Subnet : <code>0.0.0.0/0</code> Gateway Address: <code>172.16.20.2</code> Interface: <code>WAN-ISP (port6)</code> and <code>OK</code>
+<img src="images/11.webp" alt="img11"></p>
+<p>Dashboard &gt; Network &gt; Click to expand
+<img src="images/12.webp" alt="img12"></p>
+<p><img src="images/13.webp" alt="img13"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="create-a-firewall-address-of-the-internal-subnet">Create a firewall address of the internal subnet</h3>
+<p>Policy &amp; Objects &gt; Addresses &gt; Click <strong>Create New</strong>
+<img src="images/14.webp" alt="img14"></p>
+<p>Name: <code>Internal Network</code> IP/Network: <code>10.0.1.0/24</code>
+<img src="images/15.webp" alt="img15"></p>
+<p>Interface: <code>port3</code> and press <code>OK</code>
+<img src="images/16.webp" alt="img16"></p>
+<blockquote>
+<p>The firewall address of the internal subnet is created.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="configure-the-firewall-policy">Configure the firewall policy</h3>
+<p>Policy &amp; Objects &gt; Firewall Policy &gt; Click <strong>Create New</strong>
+<img src="images/17.webp" alt="img17"></p>
+<p>Name: <code>Internal Access</code> Incoming Interface: <code>port3</code> Outgoing Interface: <code>port1</code>
+<img src="images/18.webp" alt="img18"></p>
+<p>Click Source + &gt; Select <code>Internal Network</code> &gt; Click <strong>Close</strong>
+<img src="images/19.webp" alt="img19"></p>
+<p>Destination + &gt; Select <code>all</code> &gt; Click <strong>Close</strong>
+<img src="images/20.webp" alt="img20"></p>
+<p>Service + &gt; Select <code>HTTP</code> <code>HTTPS</code> <code>DNS</code> &gt; Click <strong>Close</strong>
+<img src="images/21.webp" alt="img21"></p>
+<p>Enable <code>NAT</code>
+<img src="images/22.webp" alt="img22"></p>
+<blockquote>
+<p>This is an outgoing traffic policy, and NAT is enabled. This allows FortiGate to translate the private address of the network device to the public IP address of the port1 interface.</p>
+</blockquote>
+<p>Log allowed traffic: <code>All sessions</code> and Click <code>OK</code>
+<img src="images/23.webp" alt="img23"></p>
+<p><img src="images/24.webp" alt="img24"></p>
+<blockquote>
+<p>Firewall configuration complete!</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="verify-the-firewall-policy-configuration">Verify the firewall policy configuration</h3>
+<ol>
+<li>
+<p>for test open <a href="https://www.fortinet.com">https://www.fortinet.com</a></p>
+</li>
+<li>
+<p>Policy &amp; Objects &gt; Firewall Policy &gt; Right-click the policy
+<img src="images/25.webp" alt="img25"></p>
+</li>
+<li>
+<p>Click <strong>Show Matching Logs</strong>
+<img src="images/26.webp" alt="img26"></p>
+</li>
+</ol>
+<p><img src="images/27.webp" alt="img27"></p>
+<blockquote>
+<p>The Forward Traffic logs for all traffic matching this policy appears on the screen, verifying that FortiGate is applying the policy.</p>
+</blockquote>
+<ol start="5">
+<li>
+<p>for test open cmd &gt; telnet <a href="https://www.fortinet.com">www.fortinet.com</a> (its 23 port)</p>
+</li>
+<li>
+<p>Policy &amp; Objects &gt; Firewall Policy &gt; Right Click <strong>Implicit Deny</strong> policy &gt; Click <strong>Show Matching Logs</strong> &gt;
+<img src="images/29.webp" alt="img29"></p>
+</li>
+</ol>
+<blockquote>
+<p>Because Telnet traffic doesn&rsquo;t match the Internet Access policy, it is processed and blocked by the Implicit Deny policy.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="create-a-user-account">Create a user account</h3>
+<p><strong>User &amp; Authentication</strong> &gt; <strong>User Definition</strong> &gt; <strong>Create New</strong>
+<img src="images/30.webp" alt="img30"></p>
+<p><img src="images/31.webp" alt="img31"></p>
+<p>Username: <code>fatima</code>  Password: <code>password</code> &gt; <strong>Next</strong>
+<img src="images/32.webp" alt="img32"></p>
+<p>Click <strong>Next</strong>
+<img src="images/33.webp" alt="img33"></p>
+<p><img src="images/34.webp" alt="img34"></p>
+<p><img src="images/35.webp" alt="img35"></p>
+<p>   </p>
+<p>   </p>
+<h3 id="configure-remote-authentication">Configure remote authentication</h3>
+<p><strong>User &amp; Authentication</strong> &gt; <strong>LDAP Servers</strong> &gt; <strong>Create New</strong>
+<img src="images/36.webp" alt="img36"></p>
+<p>Name: <code>RemoteAuthServer</code>
+Server IP/Name: <code>10.0.1.150</code>
+Server Port: <code>389</code>
+Common Name Indentifier: <code>uid</code>
+Distinguished Name: <code>ou=Training,dc=TrainingAD,dc=training,dc=lab.</code>
+<img src="images/37.webp" alt="img37">
+Bind Type: <code>Regular</code>
+Username: <code>uid=aduser1,ou=Training,dc=TrainingAD,dc=training,dc=lab</code>
+<img src="images/38.webp" alt="img38"></p>
+<p>Password: <code>Training!</code> and Press <strong>Test Connectivity</strong> and <strong>OK</strong>
+<img src="images/39.webp" alt="img39"></p>
+<p><img src="images/40.webp" alt="img40"></p>
+<blockquote>
+<p>Remote authentication is configured</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="create-a-user-group">Create a user group</h3>
+<p><strong>User &amp; Authentication</strong> &gt; <strong>Users Groups</strong> &gt; <strong>Create New</strong>
+<img src="images/41.webp" alt="img41"></p>
+<p>Name: <code>sales</code> Type: <code>Firewall</code> members: <code>fatima</code>
+<img src="images/42.webp" alt="img42"></p>
+<p>Remote Groups <strong>+ Add</strong> &gt; Remote Server: <strong>RemoteAuthServer</strong> &gt; <strong>OK</strong>
+<img src="images/43.webp" alt="img43"></p>
+<p><img src="images/44.webp" alt="img44"></p>
+<p>A user group created
+<img src="images/45.webp" alt="img45"></p>
+<p>Click <strong>OK</strong>
+<img src="images/46.webp" alt="img46"></p>
+<p>   </p>
+<p>   </p>
+<h3 id="add-authentication-to-the-firewall-policy">Add authentication to the firewall policy</h3>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Firewall Policy</strong> &gt; <strong>Internal Network</strong> &gt; <strong>Edit</strong>
+<img src="images/47.webp" alt="img47">
+Open <strong>User/group</strong>: <code>sales</code> &gt; close<br>
+<img src="images/48.webp" alt="img48">
+Click <strong>OK</strong>
+<img src="images/49.webp" alt="img49"></p>
+<p><img src="images/50.webp" alt="img50"></p>
+<blockquote>
+<p>The sales group is now part of the firewall policy source.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="verify-and-monitor-firewall-authentication">Verify and monitor firewall authentication</h3>
+<p>open website &gt; <strong>Open network login page</strong>
+<img src="images/51.webp" alt="img51"></p>
+<p>Username: <code>fatima</code> Password: <code>password</code> &gt; <strong>Continue</strong>
+<img src="images/52.webp" alt="img52"></p>
+<p><img src="images/53.webp" alt="img53"></p>
+<p><img src="images/54.webp" alt="img54">
+<strong>Dashboard</strong> &gt; <strong>Status</strong> &gt; <strong>Firewall Users</strong>
+<img src="images/55.webp" alt="img55">
+The user fatima shows as authenticated and connected.
+<img src="images/56.webp" alt="img56"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="apply-ssl-inspection">Apply SSL inspection</h3>
+<p><strong>Securtity Profiles</strong> &gt; <strong>SSL/SSH Inspection</strong> &gt; Click on custom-deep-inspection &gt; Click <strong>Edit</strong>
+<img src="images/57.webp" alt="img57"></p>
+<p><strong>Invalid SSL certificates</strong> &gt; <strong>Allow</strong>
+<img src="images/58.webp" alt="img58"></p>
+<p>Click <strong>OK</strong>
+<img src="images/59.webp" alt="img59"></p>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Firewall Policy</strong> &gt; <strong>Internal Network</strong> &gt; <strong>Edit</strong>
+<img src="images/60.webp" alt="img60"></p>
+<p>Web filter: <code>default</code>     SSL inspection: <code>custom-deep-inspection</code> &gt; <strong>OK</strong> &gt; Warning <strong>OK</strong>
+<img src="images/61.webp" alt="img61"></p>
+<p><img src="images/62.webp" alt="img62"></p>
+<blockquote>
+<p>The security profiles are now applied to the firewall policy</p>
+</blockquote>
+<p>in browser, go to <a href="https://google.com">https://google.com</a> &gt; Advanced &gt; Aceept the Risk and Continue
+<img src="images/63.webp" alt="img63"></p>
+<p>The lock with the warning indicates that you added a security exception.
+<img src="images/64.webp" alt="img64"></p>
+<p>   </p>
+<p>   </p>
+<h3 id="install-the-ca-certificate-to-avoid-certificate-warnings">Install the CA certificate to avoid certificate warnings</h3>
+<p><strong>Securtity Profiles</strong> &gt; <strong>SSL/SSH Inspection</strong> &gt; Click on <strong>custom-deep-inspection</strong> &gt; Click <strong>Edit</strong>
+<img src="images/57.webp" alt="img57"></p>
+<p><strong>CA certificate</strong> Download <code>Fortinet_CA_SSL</code>
+<img src="images/65.webp" alt="img65"></p>
+<p>and install it</p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="create-an-antivirus-profile">Create an antivirus profile</h3>
+<p><strong>Security Profiles</strong> &gt; <strong>AntiVirus</strong> &gt; <strong>default</strong> &gt; <strong>Edit</strong>
+<img src="images/66.webp" alt="img66"></p>
+<p><strong>Use FortiGuard outberak prevention database [X]</strong> &gt; <strong>OK</strong>
+<img src="images/67.webp" alt="img67"></p>
+<p><img src="images/69.webp" alt="img69"></p>
+<blockquote>
+<p>The default antivirus profile edit is complete.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="apply-antivirus-to-a-firewall-policy">Apply antivirus to a firewall policy</h3>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Firewall Policy</strong> &gt; <strong>Internal Network</strong> &gt; <strong>Edit</strong>
+<img src="images/70.webp" alt="img70"></p>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Firewall Policy</strong> &gt; <strong>Internet Access</strong> &gt; <strong>Edit</strong>
+<img src="images/71.webp" alt="img71"></p>
+<p>Antivirus[V] <code>default</code> &gt; SSL Inspection <code>deep-inspection</code> &gt; <strong>OK</strong><br>
+<img src="images/72.webp" alt="img72"></p>
+<p><img src="images/73.webp" alt="img73"></p>
+<blockquote>
+<p>The security profile is now applied to the firewall policy</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="verify-antivirus">Verify antivirus</h3>
+<p>Type <a href="https://www.eicar.org/download-anti-malware-testfile">https://www.eicar.org/download-anti-malware-testfile</a></p>
+<p>download <code>Com-file</code>
+<img src="images/74.webp" alt="img74"></p>
+<p><img src="images/75.webp" alt="img75"></p>
+<p><strong>Log &amp; Report</strong> &gt; <strong>Security Events</strong> &gt; <strong>AntiVirus</strong>
+<img src="images/76.webp" alt="img76"></p>
+<p>One or more <strong>EICAR_TEST_FILE</strong> entries appear, with the <strong>Action</strong> show as <strong>Blocked</strong>.
+<img src="images/77.webp" alt="img77"></p>
+<blockquote>
+<p>Antivirus inspection is verified.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="configure-web-filter-on-fortigate">Configure Web Filter on FortiGate</h3>
+<h4 id="ensure-that-fortigate-has-valid-fortiguard-security-subscription-license">Ensure that FortiGate has valid FortiGuard security subscription license</h4>
+<p>Status &gt; Webfilter [see status]</p>
+<h4 id="identify-how-the-fortiguard-service-categorizes-specific-websites">Identify how the FortiGuard service categorizes specific websites</h4>
+<p><a href="https://www.fortiguard.com/webfilter">www.fortiguard.com/webfilter</a>
+<img src="images/111.webp" alt="img111"></p>
+<h4 id="configure-a-web-filtering-profile-to-use-fortiguard-category-based-filters">Configure a web filtering profile to use FortiGuard category-based filters</h4>
+<p>Security Profiles &gt; Web filter &gt; default &gt; edit</p>
+<p>Social Networking: block &gt; OK
+<img src="images/112.webp" alt="img112"></p>
+<h4 id="apply-the-web-filter-security-profile-to-a-firewall-policy">Apply the web filter security profile to a firewall policy</h4>
+<ol>
+<li>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Firewall Policy</strong> &gt; <strong>Full Access</strong> &gt; edit</p>
+</li>
+<li>
+<p>Web filter: <code>default</code> , SSL Inspection <code>custom-deep-inspection</code>, Log allowed traffic [Security events] &gt; OK</p>
+</li>
+</ol>
+<h4 id="test-the-configured-actions-for-fortiguard-category-based-filters-and-examine-logs">Test the configured actions for FortiGuard category-based filters and examine logs</h4>
+<ol>
+<li>
+<p>type site
+<img src="images/113.webp" alt="img113"></p>
+</li>
+<li>
+<p>Log &amp; Report &gt; Security Events &gt; Web Filter &gt; logs<br>
+<img src="images/114.webp" alt="img114"></p>
+</li>
+</ol>
+<h3 id="configure-authenticate-cation-for-a-fortiguard-category-filter">Configure Authenticate cation for a FortiGuard Category Filter</h3>
+<ol>
+<li>
+<p>Security Profiles &gt; Web Filter &gt; default &gt; edit</p>
+</li>
+<li>
+<p>FortiGuard Category Based Filter &gt; Authenticate &gt; Warning Interval : <code>5 minute(s)</code> Selected User Groups: <code>Ovveride_Permissions</code> &gt; OK &gt; OK</p>
+</li>
+<li>
+<p>User &amp; Authentication &gt; User Definition &gt; + Create New &gt; Local User &gt; Next &gt; Username <code>student</code> Password <code>password</code>&gt; Next &gt; Next &gt; User Group [x] <code>Overide_Permissions</code> &gt; Submit</p>
+</li>
+</ol>
+<h4 id="test-the-authenticate-action-and-examine-logs">Test the Authenticate action and examine logs</h4>
+<p>type in browser
+<img src="images/115.webp" alt="img115"></p>
+<p>username &amp; password
+<img src="images/116.webp" alt="img116"></p>
+<p><img src="images/117.webp" alt="img117"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="create-a-custom-ips-sensor">Create a Custom IPS sensor</h3>
+<p><strong>Security Profiles</strong> &gt; <strong>Intrusion Prevention</strong> &gt; <strong>Create New</strong>
+<img src="images/78.webp" alt="img78"></p>
+<p><strong>Name:</strong> <code>Radius_Signatures_Sensor</code> &gt; <strong>+ Create New</strong>
+<img src="images/79.webp" alt="img79"></p>
+<p><strong>Type: Signature</strong> &gt; <strong>Action: Block</strong> &gt; Type <strong>Radius</strong> &gt; <strong>Search Icon</strong>
+<img src="images/80.webp" alt="img80"></p>
+<p><strong>Add All Results</strong> &gt; <strong>Edit IP Exemptions</strong>
+<img src="images/81.webp" alt="img81"></p>
+<p>Click <strong>Create New</strong>
+<img src="images/82.webp" alt="img82"></p>
+<p>Click <strong>Source IP/Netmask</strong>
+<img src="images/83.webp" alt="img83"></p>
+<p>Type <code>10.0.0.0/24</code> &gt; <strong>Apply</strong> &gt; <strong>OK</strong>
+<img src="images/84.webp" alt="img84"></p>
+<p>Click <strong>OK</strong>
+<img src="images/85.webp" alt="img85"></p>
+<p>Click <strong>OK</strong>
+<img src="images/86.webp" alt="img86"></p>
+<p><img src="images/87.webp" alt="img87"></p>
+<blockquote>
+<p>This sensor is ready to be applied to a firewall policy</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="configure-application-control">Configure application control</h3>
+<p><strong>Security Profiles</strong> &gt; <strong>Application Control</strong> &gt; <strong>Create New</strong>
+<img src="images/88.webp" alt="img88"></p>
+<p><strong>Name:<code>Block_Video</code></strong>
+<img src="images/89.webp" alt="img89"></p>
+<p><strong>Video/Audio</strong>: Block
+<img src="images/90.webp" alt="img90"></p>
+<p>Click <strong>OK</strong>
+<img src="images/91.webp" alt="img91"></p>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Firewall Policy</strong> &gt; <strong>Internet Access</strong> &gt; <strong>Edit</strong>
+<img src="images/92.webp" alt="img92"></p>
+<p><strong>Application control</strong>: [x] <code>Block_Video</code>
+<img src="images/93.webp" alt="img93"></p>
+<p>Click <strong>OK</strong>
+<img src="images/94.webp" alt="img94"></p>
+<p><img src="images/95.webp" alt="img95"></p>
+<blockquote>
+<p>The application control profile is configured.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="monitor-application-control">Monitor application control</h3>
+<p><strong>Type:</strong> <code>www.youtube.com</code>
+<img src="images/96.webp" alt="img96"></p>
+<p><strong>Log &amp; Report</strong> &gt; <strong>Security Events</strong> &gt; Double-Click <strong>Application Control</strong></p>
+<p><img src="images/97.webp" alt="img97"></p>
+<p><img src="images/98.webp" alt="img98"></p>
+<p><img src="images/99.webp" alt="img99"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="comfigure-and-test-a-site-to-site-ipsec-vpn">Comfigure and test a site-to-site IPsec VPN</h3>
+<h4 id="create-the-ipsec-vpn-using-the-vpn-wizard">Create the IPSec VPN using the VPN wizard</h4>
+<ol>
+<li>
+<p>VPN &gt; VPN Wizard &gt; Tunnel name: <code>HQ-to-Branch</code> Select a Template [x][Site to Site] &gt; Begin</p>
+</li>
+<li>
+<p>Remote Site, IP/FQDN <code>10.200.3.1</code> Remote site subnet can acess VPN <code>10.0.2.0/24</code>&gt;
+<img src="images/118.webp" alt="img118"></p>
+</li>
+<li>
+<p>VPN Tunnel, Pre-shared key: <code>password</code>, Next &gt;</p>
+</li>
+<li>
+<p>Outgoing interface that binds to tunnel <code>port1</code> local interface <code>port3</code> local subnets that can access VPN <code>10.0.1.0/24</code>, Next &gt;
+<img src="images/119.webp" alt="img119"></p>
+</li>
+<li>
+<p>Submit
+<img src="images/120.webp" alt="img120"></p>
+</li>
+<li></li>
+</ol>
+<p><img src="images/121.webp" alt="img121"></p>
+<p>   </p>
+<ol start="7">
+<li>
+<p>VPN &gt; VPN Wizard &gt; Tunnel name: <code>Branch-to-HQ</code> Select a Template [x][Site to Site] &gt; Begin
+<img src="images/122.webp" alt="img122"></p>
+</li>
+<li>
+<p>Remote Site, IP/FQDN <code>10.200.1.1</code> Remote site subnet can acess VPN <code>10.0.1.0/24</code>&gt;</p>
+</li>
+<li>
+<p>VPN Tunnel, Pre-shared key: <code>password</code>, Next &gt;</p>
+</li>
+<li>
+<p>Outgoing interface that binds to tunnel <code>port4</code>, local interface <code>port6</code>, local subnets that can access VPN <code>10.0.1.0/24</code>, Next &gt;</p>
+</li>
+<li>
+<p>Submit</p>
+</li>
+<li></li>
+</ol>
+<p><img src="images/123.webp" alt="img123"></p>
+<h4 id="test-the-site-to-site-ipsec-vpn">Test the site-to site IPsec VPN</h4>
+<ol>
+<li>cmd &gt; ping 10.0.2.10</li>
+</ol>
+<p>VPN &gt; VPN Tunnels &gt;</p>
+<p>   </p>
+<p>   </p>
+<h3 id="configure-fortigate-for-remote-access-ipsec-vpn">Configure Fortigate for remote access IPsec VPN</h3>
+<p><strong>VPN</strong> &gt; <strong>VPN Wizard</strong> &gt; Click <strong>Remote Access</strong>
+<img src="images/100.webp" alt="img100"></p>
+<p><strong>Tunnel Name</strong>: <code>RemoteVPN</code> &gt; Click <strong>Begin</strong>
+<img src="images/101.webp" alt="img101"></p>
+<p><strong>IP Range for connected endpoints</strong> <code>10.0.0.70-10.0.0.80</code> <strong>Subnet</strong> <code>255.255.255.0</code> &gt; <strong>Next</strong>
+<img src="images/102.webp" alt="img102"></p>
+<p><strong>Pre-shared key</strong> <code>password</code> <strong>User group</strong> <code>Sales</code> &gt; Next<br>
+<img src="images/103.webp" alt="img103"></p>
+<p><strong>Incoming Interface that binds to tunnel</strong> <code>port1</code> <strong>Local Interface</strong> <code>port3</code> <strong>Local Address</strong> <code>InternalNetwork</code> &gt; Next
+<img src="images/104.webp" alt="img104"></p>
+<p>Click <strong>Submit</strong>
+<img src="images/105.webp" alt="img105"></p>
+<p><img src="images/106.webp" alt="img106"></p>
+<blockquote>
+<p>VPN has been set up</p>
+</blockquote>
+<p><strong>Network</strong> &gt; <strong>Interfaces</strong> &gt; <strong>+</strong>
+<img src="images/107.webp" alt="img107"></p>
+<p><img src="images/108.webp" alt="img108"></p>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Firewall Policy</strong>
+<img src="images/109.webp" alt="img109"></p>
+<blockquote>
+<p>Examine the entry with the name containing the string <strong>RemoteVPN</strong></p>
+</blockquote>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Addresses</strong> &gt; <strong>Search</strong>: <code>romotevpn</code>
+<img src="images/110.webp" alt="img110"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="configure-and-test-ssl-vpn-with-fortigate">Configure and Test SSL VPN with FortiGate</h3>
+<p><strong>VPN</strong> &gt; <strong>SSL-VPN Portals</strong> &gt; Double-Click <strong>full-access</strong> &gt;
+<img src="images/124.webp" alt="img124"></p>
+<p><img src="images/125.webp" alt="img125">
+Click <strong>OK</strong>
+<img src="images/126.webp" alt="img126"></p>
+<h4 id="configure-vpn-ssl-settings">Configure VPN SSL settings</h4>
+<ol>
+<li>
+<p><strong>SSL-VPN status</strong> <code>Enable</code> <strong>Listen on Port</strong> <code>443</code> <strong>Service Certificate:</strong> <code>Fortinet_Factory</code> &gt; <strong>+ Create New</strong>
+<img src="images/127.webp" alt="img127"></p>
+</li>
+<li>
+<p><strong>+ Create New</strong> &gt; UserGroups <code>RemoteVpnUsers</code> Portal <code>Full-access</code></p>
+</li>
+<li>
+<p>Apply
+<img src="images/128.webp" alt="img128"></p>
+</li>
+</ol>
+<h4 id="configure-policy-firewall">Configure Policy Firewall</h4>
+<ol>
+<li>
+<p><strong>Policy &amp; Objects</strong> &gt; <strong>Firewall Policy</strong> &gt; <strong>Create New</strong></p>
+</li>
+<li></li>
+</ol>
+<pre tabindex="0"><code>Name: `SSLVPNACCESS` 
+Incoming interface: `SSLVPN tunnel Interface (ssl root)` 
+Outgoing interface: `port3` 
+Source:  `SSLVPN_TUNNEL_ADDR1`
+Usergroup: `RemoteVPNUsers`
+Destination: `LOCAL_SUBNET`
+Service: `ALL`
+</code></pre><p>OK &gt;
+<img src="images/129.webp" alt="img129"></p>
+<p><img src="images/130.webp" alt="img130"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="backup-up-the-configuration-and-performing-a-filmwware-upgrade">Backup up the configuration and performing a filmwware upgrade</h3>
+<p>Click <strong>Admin</strong> &gt; <strong>Configuration</strong> &gt; <strong>Backup</strong> &gt; <strong>OK</strong>
+<img src="images/131.webp" alt="img131"></p>
+<blockquote>
+<p>Now that you have a configuration backup, you can safely upgrade your FortiGate firmware.
+It is a best practice to backup your configuration before you start an upgrade, or you can do it during the upgrade. This simulation shows you how to do both.</p>
+</blockquote>
+<p>Click <strong>Admin</strong> &gt; <strong>System</strong> &gt; <strong>Firmware &amp; Registration</strong> &gt; <strong>local-FortiGate</strong> &gt; <strong>Upgrade</strong>
+<img src="images/132.webp" alt="img132"></p>
+<p>[x] <strong>FortiGate Only</strong> &gt; <strong>Next</strong> &gt;
+<img src="images/133.webp" alt="img133"></p>
+<p><strong>File Upload</strong> &gt; <strong>Upload File</strong> &gt; <strong>Select</strong> <code>file</code> &gt; Next<br>
+<img src="images/134.webp" alt="img134"></p>
+<p>Click <strong>Next</strong>
+<img src="images/135.webp" alt="img135"></p>
+<p>Click <strong>Confirm and Backup config</strong> &gt; <strong>System will reboot upon proceeding Are you sure you want to continue?</strong> &gt; <strong>Yes</strong>
+<img src="images/136.webp" alt="img136"></p>
+<blockquote>
+<p>The system will be restart with the new firmware installed.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<h3 id="examining-traffic-logs">Examining traffic logs</h3>
+<p><strong>Log &amp; Report</strong> &gt; <strong>Forward Traffic</strong> &gt; Click on log
+<img src="images/137.webp" alt="img137"></p>
+<p>Scroll down the Log Details window to
+view the Action section.</p>
+<p>Hover your mouse over the value next to
+<strong>Policy ID</strong> to see details about the firewall
+policy that generated this log.</p>
+<p>Right Click on <strong>Destination</strong>
+<img src="images/138.webp" alt="img138"></p>
+<h3 id="configure-and-test-fortinet-security-fabric">Configure and Test Fortinet Security Fabric</h3>
+<h4 id="verify-the-fortianalyzer-configuration">Verify the FortiAnalyzer configuration</h4>
+<p>Device Manager &gt;
+<img src="images/139.webp" alt="img139"></p>
+<blockquote>
+<p>Status Down</p>
+</blockquote>
+<h4 id="configure-logging-on-local-fortigate">Configure Logging on Local-FortiGate</h4>
+<p>Security Fabric &gt; Fabric Connectors &gt; Double-Click Logging &amp; Analytics &gt; Edit
+<img src="images/140.webp" alt="img140"></p>
+<p>Status: Enabled Server: 10.0.1.210 Upload option [Real Time] &gt; OK &gt; Accept
+<img src="images/141.webp" alt="img141"></p>
+<p><img src="images/142.webp" alt="img142"></p>
+<h4 id="configure-local-fortigate-for-the-security-fabric-and-make-it-root-firewall">Configure Local-FortiGate for the Security Fabric and make it Root firewall</h4>
+<p>Security Fabric &gt; Fabric Connectors &gt; Double-Click &gt; Secure Fabric Setup &gt; Select Server as Fabric Root
+<img src="images/143.webp" alt="img143"></p>
+<p>Allow other Security Fabric device to join &gt; + &gt; port3 &gt; edit &gt;
+<img src="images/144.webp" alt="img144"></p>
+<p><strong>Security Fabric</strong> [x] <strong>Device detection</strong> [x] &gt; <strong>OK</strong> &gt; <strong>OK</strong> &gt; <strong>Close</strong>
+<img src="images/145.webp" alt="img145"></p>
+<p>Fabric Name: <code>FGT Operator Demo</code> Fabric global obkect [x]
+<img src="images/146.webp" alt="img146"></p>
+<p><img src="images/147.webp" alt="img147"></p>
+<h4 id="add-task-isfw-to-the-security-fabric">Add Task ISFW to the Security Fabric</h4>
+<p>Security Fabric &gt; Fabric Connectors &gt; Double-Click &gt; Secure Fabric Setup &gt;
+<img src="images/148.webp" alt="img148"></p>
+<p>Join Existing Fabric &gt; Allow other Security Fabric devices to join [x] &gt; [+]
+<img src="images/149.webp" alt="img149"></p>
+<p>port1 &gt; edit &gt;
+<img src="images/150.webp" alt="img150"></p>
+<p><strong>Security Fabric</strong> [x] <strong>Device detection</strong> [x] &gt; <strong>OK</strong> &gt; <strong>OK</strong> &gt; <strong>Close</strong>
+<img src="images/151.webp" alt="151"></p>
+<p>Upsteam FortiGate IP/FQDN <code>10.0.1.254</code> Management IP/FQDN [Specify] <code>10.0.1.200</code> Default admin profile <code>super_admin</code> &gt; <strong>OK</strong>
+<img src="images/152.webp" alt="152"></p>
+<p><img src="images/153.webp" alt="153"></p>
+<h4 id="authorize-isfw-in-the-security-fabric">Authorize ISFW in the Security Fabric</h4>
+<p>System &gt; Formware Regestration &gt; <code>FGVM01000000077464</code>&gt; Authorize &gt; After Refresh Webpage
+<img src="images/154.webp" alt="154"></p>
+<p><img src="images/155.webp" alt="img155"></p>
+<p><img src="images/156.webp" alt="img156"></p>
+<h4 id="explore-the-security-fabric">Explore the Security Fabric</h4>
+<p>Security Fabric &gt; Physical Topology &gt; Update Now
+<img src="images/157.webp" alt="img157"></p>
+<p>Security Fabric &gt; Logical Topology
+<img src="images/158.webp" alt="img158"></p>
+<p>Policy &amp; Objects &gt; Addresses &gt; Create New</p>
+<p>Name:  MyDemoSubnet
+IP/Network: 192.168.100.0/24
+Fabric global-object [v]</p>
+<p>OK&gt;
+<img src="images/159.webp" alt="img159"></p>
+<p>Now <code>MyDemoSubnet</code> on 2 devices
+<img src="images/160.webp" alt="img160"></p>
+<p><img src="images/161.webp" alt="img161"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="examine-current-security-fabric-rating-and-apply--recomendations">Examine current Security Fabric rating and apply  recomendations</h3>
+<p><strong>Security Fabric</strong> &gt; <strong>Security Rating</strong> &gt;
+<img src="images/162.webp" alt="img162">
+<img src="images/163.webp" alt="img163"></p>
+<p><img src="images/164.webp" alt="img164">
+<img src="images/165.webp" alt="img165"></p>
+<p><img src="images/166.webp" alt="img166"></p>
+<p><strong>Admin Idle Timeout</strong> The timeout for idle administrator sessions is currently set to 10 minutes.
+This is one of the parameters that does not meet industry best practices, which is why it is marked as Failed.
+As indicated in the GUI, this parameter should be set to 10 minutes or less.</p>
+<p><strong>System</strong> &gt; <strong>Settings</strong>
+<img src="images/167.webp" alt="img167"></p>
+<p>Scroll down the <strong>System Settings</strong> page to find the ldle timeout type <code>10</code> &gt; <strong>Apple</strong>
+<img src="images/168.webp" alt="img168"></p>
+<p>Click [x] remove the two filters
+<img src="images/169.webp" alt="img169"></p>
+<blockquote>
+<p>Note that the current number of Passed and Failed parameters was updated by increasing and reducing each one respectively by 1.
+You can repeat the same process to fix other parameters, making your device more secure.</p>
+</blockquote>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="fortigate-hight-availability-ha">Fortigate Hight Availability (HA)</h3>
+<p><img src="images/170.webp" alt="img170"></p>
+<h4 id="configure-ha-on-the-primary-unit">Configure HA on the primary unit</h4>
+<p><strong>System</strong> &gt; <strong>HA</strong> &gt; <strong>Mode:</strong> Active-Passive</p>
+<p>Device priority <code>200</code>, Group ID <code>5</code>, Group Name <code>HA-DEMO</code>, Password <code>password</code>, Session pickup [x], Heartbeat inteface <code>port7</code>, &gt; OK
+<img src="images/171.webp" alt="img171"></p>
+<p>Refresh webpage
+<img src="images/172.webp" alt="img172"></p>
+<h4 id="configure-ha-on-the-secondary-unit">Configure HA on the secondary unit</h4>
+<p><strong>System</strong> &gt; <strong>HA</strong> &gt; <strong>Mode:</strong> Active-Passive</p>
+<p>Device priority <code>128</code>, Group ID <code>5</code>, Group Name <code>HA-DEMO</code>, Password <code>password</code>, Session pickup [x], Heartbeat inteface <code>port7</code>, &gt; OK
+<img src="images/173.webp" alt="img173"></p>
+<p>Refresh webpage
+<img src="images/174.webp" alt="img174"></p>
+<h4 id="verify-the-ha-cluster">Verify the HA cluster</h4>
+<p>Refresh webpage &gt; Status can be Synchronized
+<img src="images/175.webp" alt="img175"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="fortilink">FortiLink</h3>
+<p>Verify the initial configuration of the three FortiSwitch devices</p>
+<p><img src="images/176.webp" alt="img176"></p>
+<p>System &gt; Feature Visibility &gt; Switch Controller
+<img src="images/177.webp" alt="img177"></p>
+<p>Open CLI Console
+<img src="images/178.webp" alt="img178"></p>
+<p>System &gt; Feature Visibility &gt; Switch Controller on [x] &gt; Apply
+<img src="images/179.webp" alt="img179"></p>
+<p><strong>Wifi &amp; Switch Controller</strong> &gt; <strong>FortiLink Interface</strong> &gt; <strong>Create FortiLink Inerface</strong></p>
+<p>Name: <code>Fortilink</code> Alies <code>FortiLink</code>, Inteface members <code>port3</code>, IP/Netmask <code>10.0.13.254/24</code> Automatically authorize devices [x]
+Address range <code>10.0.13.2-10.0.13.253</code>
+<img src="images/180.webp" alt="img180"></p>
+<h4 id="verify-and-test-the-management-of-the-fortiswitch-devices-form-fortigate">Verify and test the management of the FortiSwitch devices form FortiGate</h4>
+<p>Refresh webpage
+<img src="images/181.webp" alt="img181"></p>
+<p><strong>Wifi &amp; Switch Controller</strong> &gt; <strong>Managed FortiSwitches</strong> &gt;
+<img src="images/182.webp" alt="img182"></p>
+<p>Rename switches
+<img src="images/183.webp" alt="img183"></p>
+<p><img src="images/184.webp" alt="img184"></p>
+<p><img src="images/185.webp" alt="img185"></p>
+<p><strong>Wifi &amp; Switch Controller</strong> &gt; <strong>FortiSwitch VLANs</strong> &gt; <strong>+ Create</strong> &gt;
+Name: <code>DEMOVLAN</code> VLAN ID <code>200</code> &gt; OK
+<img src="images/186.webp" alt="img186"></p>
+<p><img src="images/187.webp" alt="img187"></p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#configuring-the-lan-interface-including-dhcp-server">Configuring the LAN interface, including DHCP server</a></li>
+        <li><a href="#configure-and-monitor-the-default-route">Configure and monitor the default route</a></li>
+        <li><a href="#create-a-firewall-address-of-the-internal-subnet">Create a firewall address of the internal subnet</a></li>
+        <li><a href="#configure-the-firewall-policy">Configure the firewall policy</a></li>
+        <li><a href="#verify-the-firewall-policy-configuration">Verify the firewall policy configuration</a></li>
+        <li><a href="#create-a-user-account">Create a user account</a></li>
+        <li><a href="#configure-remote-authentication">Configure remote authentication</a></li>
+        <li><a href="#create-a-user-group">Create a user group</a></li>
+        <li><a href="#add-authentication-to-the-firewall-policy">Add authentication to the firewall policy</a></li>
+        <li><a href="#verify-and-monitor-firewall-authentication">Verify and monitor firewall authentication</a></li>
+        <li><a href="#apply-ssl-inspection">Apply SSL inspection</a></li>
+        <li><a href="#install-the-ca-certificate-to-avoid-certificate-warnings">Install the CA certificate to avoid certificate warnings</a></li>
+        <li><a href="#create-an-antivirus-profile">Create an antivirus profile</a></li>
+        <li><a href="#apply-antivirus-to-a-firewall-policy">Apply antivirus to a firewall policy</a></li>
+        <li><a href="#verify-antivirus">Verify antivirus</a></li>
+        <li><a href="#configure-web-filter-on-fortigate">Configure Web Filter on FortiGate</a></li>
+        <li><a href="#configure-authenticate-cation-for-a-fortiguard-category-filter">Configure Authenticate cation for a FortiGuard Category Filter</a></li>
+        <li><a href="#create-a-custom-ips-sensor">Create a Custom IPS sensor</a></li>
+        <li><a href="#configure-application-control">Configure application control</a></li>
+        <li><a href="#monitor-application-control">Monitor application control</a></li>
+        <li><a href="#comfigure-and-test-a-site-to-site-ipsec-vpn">Comfigure and test a site-to-site IPsec VPN</a></li>
+        <li><a href="#configure-fortigate-for-remote-access-ipsec-vpn">Configure Fortigate for remote access IPsec VPN</a></li>
+        <li><a href="#configure-and-test-ssl-vpn-with-fortigate">Configure and Test SSL VPN with FortiGate</a></li>
+        <li><a href="#backup-up-the-configuration-and-performing-a-filmwware-upgrade">Backup up the configuration and performing a filmwware upgrade</a></li>
+        <li><a href="#examining-traffic-logs">Examining traffic logs</a></li>
+        <li><a href="#configure-and-test-fortinet-security-fabric">Configure and Test Fortinet Security Fabric</a></li>
+        <li><a href="#examine-current-security-fabric-rating-and-apply--recomendations">Examine current Security Fabric rating and apply  recomendations</a></li>
+        <li><a href="#fortigate-hight-availability-ha">Fortigate Hight Availability (HA)</a></li>
+        <li><a href="#fortilink">FortiLink</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

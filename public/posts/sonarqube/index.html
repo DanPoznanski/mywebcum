@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>SonarQube</title>
+    <meta name="description" content="
+Install SonarQube on Ubuntu Modify Kernel System Limits SonarQube uses Elasticsearch to store its indices in an MMap FS directory. It requires some changes to …">
+    <meta name="keywords" content='Linux, Sql'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/sonarqube/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SonarQube">
+    <meta property="og:description" content="
+Install SonarQube on Ubuntu Modify Kernel System Limits SonarQube uses Elasticsearch to store its indices in an MMap FS directory. It requires some changes to …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SonarQube">
+    <meta name="twitter:description" content="
+Install SonarQube on Ubuntu Modify Kernel System Limits SonarQube uses Elasticsearch to store its indices in an MMap FS directory. It requires some changes to …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/sonarqube/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/sonarqube/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/sonarqube/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>SonarQube</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              September 3, 2023
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/sql">Sql</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/sonarqube1.svg" alt="sonarqube1"></p>
+<h2 id="install-sonarqube-on-ubuntu">Install SonarQube on Ubuntu</h2>
+<h3 id="modify-kernel-system-limits">Modify Kernel System Limits</h3>
+<p>SonarQube uses Elasticsearch to store its indices in an MMap FS directory. It requires some changes to the system defaults.</p>
+<p>Edit the sysctl configuration file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/sysctl.conf
+</span></span></code></pre></div><p>Add the following lines:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vm.max_map_count<span style="color:#f92672">=</span><span style="color:#ae81ff">262144</span>
+</span></span><span style="display:flex;"><span>fs.file-max<span style="color:#f92672">=</span><span style="color:#ae81ff">65536</span>
+</span></span><span style="display:flex;"><span>ulimit -n <span style="color:#ae81ff">65536</span>
+</span></span><span style="display:flex;"><span>ulimit -u <span style="color:#ae81ff">4096</span>
+</span></span></code></pre></div><p>Save and exit the file</p>
+<p>Reboot the system to apply the changes</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo reboot
+</span></span></code></pre></div><h3 id="install-java">install Java</h3>
+<p>See vesion</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>java-version
+</span></span></code></pre></div><p>install java 17 need for sonarqube 10  for sonarqube 9 need java 11</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install openjdk-17-jre-headless -y
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install openjdk-17-jdk -y
+</span></span></code></pre></div><h3 id="install-postgresql">install PostgreSQL</h3>
+<p>Install and Configure Postgresql</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo sh -c <span style="color:#e6db74">&#39;echo &#34;deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main&#34;   /etc/apt/sources.list.d/pgdg.list&#39;</span>
+</span></span></code></pre></div><p>Add the PostgreSQL signing key.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+</span></span></code></pre></div><h3 id="manual-repository-configuration">Manual Repository Configuration</h3>
+<p>Import the repository key from <code>https://www.postgresql.org/media/keys/ACCC4CF8.asc</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install curl ca-certificates
+</span></span><span style="display:flex;"><span>sudo install -d /usr/share/postgresql-common/pgdg
+</span></span><span style="display:flex;"><span>sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+</span></span></code></pre></div><p>Create <code>/etc/apt/sources.list.d/pgdg.list</code>  The distributions are called <code>codename</code>-pgdg. In the example, replace bookworm with the actual distribution you are using. File contents:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>deb <span style="color:#f92672">[</span>signed-by<span style="color:#f92672">=</span>/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc<span style="color:#f92672">]</span> https://apt.postgresql.org/pub/repos/apt bookworm-pgdg main
+</span></span></code></pre></div><p>(You may determine the codename of your distribution by running lsb_release -c). For a script version of the above file creation, presuming you are using a supported release:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo sh -c <span style="color:#e6db74">&#39;echo &#34;deb [arch=amd64 signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main&#34; &gt; /etc/apt/sources.list.d/pgdg.list&#39;</span>
+</span></span></code></pre></div><p>test if all ok :</p>
+<pre tabindex="0"><code>apt update
+</code></pre><p>maybe need add</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dev <span style="color:#f92672">[</span>arch<span style="color:#f92672">=</span>amd64 signed-by<span style="color:#f92672">=</span>/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc<span style="color:#f92672">]</span>  https://apt.postgresql.org/pub/repos/apt/ <span style="color:#66d9ef">$(</span>lsb_release -cs<span style="color:#66d9ef">)</span>-pgdg main
+</span></span></code></pre></div><p>Install PostgreSQL.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install postgresql postgresql-contrib -y
+</span></span></code></pre></div><p>Enable the database server to start automatically on reboot.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable postgresql
+</span></span></code></pre></div><p>Start the database server</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start postgresql
+</span></span></code></pre></div><p>Change the default PostgreSQL password</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo passwd postgres
+</span></span></code></pre></div><p>Switch to the postgres user</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>su postgres
+</span></span></code></pre></div><p>Create a user named sonar</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>createuser sonar
+</span></span></code></pre></div><p>Log in to PostgreSQL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>psql
+</span></span></code></pre></div><p>Set a password for the sonar user. Use a strong password in place of my_strong_password.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ALTER USER sonar WITH ENCRYPTED password <span style="color:#e6db74">&#39;my_strong_password&#39;</span>;
+</span></span></code></pre></div><p>Create a sonarqube database and set the owner to sonar.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>CREATE DATABASE sonarqube OWNER sonar;
+</span></span></code></pre></div><p>Grant all the privileges on the sonarqube database to the sonar user.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>GRANT ALL PRIVILEGES ON DATABASE sonarqube to sonar;
+</span></span></code></pre></div><p>see database</p>
+<pre tabindex="0"><code>\l
+</code></pre><p>Exit PostgreSQL</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#ae81ff">\q</span>
+</span></span></code></pre></div><p>Return to your non-root sudo user account.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>exit
+</span></span></code></pre></div><h3 id="download-and-install-sonarqube">Download and Install SonarQube</h3>
+<p>Install the zip utility, which is needed to unzip the SonarQube files</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get install zip -y
+</span></span></code></pre></div><p>Locate the latest download URL from the SonarQube official download page</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo wget &lt;download from offical site or pirate repository&gt;
+</span></span></code></pre></div><p>Unzip the downloaded file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo unzip sonarqube-10.2.0.77647.zip
+</span></span></code></pre></div><p>Move the unzipped files to <code>/opt/sonarqube</code> directory</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mv sudo mv sonarqube-10.2.0.77647 sonarqube <span style="color:#f92672">&amp;&amp;</span> mv sonarqube /opt/
+</span></span></code></pre></div><p>Add SonarQube Group and User</p>
+<p>Create a dedicated user and group for SonarQube, which can not run as the root user</p>
+<p>Create a sonar group</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo groupadd sonar
+</span></span></code></pre></div><p>Create a sonar user and set <code>/opt/sonarqube</code> as the home directory</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo useradd -d /opt/sonarqube -g sonar sonar
+</span></span></code></pre></div><p>Grant the sonar user access to the <code>/opt/sonarqube</code> directory</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo chown sonar:sonar /opt/sonarqube -R
+</span></span></code></pre></div><h3 id="configure-sonarqube">Configure SonarQube</h3>
+<p>Edit the SonarQube configuration file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /opt/sonarqube/conf/sonar.properties
+</span></span></code></pre></div><p>Find the following lines:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#sonar.jdbc.username=</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#sonar.jdbc.password=</span>
+</span></span></code></pre></div><p>Uncomment the lines, and add the database user and password you created in Step 2.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sonar.jdbc.username<span style="color:#f92672">=</span>sonar
+</span></span><span style="display:flex;"><span>sonar.jdbc.password<span style="color:#f92672">=</span>my_strong_password
+</span></span></code></pre></div><p>Below those two lines, add the sonar.jdbc.url.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sonar.jdbc.url<span style="color:#f92672">=</span>jdbc:postgresql://localhost:5432/sonarqube
+</span></span></code></pre></div><p>Save and exit the file</p>
+<p>Edit the sonar script file for old version Sonarqube !!!</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /opt/sonarqube/bin/linux-x86-64/sonar.sh
+</span></span></code></pre></div><p>ADD to code</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>RUN_AS_USER<span style="color:#f92672">=</span>sonar
+</span></span><span style="display:flex;"><span>APP_NAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SonarQube&#34;</span>
+</span></span></code></pre></div><p>Save and exit</p>
+<h3 id="setup-systemd-service">Setup Systemd service</h3>
+<p>Create a systemd service file to start SonarQube at system boot</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo nano /etc/systemd/system/sonar.service
+</span></span></code></pre></div><p>Paste the following lines to the file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>SonarQube service
+</span></span><span style="display:flex;"><span>After<span style="color:#f92672">=</span>syslog.target network.target
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Type<span style="color:#f92672">=</span>forking
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/opt/sonarqube/bin/linux-x86-64/sonar.sh start
+</span></span><span style="display:flex;"><span>ExecStop<span style="color:#f92672">=</span>/opt/sonarqube/bin/linux-x86-64/sonar.sh stop
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>User<span style="color:#f92672">=</span>sonar
+</span></span><span style="display:flex;"><span>Group<span style="color:#f92672">=</span>sonar
+</span></span><span style="display:flex;"><span>Restart<span style="color:#f92672">=</span>always
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>LimitNOFILE<span style="color:#f92672">=</span><span style="color:#ae81ff">65536</span>
+</span></span><span style="display:flex;"><span>LimitNPROC<span style="color:#f92672">=</span><span style="color:#ae81ff">4096</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi-user.target
+</span></span></code></pre></div><p>Save and exit the file</p>
+<p>Enable the SonarQube service to run at system startup.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl enable sonar
+</span></span></code></pre></div><p>Start the SonarQube service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl start sonar
+</span></span></code></pre></div><p>Check the service status</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo systemctl status sonar
+</span></span></code></pre></div><hr>
+<h3 id="access-sonarqube-web-interface">Access SonarQube Web Interface</h3>
+<p>Access SonarQube in a web browser at your server&rsquo;s IP address on port 9000. For example:</p>
+<p><code>http://IP:9000</code> <code>http://127.0.0.1:9000</code></p>
+<p>Log in with username admin and password admin. SonarQube will prompt you to change your password.</p>
+<hr>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#install-sonarqube-on-ubuntu">Install SonarQube on Ubuntu</a>
+      <ul>
+        <li><a href="#modify-kernel-system-limits">Modify Kernel System Limits</a></li>
+        <li><a href="#install-java">install Java</a></li>
+        <li><a href="#install-postgresql">install PostgreSQL</a></li>
+        <li><a href="#manual-repository-configuration">Manual Repository Configuration</a></li>
+        <li><a href="#download-and-install-sonarqube">Download and Install SonarQube</a></li>
+        <li><a href="#configure-sonarqube">Configure SonarQube</a></li>
+        <li><a href="#setup-systemd-service">Setup Systemd service</a></li>
+        <li><a href="#access-sonarqube-web-interface">Access SonarQube Web Interface</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

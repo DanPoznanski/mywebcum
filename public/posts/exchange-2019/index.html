@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Exchange 2019</title>
+    <meta name="description" content="Add New User to AD for Exchange Tools &gt; Active Directory Users and Computers Create New User exchange Password never expires Users &gt; exchange &gt; Right …">
+    <meta name="keywords" content='Windows Server'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/exchange-2019/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Exchange 2019">
+    <meta property="og:description" content="Add New User to AD for Exchange Tools &gt; Active Directory Users and Computers Create New User exchange Password never expires Users &gt; exchange &gt; Right …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Exchange 2019">
+    <meta name="twitter:description" content="Add New User to AD for Exchange Tools &gt; Active Directory Users and Computers Create New User exchange Password never expires Users &gt; exchange &gt; Right …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/exchange-2019/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/exchange-2019/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/exchange-2019/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Exchange 2019</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              December 13, 2024
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/windows-server">Windows Server</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <h2 id="add-new-user-to-ad-for-exchange">Add New User to AD for Exchange</h2>
+<ol>
+<li>
+<p>Tools &gt; Active Directory Users and Computers
+<img src="images/1.png" alt="img1"></p>
+</li>
+<li>
+<p>Create New User <code>exchange</code>
+<img src="images/2.png" alt="img2"></p>
+</li>
+<li>
+<p>Password never expires
+<img src="images/3.png" alt="img3"></p>
+</li>
+</ol>
+<p><img src="images/4.png" alt="img4"></p>
+<ol start="4">
+<li>Users &gt; exchange &gt; Right click &gt;  Member of &gt; Add <code>Domain Admins</code>, <code>Schema Admins</code>, <code>Enterprise Admins</code>&gt; OK
+<img src="images/5.png" alt="img5"></li>
+</ol>
+<p><img src="images/6.png" alt="img6"></p>
+<h2 id="on-echange-2019-server">On Echange 2019 Server</h2>
+<ol>
+<li>Add to DNS DC to server for me its 192.168.1.220</li>
+</ol>
+<p><img src="images/7.png" alt="img7"></p>
+<ol start="2">
+<li>Dont forget disable dhcpv6 and join to domain</li>
+</ol>
+<p><img src="images/8.png" alt="img8"></p>
+<p><img src="images/9.png" alt="img9"></p>
+<ol start="3">
+<li>Download and Install Net Framework 4.8</li>
+</ol>
+<pre tabindex="0"><code>https://support.microsoft.com/en-us/topic/microsoft-net-framework-4-8-offline-installer-for-windows-9d23f658-3b97-68ab-d013-aa3c3e7495e0
+</code></pre><p><img src="images/10.png" alt="img10"></p>
+<ol start="4">
+<li>Download and Install Visual C++ Redistributable Package for Visual Studio 2012</li>
+</ol>
+<pre tabindex="0"><code>https://www.microsoft.com/en-us/download/details.aspx?id=30679
+</code></pre><ol start="5">
+<li>Download and Install Visual C++ Redistributable Package for Visual Studio 2013</li>
+</ol>
+<pre tabindex="0"><code>https://support.microsoft.com/en-us/topic/update-for-visual-c-2013-redistributable-package-d8ccd6a5-4e26-c290-517b-8da6cfdf4f10
+</code></pre><p><img src="images/11.png" alt="imgs11"></p>
+<ol start="6">
+<li>Download and Install Microsoft Unified Communications Managed API 4.0</li>
+</ol>
+<pre tabindex="0"><code>https://www.microsoft.com/en-us/download/details.aspx?id=34992
+</code></pre><p><img src="images/12.png" alt="imgs12"></p>
+<ol start="6">
+<li>Restart machine</li>
+</ol>
+<h2 id="install-components-in-powershell">Install components in Powershell</h2>
+<ol>
+<li>Next step is to install the Remote Tools Administration Pack. Open Windows PowerShell and run below command.</li>
+</ol>
+<p><img src="images/13.png" alt="img13"></p>
+<ol start="2">
+<li>Open Powershell with Administrator</li>
+</ol>
+<pre tabindex="0"><code>Install-WindowsFeature Server-Media-Foundation, NET-Framework-45-Core, NET-Framework-45-ASPNET, NET-WCF-HTTP-Activation45, NET-WCF-Pipe-Activation45, NET-WCF-TCP-Activation45, NET-WCF-TCP-PortSharing45, RPC-over-HTTP-proxy, RSAT-Clustering, RSAT-Clustering-CmdInterface, RSAT-Clustering-Mgmt, RSAT-Clustering-PowerShell, WAS-Process-Model, Web-Asp-Net45, Web-Basic-Auth, Web-Client-Auth, Web-Digest-Auth, Web-Dir-Browsing, Web-Dyn-Compression, Web-Http-Errors, Web-Http-Logging, Web-Http-Redirect, Web-Http-Tracing, Web-ISAPI-Ext, Web-ISAPI-Filter, Web-Metabase, Web-Mgmt-Console, Web-Mgmt-Service, Web-Net-Ext45, Web-Request-Monitor, Web-Server, Web-Stat-Compression, Web-Static-Content, Web-Windows-Auth, Web-WMI, Windows-Identity-Foundation, RSAT-ADDS
+</code></pre><p><img src="images/14.png" alt="img14"></p>
+<ol start="3">
+<li>Download and Install IIS URL Rewrite.</li>
+</ol>
+<pre tabindex="0"><code>https://www.iis.net/downloads/microsoft/url-rewrite
+</code></pre><ol start="2">
+<li>Install from disk go to <code>f:\</code> iso file :</li>
+</ol>
+<pre tabindex="0"><code>cd f:
+.\Setup.EXE /IAcceptExchangeServerLicenseTerms_DiagnosticDataON /PrepareSchema
+</code></pre><p><img src="images/15.png" alt="img15"></p>
+<h3 id="dc-sync">DC sync</h3>
+<p>if you have many DC servers you need sync</p>
+<pre tabindex="0"><code>repadmin /syncall 
+</code></pre><p><img src="images/16.png" alt="img16"></p>
+<h3 id="back-to-exchange-server">Back to Exchange Server</h3>
+<pre tabindex="0"><code>.\Setup.EXE /IAcceptExchangeServerLicenseTerms_DiagnosticDataON /PrepareAD /OrganizationName:&#34;dan&#34;
+</code></pre><p><img src="images/17.png" alt="img17"></p>
+<p>its my site domain <code>641514.cc</code> for other domain add command :</p>
+<pre tabindex="0"><code>.\Setup.exe /IAcceptExchangeServerLicenseTerms_DiagnosticDataON /PrepareDomain:641514.cc
+</code></pre><h3 id="back-to-dc">Back to DC</h3>
+<ol>
+<li>
+<p>you can see change:
+<img src="images/18.png" alt="img18"></p>
+</li>
+<li>
+<p>resync now</p>
+</li>
+</ol>
+<pre tabindex="0"><code>repadmin /syncall 
+</code></pre><p><img src="images/16.png" alt="img16"></p>
+<h3 id="install-iso">Install ISO</h3>
+<p>Back to Exchange Server and Install iso</p>
+<p>now i can run <code>setup.exe</code> &gt; Next :
+<img src="images/19.png" alt="img19"></p>
+<p><img src="images/21.png" alt="img21"></p>
+<p><img src="images/22.png" alt="img22"></p>
+<p><img src="images/23.png" alt="img23"></p>
+<p><img src="images/24.png" alt="img24"></p>
+<p><img src="images/25.png" alt="img25"></p>
+<p><img src="images/26.png" alt="img26"></p>
+<p><img src="images/27.png" alt="img27"></p>
+<p><img src="images/28.png" alt="img28"></p>
+<p><img src="images/29.png" alt="img29"></p>
+<p>Error its OK (i dont have connect to internet)
+<img src="images/30.png" alt="img30">
+Done
+<img src="images/31.png" alt="img31"></p>
+<p>Now test if all ok
+<img src="images/32.png" alt="img32"></p>
+<p>all ok &ldquo;true&rdquo;
+<img src="images/33.png" alt="img33"></p>
+<h2 id="on-dc-add-dns-records">On DC Add DNS Records</h2>
+<ol>
+<li>
+<p>DNS &gt; Server &gt; Forward Lookup Zones &gt; dan.local &gt; New Hosts (A or AAAA) &gt; Add <code>192.168.1.169</code> (IP Exchange server) &gt; Add Host
+<img src="images/34.png" alt="img34"></p>
+</li>
+<li>
+<p>Add autodiscover for Outlook
+<img src="images/35.png" alt="img35"></p>
+</li>
+<li>
+<p>DNS &gt; Server &gt; Forward Lookup Zones &gt; dan.local &gt; _tcp &gt; Other New Records &gt; SRV &gt; Create Record
+<img src="images/36.png" alt="img36"></p>
+</li>
+<li>
+<p>Service: <code>_autodiscover</code> &gt; Protocol: <code>_tcp</code> &gt; Port <code>443</code> &gt; Host <code>mail.dan.local</code> &gt; Done
+<img src="images/37.png" alt="img37"></p>
+</li>
+<li>
+<p>Done
+<img src="images/38.png" alt="img38"></p>
+</li>
+<li>
+<p>Need Add MX record:
+<img src="images/39.png" alt="img39"></p>
+</li>
+</ol>
+<h3 id="login-on-web-admin-exchange-center">Login on Web Admin Exchange Center</h3>
+<ol>
+<li>Open web browser and write</li>
+</ol>
+<pre tabindex="0"><code>https://mail.dan.local/ecp
+</code></pre><ol start="2">
+<li>
+<p>login with exchange account:
+<img src="images/40.png" alt="img40"></p>
+</li>
+<li>
+<p>Set time:
+<img src="images/41.png" alt="img41"></p>
+</li>
+<li>
+<p>Now Need Create address mail policies:
+<img src="images/42.png" alt="img42"></p>
+</li>
+<li>
+<p>mailflow &gt; email address policies &gt; +
+<img src="images/43.png" alt="img43"></p>
+</li>
+<li>
+<p>Click on plus
+<img src="images/44.png" alt="img44"></p>
+</li>
+<li>
+<p>Select your fotmat and click on Save
+<img src="images/45.png" alt="img45"></p>
+</li>
+<li>
+<p>Give to police name <code>local</code> and click Save
+<img src="images/46.png" alt="img46"></p>
+</li>
+<li>
+<p>Warning say i need apply police
+<img src="images/47.png" alt="img47"></p>
+</li>
+<li>
+<p>Apply police
+<img src="images/48.png" alt="img48"></p>
+</li>
+<li>
+<p>Done
+<img src="images/49.png" alt="img49"></p>
+</li>
+</ol>
+<h3 id="move-the-db-to-another-disk">Move the DB to another disk</h3>
+<ol>
+<li>
+<p>First i need create folders <code>DB</code> after in folder <code>LOGS</code>, <code>EDB</code>
+<img src="images/50.png" alt="img50"></p>
+</li>
+<li>
+<p>First I need unmount database
+<img src="images/51.png" alt="img51"></p>
+</li>
+<li>
+<p>Dismount it
+<img src="images/52.png" alt="img52"></p>
+</li>
+<li>
+<p>Done
+<img src="images/53.png" alt="img53"></p>
+</li>
+<li>
+<p>Open Exchange Management Shell &gt; write <code>Get-MailboxDatabase</code>
+<img src="images/54.png" alt="img54"></p>
+</li>
+<li>
+<p>Move database to disk d:</p>
+</li>
+</ol>
+<pre tabindex="0"><code>Move-DatabasePath -Identity DB -EdbFilePath d:\DB\EDB\db01.edb -LogFolderPath d:\DB\LOGS
+</code></pre><p><img src="images/55.png" alt="img55"></p>
+<ol start="7">
+<li>
+<p>Watch if all OK
+<img src="images/56.png" alt="img56"></p>
+</li>
+<li>
+<p>Now Mount and Done
+<img src="images/57.png" alt="img57"></p>
+</li>
+</ol>
+<h3 id="add-user-mail-to-ad-user">Add User Mail to AD User</h3>
+<ol>
+<li>
+<p>recipients &gt; + &gt; Alies: <code>test</code> &gt; Browser &gt; Save
+<img src="images/58.png" alt="img58"></p>
+</li>
+<li>
+<p>Go to Outlook and send</p>
+</li>
+</ol>
+<pre tabindex="0"><code>https://mail.dan.local/owa
+</code></pre><p>Test send messege to check if all ok
+<img src="images/59.png" alt="img59"></p>
+<h3 id="sender-agent">Sender Agent</h3>
+<p>Mail flow &gt; +
+<img src="images/60.png" alt="img60"></p>
+<p>create for sender for my local domain
+<img src="images/61.png" alt="img61"></p>
+<p>choice mx record and next
+<img src="images/62.png" alt="img62"></p>
+<p>press <code>+</code> and and choice smtp record
+<img src="images/63.png" alt="img63"></p>
+<p><code>*</code> for all domains
+<img src="images/64.png" alt="img64"></p>
+<p>Next
+<img src="images/65.png" alt="img65">
+Add server <code>+</code>
+<img src="images/66.png" alt="img66"></p>
+<p>choice add <code>dan.local</code> and OK and Finish
+<img src="images/67.png" alt="img67"></p>
+<p>Done!
+<img src="images/68.png" alt="img68"></p>
+<h2 id="external-domain">External Domain</h2>
+<p>ecp my external name his <code>641514.cc</code>
+<img src="images/69.png" alt="img69"></p>
+<p>ews my external name his <code>641514.cc</code>
+<img src="images/70.png" alt="img70"></p>
+<p>mapi my external name his <code>641514.cc</code>
+<img src="images/71.png" alt="img71"></p>
+<p>Active Sync my external mame his <code>641514.cc</code>
+<img src="images/72.png" alt="img72"></p>
+<p>OAB my external mame his <code>641514.cc</code>
+<img src="images/73.png" alt="img73"></p>
+<p>owa my external mame his <code>641514.cc</code>
+<img src="images/74.png" alt="img74"></p>
+<ul>
+<li>
+<p>ECP (Exchange Control Panel) — its web server for Administration Microsoft Exchange Server</p>
+</li>
+<li>
+<p>EWS (Exchange Web Services) is a web service provided by Microsoft Exchange Server that allows applications to communicate with the Exchange server through a programmatic interface. EWS provides access to various Exchange features, including managing email, calendars, contacts, tasks, and other data.</p>
+</li>
+<li>
+<p>MAPI (Messaging Application Programming Interface) is an application programming interface developed by Microsoft that allows client applications to exchange messages, interact with email, calendars, and other functions of servers such as Microsoft Exchange Server.</p>
+</li>
+<li>
+<p>Exchange ActiveSync (EAS) is a synchronization protocol developed by Microsoft for accessing mail, calendars, contacts, tasks, and notes on mobile devices. It provides communication between a server (for example, Microsoft Exchange Server) and a client device (smartphone, tablet, or email client). EAS is the primary protocol for integrating Exchange with mobile devices.</p>
+</li>
+<li>
+<p>OAB (Offline Address Book) is an offline address book used in Microsoft Exchange Server. OAB allows Microsoft Outlook users to work with their organization&rsquo;s address book without connecting to a server. This is especially useful when you are not connected to the Internet or in situations where you want to minimize the load on the Exchange server.</p>
+</li>
+<li>
+<p>OWA (Outlook Web App) is a web application developed by Microsoft for accessing mail, calendar, contacts and tasks through a browser. OWA is a component of Microsoft Exchange Server that allows users to experience business email and other Exchange features without installing a client application such as Microsoft Outlook.</p>
+</li>
+</ul>
+<h3 id="dns">DNS</h3>
+<table>
+	<thead>
+			<tr>
+					<th>Records</th>
+					<th></th>
+					<th>IP</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>A</td>
+					<td>@</td>
+					<td>75.10.52.21</td>
+			</tr>
+			<tr>
+					<td>A</td>
+					<td>ex</td>
+					<td>75.10.52.21</td>
+			</tr>
+			<tr>
+					<td>MX</td>
+					<td>@</td>
+					<td>ex.641514.cc</td>
+			</tr>
+			<tr>
+					<td>TXT</td>
+					<td>@</td>
+					<td>v=spf1 a mx ~all</td>
+			</tr>
+			<tr>
+					<td>TXT</td>
+					<td>_dmarc</td>
+					<td>v=DMARC1; p=none</td>
+			</tr>
+	</tbody>
+</table>
+<p>Spf</p>
+<p>v=spf1 ip:my_domain_ip mx ~all</p>
+<p>dkim
+txt mail: domainkey mypublickey</p>
+<p>dmarc</p>
+<p>txt _dmarc v=DMARC1; p=quarantine; aspf=r; sp=none</p>
+<p>pop3 imap</p>
+<p>services &gt; microsoft imap4 &gt; autorun
+services &gt; microsoft imap4 backend &gt; autorun</p>
+<p>services &gt; microsoft pop3 &gt; autorun
+services &gt; microsoft pop3 backend &gt; autorun</p>
+<p>need create certificate</p>
+<p>ecp &gt; servers &gt; certificate &gt; ssl cetificate doble click and services and v on imap pop and save</p>
+<p>Set-PopSettings -ExternalConnectionSettings &ldquo;mail.641514.cc:995:SSL&rdquo;, &ldquo;mail.641514.cc:110:SSL&rdquo; -X509CertificateName 641514.cc</p>
+<p>Set-ImapSetting &ndash;ExternalConnectionSettings &ldquo;mail.641514.cc:993:SSL&rdquo;, &ldquo;mail.641514.cc:143:SSL&rdquo; -X509CertificateName 641514.cc</p>
+<p>take x509 name from ecp certificate</p>
+<p>restart pop3 and backend
+restart imap and backend</p>
+<p>router open ports</p>
+<p>443,80,995,110,25,993,143</p>
+<p>mail flow &gt; client frontend expc &gt; scooping &gt; FQDN : my external domain</p>
+<p>Get-Exchangecertificate</p>
+<p>copy thumpprint</p>
+<p>ewrewrwererwewerwer</p>
+<h2 id="smtp">smtp</h2>
+<p>Get-Exchangecertificate -Trumbprint #$@$#@@#$#@#$EWFEW</p>
+<p>$TLSCertName = &ldquo;<!-- raw HTML omitted -->$($TLSCert.Issuer)<!-- raw HTML omitted -->$($TLSCert.Subject)&rdquo;</p>
+<p>Get-ReceiveConnector -Identity &ldquo;Client Frontend*&rdquo; | Set-ReceiveConnector -TlsCertificateName $TLSCertName</p>
+<p>look cetificate
+Get-ReceiveConnector -Identity &ldquo;Client Frontend*&rdquo; | Format-List Name,Fqdn</p>
+<p>check enable pop and imap on outlook</p>
+<p>ecp &gt; recipients &gt; user &gt; mailbox features &gt; pop3 enabled</p>
+<p>test</p>
+<p>Test-ImapConnectivity -ClientAccessServer <!-- raw HTML omitted --> -Lightmode -MailboxCredential (Get-Credential)</p>
+<p>Test-PopConnectivity -ClientAccessServer <!-- raw HTML omitted --> -Lightmode -MailboxCredential (Get-Credential)</p>
+<p><a href="https://testconnectivity.microsoft.com/">https://testconnectivity.microsoft.com/</a></p>
+<p>outlook for anywere</p>
+<p>servers &gt; servers &gt; expc &gt; outlook anywere &gt; mydomain</p>
+<p>import cetificate</p>
+<p>import-ExchangeCertificate -server expc -Filedata ([System.IO.File]::ReadAllBytes(&rsquo;\expc\Certs\certificate.pfx&rsquo;))</p>
+<p>or</p>
+<p>import-ExchangeCertificate -server expc -Filedata ([System.IO.File]::ReadAllBytes(&lsquo;c:\Certs\certificate.pfx&rsquo;))</p>
+<p>aFTER</p>
+<p>SERVERS&gt; cerficates &gt; cn=r3 &gt; services and &gt; x all smtp, pop imap</p>
+<p>test mail</p>
+<pre tabindex="0"><code>https://www.mail-tester.com/
+</code></pre><p>Key for EX2019</p>
+<pre tabindex="0"><code>YCQY7-BNTF6-R337H-69FGX-P39TY
+</code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#add-new-user-to-ad-for-exchange">Add New User to AD for Exchange</a></li>
+    <li><a href="#on-echange-2019-server">On Echange 2019 Server</a></li>
+    <li><a href="#install-components-in-powershell">Install components in Powershell</a>
+      <ul>
+        <li><a href="#dc-sync">DC sync</a></li>
+        <li><a href="#back-to-exchange-server">Back to Exchange Server</a></li>
+        <li><a href="#back-to-dc">Back to DC</a></li>
+        <li><a href="#install-iso">Install ISO</a></li>
+      </ul>
+    </li>
+    <li><a href="#on-dc-add-dns-records">On DC Add DNS Records</a>
+      <ul>
+        <li><a href="#login-on-web-admin-exchange-center">Login on Web Admin Exchange Center</a></li>
+        <li><a href="#move-the-db-to-another-disk">Move the DB to another disk</a></li>
+        <li><a href="#add-user-mail-to-ad-user">Add User Mail to AD User</a></li>
+        <li><a href="#sender-agent">Sender Agent</a></li>
+      </ul>
+    </li>
+    <li><a href="#external-domain">External Domain</a>
+      <ul>
+        <li><a href="#dns">DNS</a></li>
+      </ul>
+    </li>
+    <li><a href="#smtp">smtp</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

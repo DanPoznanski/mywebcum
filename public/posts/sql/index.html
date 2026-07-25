@@ -1,0 +1,1852 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>SQL</title>
+    <meta name="description" content="
+Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries INNER JOIN countries -- Match on country codes ON cities.country_code = …">
+    <meta name="keywords" content='SQL, PostSQL'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/sql/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SQL">
+    <meta property="og:description" content="
+Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries INNER JOIN countries -- Match on country codes ON cities.country_code = …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SQL">
+    <meta name="twitter:description" content="
+Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries INNER JOIN countries -- Match on country codes ON cities.country_code = …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/sql/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/sql/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/sql/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>SQL</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              October 1, 2025
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/sql">SQL</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/postsql">PostSQL</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/00.svg" alt="img00"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h2 id="joining-data-in-sql">Joining Data in SQL</h2>
+<h3 id="inner-joins">Inner JOINs</h3>
+<p><img src="images/101.webp" alt="img101"></p>
+<p><img src="images/100.webp" alt="img100"></p>
+<p><img src="images/102.webp" alt="img102"></p>
+<p><img src="images/104.webp" alt="img104"></p>
+<p><img src="images/103.webp" alt="img103"></p>
+<p><img src="images/105.webp" alt="img105"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> cities
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Inner join to countries
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> countries
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Match on country codes
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> cities.country_code <span style="color:#f92672">=</span> countries.code;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select name fields (with alias) and region 
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> city.name, country.name, region
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> cities <span style="color:#66d9ef">AS</span> city
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> countries <span style="color:#66d9ef">AS</span> country
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> city.country_code <span style="color:#f92672">=</span> country.code;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select fields with aliases
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">c</span>.code <span style="color:#66d9ef">AS</span> country_code, <span style="color:#66d9ef">c</span>.name, e.<span style="color:#66d9ef">year</span>, e.inflation_rate 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join to economies (alias e)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> economies <span style="color:#66d9ef">AS</span> e 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Match on code field using table aliases
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.code <span style="color:#f92672">=</span> e.code;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country, l.name <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">language</span>, official
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> languages <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Match using the code column
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">USING</span> (code);
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="defining-relationships">Defining Relationships</h3>
+<p><img src="images/106.webp" alt="img106"></p>
+<p><img src="images/107.webp" alt="img107"></p>
+<p><img src="images/108.webp" alt="img108"></p>
+<p><img src="images/109.webp" alt="img109"></p>
+<p><img src="images/110.webp" alt="img110"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select country and language names (aliased)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country, l.name <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">language</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- From countries (aliased)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join to languages (aliased)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> languages <span style="color:#66d9ef">AS</span> l 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Use code as the joining field with the USING keyword
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">USING</span> (code);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select country and language name (aliased)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country, l.name <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">language</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- From countries (aliased)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join to languages (aliased)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> languages <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Use code as the joining field with the USING keyword
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">USING</span>(code)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for the Bhojpuri language
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> l.name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Bhojpuri&#39;</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="multiple-joins">Multiple Joins</h3>
+<p><img src="images/111.webp" alt="img111"></p>
+<p><img src="images/112.webp" alt="img112"></p>
+<p><img src="images/113.webp" alt="img113"></p>
+<p><img src="images/114.webp" alt="img114"></p>
+<p><img src="images/115.webp" alt="img115"></p>
+<p><img src="images/116.webp" alt="img116"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select relevant fields
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">c</span>.name, p.fertility_rate
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Inner join countries and populations, aliased, on code
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> populations <span style="color:#66d9ef">AS</span> p
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.code <span style="color:#f92672">=</span> p.country_code;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select fields
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name, e.<span style="color:#66d9ef">year</span>, p.fertility_rate, e.unemployment_rate
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> populations <span style="color:#66d9ef">AS</span> p
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.code <span style="color:#f92672">=</span> p.country_code
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join to economies (as e)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> economies <span style="color:#66d9ef">AS</span> e
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Match on country code
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.code <span style="color:#f92672">=</span> e.code;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name, e.<span style="color:#66d9ef">year</span>, fertility_rate, unemployment_rate
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> populations <span style="color:#66d9ef">AS</span> p
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.code <span style="color:#f92672">=</span> p.country_code
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> economies <span style="color:#66d9ef">AS</span> e
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.code <span style="color:#f92672">=</span> e.code
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Add an additional joining condition such that you are also joining on year
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">AND</span> e.<span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> p.<span style="color:#66d9ef">year</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="left-and-right-joins">LEFT and RIGHT JOINs</h3>
+<p><img src="images/117.webp" alt="img117"></p>
+<p><img src="images/118.webp" alt="img118"></p>
+<p><img src="images/119.webp" alt="img119"></p>
+<h3 id="right-join">Right Join</h3>
+<p><img src="images/120.webp" alt="img120"></p>
+<p><img src="images/121.webp" alt="img121"></p>
+<ul>
+<li>
+<p><code>RIGHT JOIN</code> is less commonly used than <code>LEFT JOIN</code></p>
+</li>
+<li>
+<p>Any <code>RIGHT JOIN</code> can be re-written as a <code>LEFT JOIN</code></p>
+</li>
+</ul>
+<p>   </p>
+<p>   </p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	c1.name <span style="color:#66d9ef">AS</span> city, 
+</span></span><span style="display:flex;"><span>    code, 
+</span></span><span style="display:flex;"><span>    c2.name <span style="color:#66d9ef">AS</span> country,
+</span></span><span style="display:flex;"><span>    region, 
+</span></span><span style="display:flex;"><span>    city_proper_pop
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> cities <span style="color:#66d9ef">AS</span> c1
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join right table (with alias)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> countries <span style="color:#66d9ef">AS</span> c2
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> c1.country_code <span style="color:#f92672">=</span> c2.code
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> code <span style="color:#66d9ef">DESC</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name, region, gdp_percapita
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> economies <span style="color:#66d9ef">AS</span> e
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Match on code fields
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">USING</span>(code)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for the year 2010
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2010</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> region, <span style="color:#66d9ef">AVG</span>(gdp_percapita) <span style="color:#66d9ef">AS</span> avg_gdp
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> economies <span style="color:#66d9ef">AS</span> e
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">USING</span>(code)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2010</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> region
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Order by descending avg_gdp
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> avg_gdp <span style="color:#66d9ef">DESC</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Return only first 10 records
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="full-join">Full JOIN</h3>
+<p><img src="images/122.webp" alt="img122"></p>
+<p><img src="images/123.webp" alt="img123"></p>
+<p><img src="images/124.webp" alt="img124"></p>
+<p><img src="images/125.webp" alt="img125"></p>
+<p><img src="images/126.webp" alt="img126"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name <span style="color:#66d9ef">AS</span> country, code, region, basic_unit
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join to currencies
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FULL</span> <span style="color:#66d9ef">JOIN</span> currencies
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">USING</span> (code)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Where region is North America or name is null
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> region <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;North America&#39;</span> <span style="color:#66d9ef">OR</span> name <span style="color:#66d9ef">IS</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> region ;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	c1.name <span style="color:#66d9ef">AS</span> country, 
+</span></span><span style="display:flex;"><span>    region, 
+</span></span><span style="display:flex;"><span>    l.name <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">language</span>,
+</span></span><span style="display:flex;"><span>	basic_unit, 
+</span></span><span style="display:flex;"><span>    frac_unit
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">as</span> c1 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Full join with languages (alias as l)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FULL</span> <span style="color:#66d9ef">JOIN</span> languages <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> c1.code <span style="color:#f92672">=</span> l.code
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Full join with currencies (alias as c2)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FULL</span> <span style="color:#66d9ef">JOIN</span> currencies <span style="color:#66d9ef">AS</span> c2
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> c1.code <span style="color:#f92672">=</span> c2.code
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> region <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;M%esia&#39;</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="crossing-into-cross-join">Crossing into CROSS JOIN</h3>
+<p><img src="images/127.webp" alt="img127"></p>
+<p><img src="images/128.webp" alt="img128"></p>
+<p><img src="images/129.webp" alt="img129"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>SELECT c.name AS country, l.name AS language
+</span></span><span style="display:flex;"><span>FROM countries AS c        
+</span></span><span style="display:flex;"><span>-- Perform a cross join to languages <span style="color:#f92672">(</span>alias as l<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>CROSS JOIN languages AS l
+</span></span><span style="display:flex;"><span>WHERE c.code in <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;PAK&#39;</span>,<span style="color:#e6db74">&#39;IND&#39;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	AND l.code in <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;PAK&#39;</span>,<span style="color:#e6db74">&#39;IND&#39;</span><span style="color:#f92672">)</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country,
+</span></span><span style="display:flex;"><span>    region,
+</span></span><span style="display:flex;"><span>    life_expectancy <span style="color:#66d9ef">AS</span> life_exp
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join to populations (alias as p) using an appropriate join
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> populations <span style="color:#66d9ef">AS</span> p
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.code <span style="color:#f92672">=</span> p.country_code
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for only results in the year 2010
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2010&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Sort by life_exp
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> life_exp
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Limit to five records
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">5</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="self-joins">Self Joins</h3>
+<p><img src="images/130.webp" alt="img130"></p>
+<p><img src="images/131.webp" alt="img131"></p>
+<p><img src="images/132.webp" alt="img132"></p>
+<p><img src="images/133.webp" alt="img133"></p>
+<p><img src="images/134.webp" alt="img134"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select aliased fields from populations as p1
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">Select</span> p1.country_code, p1.<span style="color:#66d9ef">size</span> <span style="color:#66d9ef">AS</span> size2010, p2.country_code, p2.<span style="color:#66d9ef">size</span> <span style="color:#66d9ef">AS</span> size2015
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> populations <span style="color:#66d9ef">AS</span> p1
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join populations as p1 to itself, alias as p2, on country code
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span>  populations <span style="color:#66d9ef">AS</span> p2
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> p1.country_code <span style="color:#f92672">=</span> p2.country_code;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	p1.country_code, 
+</span></span><span style="display:flex;"><span>    p1.<span style="color:#66d9ef">size</span> <span style="color:#66d9ef">AS</span> size2010, 
+</span></span><span style="display:flex;"><span>    p2.<span style="color:#66d9ef">size</span> <span style="color:#66d9ef">AS</span> size2015
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> populations <span style="color:#66d9ef">AS</span> p1
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> populations <span style="color:#66d9ef">AS</span> p2
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> p1.country_code <span style="color:#f92672">=</span> p2.country_code
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> p1.<span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2010</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter such that p1.year is always five years before p2.year
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AND</span> p1.<span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> p2.<span style="color:#66d9ef">year</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">5</span>
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="set-theory-for-sql-joins">Set theory for SQL Joins</h3>
+<h4 id="union">UNION</h4>
+<p>Difference between UNION and UNION ALL</p>
+<p>In short:</p>
+<ul>
+<li>
+<p><code>UNION</code> — combines results and removes duplicates.</p>
+</li>
+<li>
+<p><code>UNION ALL</code> — combines results and keeps duplicates.</p>
+</li>
+</ul>
+<p><img src="images/135.webp" alt="img135"></p>
+<p><img src="images/136.webp" alt="img136"></p>
+<p><img src="images/137.webp" alt="img137"></p>
+<p><img src="images/138.webp" alt="img138"></p>
+<p><img src="images/139.webp" alt="img139"></p>
+<p><img src="images/140.webp" alt="img140"></p>
+<p><img src="images/141.webp" alt="img141"></p>
+<p><img src="images/142.webp" alt="img142"></p>
+<p><img src="images/143.webp" alt="img143"></p>
+<p>Difference between UNION and UNION ALL</p>
+<p>In short:</p>
+<ul>
+<li>
+<p><code>UNION</code> — combines results and removes duplicates.</p>
+</li>
+<li>
+<p><code>UNION ALL</code> — combines results and keeps duplicates.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select all fields from economies2015
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Set operation
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> economies2015
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Select all fields from economies2019
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> economies2019
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> code, <span style="color:#66d9ef">year</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> code, <span style="color:#66d9ef">year</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> economies
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Set theory clause
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">UNION</span> <span style="color:#66d9ef">ALL</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> country_code, <span style="color:#66d9ef">year</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> populations
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> code, <span style="color:#66d9ef">year</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h4 id="intersect">INTERSECT</h4>
+<p><img src="images/144.webp" alt="img144"></p>
+<p><img src="images/145.webp" alt="img145"></p>
+<p><img src="images/146.webp" alt="img146"></p>
+<p><img src="images/147.webp" alt="img147"></p>
+<p><img src="images/148.webp" alt="img148"></p>
+<p><img src="images/149.webp" alt="img149"></p>
+<p><img src="images/150.webp" alt="img150"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Return all cities with the same name as a country
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> cities
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INTERSECT</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h4 id="except">EXCEPT</h4>
+<p><img src="images/151.webp" alt="img151"></p>
+<p><img src="images/152.webp" alt="img152"></p>
+<p><img src="images/153.webp" alt="img153"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Return all cities that do not have the same name as a country
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> cities
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">EXCEPT</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> name;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="subquerying-with-semi-joins-and-anti-joins">Subquerying with semi joins and anti joins</h3>
+<p>A semi-join (semi-join) is a special type of join in SQL that returns rows from only one table, but only those for which there are matches in the second table.</p>
+<p><img src="images/154.webp" alt="img154"></p>
+<p><img src="images/155.webp" alt="img155"></p>
+<p><img src="images/156.webp" alt="img156"></p>
+<p><img src="images/157.webp" alt="img157"></p>
+<p><img src="images/158.webp" alt="img158"></p>
+<p><img src="images/159.webp" alt="img159"></p>
+<p><img src="images/160.webp" alt="img160"></p>
+<p><img src="images/161.webp" alt="img161"></p>
+<p><img src="images/162.webp" alt="img162"></p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h4 id="anti-join">ANTI JOIN</h4>
+<p>ANTI JOIN - is a type of logical table join that selects only those rows from the first table
+for which there are no matches in the second table.</p>
+<p><img src="images/163.webp" alt="img163"></p>
+<p><img src="images/164.webp" alt="img164"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">DISTINCT</span> name
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> languages
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Add syntax to use bracketed subquery below as a filter
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> code <span style="color:#66d9ef">IN</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">SELECT</span> code
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">FROM</span> countries
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">WHERE</span> region <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Middle East&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> name;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> code, name
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> continent <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Oceania&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for countries not included in the bracketed subquery
+</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> code <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span>
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">SELECT</span> code
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">FROM</span> currencies);
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="subqueries-inside-where-and-select">Subqueries inside WHERE and SELECT</h3>
+<p><img src="images/165.webp" alt="img165"></p>
+<p><img src="images/166.webp" alt="img166"></p>
+<p><img src="images/167.webp" alt="img167"></p>
+<p><img src="images/168.webp" alt="img168"></p>
+<p><img src="images/169.webp" alt="img169"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> populations
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2015</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for only those populations where life expectancy is 1.15 times higher than average
+</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> life_expectancy <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>.<span style="color:#ae81ff">15</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">AVG</span>(life_expectancy)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">FROM</span> populations
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2015</span>);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select relevant fields from cities table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name, country_code, urbanarea_pop
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> cities
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter using a subquery on the countries table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> name <span style="color:#66d9ef">IN</span> (<span style="color:#66d9ef">SELECT</span> capital <span style="color:#66d9ef">FROM</span> countries)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> urbanarea_pop <span style="color:#66d9ef">DESC</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Find top nine countries with the most cities
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> countries.name <span style="color:#66d9ef">AS</span> country, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> cities_num
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> cities
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> countries.code <span style="color:#f92672">=</span> cities.country_code
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> country
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Order by count of cities as cities_num
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> cities_num <span style="color:#66d9ef">DESC</span>, country
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">9</span>;
+</span></span></code></pre></div><p>Let&rsquo;s break down the solution to understand how it addresses the exercise requirements:</p>
+<p>SELECT Clause:</p>
+<p>SELECT countries.name AS country: This part selects the name column from the countries table and aliases it as country. This means that in the result set, the column will be labeled as country.
+COUNT(*) AS cities_num: This counts the number of rows in the cities table that match each country and aliases the result as cities_num. This gives us the number of cities associated with each country.
+FROM Clause:</p>
+<p>FROM countries: This specifies that the countries table is the primary table from which we are selecting data.
+LEFT JOIN Clause:</p>
+<p>LEFT JOIN cities ON countries.code = cities.country_code: This performs a LEFT JOIN between the countries table and the cities table. The join condition is that the code column in the countries table should match the country_code column in the cities table. A LEFT JOIN ensures that all countries are included in the result, even if they have no corresponding cities in the cities table.
+GROUP BY Clause:</p>
+<p>GROUP BY country: This groups the results by the country column, which is necessary for the COUNT(*) function to work correctly. It ensures that the count of cities is calculated for each country separately.
+ORDER BY Clause:</p>
+<p>ORDER BY cities_num DESC, country: This orders the results first by cities_num in descending order, so countries with more cities appear first. If two countries have the same number of cities, they are then ordered alphabetically by country in ascending order.
+LIMIT Clause:</p>
+<p>LIMIT 9: This limits the result set to the first nine records, as required by the exercise.
+By following these steps, the solution effectively retrieves the top nine countries with the most cities, sorted as specified, and meets all the exercise requirements.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> countries.name <span style="color:#66d9ef">AS</span> country,
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Subquery that provides the count of cities   
+</span></span></span><span style="display:flex;"><span>  (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>)
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">FROM</span> cities
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">WHERE</span> cities.country_code <span style="color:#f92672">=</span> countries.code) <span style="color:#66d9ef">AS</span> cities_num
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> cities_num <span style="color:#66d9ef">DESC</span>, country
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">9</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="subqueries-inside-from">Subqueries inside FROM</h3>
+<p><img src="images/170.webp" alt="img170"></p>
+<p><img src="images/171.webp" alt="img171"></p>
+<p><img src="images/172.webp" alt="img172"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select code, and language count as lang_num
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> code, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> lang_num
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> languages
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> code;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select local_name and lang_num from appropriate tables
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> local_name, sub.lang_num
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> countries,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">SELECT</span> code, <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> lang_num
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">FROM</span> languages
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> code) <span style="color:#66d9ef">AS</span> sub
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Where codes match    
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> countries.code <span style="color:#f92672">=</span> sub.code
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> lang_num <span style="color:#66d9ef">DESC</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select relevant fields
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> code, inflation_rate, unemployment_rate
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> economies
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#66d9ef">year</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2015</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">AND</span> code <span style="color:#66d9ef">IN</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Subquery returning country codes filtered on gov_form
+</span></span></span><span style="display:flex;"><span>	(<span style="color:#66d9ef">SELECT</span> code
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">FROM</span> countries
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">WHERE</span> gov_form <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%Republic%&#39;</span> <span style="color:#66d9ef">OR</span> gov_form <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%Monarchy%&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> inflation_rate;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select fields from cities
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> name, country_code, city_proper_pop, metroarea_pop, (city_proper_pop <span style="color:#f92672">/</span> metroarea_pop <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>) <span style="color:#66d9ef">AS</span> city_perc
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> cities
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Use subquery to filter city name
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> name <span style="color:#66d9ef">IN</span> (<span style="color:#66d9ef">SELECT</span> capital 
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">FROM</span> countries
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">WHERE</span> continent <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Europe&#39;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">OR</span> continent <span style="color:#66d9ef">LIKE</span> <span style="color:#e6db74">&#39;%America&#39;</span>) 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Add filter condition such that metroarea_pop does not have null values
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">AND</span> metroarea_pop <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Sort and limit the result
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> city_perc <span style="color:#66d9ef">DESC</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h2 id="data-manipulation-in-sql">Data Manipulation in SQL</h2>
+<h3 id="well-take-the-case">We&rsquo;ll take the CASE</h3>
+<h4 id="case-statements">CASE statements</h4>
+<ul>
+<li>Contains a <code>WHEN</code>, <code>THEN</code>. and <code>ELSE</code> statment, finished with <code>END</code></li>
+</ul>
+<p><img src="images/173.webp" alt="img173"></p>
+<p><img src="images/174.webp" alt="img174"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Identify the home team as Bayern Munich, Schalke 04, or neither
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">10189</span> <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;FC Schalke 04&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">WHEN</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">9823</span> <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;FC Bayern Munich&#39;</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Other&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> home_team,
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">COUNT</span>(id) <span style="color:#66d9ef">AS</span> total_matches
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> matches_germany
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> home_team;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	date,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Identify home wins, losses, or ties
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> home_goal <span style="color:#f92672">&gt;</span> away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;Home win!&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">WHEN</span> home_goal <span style="color:#f92672">&lt;</span> away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;Home loss :(&#39;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> matches_spain;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select matches where Barcelona was the away team
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>  
+</span></span><span style="display:flex;"><span>	m.date,
+</span></span><span style="display:flex;"><span>	t.team_long_name <span style="color:#66d9ef">AS</span> opponent,
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> home_goal <span style="color:#f92672">&lt;</span> away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;Barcelona win!&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">WHEN</span> home_goal <span style="color:#f92672">&gt;</span> away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;Barcelona loss :(&#39;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> matches_spain <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> teams_spain <span style="color:#66d9ef">AS</span> t 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> m.hometeam_id <span style="color:#f92672">=</span> t.team_api_id
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for Barcelona
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> m.awayteam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8634</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="in-case-things-get-more-complex">In CASE things get more complex</h3>
+<p><img src="images/175.webp" alt="img175"></p>
+<p><img src="images/176.webp" alt="img176"></p>
+<p><img src="images/177.webp" alt="img177"></p>
+<p><img src="images/178.webp" alt="img178"></p>
+<p>no else
+<img src="images/179.webp" alt="img179"></p>
+<p><img src="images/180.webp" alt="img180"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	date,
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8634</span> <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;FC Barcelona&#39;</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Real Madrid CF&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">as</span> home,
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> awayteam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8634</span> <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;FC Barcelona&#39;</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Real Madrid CF&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">as</span> away,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Identify possible home match outcomes
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> home_goal <span style="color:#f92672">&gt;</span> away_goal <span style="color:#66d9ef">AND</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8634</span> <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;Barcelona win!&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">WHEN</span> home_goal <span style="color:#f92672">&lt;</span> away_goal <span style="color:#66d9ef">AND</span> awayteam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8633</span> <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;Real Madrid win!&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie!&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> matches_spain
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8634</span> <span style="color:#66d9ef">AND</span> awayteam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8633</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	season,
+</span></span><span style="display:flex;"><span>    date,
+</span></span><span style="display:flex;"><span>	home_goal,
+</span></span><span style="display:flex;"><span>	away_goal
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> matches_italy
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Find games where home_goal is more than away_goal
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">9857</span> <span style="color:#66d9ef">AND</span> home_goal <span style="color:#f92672">&gt;</span> away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;Bologna Win&#39;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">-- Find games where away_goal is more than home_goal
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">WHEN</span> awayteam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">9857</span> <span style="color:#66d9ef">AND</span> away_goal <span style="color:#f92672">&gt;</span> home_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;Bologna Win&#39;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">-- Exclude games not won by Bologna
+</span></span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">END</span> <span style="color:#66d9ef">IS</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="case-when-with-aggregate-functions">CASE WHEN with aggregate functions</h3>
+<h4 id="in-case-you-need-to-aggregate">In CASE you need to aggregate</h4>
+<p><code>CASE</code> statements are great for</p>
+<ul>
+<li>
+<p>Categorizing data</p>
+</li>
+<li>
+<p>Filtering data</p>
+</li>
+<li>
+<p>Aggregating data</p>
+</li>
+</ul>
+<p><img src="images/181.webp" alt="img181"></p>
+<p><img src="images/182.webp" alt="img182"></p>
+<p><img src="images/183.webp" alt="img183"></p>
+<p><img src="images/184.webp" alt="img184"></p>
+<p><img src="images/185.webp" alt="img185"></p>
+<p><img src="images/186.webp" alt="img186"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Count matches in 2012/13
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">COUNT</span>(<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2012/2013&#39;</span> <span style="color:#66d9ef">THEN</span> m.id <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">AS</span> matches_2012_2013,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Count matches in 2013/14
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">COUNT</span>(<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2013/2014&#39;</span> <span style="color:#66d9ef">THEN</span> m.id <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">AS</span> matches_2013_2014
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> country <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.id <span style="color:#f92672">=</span> m.country_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> country;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> season,
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- SUM the home goals
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SUM</span>(<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;8560&#39;</span> <span style="color:#66d9ef">THEN</span> home_goal <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">AS</span> home_goals,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- SUM the away goals
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SUM</span>(<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> awayteam_id <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;8560&#39;</span> <span style="color:#66d9ef">THEN</span> away_goal <span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">AS</span> away_goals
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Group the results by season
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> season;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Calculate the percentage of tied games in each season
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">AVG</span>(<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.season<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;2013/2014&#39;</span> <span style="color:#66d9ef">AND</span> m.home_goal <span style="color:#f92672">=</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">WHEN</span> m.season<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;2013/2014&#39;</span> <span style="color:#66d9ef">AND</span> m.home_goal <span style="color:#f92672">!=</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">AS</span> ties_2013_2014,
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">AVG</span>(<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.season<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;2014/2015&#39;</span> <span style="color:#66d9ef">AND</span> m.home_goal <span style="color:#f92672">=</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">WHEN</span> m.season<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;2014/2015&#39;</span> <span style="color:#66d9ef">AND</span> m.home_goal <span style="color:#f92672">!=</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">END</span>) <span style="color:#66d9ef">AS</span> ties_2014_2015
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> country <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> matches <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.id <span style="color:#f92672">=</span> m.country_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> country;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="where-are-the-subqueries">WHERE are the Subqueries?</h3>
+<p>what is subquery ?</p>
+<ul>
+<li>A query  <em><strong>nested</strong></em> <!-- raw HTML omitted --> inside another query</li>
+</ul>
+<p><img src="images/187.webp" alt="img187"></p>
+<p>   </p>
+<p>What do you with subqueries?</p>
+<ul>
+<li>
+<p>Can be in <em><strong>any</strong></em> part of a query</p>
+<ul>
+<li>SELECT, FROM, WHERE, GROUP BY</li>
+</ul>
+</li>
+<li>
+<p>Can return a variety of information</p>
+<ul>
+<li>
+<p>Scalar quantities (3.14159, -2, 0.001)</p>
+</li>
+<li>
+<p>A list (id = (12, 25, 392, 401, 939) )</p>
+</li>
+<li>
+<p>A table</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>   </p>
+<p>   </p>
+<h4 id="why-subqueries-">Why subqueries ?</h4>
+<ul>
+<li>
+<p>Comparing groups to summarized values</p>
+<ul>
+<li>How did Liverpool compare to the English Premier League&rsquo;s
+average performance for that years ?</li>
+</ul>
+</li>
+<li>
+<p>Reshaping data</p>
+<ul>
+<li>What is the highest monthly average of goals cored in the Bundesliga?</li>
+</ul>
+</li>
+<li>
+<p>Combining data that cannot be joined</p>
+<ul>
+<li>How do you get both the home and away team names into a table of match results?</li>
+</ul>
+</li>
+</ul>
+<p>   </p>
+<p>   </p>
+<h4 id="simple-subqueries">Simple subqueries</h4>
+<p><img src="images/188.webp" alt="img188"></p>
+<p><img src="images/189.webp" alt="img189"></p>
+<p><img src="images/190.webp" alt="img190"></p>
+<p><img src="images/191.webp" alt="img191"></p>
+<p><img src="images/192.webp" alt="img192"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the date, home goals, and away goals scored
+</span></span></span><span style="display:flex;"><span>    date,
+</span></span><span style="display:flex;"><span>	home_goal,
+</span></span><span style="display:flex;"><span>	away_goal
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> matches_2013_2014
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for matches where total goals exceeds 3x the average
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> (home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#f92672">&gt;</span> 
+</span></span><span style="display:flex;"><span>       (<span style="color:#66d9ef">SELECT</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">FROM</span> matches_2013_2014); 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the team long and short names
+</span></span></span><span style="display:flex;"><span>	team_long_name,
+</span></span><span style="display:flex;"><span>	team_short_name
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> team 
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Exclude all values from the subquery
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> team_api_id <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">IN</span>
+</span></span><span style="display:flex;"><span>     (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">DISTINCT</span> hometeam_id  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the team long and short names
+</span></span></span><span style="display:flex;"><span>	team_long_name,
+</span></span><span style="display:flex;"><span>	team_short_name
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> team
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for teams with 8 or more home goals
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> team_api_id <span style="color:#66d9ef">IN</span>
+</span></span><span style="display:flex;"><span>	  (<span style="color:#66d9ef">SELECT</span> hometeam_id 
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> 
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">WHERE</span> home_goal <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">8</span>);
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="subqueries-in-the-from-statement">Subqueries in the FROM statement</h3>
+<p>Subqueries in FROM</p>
+<ul>
+<li>
+<p>Restructure and transform your data</p>
+<ul>
+<li>
+<p>Transforming data from long to wide before selecting</p>
+</li>
+<li>
+<p>Prefiltering data</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Calculating aggregates of aggregates</p>
+<ul>
+<li>
+<p>Which 3 teams has the highest average of home goals scored?</p>
+<ol>
+<li>
+<p>Calculate the <code>AVG</code> from each team</p>
+</li>
+<li>
+<p>Get the 3 highest of the AVG values</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<p>   </p>
+<p>   </p>
+<p><img src="images/193.webp" alt="img193"></p>
+<p><img src="images/194.webp" alt="img194"></p>
+<h4 id="things-to-remember">Things to remember</h4>
+<ul>
+<li>
+<p>You can create multiple subqueries in one <code>FROM</code> statement</p>
+<ul>
+<li>
+<p>Alies them!</p>
+</li>
+<li>
+<p>Join them!</p>
+</li>
+</ul>
+</li>
+<li>
+<p>You can join subquery to  table in <code>FROM</code></p>
+<ul>
+<li>include a joining columns in both tables!</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the country ID and match ID
+</span></span></span><span style="display:flex;"><span>	country_id, 
+</span></span><span style="display:flex;"><span>    id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for matches with 10 or more goals in total
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> (home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select country name and the count match IDs
+</span></span></span><span style="display:flex;"><span>    name <span style="color:#66d9ef">AS</span> country_name,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">COUNT</span>(<span style="color:#f92672">*</span>) <span style="color:#66d9ef">AS</span> matches
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> country <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Inner join the subquery onto country
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">-- Select the country id and match id columns
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">match</span>.country_id, id 
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>           <span style="color:#75715e">-- Filter the subquery by matches with 10+ goals
+</span></span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">WHERE</span> (home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">AS</span> sub
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.id <span style="color:#f92672">=</span> sub.country_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> country_name;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select country, date, home, and away goals from the subquery
+</span></span></span><span style="display:flex;"><span>    country,
+</span></span><span style="display:flex;"><span>    date,
+</span></span><span style="display:flex;"><span>    home_goal,
+</span></span><span style="display:flex;"><span>    away_goal
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select country name, date, home_goal, away_goal, and total goals in the subquery
+</span></span></span><span style="display:flex;"><span>	(<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country, 
+</span></span><span style="display:flex;"><span>     	    m.date, 
+</span></span><span style="display:flex;"><span>     		m.home_goal, 
+</span></span><span style="display:flex;"><span>     		m.away_goal,
+</span></span><span style="display:flex;"><span>           (m.home_goal <span style="color:#f92672">+</span> m.away_goal) <span style="color:#66d9ef">AS</span> total_goals
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> country <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">ON</span> m.country_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">c</span>.id) <span style="color:#66d9ef">AS</span> subq
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter by total goals scored in the main query
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> total_goals <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="subqueries-in-select">Subqueries in SELECT</h3>
+<h4 id="selecting-what">SELECTing what?</h4>
+<ul>
+<li>
+<p>Returns a <strong>single value</strong></p>
+<ul>
+<li>Include aggregate values to compare to individual values</li>
+</ul>
+</li>
+<li>
+<p>Used in mathematical calculations</p>
+<ul>
+<li>Deviation from the average</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/195.webp" alt="img195"></p>
+<p><img src="images/196.webp" alt="img196"></p>
+<p><img src="images/197.webp" alt="img197"></p>
+<p><img src="images/198.webp" alt="img198"></p>
+<p><img src="images/199.webp" alt="img199"></p>
+<p><img src="images/200.webp" alt="img200"></p>
+<p>   </p>
+<h4 id="select-subqueries---things-to-keep-in-mind">SELECT subqueries &mdash;- things to keep in mind</h4>
+<ul>
+<li>
+<p>Need to return a Single value</p>
+<ul>
+<li>Will generate an error otherwise</li>
+</ul>
+</li>
+<li>
+<p>Make sure you have all filters in the right places</p>
+<ul>
+<li>Properly filter <strong>both</strong> the main and the subquery!</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	l.name <span style="color:#66d9ef">AS</span> league,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Select and round the league&#39;s total goals
+</span></span></span><span style="display:flex;"><span>    ROUND(<span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal), <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">AS</span> avg_goals,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Select &amp; round the average total goals for the season
+</span></span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">SELECT</span> ROUND(<span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal), <span style="color:#ae81ff">2</span>) 
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2013/2014&#39;</span>) <span style="color:#66d9ef">AS</span> overall_avg
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> league <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> l.country_id <span style="color:#f92672">=</span> m.country_id
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for the 2013/2014 season
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2013/2014&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> l.name;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the league name and average goals scored
+</span></span></span><span style="display:flex;"><span>	l.name <span style="color:#66d9ef">AS</span> league,
+</span></span><span style="display:flex;"><span>	ROUND(<span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal), <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">AS</span> avg_goals,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Subtract the overall average from the league average
+</span></span></span><span style="display:flex;"><span>	ROUND(<span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal) <span style="color:#f92672">-</span>
+</span></span><span style="display:flex;"><span>		(<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal)
+</span></span><span style="display:flex;"><span>		 <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2013/2014&#39;</span>), <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">AS</span> diff
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> league <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> l.country_id <span style="color:#f92672">=</span> m.country_id
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Only include 2013/2014 results
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2013/2014&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> l.name;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="subqueries-everywhere-and-best-practices">Subqueries everywhere! And best practices!</h3>
+<h4 id="as-many-subqueries-as-you-want">As many subqueries as you want&hellip;</h4>
+<p><img src="images/201.webp" alt="img201"></p>
+<p><img src="images/202.webp" alt="img202"></p>
+<p><img src="images/203.webp" alt="img203"></p>
+<p><img src="images/204.webp" alt="img204"></p>
+<p><img src="images/205.webp" alt="img205"></p>
+<p><img src="images/206.webp" alt="img206"></p>
+<p><img src="images/207.webp" alt="img207"></p>
+<h4 id="is-that-subquery-necessary">Is that subquery necessary?</h4>
+<ul>
+<li>
+<p>Subqueries require computing power</p>
+<ul>
+<li>
+<p>How big is your database?</p>
+</li>
+<li>
+<p>How big is the table you&rsquo;re querying from?</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Is the subquery <em><strong>actually</strong></em> necessary?</p>
+</li>
+</ul>
+<h4 id="properly-filter-each-subquery">Properly filter each subquery!</h4>
+<ul>
+<li>Watch your filters!</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the stage and average goals for each stage
+</span></span></span><span style="display:flex;"><span>	m.stage,
+</span></span><span style="display:flex;"><span>    ROUND(<span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal),<span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">AS</span> avg_goals,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Select the average overall goals for the 2012/2013 season
+</span></span></span><span style="display:flex;"><span>    ROUND((<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal) 
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> 
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#39;2012/2013&#39;</span>),<span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">AS</span> overall
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter for the 2012/2013 season
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2012/2013&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Group by stage
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> m.stage;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the stage and average goals from the subquery
+</span></span></span><span style="display:flex;"><span>	stage,
+</span></span><span style="display:flex;"><span>	ROUND(s.avg_goals, <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">AS</span> avg_goals
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the stage and average goals in 2012/2013
+</span></span></span><span style="display:flex;"><span>	(<span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>		 stage,
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#66d9ef">AS</span> avg_goals
+</span></span><span style="display:flex;"><span>	 <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>	 <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2012/2013&#39;</span>
+</span></span><span style="display:flex;"><span>	 <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> stage) <span style="color:#66d9ef">AS</span> s
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Filter the main query using the subquery
+</span></span></span><span style="display:flex;"><span>	s.avg_goals <span style="color:#f92672">&gt;</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal) 
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2012/2013&#39;</span>);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the stage and average goals from s
+</span></span></span><span style="display:flex;"><span>	s.stage,
+</span></span><span style="display:flex;"><span>    ROUND(s.avg_goals,<span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">AS</span> avg_goal,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Select the overall average for 2012/2013
+</span></span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2012/2013&#39;</span>) <span style="color:#66d9ef">AS</span> overall_avg
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the stage and average goals in 2012/2013 from match
+</span></span></span><span style="display:flex;"><span>	(<span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>		 stage,
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#66d9ef">AS</span> avg_goals
+</span></span><span style="display:flex;"><span>	 <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>	 <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2012/2013&#39;</span>
+</span></span><span style="display:flex;"><span>	 <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> stage) <span style="color:#66d9ef">AS</span> s
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Filter the main query using the subquery
+</span></span></span><span style="display:flex;"><span>	s.avg_goals <span style="color:#f92672">&gt;</span> (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">AVG</span>(home_goal <span style="color:#f92672">+</span> away_goal) 
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2012/2013&#39;</span>);
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="correlated-subqueries">Correlated subqueries</h3>
+<h4 id="correlated-subquery">Correlated subquery</h4>
+<ul>
+<li>
+<p>Uses values from ther <em><strong>outer</strong></em> query to generate a result</p>
+</li>
+<li>
+<p>Re-run for every row generated in the final data set</p>
+</li>
+<li>
+<p>Used for advanced joining, filtering and evaluating data</p>
+</li>
+</ul>
+<p><img src="images/208.webp" alt="img208"></p>
+<p><img src="images/209.webp" alt="img209"></p>
+<h4 id="simple-vs-correlated-subqueries">Simple vs correlated subqueries</h4>
+<table>
+	<thead>
+			<tr>
+					<th>Simple subquery</th>
+					<th>Correlated Subquery</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>- Can be run <em><strong>independently</strong></em> from the main query</td>
+					<td>- Dependent on the main query to execute</td>
+			</tr>
+			<tr>
+					<td>- Evaluated one in the whole query</td>
+					<td>- Evaluated in loops</td>
+			</tr>
+			<tr>
+					<td></td>
+					<td><strong>- Significantly slows down query runtime</strong></td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="images/210.webp" alt="img210"></p>
+<p><img src="images/211.webp" alt="img211"></p>
+<p><img src="images/212.webp" alt="img212"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	main.country_id,
+</span></span><span style="display:flex;"><span>    main.date,
+</span></span><span style="display:flex;"><span>    main.home_goal,
+</span></span><span style="display:flex;"><span>    main.away_goal
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> main
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Filter the main query by the subquery
+</span></span></span><span style="display:flex;"><span>	(home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#f92672">&gt;</span> 
+</span></span><span style="display:flex;"><span>        (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">AVG</span>((sub.home_goal <span style="color:#f92672">+</span> sub.away_goal) <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> sub
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">-- Join the main query to the subquery in WHERE
+</span></span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">WHERE</span> sub.country_id <span style="color:#f92672">=</span> main.country_id);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	main.country_id,
+</span></span><span style="display:flex;"><span>    main.date,
+</span></span><span style="display:flex;"><span>    main.home_goal,
+</span></span><span style="display:flex;"><span>    main.away_goal
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> main
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Filter for matches with the highest number of total goals scored
+</span></span></span><span style="display:flex;"><span>	(home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#f92672">=</span> 
+</span></span><span style="display:flex;"><span>        (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MAX</span>(sub.home_goal <span style="color:#f92672">+</span> sub.away_goal)
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> sub
+</span></span><span style="display:flex;"><span>         <span style="color:#75715e">-- Join the main query to the subquery in WHERE
+</span></span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">WHERE</span> main.country_id <span style="color:#f92672">=</span> sub.country_id
+</span></span><span style="display:flex;"><span>               <span style="color:#66d9ef">AND</span> main.season <span style="color:#f92672">=</span> sub.season);
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="nested-subqueries">Nested subqueries</h3>
+<p>Nested subqueries ?</p>
+<ul>
+<li>
+<p>Subquery inside another subquery</p>
+</li>
+<li>
+<p>Perform multiple layers of transformation</p>
+</li>
+</ul>
+<p><img src="images/213.webp" alt="img213"></p>
+<p><img src="images/214.webp" alt="img214"></p>
+<p><img src="images/215.webp" alt="img215"></p>
+<p><img src="images/216.webp" alt="img216"></p>
+<p><img src="images/217.webp" alt="img217"></p>
+<p><img src="images/218.webp" alt="img218"></p>
+<h4 id="correlated-nested-subqueries">Correlated nested subqueries</h4>
+<ul>
+<li>Nested subqueries can be correlated or uncorrelated
+<ul>
+<li>
+<p>Or&hellip; a combination of the two</p>
+</li>
+<li>
+<p>Can reference information from the <em><strong>outer subquery</strong></em> or main query</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="images/219.webp" alt="img219"></p>
+<p><img src="images/220.webp" alt="img220"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>    season,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">MAX</span>(home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#66d9ef">AS</span> max_goals,
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MAX</span>(home_goal <span style="color:#f92672">+</span> away_goal) 
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> 
+</span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> main.season
+</span></span><span style="display:flex;"><span>     <span style="color:#75715e">-- Subquery to get the max goals in a Premier League match for the same season
+</span></span></span><span style="display:flex;"><span>     <span style="color:#66d9ef">AND</span> country_id <span style="color:#66d9ef">IN</span> ( <span style="color:#66d9ef">SELECT</span> country_id <span style="color:#66d9ef">FROM</span> League <span style="color:#66d9ef">WHERE</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;England Premier League&#39;</span>)
+</span></span><span style="display:flex;"><span>    ) <span style="color:#66d9ef">AS</span> pl_max_goals
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> main
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> season;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Select matches where a team scored 5+ goals
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	country_id,
+</span></span><span style="display:flex;"><span>    season,
+</span></span><span style="display:flex;"><span>	id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> home_goal <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span> <span style="color:#66d9ef">OR</span> away_goal <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Count match ids
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>    country_id,
+</span></span><span style="display:flex;"><span>    season,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">COUNT</span>(subquery) <span style="color:#66d9ef">AS</span> matches
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Set up and alias the subquery
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>    	country_id,
+</span></span><span style="display:flex;"><span>    	season,
+</span></span><span style="display:flex;"><span>    	id
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">WHERE</span> home_goal <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span> <span style="color:#66d9ef">OR</span> away_goal <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AS</span> subquery
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> country_id, season;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Calculate the average matches per season
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">AVG</span>(outer_s.matches) <span style="color:#66d9ef">AS</span> avg_seasonal_high_scores
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> country <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Left join outer_s to country
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> country_id, season,
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">COUNT</span>(id) <span style="color:#66d9ef">AS</span> matches
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SELECT</span> country_id, season, id
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">WHERE</span> home_goal <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span> <span style="color:#66d9ef">OR</span> away_goal <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">AS</span> inner_s
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">-- Close parentheses and alias the subquery
+</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> country_id, season) <span style="color:#66d9ef">AS</span> outer_s
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">c</span>.id <span style="color:#f92672">=</span> outer_s.country_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> country;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="common-table-expressions">Common Table Expressions</h3>
+<h4 id="when-adding-subqueries">When adding subqueries&hellip;</h4>
+<ul>
+<li>Query complexy increases quickly!
+<ul>
+<li>Information can be difficult to keep track of</li>
+</ul>
+</li>
+</ul>
+<p>Solution : <strong>Common Table Expressions!</strong></p>
+<p><img src="images/221.webp" alt="img221"></p>
+<p><img src="images/222.webp" alt="img222"></p>
+<p><img src="images/223.webp" alt="img223"></p>
+<p><img src="images/224.webp" alt="img224"></p>
+<p><img src="images/225.webp" alt="img225"></p>
+<p>Why use CTEs ?</p>
+<ul>
+<li>
+<p>Executed once</p>
+<ul>
+<li>
+<p>CTE in then stored in memory</p>
+</li>
+<li>
+<p>Improves query performance</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Improving organization of queries</p>
+</li>
+<li>
+<p>Referencing other CTEs</p>
+</li>
+<li>
+<p>Referencing itself (SELF JOIN)</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Set up your CTE
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span> match_list <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>  		country_id, 
+</span></span><span style="display:flex;"><span>  		id
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">WHERE</span> (home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Select league and count of matches from the CTE
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>    l.name <span style="color:#66d9ef">AS</span> league,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">COUNT</span>(match_list.id) <span style="color:#66d9ef">AS</span> matches
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> league <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join the CTE to the league table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> match_list <span style="color:#66d9ef">ON</span> l.id <span style="color:#f92672">=</span> match_list.country_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> l.name;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Set up your CTE
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span> match_list <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">-- Select the league, date, home, and away goals
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>  		l.name <span style="color:#66d9ef">AS</span> league, 
+</span></span><span style="display:flex;"><span>     	m.date, 
+</span></span><span style="display:flex;"><span>  		m.home_goal, 
+</span></span><span style="display:flex;"><span>  		m.away_goal,
+</span></span><span style="display:flex;"><span>      (m.home_goal <span style="color:#f92672">+</span> m.away_goal) <span style="color:#66d9ef">AS</span> total_goals
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> league <span style="color:#66d9ef">as</span> l <span style="color:#66d9ef">ON</span> m.country_id <span style="color:#f92672">=</span> l.country_id)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Select the league, date, home, and away goals from the CTE
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> league, date, home_goal, away_goal
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> match_list
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter by total goals
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> total_goals <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Set up your CTE
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span> match_list <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>  		country_id,
+</span></span><span style="display:flex;"><span>  	   (home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#66d9ef">AS</span> goals
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>  	<span style="color:#75715e">-- Create a list of match IDs to filter data in the CTE
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">WHERE</span> id <span style="color:#66d9ef">IN</span> (
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">SELECT</span> id
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">WHERE</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2013/2014&#39;</span> <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">EXTRACT</span>(<span style="color:#66d9ef">MONTH</span> <span style="color:#66d9ef">FROM</span> date) <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>))
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Select the league name and average of goals in the CTE
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	l.name,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AVG</span>(match_list.goals)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> league <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join the CTE onto the league table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> match_list <span style="color:#66d9ef">ON</span> l.id <span style="color:#f92672">=</span> match_list.country_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> l.name;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="deciding-on-techniques-to-use">Deciding on techniques to use</h3>
+<p><img src="images/226.webp" alt="img226"></p>
+<p>   </p>
+<ul>
+<li>
+<p>Depends on your database/question</p>
+</li>
+<li>
+<p>The technique that best allows you to:</p>
+<ul>
+<li>
+<p>Use and reuse your queries</p>
+</li>
+<li>
+<p>Generate clear and accurate results</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>   </p>
+<h4 id="different-use-cases">Different use cases</h4>
+<table>
+	<thead>
+			<tr>
+					<th>Joins</th>
+					<th>Correlated Subqueries</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>2+ tables (What is the total sales per employee?)</td>
+					<td>- Who does each employee report to in a company?</td>
+			</tr>
+	</tbody>
+</table>
+<table>
+	<thead>
+			<tr>
+					<th>Multiple/Nested Subqueries</th>
+					<th>Common Table Expressions</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>What is the average deal size closed by each sales representative in the quarter?</td>
+					<td>- How did the marketing, sales, growth, &amp; engineering teams perform on key metrics?</td>
+			</tr>
+	</tbody>
+</table>
+<p>   </p>
+<p>   </p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	m.date,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Get the home and away team names
+</span></span></span><span style="display:flex;"><span>    home.hometeam,
+</span></span><span style="display:flex;"><span>    away.awayteam,
+</span></span><span style="display:flex;"><span>    m.home_goal,
+</span></span><span style="display:flex;"><span>    m.away_goal
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join the home subquery to the match table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">match</span>.id, team.team_long_name <span style="color:#66d9ef">AS</span> hometeam
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">match</span>.hometeam_id <span style="color:#f92672">=</span> team.team_api_id) <span style="color:#66d9ef">AS</span> home
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> home.id <span style="color:#f92672">=</span> m.id
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join the away subquery to the match table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">match</span>.id, team.team_long_name <span style="color:#66d9ef">AS</span> awayteam
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">-- Get the away team ID in the subquery
+</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">match</span>.awayteam_id <span style="color:#f92672">=</span> team.team_api_id) <span style="color:#66d9ef">AS</span> away
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> away.id <span style="color:#f92672">=</span> m.id;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	m.date,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Get the home and away team names
+</span></span></span><span style="display:flex;"><span>    home.hometeam,
+</span></span><span style="display:flex;"><span>    away.awayteam,
+</span></span><span style="display:flex;"><span>    m.home_goal,
+</span></span><span style="display:flex;"><span>    m.away_goal
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join the home subquery to the match table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">match</span>.id, team.team_long_name <span style="color:#66d9ef">AS</span> hometeam
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">match</span>.hometeam_id <span style="color:#f92672">=</span> team.team_api_id) <span style="color:#66d9ef">AS</span> home
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> home.id <span style="color:#f92672">=</span> m.id
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join the away subquery to the match table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">match</span>.id, team.team_long_name <span style="color:#66d9ef">AS</span> awayteam
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">-- Get the away team ID in the subquery
+</span></span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ON</span> <span style="color:#66d9ef">match</span>.awayteam_id <span style="color:#f92672">=</span> team.team_api_id) <span style="color:#66d9ef">AS</span> away
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> away.id <span style="color:#f92672">=</span> m.id;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span> home <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> m.id, m.date, 
+</span></span><span style="display:flex;"><span>  		 t.team_long_name <span style="color:#66d9ef">AS</span> hometeam, m.home_goal
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team <span style="color:#66d9ef">AS</span> t 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ON</span> m.hometeam_id <span style="color:#f92672">=</span> t.team_api_id),
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Declare and set up the away CTE
+</span></span></span><span style="display:flex;"><span>away <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> m.id, m.date, 
+</span></span><span style="display:flex;"><span>  		 t.team_long_name <span style="color:#66d9ef">AS</span> awayteam, m.away_goal
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team <span style="color:#66d9ef">AS</span> t 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">ON</span> m.awayteam_id <span style="color:#f92672">=</span> t.team_api_id)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Select date, home_goal, and away_goal
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	home.date,
+</span></span><span style="display:flex;"><span>    home.hometeam,
+</span></span><span style="display:flex;"><span>    away.awayteam,
+</span></span><span style="display:flex;"><span>    home.home_goal,
+</span></span><span style="display:flex;"><span>    away.away_goal
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join away and home on the id column
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> home
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">INNER</span> <span style="color:#66d9ef">JOIN</span> away
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> home.id <span style="color:#f92672">=</span> away.id;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="window-functions">Window Functions</h3>
+<p><img src="images/227.webp" alt="img227"></p>
+<h4 id="introductionintroducing-window-functions">IntroductionIntroducing window functions!</h4>
+<ul>
+<li>
+<p>Perform calculations on an already generated result set (a window)</p>
+</li>
+<li>
+<p>Aggregate calculations</p>
+<ul>
+<li>
+<p>Similar to subqueries in <code>SELECT</code></p>
+</li>
+<li>
+<p>Running totals, rankings, moving averages</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>   </p>
+<p><img src="images/228.webp" alt="img228"></p>
+<p><img src="images/229.webp" alt="img229"></p>
+<p><img src="images/230.webp" alt="img230"></p>
+<p>RANK()
+<img src="images/231.webp" alt="img231">
+DESC
+<img src="images/232.webp" alt="img232"></p>
+<h4 id="key-differences">Key differences</h4>
+<ul>
+<li>
+<p>Processed after every part of query except <code>ORDER BY</code></p>
+<ul>
+<li>Uses information in result set rather than database</li>
+</ul>
+</li>
+<li>
+<p>Available in PostgreSQL, Oracle, MySQL, SQL Server&hellip;</p>
+<ul>
+<li>&hellip;but NOT SQLite</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the id, country name, season, home, and away goals
+</span></span></span><span style="display:flex;"><span>	m.id, 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">c</span>.name <span style="color:#66d9ef">AS</span> country, 
+</span></span><span style="display:flex;"><span>    m.season,
+</span></span><span style="display:flex;"><span>	m.home_goal,
+</span></span><span style="display:flex;"><span>	m.away_goal,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Use a window to include the aggregate average in each row
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal) OVER() <span style="color:#66d9ef">AS</span> overall_avg
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> country <span style="color:#66d9ef">AS</span> <span style="color:#66d9ef">c</span> <span style="color:#66d9ef">ON</span> m.country_id <span style="color:#f92672">=</span> <span style="color:#66d9ef">c</span>.id;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the league name and average goals scored
+</span></span></span><span style="display:flex;"><span>	l.name <span style="color:#66d9ef">AS</span> league,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal) <span style="color:#66d9ef">AS</span> avg_goals,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Rank each league according to the average goals
+</span></span></span><span style="display:flex;"><span>    RANK() OVER(<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal)) <span style="color:#66d9ef">AS</span> league_rank
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> league <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> l.id <span style="color:#f92672">=</span> m.country_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> m.season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2011/2012&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> l.name
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Order the query by the rank you created
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> league_rank;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Select the league name and average goals scored
+</span></span></span><span style="display:flex;"><span>	l.name <span style="color:#66d9ef">AS</span> league,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal) <span style="color:#66d9ef">AS</span> avg_goals,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Rank leagues in descending order by average goals
+</span></span></span><span style="display:flex;"><span>    RANK() OVER(<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#66d9ef">AVG</span>(m.home_goal <span style="color:#f92672">+</span> m.away_goal) <span style="color:#66d9ef">DESC</span>) <span style="color:#66d9ef">AS</span> league_rank
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> league <span style="color:#66d9ef">AS</span> l
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> l.id <span style="color:#f92672">=</span> m.country_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> m.season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2011/2012&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> l.name
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Order the query by the rank you created
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> league_rank;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="over-with-a-partition">OVER with a PARTITION</h3>
+<h4 id="over-and-partition-by">OVER and PARTITION BY</h4>
+<ul>
+<li>
+<p>Calculate separate values for different categories</p>
+</li>
+<li>
+<p>Calculate <em><strong>different</strong></em> calculations in the same column</p>
+</li>
+</ul>
+<pre tabindex="0"><code>AVG(home_goal) OVER(PARTITION BY season)
+</code></pre><p><img src="images/233.webp" alt="img233"></p>
+<p><img src="images/234.webp" alt="img234"></p>
+<p><img src="images/235.webp" alt="img235"></p>
+<h4 id="partition-by-considerations">PARTITION BY considerations</h4>
+<ul>
+<li>
+<p>Can partition data by 1 or more columns</p>
+</li>
+<li>
+<p>Can partition aggregate calculations, ranks, etc</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	date,
+</span></span><span style="display:flex;"><span>	season,
+</span></span><span style="display:flex;"><span>	home_goal,
+</span></span><span style="display:flex;"><span>	away_goal,
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8673</span> <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;home&#39;</span> 
+</span></span><span style="display:flex;"><span>		 <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;away&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> warsaw_location,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Calculate the average goals scored partitioned by season
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AVG</span>(home_goal) OVER(PARTITION <span style="color:#66d9ef">BY</span> season) <span style="color:#66d9ef">AS</span> season_homeavg,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AVG</span>(away_goal) OVER(PARTITION <span style="color:#66d9ef">BY</span> season) <span style="color:#66d9ef">AS</span> season_awayavg
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter the data set for Legia Warszawa matches only
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8673</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">OR</span> awayteam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8673</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> (home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#66d9ef">DESC</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span>
+</span></span><span style="display:flex;"><span>	date,
+</span></span><span style="display:flex;"><span>	season,
+</span></span><span style="display:flex;"><span>	home_goal,
+</span></span><span style="display:flex;"><span>	away_goal,
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8673</span> <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;home&#39;</span> 
+</span></span><span style="display:flex;"><span>		 <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;away&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> warsaw_location,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Calculate the average goals scored partitioned by season
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AVG</span>(home_goal) OVER(PARTITION <span style="color:#66d9ef">BY</span> season) <span style="color:#66d9ef">AS</span> season_homeavg,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AVG</span>(away_goal) OVER(PARTITION <span style="color:#66d9ef">BY</span> season) <span style="color:#66d9ef">AS</span> season_awayavg
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Filter the data set for Legia Warszawa matches only
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8673</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">OR</span> awayteam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">8673</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> (home_goal <span style="color:#f92672">+</span> away_goal) <span style="color:#66d9ef">DESC</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<h3 id="sliding-windows">Sliding windows</h3>
+<h4 id="sliding-windows-1">Sliding windows</h4>
+<ul>
+<li>
+<p>Perform calculations relative to the current row</p>
+</li>
+<li>
+<p>Can be used to calculate running totals, sums, averages, etc</p>
+</li>
+<li>
+<p>Can be partitioned by one or more columns</p>
+</li>
+</ul>
+<p>   </p>
+<p>   </p>
+<h4 id="sliding-window-keywords">Sliding window keywords</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">ROWS</span> <span style="color:#66d9ef">BETWEEN</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">start</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">AND</span> <span style="color:#f92672">&lt;</span>finish<span style="color:#f92672">&gt;</span>
+</span></span></code></pre></div><pre tabindex="0"><code class="language-pgsql" data-lang="pgsql">PRECEDING  
+FOLLOWING  
+UNBOUNDED PRECEDING  
+UNBOUNDED FOLLOWING  
+CURRENT ROW
+</code></pre><table>
+	<thead>
+			<tr>
+					<th>Keyword</th>
+					<th>Meaning</th>
+					<th>Example</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><strong>PRECEDING</strong></td>
+					<td>Refers to rows <strong>before the current row</strong> in the window. For example, <code>2 PRECEDING</code> means the two rows above.</td>
+					<td><code>ROWS BETWEEN 2 PRECEDING AND CURRENT ROW</code></td>
+			</tr>
+			<tr>
+					<td><strong>FOLLOWING</strong></td>
+					<td>Refers to rows <strong>after the current row</strong> in the window. For example, <code>1 FOLLOWING</code> means the next row below.</td>
+					<td><code>ROWS BETWEEN CURRENT ROW AND 1 FOLLOWING</code></td>
+			</tr>
+			<tr>
+					<td><strong>UNBOUNDED PRECEDING</strong></td>
+					<td>Includes <strong>all rows from the start</strong> of the partition or result set.</td>
+					<td><code>ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW</code> — running total</td>
+			</tr>
+			<tr>
+					<td><strong>UNBOUNDED FOLLOWING</strong></td>
+					<td>Includes <strong>all rows to the end</strong> of the partition or result set.</td>
+					<td><code>ROWS BETWEEN CURRENT ROW AND UNBOUNDED FOLLOWING</code></td>
+			</tr>
+			<tr>
+					<td><strong>CURRENT ROW</strong></td>
+					<td>Refers to <strong>only the current row</strong>.</td>
+					<td><code>ROWS BETWEEN CURRENT ROW AND CURRENT ROW</code></td>
+			</tr>
+	</tbody>
+</table>
+<p><img src="images/236.webp" alt="img236"></p>
+<p><img src="images/237.webp" alt="img237"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	date,
+</span></span><span style="display:flex;"><span>	home_goal,
+</span></span><span style="display:flex;"><span>	away_goal,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Create a running total and running average of home goals
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SUM</span>(home_goal) OVER(<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> date 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">ROWS</span> <span style="color:#66d9ef">BETWEEN</span> UNBOUNDED PRECEDING <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">CURRENT</span> <span style="color:#66d9ef">ROW</span>) <span style="color:#66d9ef">AS</span> running_total,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AVG</span>(home_goal) OVER(<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> date 
+</span></span><span style="display:flex;"><span>         <span style="color:#66d9ef">ROWS</span> <span style="color:#66d9ef">BETWEEN</span> UNBOUNDED PRECEDING <span style="color:#66d9ef">AND</span> <span style="color:#66d9ef">CURRENT</span> <span style="color:#66d9ef">ROW</span>) <span style="color:#66d9ef">AS</span> running_avg
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	hometeam_id <span style="color:#f92672">=</span> <span style="color:#ae81ff">9908</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">AND</span> season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2011/2012&#39;</span>;
+</span></span></code></pre></div><p>   </p>
+<p>   </p>
+<p>   </p>
+<p>   </p>
+<h3 id="bringing-it-all-together">Bringing it all together</h3>
+<p><img src="images/238.webp" alt="img237"></p>
+<p><img src="images/239.webp" alt="img239"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	m.id, 
+</span></span><span style="display:flex;"><span>    t.team_long_name,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Identify matches as home/away wins or ties
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&gt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Win&#39;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&lt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Left join team on the home team ID and team API id
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team <span style="color:#66d9ef">AS</span> t 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> m.hometeam_id <span style="color:#f92672">=</span> t.team_api_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Filter for 2014/2015 and Manchester United as the home team
+</span></span></span><span style="display:flex;"><span>	m.season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2014/2015&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">AND</span> t.team_long_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Manchester United&#39;</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> 
+</span></span><span style="display:flex;"><span>	m.id, 
+</span></span><span style="display:flex;"><span>    t.team_long_name,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">-- Identify matches as home/away wins or ties
+</span></span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&gt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&lt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Win&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join team table to the match table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team <span style="color:#66d9ef">AS</span> t 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ON</span> m.awayteam_id <span style="color:#f92672">=</span> t.team_api_id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">-- Filter for 2014/2015 and Manchester United as the away team
+</span></span></span><span style="display:flex;"><span>	m.season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2014/2015&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">AND</span> t.team_long_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Manchester United&#39;</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Set up the home team CTE
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span> home <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> m.id, t.team_long_name,
+</span></span><span style="display:flex;"><span>	  <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&gt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Win&#39;</span>
+</span></span><span style="display:flex;"><span>		     <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&lt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span> 
+</span></span><span style="display:flex;"><span>  		   <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team <span style="color:#66d9ef">AS</span> t <span style="color:#66d9ef">ON</span> m.hometeam_id <span style="color:#f92672">=</span> t.team_api_id),
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Set up the away team CTE
+</span></span></span><span style="display:flex;"><span>  away <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> m.id, t.team_long_name,
+</span></span><span style="display:flex;"><span>	  <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&gt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span>
+</span></span><span style="display:flex;"><span>		     <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&lt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Win&#39;</span> 
+</span></span><span style="display:flex;"><span>  		   <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team <span style="color:#66d9ef">AS</span> t <span style="color:#66d9ef">ON</span> m.awayteam_id <span style="color:#f92672">=</span> t.team_api_id)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Select team names, the date and goals
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">DISTINCT</span>
+</span></span><span style="display:flex;"><span>    m.date,
+</span></span><span style="display:flex;"><span>    home.team_long_name <span style="color:#66d9ef">AS</span> home_team,
+</span></span><span style="display:flex;"><span>    away.team_long_name <span style="color:#66d9ef">AS</span> away_team,
+</span></span><span style="display:flex;"><span>    m.home_goal,
+</span></span><span style="display:flex;"><span>    m.away_goal
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join the CTEs onto the match table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> home <span style="color:#66d9ef">ON</span> m.id <span style="color:#f92672">=</span> home.id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> away <span style="color:#66d9ef">ON</span> m.id <span style="color:#f92672">=</span> away.id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> m.season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2014/2015&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">AND</span> (home.team_long_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Manchester United&#39;</span> 
+</span></span><span style="display:flex;"><span>           <span style="color:#66d9ef">OR</span> away.team_long_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Manchester United&#39;</span>);
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- Set up the home team CTE
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">WITH</span> home <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> m.id, t.team_long_name,
+</span></span><span style="display:flex;"><span>	  <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&gt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Win&#39;</span>
+</span></span><span style="display:flex;"><span>		   <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&lt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span> 
+</span></span><span style="display:flex;"><span>  		   <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team <span style="color:#66d9ef">AS</span> t <span style="color:#66d9ef">ON</span> m.hometeam_id <span style="color:#f92672">=</span> t.team_api_id),
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Set up the away team CTE
+</span></span></span><span style="display:flex;"><span>  away <span style="color:#66d9ef">AS</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">SELECT</span> m.id, t.team_long_name,
+</span></span><span style="display:flex;"><span>	  <span style="color:#66d9ef">CASE</span> <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&gt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span>
+</span></span><span style="display:flex;"><span>		   <span style="color:#66d9ef">WHEN</span> m.home_goal <span style="color:#f92672">&lt;</span> m.away_goal <span style="color:#66d9ef">THEN</span> <span style="color:#e6db74">&#39;MU Win&#39;</span> 
+</span></span><span style="display:flex;"><span>  		   <span style="color:#66d9ef">ELSE</span> <span style="color:#e6db74">&#39;Tie&#39;</span> <span style="color:#66d9ef">END</span> <span style="color:#66d9ef">AS</span> outcome
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> team <span style="color:#66d9ef">AS</span> t <span style="color:#66d9ef">ON</span> m.awayteam_id <span style="color:#f92672">=</span> t.team_api_id)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Select columns and and rank the matches by goal difference
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">DISTINCT</span>
+</span></span><span style="display:flex;"><span>    m.date,
+</span></span><span style="display:flex;"><span>    home.team_long_name <span style="color:#66d9ef">AS</span> home_team,
+</span></span><span style="display:flex;"><span>    away.team_long_name <span style="color:#66d9ef">AS</span> away_team,
+</span></span><span style="display:flex;"><span>    m.home_goal, m.away_goal,
+</span></span><span style="display:flex;"><span>    RANK() OVER(<span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#66d9ef">ABS</span>(home_goal <span style="color:#f92672">-</span> away_goal) <span style="color:#66d9ef">DESC</span>) <span style="color:#66d9ef">as</span> match_rank
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- Join the CTEs onto the match table
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">AS</span> m
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> home <span style="color:#66d9ef">ON</span> m.id <span style="color:#f92672">=</span> home.id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LEFT</span> <span style="color:#66d9ef">JOIN</span> away <span style="color:#66d9ef">ON</span> m.id <span style="color:#f92672">=</span> away.id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> m.season <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;2014/2015&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">AND</span> ((home.team_long_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Manchester United&#39;</span> <span style="color:#66d9ef">AND</span> home.outcome <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">OR</span> (away.team_long_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Manchester United&#39;</span> <span style="color:#66d9ef">AND</span> away.outcome <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span>));
+</span></span></code></pre></div><p><img src="images/240.webp" alt="img240"></p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#joining-data-in-sql">Joining Data in SQL</a>
+      <ul>
+        <li><a href="#inner-joins">Inner JOINs</a></li>
+        <li><a href="#defining-relationships">Defining Relationships</a></li>
+        <li><a href="#multiple-joins">Multiple Joins</a></li>
+        <li><a href="#left-and-right-joins">LEFT and RIGHT JOINs</a></li>
+        <li><a href="#right-join">Right Join</a></li>
+        <li><a href="#full-join">Full JOIN</a></li>
+        <li><a href="#crossing-into-cross-join">Crossing into CROSS JOIN</a></li>
+        <li><a href="#self-joins">Self Joins</a></li>
+        <li><a href="#set-theory-for-sql-joins">Set theory for SQL Joins</a></li>
+        <li><a href="#subquerying-with-semi-joins-and-anti-joins">Subquerying with semi joins and anti joins</a></li>
+        <li><a href="#subqueries-inside-where-and-select">Subqueries inside WHERE and SELECT</a></li>
+        <li><a href="#subqueries-inside-from">Subqueries inside FROM</a></li>
+      </ul>
+    </li>
+    <li><a href="#data-manipulation-in-sql">Data Manipulation in SQL</a>
+      <ul>
+        <li><a href="#well-take-the-case">We&rsquo;ll take the CASE</a></li>
+        <li><a href="#in-case-things-get-more-complex">In CASE things get more complex</a></li>
+        <li><a href="#case-when-with-aggregate-functions">CASE WHEN with aggregate functions</a></li>
+        <li><a href="#where-are-the-subqueries">WHERE are the Subqueries?</a></li>
+        <li><a href="#subqueries-in-the-from-statement">Subqueries in the FROM statement</a></li>
+        <li><a href="#subqueries-in-select">Subqueries in SELECT</a></li>
+        <li><a href="#subqueries-everywhere-and-best-practices">Subqueries everywhere! And best practices!</a></li>
+        <li><a href="#correlated-subqueries">Correlated subqueries</a></li>
+        <li><a href="#nested-subqueries">Nested subqueries</a></li>
+        <li><a href="#common-table-expressions">Common Table Expressions</a></li>
+        <li><a href="#deciding-on-techniques-to-use">Deciding on techniques to use</a></li>
+        <li><a href="#window-functions">Window Functions</a></li>
+        <li><a href="#over-with-a-partition">OVER with a PARTITION</a></li>
+        <li><a href="#sliding-windows">Sliding windows</a></li>
+        <li><a href="#bringing-it-all-together">Bringing it all together</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Vagrant</title>
+    <meta name="description" content="
+Example vagrantfile
+vagrant.configure(&#34;2&#34;) do |config|config.vm.provider :virtualbox do |v|v.memory = 2048endconfig.vm.define …">
+    <meta name="keywords" content='Linux, vagrant, Terraform'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/vagrant/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Vagrant">
+    <meta property="og:description" content="
+Example vagrantfile
+vagrant.configure(&#34;2&#34;) do |config|config.vm.provider :virtualbox do |v|v.memory = 2048endconfig.vm.define …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vagrant">
+    <meta name="twitter:description" content="
+Example vagrantfile
+vagrant.configure(&#34;2&#34;) do |config|config.vm.provider :virtualbox do |v|v.memory = 2048endconfig.vm.define …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/vagrant/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/vagrant/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/vagrant/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Vagrant</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              May 3, 2023
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/vagrant">vagrant</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/terraform">Terraform</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/vagrant1.svg" alt="vagrant1"></p>
+<h2 id="example">Example</h2>
+<p>vagrantfile</p>
+<pre tabindex="0"><code class="language-vagrantfile" data-lang="vagrantfile">vagrant.configure(&#34;2&#34;) do |config|
+  
+  config.vm.provider :virtualbox do |v|
+    v.memory = 2048
+  end
+
+  config.vm.define &#34;reactjsserver&#34; do |db|
+    db.vm.box = &#34;ubuntu/focal64&#34;
+    db.vm.hostname = &#34;reactjsserver&#34;
+    db.vm.network :private_network, ip: &#34;10.10.10.10&#34;
+    db.vm.provision &#34;ansible&#34; do |ansible&#34;
+        ansible.playbook = &#34;OneServer/reactjs.yaml&#34;
+        ansible.become = true
+    end 
+  end
+end
+</code></pre><p>run vagrant</p>
+<pre tabindex="0"><code>vargant up
+</code></pre><p>connect to vagrant virtualmachine</p>
+<pre tabindex="0"><code>vagrant ssh
+</code></pre><p><code>ss -tlpn</code> see all ports</p>
+<p>see all boxes</p>
+<pre tabindex="0"><code>vagrant box list
+</code></pre><p>delete virtual machine</p>
+<pre tabindex="0"><code>vagrant destroy
+</code></pre><h2 id="search-boxes">Search Boxes</h2>
+<p><a href="https://app.vagrantup.com/boxes/search">https://app.vagrantup.com/boxes/search</a></p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#example">Example</a></li>
+    <li><a href="#search-boxes">Search Boxes</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

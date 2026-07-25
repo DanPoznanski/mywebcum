@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Nginx</title>
+    <meta name="description" content="Engine-X">
+    <meta name="keywords" content='Web, Linux, Proxy'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/nginx/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Nginx">
+    <meta property="og:description" content="Engine-X">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nginx">
+    <meta name="twitter:description" content="Engine-X">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/nginx/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/nginx/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/nginx/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Nginx</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle">Engine-X</small>
+	
+
+	
+          <p class="post-date">
+              
+
+              June 18, 2019
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/web">Web</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/proxy">Proxy</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>&mdash;&mdash;&mdash;&ndash; redirect site to yandex.ru
+/etc/nginx/sites-enebled</p>
+<hr>
+<p>server
+listen 80;</p>
+<p>server_nane nginx.srwx.net;</p>
+<p>return 301 &ldquo;<a href="http://ya.ru">http://ya.ru</a>&rdquo;;</p>
+<hr>
+<p>test config</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nginx -t
+</span></span></code></pre></div><p>curl -D - -o /dev/null -s <a href="http://nginx.srwx.net">http://nginx.srwx.net</a></p>
+<p>cat etc/nginx/sites-enabled</p>
+<p>nginx reload</p>
+<h1 id="location">Location</h1>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>location /test <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">201</span> <span style="color:#e6db74">&#34;TEST&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>password and user</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>location /restricted <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  auth_basic <span style="color:#e6db74">&#34;Restrictred&#34;</span>;
+</span></span><span style="display:flex;"><span>  auth_basic_user_file .htpasswd; 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>proxy to yandex on main domain</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>location /admin <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  proxy_pass http://ya.ru;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>balance beetwen servers</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>upstream app <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  server 127.0.0.1:8080;
+</span></span><span style="display:flex;"><span>  server 10.10.21.12:8080;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>server 
+</span></span><span style="display:flex;"><span>  listen <span style="color:#ae81ff">80</span> default_server;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  server_nane nginx.srwx.net;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  location /admin <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    proxy_pass http://app;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Makes the site faster and gives the static css</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>upstream app <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  server 127.0.0.1:8080;
+</span></span><span style="display:flex;"><span>  server 10.10.21.12:8080;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>server 
+</span></span><span style="display:flex;"><span>  listen <span style="color:#ae81ff">80</span> default_server;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  server_nane nginx.srwx.net;
+</span></span><span style="display:flex;"><span>  location /css <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    root /var/www/css;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>  location /admin <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    proxy_pass http://app;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>upsteam app <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  server app1:80
+</span></span><span style="display:flex;"><span>  server app2:80
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>server <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  listen 80;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  server_name _;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  location / <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    proxy_pass http://app;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h1 id="check-module">Check Module</h1>
+<p><img src="images/nginx1.svg" alt="nginx"></p>
+<p>Install the prerequisites:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+</span></span></code></pre></div><p>Import an official nginx signing key so apt could verify the packages authenticity. Fetch the key:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg &gt;/dev/null
+</span></span></code></pre></div><p>Verify that the downloaded file contains the proper key:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg
+</span></span></code></pre></div><p>The output should contain the full fingerprint <code>573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62</code> as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pub   rsa2048 2011-08-19 <span style="color:#f92672">[</span>SC<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>expires: 2024-06-14<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+</span></span><span style="display:flex;"><span>uid                      nginx signing key &lt;signing-key@nginx.com&gt;
+</span></span></code></pre></div><p>If the fingerprint is different, remove the file.</p>
+<p>To set up the apt repository for stable nginx packages, run the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">http://nginx.org/packages/ubuntu `lsb_release -cs` nginx&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    | sudo tee /etc/apt/sources.list.d/nginx.list
+</span></span></code></pre></div><p>If you would like to use mainline nginx packages, run the following command instead:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    | sudo tee /etc/apt/sources.list.d/nginx.list
+</span></span></code></pre></div><p>Set up repository pinning to prefer our packages over distribution-provided ones:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>echo -e <span style="color:#e6db74">&#34;Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span>    | sudo tee /etc/apt/preferences.d/99nginx
+</span></span></code></pre></div><p>To install nginx, run the following commands:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt update
+</span></span><span style="display:flex;"><span>sudo apt install nginx
+</span></span></code></pre></div><p>test</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nginx -v 
+</span></span></code></pre></div><p><img src="images/nginx1.svg" alt="nginx"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get build-dep nginx
+</span></span></code></pre></div><p>Create repository source file for nginx</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/apt/sources.list.d/nginx.list
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>deb-src http://nginx.org/packages/mainline/ ubuntu bionic nginx
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt update
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get build-dep nginx
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get source nginx
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install git
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/yaoweibin/nginx_upstream_check_module
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd nginx_upstream_check_module
+</span></span></code></pre></div><p>take last version</p>
+<pre tabindex="0"><code>patch -p &lt; /root/nginx_http_upsteam_check_module/check
+</code></pre><p>patch -p &lt; /root/nginx_http_upsteam_check_module/check_1.14.0+.patch</p>
+<p>add to</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano debian/rules
+</span></span></code></pre></div><p>add to end <code>add-module-/root/nginx_http_upsteam_check_module</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>CFLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> .. .. .. .. .. ...  
+</span></span><span style="display:flex;"><span>.. .. .. .. .. .. --add-module-/root/nginx_http_upsteam_check_module
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dpkg-buildpackage -uc -us -b
+</span></span></code></pre></div><p>now i can add to repository</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dpkg -i nginx_1.15.11.1-bionic.amd64.deb
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd /etc/nginx/conf.d/
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano default.conf 
+</span></span></code></pre></div><p>After config command <code>nginx reload</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>upstream app <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  server app1.nginx.devops.srwx.net:80
+</span></span><span style="display:flex;"><span>  server app2.nginx.devops.srwx.net:80
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  check interval<span style="color:#f92672">=</span><span style="color:#ae81ff">3000</span> rise<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span> fall<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span> timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span> type<span style="color:#f92672">=</span>http;
+</span></span><span style="display:flex;"><span>  check_http_send <span style="color:#e6db74">&#34;GET / HTTP/1.0\r\n\r\n&#34;</span>;
+</span></span><span style="display:flex;"><span>  check_http_expect_alive http_2xx http_3xx;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>server <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  listen 80;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  server_name _;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  location / <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    proxy_pass http://app;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Test for Loadbalance</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -D - -s http://lb.nginx.devops.srwx.net
+</span></span></code></pre></div><p>on slave server <code>app1</code> and <code>app2</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>server <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  listen 80;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  service_name _;
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  location / <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">200</span> <span style="color:#e6db74">&#34;app1\n&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h1 id="nginx-mirroring-module">Nginx Mirroring Module</h1>
+<p><img src="images/nginx2.svg" alt="nginx2"></p>
+<pre tabindex="0"><code>upstream appprod {
+  server app1.nginx.devops.srwx.net:80
+}
+upstream appdev {
+  server app2.nginx.devops.srwx.net:80
+}
+
+
+server {
+  listen 80;
+
+  server_name _;
+
+  location / {
+    proxy_pass http://appprod;
+    mirror /mirror;
+  }
+  location /mirror {
+    proxy_pass http://appdev$request_url;
+  } 
+}
+</code></pre><blockquote>
+<p>dont forget reload nginx</p>
+</blockquote>
+<p>tail -100f /var/log/nginx/access.log</p>
+<h1 id="lua-nginx-module">Lua Nginx Module</h1>
+<p><img src="images/nginx3.svg" alt="nginx3"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>install nginx nginx-extras    
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install libnginx-mod-http-lua
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install lua-nginx-redis
+</span></span></code></pre></div><p>Restart Nginx</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl restart nginx
+</span></span></code></pre></div><pre tabindex="0"><code>upstream appprod {
+  server app1.nginx.devops.srwx.net:80
+}
+upstream appdev {
+  server app2.nginx.devops.srwx.net:80
+}
+
+
+server {
+  listen 80;
+
+  server_name _;
+
+  location / {
+    default_type &#39;text/html&#39;;
+     
+    content_by_lua &#39;
+      ngx.say(&#34;HELLO&#34;)
+    &#39;;
+  }
+  location /mirror {
+    proxy_pass http://appdev$request_url;
+  } 
+}
+</code></pre><pre tabindex="0"><code>upstream appprod {
+  server app1.nginx.devops.srwx.net:80
+}
+upstream appdev {
+  server app2.nginx.devops.srwx.net:80
+}
+
+
+server {
+  listen 80;
+
+  server_name _;
+
+  location / {
+    default_type &#39;text/html&#39;;
+     
+    content_by_lua &#39;
+      api_key = ngx.req.get_headers()[&#34;X-api-Key&#34;]
+      if not api_key then
+        ngx.status = 403
+        ngx.say(&#34;Dont see x-api-key header&#34;)
+        return ngx.exit(403)
+      end
+      
+      local redis = require &#34;nginx.redis&#34;
+      local red = redis:new()
+      local ok, err = red:connect(127.0.0.1&#34;, 6379)
+
+      local res, err = red:get(api_key)
+
+      if res == ngx.null then
+        ngx.status = 403
+        ngx.say(&#34;Not authorized&#34;)
+        return ngx.exit(403)
+      else
+        ngx.exec(&#34;/authorized&#34;)
+      end
+    &#39;;
+ }
+ location /authorized {
+   return 200 &#34;Good to go&#34;;
+ }
+}
+</code></pre><blockquote>
+<p>reload nginx &rsquo;nginx reload</p>
+</blockquote>
+<p><strong>install redis-server</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>install redis-server 
+</span></span></code></pre></div><p>redis-cli</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -H <span style="color:#e6db74">&#39;X-api-key: 1234&#39;</span> -D - -s http://lb.nginx.devops.srw.net
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>md5 lua.conf
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>redis-cli
+</span></span><span style="display:flex;"><span>set 34534gr324234fwefa client1
+</span></span><span style="display:flex;"><span>OK
+</span></span><span style="display:flex;"><span>get 34534gr324234fwefa
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;client1&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -H <span style="color:#e6db74">&#39;X-api-key: 34534gr324234fwefa&#39;</span> -D - -s http://lb.nginx.devops.srw.net
+</span></span></code></pre></div><h2 id="backend-balancer">Backend Balancer</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>upstream backend <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  server 172.16.1.100;
+</span></span><span style="display:flex;"><span>  server 172.16.1.101;  
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>server <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>  listen 80;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  server_name http.srwx.net;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  location / <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    proxy_set_header Host <span style="color:#e6db74">&#34;http.srwx.net&#34;</span>;
+</span></span><span style="display:flex;"><span>    proxy_pass http://backend;
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#backend-balancer">Backend Balancer</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

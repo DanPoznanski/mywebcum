@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Routers on myblog</title>
+		<link>http://localhost:60118/tags/routers/</link>
+		<description>Recent content in Routers on myblog</description>
+		<generator>Hugo</generator>
+		<language>en</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 01 Nov 2024 21:29:01 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:60118/tags/routers/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>OpenWrt</title>
+				<link>http://localhost:60118/posts/openwrt/</link>
+				<pubDate>Fri, 01 Nov 2024 21:29:01 +0800</pubDate>
+				<guid>http://localhost:60118/posts/openwrt/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;images/OpenWrt_Logo.svg&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt; &#xA; &lt;/p&gt;&#xA;&lt;p&gt; &#xA; &lt;/p&gt;&#xA;&lt;h2 id=&#34;bri-r3-mini&#34;&gt;BRI-R3 Mini&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://wiki.banana-pi.org/Getting_Started_with_BPI-R3_MINI&#34;&gt;https://wiki.banana-pi.org/Getting_Started_with_BPI-R3_MINI&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://downloads.openwrt.org/snapshots/targets/mediatek/filogic/&#34;&gt;https://downloads.openwrt.org/snapshots/targets/mediatek/filogic/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://firmware-selector.openwrt.org/?version=SNAPSHOT&amp;amp;target=mediatek%2Ffilogic&amp;amp;id=bananapi_bpi-r3-mini&#34;&gt;https://firmware-selector.openwrt.org/?version=SNAPSHOT&amp;amp;target=mediatek%2Ffilogic&amp;amp;id=bananapi_bpi-r3-mini&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://openwrt.org/toh/sinovoip/bananapi_bpi_r3_mini?s%5B%5D=bananapi&amp;amp;s%5B%5D=bpi&amp;amp;s%5B%5D=r3&amp;amp;s%5B%5D=mini&#34;&gt;https://openwrt.org/toh/sinovoip/bananapi_bpi_r3_mini?s[]=bananapi&amp;amp;s[]=bpi&amp;amp;s[]=r3&amp;amp;s[]=mini&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt; &#xA; &lt;/p&gt;&#xA;&lt;p&gt; &#xA; &lt;/p&gt;&#xA;&lt;h3 id=&#34;unbrick-nand-from-emmc-u-boot&#34;&gt;Unbrick Nand from Emmc U-Boot&lt;/h3&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;usb start&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;usb storage&#xD;&#xA;&#xD;&#xA;Device 0: Vendor: SanDisk Rev: 1.00 Prod: Cruzer Blade&#xD;&#xA;            Type: Removable Hard Disk&#xD;&#xA;            Capacity: 14664.0 MB = 14.3 GB (30031872 x 512)&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;usb tree&#xD;&#xA;&#xD;&#xA;USB device tree:&#xD;&#xA;  1  Hub (5 Gb/s, 0mA)&#xD;&#xA;  |  U-Boot XHCI Host Controller&#xD;&#xA;  |&#xD;&#xA;  +-2  Mass Storage (480 Mb/s, 200mA)&#xD;&#xA;       SanDisk Cruzer Blade 03025908011622061257&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ls usb 0:1 &#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;fatload usb 0:1 $loadaddr openwrt-mediatek-filogic-bananapi_bpi-r3-mini-snand-factory.bin&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;fatload usb 0:1 $loadaddr mtk-bpi-r3mini-NAND-20231115-single-image.bin&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nand erase 0x0 0x8000000&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nand write $loadaddr 0 0x8000000&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;switch to nand&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

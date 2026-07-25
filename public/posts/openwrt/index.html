@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>OpenWrt</title>
+    <meta name="description" content="
+BRI-R3 Mini https://wiki.banana-pi.org/Getting_Started_with_BPI-R3_MINI
+https://downloads.openwrt.org/snapshots/targets/mediatek/filogic/ …">
+    <meta name="keywords" content='Linux, Routers'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/openwrt/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="OpenWrt">
+    <meta property="og:description" content="
+BRI-R3 Mini https://wiki.banana-pi.org/Getting_Started_with_BPI-R3_MINI
+https://downloads.openwrt.org/snapshots/targets/mediatek/filogic/ …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="OpenWrt">
+    <meta name="twitter:description" content="
+BRI-R3 Mini https://wiki.banana-pi.org/Getting_Started_with_BPI-R3_MINI
+https://downloads.openwrt.org/snapshots/targets/mediatek/filogic/ …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/openwrt/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/openwrt/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/openwrt/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>OpenWrt</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              November 1, 2024
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/routers">Routers</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/OpenWrt_Logo.svg" alt="img"></p>
+<p> 
+ </p>
+<p> 
+ </p>
+<h2 id="bri-r3-mini">BRI-R3 Mini</h2>
+<p><a href="https://wiki.banana-pi.org/Getting_Started_with_BPI-R3_MINI">https://wiki.banana-pi.org/Getting_Started_with_BPI-R3_MINI</a></p>
+<p><a href="https://downloads.openwrt.org/snapshots/targets/mediatek/filogic/">https://downloads.openwrt.org/snapshots/targets/mediatek/filogic/</a></p>
+<p><a href="https://firmware-selector.openwrt.org/?version=SNAPSHOT&amp;target=mediatek%2Ffilogic&amp;id=bananapi_bpi-r3-mini">https://firmware-selector.openwrt.org/?version=SNAPSHOT&amp;target=mediatek%2Ffilogic&amp;id=bananapi_bpi-r3-mini</a></p>
+<p><a href="https://openwrt.org/toh/sinovoip/bananapi_bpi_r3_mini?s%5B%5D=bananapi&amp;s%5B%5D=bpi&amp;s%5B%5D=r3&amp;s%5B%5D=mini">https://openwrt.org/toh/sinovoip/bananapi_bpi_r3_mini?s[]=bananapi&amp;s[]=bpi&amp;s[]=r3&amp;s[]=mini</a></p>
+<p> 
+ </p>
+<p> 
+ </p>
+<h3 id="unbrick-nand-from-emmc-u-boot">Unbrick Nand from Emmc U-Boot</h3>
+<pre tabindex="0"><code>usb start
+</code></pre><pre tabindex="0"><code>usb storage
+
+Device 0: Vendor: SanDisk Rev: 1.00 Prod: Cruzer Blade
+            Type: Removable Hard Disk
+            Capacity: 14664.0 MB = 14.3 GB (30031872 x 512)
+</code></pre><pre tabindex="0"><code>usb tree
+
+USB device tree:
+  1  Hub (5 Gb/s, 0mA)
+  |  U-Boot XHCI Host Controller
+  |
+  +-2  Mass Storage (480 Mb/s, 200mA)
+       SanDisk Cruzer Blade 03025908011622061257
+</code></pre><pre tabindex="0"><code>ls usb 0:1 
+</code></pre><pre tabindex="0"><code>fatload usb 0:1 $loadaddr openwrt-mediatek-filogic-bananapi_bpi-r3-mini-snand-factory.bin
+</code></pre><pre tabindex="0"><code>fatload usb 0:1 $loadaddr mtk-bpi-r3mini-NAND-20231115-single-image.bin
+</code></pre><pre tabindex="0"><code>nand erase 0x0 0x8000000
+</code></pre><pre tabindex="0"><code>nand write $loadaddr 0 0x8000000
+</code></pre><p>switch to nand</p>
+<p> 
+ </p>
+<p> 
+ </p>
+<p> 
+ </p>
+<h3 id="immortalwrt-on-emmc-from-nand-terminal">Immortalwrt on Emmc from nand Terminal</h3>
+<p>download all:</p>
+<p><a href="https://firmware-selector.immortalwrt.org/?version=SNAPSHOT&amp;target=mediatek%2Ffilogic&amp;id=bananapi_bpi-r3-mini">https://firmware-selector.immortalwrt.org/?version=SNAPSHOT&amp;target=mediatek%2Ffilogic&amp;id=bananapi_bpi-r3-mini</a></p>
+<p>mount usb to system</p>
+<pre tabindex="0"><code>mount -t vfat /dev/sda1 /mnt
+</code></pre><p>go to directory</p>
+<pre tabindex="0"><code>cd /mnt/sda1
+</code></pre><p>Write new GPT table</p>
+<pre tabindex="0"><code>dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-emmc-gpt.bin of=/dev/mmcblk0 bs=512 seek=0 count=34 conv=fsync
+</code></pre><p>Erase and write new BL2</p>
+<pre tabindex="0"><code>echo 0 &gt; /sys/block/mmcblk0boot0/force_ro
+dd if=/dev/zero of=/dev/mmcblk0boot0 bs=512 count=8192 conv=fsync
+dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-emmc-preloader.bin of=/dev/mmcblk0boot0 bs=512 conv=fsync
+</code></pre><p>Erase and write new FIP:</p>
+<pre tabindex="0"><code>dd if=/dev/zero of=/dev/mmcblk0 bs=512 seek=13312 count=8192 conv=fsync
+dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-emmc-bl31-uboot.fip of=/dev/mmcblk0 bs=512 seek=13312 conv=fsync
+</code></pre><p>Set static IP on your PC:
+IP 192.168.1.254/24, GW 192.168.1.1
+Serve ImmortalWrt initramfs image using TFTP server.
+Cut off the power and re-engage, wait for TFTP recovery to complete.
+After ImmortalWrt has booted, perform sysupgrade.
+Additionally, if you want to have eMMC recovery boot feature:
+(Don’t worry! You will always have TFTP recovery boot feature.)</p>
+<pre tabindex="0"><code>dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-initramfs-recovery.itb of=/dev/mmcblk0p4 bs=512 conv=fsync
+</code></pre><p>dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-squashfs-sysupgrade.itb of=/dev/mmcblk0p5 bs=512 conv=fsync</p>
+<ol>
+<li>Ставим пакет cfdisk</li>
+<li>Набираем команду SSH/Serial &ldquo;cfdisk /dev/mmcblkX&rdquo; (без кавычек и Х это номер раздела у опенврт и имортал могут различатся). Откроется окно программы cfdisk. Внимание, в режиме serial окно может глючить, моргать и отображаться криво. выбрать с помощью кнопок вверх-вниз строку с разделом &ldquo;/dev/mmcblkXpX&rdquo;. (X у разных прошивок разная)</li>
+<li>После выбора нужно строки с помощью кнопок влево-вправо выбираем пункт меню &ldquo;Resize&rdquo; и нажимаем Enter.</li>
+<li>Подтверждаем расширение раздела до максимума (программа сразу подставит весь доступный объём памяти, что-то около 7.2Гб): нажимаем Enter.</li>
+<li>С помощью кнопок влево-вправо выбираем пункт меню &ldquo;Write&rdquo; - записать изменения.
+Подтверждаем запись, напечатав &ldquo;yes&rdquo; и нажав Enter.</li>
+<li>Выходим из программы, выбрав пункт меню Quit кнопками влево-вправо.</li>
+<li>Перезапускаем устройство.</li>
+<li>Перешиваем sysupgrade через веб-морду
+Эт примерное что я делал</li>
+</ol>
+<pre tabindex="0"><code>lsblk
+</code></pre><pre tabindex="0"><code>fdisk -l /dev/mmcblk0
+</code></pre><pre tabindex="0"><code>fdisk -l /dev/mmcblk0p4
+</code></pre><h3 id="fan">fan</h3>
+<p>autorun</p>
+<pre tabindex="0"><code>/etc/init.d/script enable
+</code></pre><p>start script</p>
+<pre tabindex="0"><code>/etc/init.d/script start
+</code></pre><pre tabindex="0"><code>#!/bin/sh /etc/rc.common
+
+# fan scripts
+START=99
+STOP=10
+
+# way to file with temp
+TEMP_FILE=&#34;/sys/class/thermal/thermal_zone0/temp&#34;
+
+# way to controller fan
+FAN_PWM=&#34;/sys/class/hwmon/hwmon1/pwm1&#34;
+
+# way to save to fan
+LAST_CMD=&#34;&#34;
+
+# function log_message
+log_message() {
+    :
+}
+
+start() {
+    # check  TEMP_FILE and FAN_PWM
+
+    if [ ! -f $TEMP_FILE ]; then
+        log_message &#34;Error: TEMP_FILE not found at $TEMP_FILE&#34;
+        return 1
+    fi
+
+    if [ ! -f $FAN_PWM ]; then
+        log_message &#34;Error: FAN_PWM not found at $FAN_PWM&#34;
+        return 1
+    fi
+
+    # background for controller
+    (
+        while true; do
+            # Read temp in militemps ( example 45000 = 45 C)
+            TEMP=$(cat $TEMP_FILE)
+            TEMP_C=$((TEMP / 1000))  # convert the temperature to degrees
+
+            # determine the command for the fan depending on the temp
+            if [ $TEMP_C -lt 55 ]; then
+                CMD=&#34;130&#34;  # fan off
+            elif [ $TEMP_C -ge 55 ] &amp;&amp; [ $TEMP_C -lt 65 ]; then
+                CMD=&#34;70&#34;   # fan normal speed
+            else
+                CMD=&#34;20&#34;   # max fan speed
+            fi
+            # when command change fan speed
+            if [ &#34;$CMD&#34; != &#34;$LAST_CMD&#34; ]; then
+                echo $CMD &gt; $FAN_PWM
+                LAST_CMD=$CMD
+            fi
+
+            sleep 15  # delay 15 second
+        done
+    ) &amp;
+}
+
+stop() {
+    pkill -f &#34;/etc/init.d/fan_control&#34;
+}
+</code></pre><p>help for me:</p>
+<pre tabindex="0"><code>dd if=immortalwrt-mediatek-filogic-bananapi_bpi-r3-mini-squashfs-sysupgrade.itb of=/dev/mmcblk0p5 bs=512 conv=fsync
+</code></pre><h3 id="immortalwrt-all-package">Immortalwrt all package</h3>
+<pre tabindex="0"><code>https://downloads.immortalwrt.org/releases/packages-23.05/powerpc_464fp/luci/Packages.manifest
+</code></pre><pre tabindex="0"><code>autocore base-files block-mount bridger busybox ca-bundle default-settings-chn dnsmasq-full dropbear firewall4 fstools kmod-hwmon-pwmfan kmod-crypto-hw-safexcel kmod-gpio-button-hotplug kmod-leds-gpio kmod-mt7915e kmod-mt7986-firmware kmod-nft-offload libustream-mbedtls kmod-nf-nathelper kmod-nf-nathelper-extra kmod-nft-offload kmod-phy-aquantia kmod-phy-airoha-en8811h libc libgcc libustream-openssl logd luci luci-app-opkg luci-compat luci-lib-base luci-lib-ipkg mt7986-wo-firmware kmod-usb3 mtd netifd nftables odhcp6c odhcpd-ipv6only luci-i18n-firewall-zh-cn luci-i18n-ddns-zh-cn openssl-util wget-ssl kmod-bonding proto-bonding luci-proto-bonding kmod-wireguard wireguard-tools luci-proto-wireguard mkf2fs airoha-en8811h-firmware apk-openssl kmod-usb-net-cdc-mbim libmbim luci-proto-mbim umbim umbim kmod-usb-net-qmi-wwan libqmi luci-proto-qmi uqmi modemmanager luci-proto-modemmanager luci luci-base luci-i18n-base-ru luci-i18n-firewall-ru luci-i18n-package-manager-ru kmod-usb-net-qmi-wwan kmod-usb-serial-qualcomm kmod-usb-storage kmod-usb-serial kmod-usb-serial-option mc mmc-utils libmountl libmount1 kmod-mtd-rw nano minicom mbim-utils qmi-utils wget-ssl apk luci-compat luci-i18n-3ginfo-lite-ru uci
+</code></pre><p>/etc/config/network</p>
+<p>/etc/init.d/network restart</p>
+<p>ip a | grep inet</p>
+<p>/etc/config/dhcp</p>
+<p>reset all config and reboot</p>
+<pre tabindex="0"><code>firstboot &amp;&amp; reboot
+</code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#bri-r3-mini">BRI-R3 Mini</a>
+      <ul>
+        <li><a href="#unbrick-nand-from-emmc-u-boot">Unbrick Nand from Emmc U-Boot</a></li>
+        <li><a href="#immortalwrt-on-emmc-from-nand-terminal">Immortalwrt on Emmc from nand Terminal</a></li>
+        <li><a href="#fan">fan</a></li>
+        <li><a href="#immortalwrt-all-package">Immortalwrt all package</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Windows Server Core</title>
+    <meta name="description" content="Only for proxmox egrep -wo &#39;vmx|svm&#39; /proc/cpuinfo vmx — Intel VT-x
+svm — AMD-V
+Enable nested virtualization for KVM
+Intel:
+cat …">
+    <meta name="keywords" content='Windows Server'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/windows-server-core/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Windows Server Core">
+    <meta property="og:description" content="Only for proxmox egrep -wo &#39;vmx|svm&#39; /proc/cpuinfo vmx — Intel VT-x
+svm — AMD-V
+Enable nested virtualization for KVM
+Intel:
+cat …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Windows Server Core">
+    <meta name="twitter:description" content="Only for proxmox egrep -wo &#39;vmx|svm&#39; /proc/cpuinfo vmx — Intel VT-x
+svm — AMD-V
+Enable nested virtualization for KVM
+Intel:
+cat …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/windows-server-core/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/windows-server-core/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/windows-server-core/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Windows Server Core</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              December 13, 2024
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/windows-server">Windows Server</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <h2 id="only-for-proxmox">Only for proxmox</h2>
+<pre tabindex="0"><code>egrep -wo &#39;vmx|svm&#39; /proc/cpuinfo
+</code></pre><ul>
+<li>
+<p>vmx — Intel VT-x</p>
+</li>
+<li>
+<p>svm — AMD-V</p>
+</li>
+</ul>
+<p>Enable nested virtualization for KVM</p>
+<p>Intel:</p>
+<pre tabindex="0"><code>cat /sys/module/kvm_intel/parameters/nested
+</code></pre><p>AMD:</p>
+<pre tabindex="0"><code>cat /sys/module/kvm_amd/parameters/nested
+</code></pre><blockquote>
+<p>need be 1</p>
+</blockquote>
+<pre tabindex="0"><code>nano /etc/pve/qemu-server/100.conf
+</code></pre><p>need be</p>
+<pre tabindex="0"><code>cpu: host
+</code></pre><p>💥 Command will enable the RDP connections through the firewall on Server Core:</p>
+<pre tabindex="0"><code>netsh advfirewall firewall set rule group=&#34;remote desktop&#34; new enable=Yes 
+</code></pre><p>💥 Command Edit the value in the registry to enable remote desktop :</p>
+<pre tabindex="0"><code>cscript C:\Windows\System32\Scregedit.wsf /ar 0 
+</code></pre><h3 id="install-hyper-v">Install Hyper-V</h3>
+<p>install hyper-v and management tools</p>
+<pre tabindex="0"><code>Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
+</code></pre><p>Install Rsat-Hyper-V-Tools</p>
+<pre tabindex="0"><code>Install-WindowsFeature -Name Rsat-Hyper-V-Tools 
+</code></pre><pre tabindex="0"><code>ServerCore.AppCompatibility~~~~0.0.1.0
+</code></pre><pre tabindex="0"><code>Add-WindowsCapability -Online -Name ServerCore.AppCompatibility~~~~0.0.1.0
+</code></pre><pre tabindex="0"><code>Restart-Computer
+</code></pre><p>Run Hyper-V</p>
+<pre tabindex="0"><code>virtmgmt.msc
+</code></pre><h3 id="rename-computer">Rename Computer</h3>
+<pre tabindex="0"><code>Rename-Computer -NewName Serv2025Core
+</code></pre><h4 id="add-to-domain">Add to Domain</h4>
+<pre tabindex="0"><code>Add-Computer -DomainName dan.local -Credential dan\Administrator -restart -force
+</code></pre><pre tabindex="0"><code>Get-ComputerInfo | Select-Object HyperV*
+</code></pre><h3 id="windows-admin-center">Windows Admin Center</h3>
+<p><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-admin-center">https://www.microsoft.com/en-us/evalcenter/evaluate-windows-admin-center</a></p>
+<p><a href="https://go.microsoft.com/fwlink/?linkid=2220149&amp;clcid=0x409&amp;culture=en-us&amp;country=us">https://go.microsoft.com/fwlink/?linkid=2220149&amp;clcid=0x409&amp;culture=en-us&amp;country=us</a></p>
+<p>10 last restart</p>
+<pre tabindex="0"><code>Get-EventLog system | where-object {$_.eventid -eq 6006} | select -last 10
+</code></pre><p>download and repack</p>
+<pre tabindex="0"><code>Invoke-WebRequest https://contoso/test.zip -outfile test.zip
+Expand-Archive -path &#39;.\test.zip&#39; -DestinationPath C:\Users\Administrator\Documents\
+</code></pre><p>remotely copy file</p>
+<pre tabindex="0"><code>$session = New-PSSession -ComputerName remotsnode1
+Copy-Item -Path &#34;C:\Logs\*&#34; -ToSession $session -Destination &#34;C:\Logs\&#34; -Recurse -Force
+</code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#only-for-proxmox">Only for proxmox</a>
+      <ul>
+        <li><a href="#install-hyper-v">Install Hyper-V</a></li>
+        <li><a href="#rename-computer">Rename Computer</a></li>
+        <li><a href="#windows-admin-center">Windows Admin Center</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

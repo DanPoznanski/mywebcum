@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Gitlab</title>
+    <meta name="description" content="
+https://gitlab.com/rluna-gitlab/gitlab-ce
+For Ubuntu 20.04 and 22.04, arm64 packages are also available and will be automatically used on that platform when …">
+    <meta name="keywords" content='Git, Linux'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/gitlab/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Gitlab">
+    <meta property="og:description" content="
+https://gitlab.com/rluna-gitlab/gitlab-ce
+For Ubuntu 20.04 and 22.04, arm64 packages are also available and will be automatically used on that platform when …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gitlab">
+    <meta name="twitter:description" content="
+https://gitlab.com/rluna-gitlab/gitlab-ce
+For Ubuntu 20.04 and 22.04, arm64 packages are also available and will be automatically used on that platform when …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/gitlab/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/gitlab/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/gitlab/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Gitlab</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              September 1, 2022
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/git">Git</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/gitlab.svg" alt="gitlab"></p>
+<p><a href="https://gitlab.com/rluna-gitlab/gitlab-ce">https://gitlab.com/rluna-gitlab/gitlab-ce</a></p>
+<p>For Ubuntu 20.04 and 22.04, <code>arm64</code> packages are also available and will be automatically used on that platform when using the GitLab repository for installation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt-get update
+</span></span><span style="display:flex;"><span>sudo apt-get install -y curl openssh-server ca-certificates tzdata perl
+</span></span></code></pre></div><p>Next, install Postfix (or Sendmail) to send notification emails. If you want to use another solution to send emails please skip this step and configure an external SMTP server after GitLab has been installed</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>sudo apt-get install -y postfix
+</span></span></code></pre></div><p>During Postfix installation a configuration screen may appear. Select &lsquo;Internet Site&rsquo; and press enter. Use your server&rsquo;s external DNS for &lsquo;mail name&rsquo; and press enter. If additional screens appear, continue to press enter to accept the defaults.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
+</span></span></code></pre></div><p>Next, install the GitLab package. Make sure you have correctly set up your DNS, and change <a href="https://gitlab.example.com">https://gitlab.example.com</a> to the URL at which you want to access your GitLab instance. Installation will automatically configure and start GitLab at that URL.</p>
+<p>For https:// URLs, GitLab will automatically request a certificate with Let&rsquo;s Encrypt, which requires inbound HTTP access and a valid hostname. You can also use your own certificate or just use http:// (without the s ).</p>
+<p>If you would like to specify a custom password for the initial administrator user ( root ), check the documentation. If a password is not specified, a random password will be automatically generated</p>
+<pre tabindex="0"><code>sudo EXTERNAL_URL=&#34;https://gitlab.example.com&#34; apt-get install gitlab-ee
+# List available versions: apt-cache madison gitlab-ee
+# Specifiy version: sudo EXTERNAL_URL=&#34;https://gitlab.example.com&#34; apt-get install gitlab-ee=16.2.3-ee.0
+# Pin the version to limit auto-updates: sudo apt-mark hold gitlab-ee
+# Show what packages are held back: sudo apt-mark showhold
+</code></pre><p>Set up your communication preferences
+Visit our email subscription preference center to let us know when to communicate with you. We have an explicit email opt-in policy so you have complete control over what and how often we send you emails.
+Twice a month, we send out the GitLab news you need to know, including new features, integrations, docs, and behind the scenes stories from our dev teams. For critical security updates related to bugs and system performance, sign up for our dedicated security newsletter.</p>
+<p>Important Note If you do not opt-in to the security newsletter, you will not receive security alerts.</p>
+<h2 id="gitlab-ciyml">.gitlab-ci.yml</h2>
+<p>for example .gitlab-ci.yml</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">stages</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">test</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">test-code-job1</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">test</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">echo &#34;test1&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">test-code-job2</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">test</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">echo &#34;test2&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">build-code-job</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">./build.sh</span>
+</span></span></code></pre></div><h2 id="trigger-event">Trigger Event</h2>
+<p>for trriger can add <code>when manual</code> its stop befor build job</p>
+<pre tabindex="0"><code>build-code-job:
+  stage: build
+  script:
+    - ./build.sh
+  when: manual
+</code></pre><p>Trigger to run on special branch</p>
+<pre tabindex="0"><code>build-code-job:
+  stage: build
+  script:
+    - ./build.sh
+  only:
+    - master
+    - /^release_[0-9]+(?:.[0-9]+)+$/
+</code></pre><h2 id="run-only">Run Only</h2>
+<pre tabindex="0"><code>stages:
+  - test
+  - build
+  - test2
+  - dev
+  - stage 
+  - prod
+
+install_env:
+  stage: test
+  script:
+    - echo &#34; test1 ---------------------- &#34;
+
+run_test:
+  stage: test
+  script:
+    - echo &#34;test2 ---------------------- &#34;
+
+linters:
+  stage: test
+  script:
+    - echo &#34;test linter ---------------- &#34;
+
+build:
+  stage: build
+  script:
+    - echo &#39;running ./build.sh&#39;
+
+test_after_build:
+  stage: test2
+  script:
+    - echo &#34; test after build ---------------- &#34;
+
+deploy dev:
+  stage: dev
+  script:
+    - echo &#39;running ./build.sh&#39;
+  when: manual
+  only:
+    refs:
+      - tags
+      - master
+      - /^release.*$/
+
+deploy stage:
+  stage: stage
+  script:
+    - echo &#39;running ./deploy.sh&#39;
+  when: manual
+  only:
+    refs:
+      - tags
+      - master
+      - /^release.*$/
+
+deploy prod:
+  stage: prod
+  script:
+    - echo &#39;running ./deploy.sh&#39;
+  when: manual 
+  only:
+    refs:
+      - tags
+      - master
+      - /^release.*$/
+</code></pre><p>only work on master</p>
+<p><img src="images/gitlab2.png" alt="gitlab2"></p>
+<p>example job</p>
+<p>copy from <code>var/www/html</code> to <code>./html/*</code></p>
+<p>remove from <code>/var/www/html/site.zip</code>  zip from<code>zip -r /var/www/html/site.zip</code> and copy to <code>./html</code></p>
+<pre tabindex="0"><code>stages:
+  - deploy
+
+deploy_prod_job:
+  stage: deploy 
+  script:
+    - cp -r ./html/* /var/wwww/html
+    - rm -f /var/www/html/site.zip; zip -r /var/www/html/site.zip ./html
+    tags:
+    - stage-shell
+     only:
+      refs:
+        - master
+</code></pre><p> ️</p>
+<h3 id="gitlab-runner-on-docker">Gitlab Runner on Docker</h3>
+<p>need gitlab runner for test in local machine and you can used runners SaaS on gitlab</p>
+<pre tabindex="0"><code>docker run -d --name gitlab-runner --restart always \
+  -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  gitlab/gitlab-runner:latest
+</code></pre><p>Registering runners</p>
+<pre tabindex="0"><code>docker run --rm -it -v /srv/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
+</code></pre><p>Gitlab =&gt; Setting =&gt; CI/CD =&gt;</p>
+<p><img src="images/gitlab3.png" alt="gitlab3"></p>
+<h2 id="connect-to-git-repository">Connect to Git Repository</h2>
+<pre tabindex="0"><code>git remote add origin https://gitlab.com/Danpoznanski/test-react-app.git
+git branch -M main
+</code></pre><p>git fetch origin main:tmp</p>
+<p>git init</p>
+<p>git add -A</p>
+<p>git commit -m &lsquo;add your commit&rsquo;</p>
+<p>git branch -m main</p>
+<p>git push origin main &ndash;force</p>
+<h2 id="disable-ptotect-on-main-branch">Disable ptotect on main branch</h2>
+<p>open you project -&gt; Settings -&gt; Repository and go to &ldquo;Protected Pranches&rdquo; find master branch into the list and click &ldquo;Unprotect&rdquo;</p>
+<h3 id="yaml-exemple-to-gitlab-ciyml">Yaml exemple to .gitlab-ci.yml</h3>
+<pre tabindex="0"><code>image: node:latest
+stages:
+  - build
+  - test
+  - deploy
+  - revert
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  artifacts:                         
+    paths:
+      - node_modules
+      - build
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+      
+test:
+  stage: deploy
+  script:
+    - cp -r build /www/test-app/$CI_COMMIT_SHA    
+    - ln -fsnv /var/www/test-app/$CI_COMMIT_SHA /www/html 
+</code></pre><h2 id="mount-volume-in-docker">Mount Volume in Docker</h2>
+<pre tabindex="0"><code>nano /srv/gitlab-runner/config/config.toml
+</code></pre><p>need add volume to docker <code>/var/www/test-app</code></p>
+<pre tabindex="0"><code>volume = [&#34;cache&#34;, &#34;/var/www/:/www:rw&#34;]
+</code></pre><h3 id="revert">Revert</h3>
+<pre tabindex="0"><code>image: node:latest
+stages:
+  - build
+  - test
+  - deploy
+  - revert
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  artifacts:                         
+    paths:
+      - node_modules
+      - build
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+      
+test:
+  stage: deploy
+  script:
+    - cp -r build /www/test-app/$CI_COMMIT_SHA
+    - cp -Pv /www/html /www/test-app/$CI_COMMIT_SHA/prev-version   
+    - ln -fsnv /var/www/test-app/$CI_COMMIT_SHA /www/html 
+
+revert:
+  stage: revert
+  when: manual
+  script:
+    - cp -Pv --remove-destination /www/test-app/$CI_COMMIT_SHA/prev-version /www/html
+</code></pre><p><code>-P</code>    <strong>&ndash;no-dereference</strong>     never follow symbolic links in SOURCE</p>
+<p><strong>- - remove-destination</strong>     remove each existing destination file before attempting to open it (contrast with &ndash;force)</p>
+<h2 id="variables-gitlab">Variables Gitlab</h2>
+<p><a href="https://docs.gitlab.com/ee/ci/variables/">https://docs.gitlab.com/ee/ci/variables/</a></p>
+<p>print_vars:</p>
+<pre tabindex="0"><code>image: node:latest
+stages:
+  - print_vars
+  - build
+  - test
+  - deploy
+  - revert
+
+print_vars:
+  stage: print_vars
+  script:
+    - export
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  artifacts:                         
+    paths:
+      - node_modules
+      - build
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+      
+test:
+  stage: deploy
+  script:
+    - cp -r build /www/test-app/$CI_COMMIT_SHA
+    - cp -Pv /www/html /www/test-app/$CI_COMMIT_SHA/prev-version   
+    - ln -fsnv /var/www/test-app/$CI_COMMIT_SHA /www/html 
+
+revert:
+  stage: revert
+  when: manual
+  script:
+    - cp -Pv --remove-destination /www/test-app/$CI_COMMIT_SHA/prev-version /www/html
+</code></pre><p>export all variables</p>
+<p><img src="images/gitlab4.png" alt="gitlab4"></p>
+<h3 id="user-variables">User Variables</h3>
+<p>Settings &gt; CI/CD &gt; Variables</p>
+<p><img src="images/gitlab5.png" alt="gitlab5"></p>
+<p><code>Mask a CI/CD variable</code>    Masking a CI/CD variable is not a guaranteed way to prevent malicious users from accessing variable values. The masking feature is “best-effort” and there to help when a variable is accidentally revealed. To make variables more secure, consider using external secrets and file type variables to prevent commands such as env/printenv from printing secret variables.</p>
+<h3 id="other-way">Other Way</h3>
+<p>in .gitlab-ci.yml create variables and <code>docker_html_path: &quot;/www&quot;</code> docker_html_path = www</p>
+<pre tabindex="0"><code>image: node:latest
+stages:
+  - build
+  - test
+  - deploy
+  - revert
+
+variables:
+  docker_html_path: &#34;/www&#34;
+
+install_dependencies:
+  stage: build
+  script: 
+  - yarn install
+  - yarn build
+  artifacts:                         
+    paths:
+      - node_modules
+      - build
+  cache: 
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules
+      
+test:
+  stage: deploy
+  script:
+    - cp -r build docker_html_path/test-app/$CI_COMMIT_SHA
+    - cp -Pv $docker_html_path/html /www/test-app/$CI_COMMIT_SHA/prev-version   
+    - ln -fsnv /var/www/test-app/$CI_COMMIT_SHA docker_html_path/html 
+
+revert:
+  stage: revert
+  when: manual
+  script:
+    - cp -Pv --remove-destination docker_html_path/test-app/$CI_COMMIT_SHA/prev-version docker_html_path/html
+</code></pre><p> </p>
+<p> </p>
+<h3 id="ngnix-and-2-deploys-for-prod-and-for-dev">Ngnix and 2 deploys for prod and for dev</h3>
+<p>copy</p>
+<pre tabindex="0"><code>cp /etc/ngnix/sites-enabled/default /etc/ngnix/sites-enabled/staging
+</code></pre><pre tabindex="0"><code>nano /etc/ngnix/sites-enabled/staging
+</code></pre><p>port from 80 to 81</p>
+<pre tabindex="0"><code>listen 81;
+
+root /var/www/staging;
+autoindex on; 
+</code></pre><p>create folder <code>staging</code></p>
+<pre tabindex="0"><code>mkdir /var/www/staging
+</code></pre><p>test configuration ngnix</p>
+<pre tabindex="0"><code>/etc/init.d/ngnix configtest
+</code></pre><p>reload ngnix</p>
+<pre tabindex="0"><code>/etc/init.d/ngnix reload
+</code></pre><pre tabindex="0"><code>nano public/index.html
+</code></pre><pre tabindex="0"><code>&lt;title&gt;%REACT_APP_WEBSITE_PREFIX%React app &lt;/title&gt;
+</code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">image</span>: <span style="color:#ae81ff">node:latest</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">stages</span>:  
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">test</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">deploy</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">revert</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">docker_html_path</span>: <span style="color:#e6db74">&#34;/www&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">env</span>: <span style="color:#ae81ff">prod</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">deploy_subfolder</span>: <span style="color:#ae81ff">html</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">install_dependencies</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>: 
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">yarn install</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">yarn build</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">mv build build_$env</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">artifacts</span>:                         
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">node_modules</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">build_$env</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cache</span>: 
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">key</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">files</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">yarn.lock</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">node_modules</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">build_staging</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">extends</span>: <span style="color:#ae81ff">insttall_dependencies</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>: <span style="color:#ae81ff">staging</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">REACT_APP_WEBSITE_PREFIX:&#34;[staging] &#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">PUBLIC_URL</span>: <span style="color:#e6db74">&#34;/$CI_COMMIT_BRANCH&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">deploy_staging</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">extends</span>: <span style="color:#ae81ff">deploy_prod</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">deploy_subfolder</span>: <span style="color:#ae81ff">staging/$CI_COMMIT_BRANCH</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>: <span style="color:#ae81ff">staging</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">always</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">allow_failure</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">only</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">feature-.*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">deploy_prod</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">cp -r build_$env $docker_html_path/test-app/${env}_$CI_COMMIT_SHA</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">cp -Pv $docker_html_path/$deploy_subfolder $docker_html_path/test-app/${env}$CI_COMMIT_SHA/prev-version  </span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">only</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">activate_staging</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">extends</span>: <span style="color:#ae81ff">active_prod</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">variables</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">deploy_subfolder</span>: <span style="color:#ae81ff">staging/$CI_COMMIT_BRANCH</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>: <span style="color:#ae81ff">staging</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">always</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">only</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">feature.*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">active_prod</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">stage</span>: <span style="color:#ae81ff">deploy</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">script</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">ln -fsnv /var/www/test-app/${env}_$CI_COMMIT_SHA $docker_html_path/$deploy_subfolder</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">when</span>: <span style="color:#ae81ff">manual</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">only</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">master</span>
+</span></span><span style="display:flex;"><span>    
+</span></span></code></pre></div><p>push to feature branch</p>
+<pre tabindex="0"><code>git push origin master:feature-test
+</code></pre>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#gitlab-ciyml">.gitlab-ci.yml</a></li>
+    <li><a href="#trigger-event">Trigger Event</a></li>
+    <li><a href="#run-only">Run Only</a>
+      <ul>
+        <li><a href="#gitlab-runner-on-docker">Gitlab Runner on Docker</a></li>
+      </ul>
+    </li>
+    <li><a href="#connect-to-git-repository">Connect to Git Repository</a></li>
+    <li><a href="#disable-ptotect-on-main-branch">Disable ptotect on main branch</a>
+      <ul>
+        <li><a href="#yaml-exemple-to-gitlab-ciyml">Yaml exemple to .gitlab-ci.yml</a></li>
+      </ul>
+    </li>
+    <li><a href="#mount-volume-in-docker">Mount Volume in Docker</a>
+      <ul>
+        <li><a href="#revert">Revert</a></li>
+      </ul>
+    </li>
+    <li><a href="#variables-gitlab">Variables Gitlab</a>
+      <ul>
+        <li><a href="#user-variables">User Variables</a></li>
+        <li><a href="#other-way">Other Way</a></li>
+        <li><a href="#ngnix-and-2-deploys-for-prod-and-for-dev">Ngnix and 2 deploys for prod and for dev</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

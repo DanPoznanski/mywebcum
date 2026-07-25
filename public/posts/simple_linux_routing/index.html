@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Simple Linux Routing</title>
+    <meta name="description" content="to see all routing
+All Routing command ip route show for see all routing for ip v6
+Routing for ip v6 ip -6 route show Old command to see routing Route - an …">
+    <meta name="keywords" content='Network, Linux'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/simple_linux_routing/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Simple Linux Routing">
+    <meta property="og:description" content="to see all routing
+All Routing command ip route show for see all routing for ip v6
+Routing for ip v6 ip -6 route show Old command to see routing Route - an …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Simple Linux Routing">
+    <meta name="twitter:description" content="to see all routing
+All Routing command ip route show for see all routing for ip v6
+Routing for ip v6 ip -6 route show Old command to see routing Route - an …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/simple_linux_routing/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/simple_linux_routing/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/simple_linux_routing/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Simple Linux Routing</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              May 6, 2020
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/network">Network</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/linux">Linux</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>to see all routing</p>
+<h2 id="all-routing-command">All Routing command</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip route show
+</span></span></code></pre></div><p>for see all routing for ip v6</p>
+<h3 id="routing-for-ip-v6">Routing for ip v6</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip -6 route show
+</span></span></code></pre></div><h3 id="old-command-to-see-routing">Old command to see routing</h3>
+<p>Route - an obsolete utility included in the net-tools package. used to display the routing table and build static routes</p>
+<p>you need install net-tools (apt install net-tools)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>route -n
+</span></span></code></pre></div><p>for v6 ip</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>route -n -6
+</span></span></code></pre></div><p>routel - its utility for display routing its script for <code>ip route</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>routel
+</span></span></code></pre></div><h3 id="new-utilities-for-networking">New utilities for networking</h3>
+<p>ip - is a linux command line utility from the iproute2 package. It allows configuration of the network subsystem and is a replacement for the <code>ifconfig</code>, <code>route</code>, <code>arp</code> utilities.</p>
+<p>Usege:</p>
+<p>ip [OPTIONS] OBJECT {COMMAND | help}</p>
+<p>ip [-force] -batch filename</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip route list
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip -6 route 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip -br -4 a
+</span></span></code></pre></div><p><code>-br</code>, <code>-brief</code> - display only basic information for easy reading</p>
+<p><code>-c</code>, <code>-color</code> - highlight with color</p>
+<p><code>-h</code>, <code>-human</code> - display data in a human-friendly way</p>
+<p><code>-o</code>, <code>-oneline</code> - output each entry on a new line</p>
+<p><code>-a</code>, <code>-all</code> - apply the command to all objects</p>
+<p><code>-r</code>, <code>-resolve</code> - display hostname with DNS</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip -br -6 -c -h -r -a  
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip -br -c neighbor 
+</span></span></code></pre></div><p>Display links</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip -br -link 
+</span></span></code></pre></div><h2 id="ip-route">IP Route</h2>
+<h3 id="route-add-route-before-reboot-via-ip">Route add route before reboot via ip</h3>
+<p>Route add route BEFORE reboot via ip</p>
+<p>ip route add default {NETWORK/MASK} via {GATEWAYIP} /{DEVICE}</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ip route add 192.168.66.0/24 via 192.0.2.1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ip route add prohibit 10.1.1.1/32
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ip -6 route add default via 2001:db8
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ip -6 route add 2001:4860:4860::8888/128 via 2a05:4800:4:f200:: metric <span style="color:#ae81ff">100</span>
+</span></span></code></pre></div><p>for route delete</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip route del 192.168.66.0/24
+</span></span></code></pre></div><h3 id="route-change-route-before-reboot-via-ip">Route change route before reboot via ip</h3>
+<p>Route change route before reboot via ip</p>
+<p>ip route add default {NETWORK/MASK} via {GATEWAYIP} /{DEVICE}</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip route change 192.168.25.0/24 dev ens3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ip route replace 192.192.25.0/24 dev ens3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ip route add unreachable 10.10.10.0/24
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ip route add prohibit 10.1.1.1/32
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ip route add throw 10.1.1.1/32
+</span></span></code></pre></div><h2 id="netplan">NETPLAN</h2>
+<p>Netplan - to add routes permanently, it is necessary to write in the <code>netplan</code> configuration</p>
+<p>modify file <code>/etc/netplan/00-installer-config.yaml</code></p>
+<p>metric - metrics
+type - blackhole/unreachable/prohibit/trow
+to - destination or default
+via - gateway</p>
+<p>try to connect if you not connected its return to config before change</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>netplan try 
+</span></span></code></pre></div><p>after all good apply config</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>netplan apply
+</span></span></code></pre></div><h2 id="dhcp">DHCP</h2>
+<h3 id="dora">DORA</h3>
+<p>Discovery</p>
+<pre tabindex="0"><code>src-mac=&lt;client&gt;, dst-mac=&lt;broadcast&gt;, protocol=udp,
+src-ip=0.0.0.0:68, dst-ip=255.255.255.255:67
+</code></pre><p>Offer</p>
+<pre tabindex="0"><code>src-mac=&lt;DHCP-server&gt;, dst-mac=&lt;broadcast&gt;, protocol=udp, 
+src-ip=&lt;DHCP-server&gt;:67, dst-ip=255.255.255.255:67
+</code></pre><p>Request</p>
+<pre tabindex="0"><code>src-mac=&lt;client&gt;, dst-mac=&lt;broadcast&gt;, protocol=udp,
+src-ip=0.0.0.0:68, dst-ip=255.255.255.255:67
+</code></pre><p>Acknowledgement</p>
+<pre tabindex="0"><code>src-mac=&lt;DHCP-server&gt;, dst-mac=&lt;broadcast&gt;, protocol=udp, 
+src-ip=&lt;DHCP-server&gt;:67, dst-ip=255.255.255.255:67
+</code></pre><p>DHCPNAK - is sent by the server instead of a final confirmation. Such
+A denial may be sent to the client if the lease for the requested IP
+has expired or the client has moved to a new subnet</p>
+<h3 id="renew-dhcp">Renew DHCP</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>dhclient -r
+</span></span></code></pre></div><p>DHCPRELEASE - The client sends this message to notify the server that the occupied IP has been released. In other words, this is an early termination of the lease.</p>
+<p>DHCPINFORM - With this message, the client requests local settings from the server.
+Dispatched when the client has already received an IP, but for proper operation
+it needs a network configuration. The server informs the client
+a response message indicating all the requested options</p>
+<h2 id="dhcp-client-identification">DHCP CLIENT IDENTIFICATION</h2>
+<p>DHCP-сервер может отслеживать ассоциацию аренды с конкретным
+клиентом на основе идентификации
+A DHCP - server can track the association of a lease with a particular
+client based on the identity</p>
+<p>Identification can be achieved in two ways:</p>
+<p>Based on the &ldquo;caller-id&rdquo; option (dhcp-client-identifier from RFC2132)</p>
+<p>Based on the MAC address if the &ldquo;caller-id&rdquo; parameter is not specified</p>
+<h3 id="display-stored-pool-of-leased-dhcp">Display stored pool of leased dhcp</h3>
+<p>Information about leased addresses is stored in:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /var/lib/dhcp/dhcp.leases
+</span></span></code></pre></div><h2 id="dhcp-server-install">DHCP Server Install</h2>
+<h3 id="install-dhcp">Install DHCP</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get install isc-dhcp-server
+</span></span></code></pre></div><p>for change minimal options in config</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/etc/dhcp/dhcpd.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># minimal sample /etc/dhcp/dhcpd.conf</span>
+</span></span><span style="display:flex;"><span>default-lease-time 600;
+</span></span><span style="display:flex;"><span>max-lease-time 7200;
+</span></span><span style="display:flex;"><span>subnet 192.168.1.0 netmask 255.255.255.0 <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>range 192.168.1.150 192.168.1.200;
+</span></span><span style="display:flex;"><span>option routers 192.168.1.254;
+</span></span><span style="display:flex;"><span>option domain-name-servers 192.168.1.1, 192.168.1.2;
+</span></span><span style="display:flex;"><span>option domain-name <span style="color:#e6db74">&#34;mydomain.example&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>interface specification</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/etc/default/isc-dhcp-server
+</span></span><span style="display:flex;"><span>INTERFACESv4<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;eth4”
+</span></span></span></code></pre></div><p>restart dhcp service</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl restart isc-dhcp-server.service
+</span></span></code></pre></div><p>for autorestart run</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl enable isc-dhcp-server.service
+</span></span></code></pre></div><h3 id="dhcp-static-leases">DHCP Static leases</h3>
+<p>Binding of clients to permanent ip-addresses is configured in the file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/etc/dhcp/dhcpd.conf
+</span></span></code></pre></div><p>per host:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>subnet 192.168.1.0 netmask 255.255.255.0 <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>host server1 <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>hardware ethernet DD:GH:DF:E5:F7:D7;
+</span></span><span style="display:flex;"><span>fixed-address 192.168.1.2;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>host server2 <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>hardware ethernet 00:JJ:YU:38:AC:45;
+</span></span><span style="display:flex;"><span>fixed-address 192.168.1.20;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="ipv6">IPV6</h2>
+<h3 id="slaac">SLAAC</h3>
+<p>SLAAC - stands for Stateless Address Auto Configuration and the name pretty much explains what it does. It is a mechanism that enables each host on the network to auto-configure a unique IPv6 address without any device keeping track of which address is assigned to which node.</p>
+<p>&ldquo;workbench.editorAssociations&rdquo;: {
+&ldquo;./slaac.svg&rdquo;: &ldquo;hediet.vscode-drawio-text&rdquo;,
+}</p>
+<p><img src="images/slaac.svg" alt="slaac"></p>
+<ul>
+<li>
+<p>enabled on the router support IPv6. IPv6 forwarding</p>
+</li>
+<li>
+<p>The router interfaces are assigned a network address (network prefix and prefix length, e.g. 2001:DB8:ACAD:D::1/64)</p>
+</li>
+<li>
+<p>If the client is configured to automatically get IPv6 address, it starts sending ICMP &ldquo;Router Request&rdquo; RS (Router Solicitation) on all
+routers at address multicast address FF02::2</p>
+</li>
+</ul>
+<p><img src="images/slaac2.svg" alt="slaac2"></p>
+<ul>
+<li>
+<p>The router receive RS message and sends back the message &ldquo;Reply router&rdquo; RA (Router Advertisement)</p>
+</li>
+<li>
+<p>AdvSendAdvert on</p>
+</li>
+<li>
+<p>Prefix included in RA message and network prefix length</p>
+</li>
+<li>
+<p>The RA message is sent to the IPv6 multicast address FF02::1. As an address source take local address link-local router channel address (FE80::/10 - FEBF::/ 10 )</p>
+</li>
+</ul>
+<p><img src="images/slaac3.svg" alt="slaac3"></p>
+<ul>
+<li>
+<p>Client, receiving in RA-message the prefixand a network prefix length, generates global individual IPv6 address by adding the node part in two methods:</p>
+</li>
+<li>
+<p>EUI-64 - using the EUI-64 process, using its 48-bit MAC address</p>
+</li>
+<li>
+<p>Generation of randomized - 64 bita random number generated by the client operating system</p>
+</li>
+</ul>
+<p><img src="images/slaac4.svg" alt="slaac4"></p>
+<ul>
+<li>
+<p>SLAAC is a process without trackingstate. Therefore, before using a newly created IPv6 address, it is necessary to check its uniqueness</p>
+</li>
+<li>
+<p>To do this, the client makes a request to thisaddress using the DAD (Duplicate Address Detection) protocol.(Dublicate Address Detection) - part of theICMPv6 protocol</p>
+</li>
+</ul>
+<p><img src="images/slaac5.svg" alt="slaac5"></p>
+<ul>
+<li>
+<p>Modes for configuring IPv6-client : SLAAC, DHCPv6 or SLAAC + DHCPv6 depends on the settings, contained in the ICMPv6 message RA &ldquo;Router Response&rdquo; message and are set on the router with special commands</p>
+</li>
+<li>
+<p>These commands set two flags.They are contained in RA messages and specify which of the options should be used by the client</p>
+</li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li>Managed configuration flag addresses (M)</li>
+<li>Other configuration flag (O)</li>
+</ul>
+<p>*The client operating system may ignore the RA message and use only the DHCPv6 server</p>
+<p><img src="images/slaac6.svg" alt="slaac6"></p>
+<ul>
+<li>The SLAAC function is a function ndefault on routers (M flag=0, O flag=0)</li>
+</ul>
+<pre tabindex="0"><code>AdvManagedFlag: off
+AdvOtherConfigFlag: on
+</code></pre><ul>
+<li>The client uses IPv6 for configuration addresses only information from the message RA is:
+&ldquo;prefix, prefix length&rdquo;
+default gateway (local address router channel) MTU DNS</li>
+</ul>
+<p><img src="images/slaac7.svg" alt="slaac7"></p>
+<ul>
+<li>SLAAC + DHCP enabled combination M flag =0, O flag=1</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>AdvManagedFlag: off
+</span></span><span style="display:flex;"><span>AdvOtherConfigFlag: on
+</span></span></code></pre></div><p>Router(config-if)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># ipv6 nd other-config-flag </span>
+</span></span></code></pre></div><p>The client uses IPv6 for configuration addresses:</p>
+<ul>
+<li>information from the RA message from the SLAAC server (prefix, prefix length, gateway by default - link-local address
+router)</li>
+<li></li>
+</ul>
+<p>information from the DHCPv6 server (list DNS servers)</p>
+<h3 id="slaac-address-construction">SLAAC Address Construction</h3>
+<p><img src="images/slaac8.svg" alt="slaac8"></p>
+<p>Routing prefix + subnet identifier = 64 bits</p>
+<p>/64 is the minimum prefix that can be allocated to a user
+Typically, the user is allocated a subnet / 48 - / 64</p>
+<h3 id="slaac-subneting">SLAAC Subneting</h3>
+<p><img src="images/slaac9.svg" alt="slaac9"></p>
+<p>Multiple address types</p>
+<p><img src="images/slaac10.svg" alt="slaac10"></p>
+<h3 id="installation-slaac-on-ubuntu">Installation SLAAC on Ubuntu</h3>
+<p>Installation radvd</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install radvd
+</span></span></code></pre></div><p>Installing the debug utility</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install radvdump
+</span></span></code></pre></div><p>Configuration file</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/etc/radvd.conf
+</span></span></code></pre></div><p>run debug</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>radvdump
+</span></span></code></pre></div><p>Set address in <code>/etc/netplan</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">network</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">version</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ethernets</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ens4</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">dhcp4</span>: <span style="color:#66d9ef">no</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">dhcp6</span>: <span style="color:#66d9ef">no</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">addresses</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">2a05:AB00:4:f201::1/64</span>
+</span></span></code></pre></div><p>/ETC/RADVD.CONF</p>
+<pre tabindex="0"><code>interface ens4
+{
+      AdvSendAdvert on; ## (Sending advertisement messages to other hosts)
+      AdvManagedFlag: off
+      AdvOtherConfigFlag: off
+      AdvLinkMTU 1500; ## (Fragmentation unwanted (tm))
+      MaxRtrAdvInterval 300;
+      RDNSS 2001:4860:4860::8888 2001:4860:4860::8844 # DNS
+      {
+      };
+      prefix 2a05:AB00:4:f201::/64 ## (IPv6 subnet prefix assigned by our PoP)
+      {
+              AdvOnLink on;
+              AdvAutonomous on;
+      };
+}
+</code></pre><h3 id="netplan-on-client">NETPLAN on Client</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">network</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">version</span>: <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ethernets</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ens4</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">dhcp6</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">accept-ra</span>: <span style="color:#66d9ef">yes</span>
+</span></span></code></pre></div><p>Option to send route with highest priority</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>route ::/0
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>AdvRoutePreference high;
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>;
+</span></span></code></pre></div><p>Sending DNS server addresses via SLAAC</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>RDNSS 2001:4860:4860::8888 2001:4860:4860::8844
+</span></span></code></pre></div><p>MTU Correction</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>AdvLinkMTU 1500;
+</span></span></code></pre></div><h2 id="tools-for-working-with-mac-addresses">Tools for working with MAC addresses</h2>
+<h3 id="arp-tools">ARP Tools</h3>
+<p>arp tables</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp -n
+</span></span></code></pre></div><p>anti arp spoofing</p>
+<p>ip -4 neighbour add 192.168.2.1 lladdr 50:00:01:02:00:01 dev ens3
+ip -4 neighbour change 192.168.2.1 lladdr 50:00:01:02:00:01 dev ens3</p>
+<h3 id="arpscan">ARPscan</h3>
+<p>arp install arp-scan</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>arp-scan --inteface<span style="color:#f92672">=</span>eth0 localnet
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>arp-scan --inteface<span style="color:#f92672">=</span>eth0 192.168.0.0/24
+</span></span></code></pre></div><h3 id="arp--ndp">ARP = NDP</h3>
+<p>NDP = Neighbor Discovery Protocol</p>
+<p>NDP used 5 different types of packages:</p>
+<p>type 133 - Router Solicitation -
+type 144 - Router Advartisement
+type 135 - Neighbor Solicitation
+type 135 - Neighbor Advartisement
+type 137 - Redirect</p>
+<p>Neighbor Discovery - uses several different specials addresses multicast :</p>
+<ul>
+<li>Link-local scope address for all nodes - FF02::01 (multicast)</li>
+<li>Link-local scope address for all routers - FF02::02 (multicast)</li>
+</ul>
+<h2 id="icmpv6">ICMPv6</h2>
+<p>ICMPv6 is an integral part of IPv6</p>
+<ul>
+<li>
+<p>used for error reporting, arising from packet processing and to perform other functions such as diagnosis</p>
+</li>
+<li>
+<p>there are 2 types of ICMPv6 message (error - type 0-127), (information type 128-255)</p>
+</li>
+</ul>
+<p>Neighbor Solicitation - Nodes perform address resolution through multicast distribution neighbor solicitation which asks the target host to return a link layer address (MAC)</p>
+<ul>
+<li>
+<p>to make sure that the neighbor is still a life</p>
+</li>
+<li>
+<p>the target node returns its link layer address (MAC) (unicast) Router Advartisement</p>
+</li>
+</ul>
+<p>Neighbor Solicitation</p>
+<ul>
+<li>
+<p>one pair of request-response packets enough for both to allow data link layer addresses (MAC) one another</p>
+</li>
+<li>
+<p>is used for detection Dublicate Address Detection (DAD)</p>
+</li>
+</ul>
+<p><img src="images/slaac11.svg" alt="slaac11"></p>
+<p>Source:</p>
+<ul>
+<li>address set on the interface from which the message is sent or (in DAD process)</li>
+</ul>
+<p>Destination:</p>
+<ul>
+<li>solicited-node multicast address or destination address</li>
+</ul>
+<p>solicited-node multicast address calculates from unicast and anycast address host.
+all the hosts same prefix FF02:FF00:0/104. to prefix add 24 low-order bit address (unicast or anycast) as a result solicited-node multicast adress be range from FF02:0:0:0:0:1:FF00:0000 to FF02:0:0:0:0:1:FFFF:FFFF</p>
+<p>the host must calculate and сonnected (on the respective inteface) to all solicited-node multicast adresses, who received from all unicast and anycast adresses who configured
+on interface host (automaticly or manualy)</p>
+<p>Solicited-node multicast address used by protocol - Neighbor Discovery or (ND or NDP)</p>
+<p>Neighbor Advertisement</p>
+<ul>
+<li>request on messege Neighbor Solicitation</li>
+</ul>
+<p>node can messege unsolicited (no answer) Neighbor Advertisement for quickly distribution new information (unreliably) for exemple : announcement change link-layer adresses (MAC)</p>
+<p><img src="images/slaac12.svg" alt="slaac12"></p>
+<p>Source:</p>
+<ul>
+<li>its address of interface from who send messege</li>
+</ul>
+<p>Destination:</p>
+<ul>
+<li>Source Address of Neighbor Solicitation or all-nodes multicast address</li>
+</ul>
+<h2 id="mac">MAC</h2>
+<p>01-00-5E-00-00-00 to 01-00-5E-7F-FF-FF IPv4 Multicast</p>
+<p>33-33-00-00-00-00 to 33-33-FF-FF-FF-FF IPv6 Multicast</p>
+<p>01-08-C2-XX-XX-XX service protocol STP, LLDP, EAPOL</p>
+<h3 id="know-mac">Know MAC</h3>
+<p>for know MAC address on inteface</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ifconfig ens3 | grep ether
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip –br link
+</span></span></code></pre></div><ul>
+<li>-br = tables</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /sys/class/net/ens3/address
+</span></span></code></pre></div><ul>
+<li>/en3/ &lt;= your interface</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ifconfig ens3 | grep ether
+</span></span></code></pre></div><h3 id="change-mac">Change MAC</h3>
+<p>macchanger
+install</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt-get install macchanger macchanger-gtk 
+</span></span></code></pre></div><p>down interface</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip-link set dev ens4 down
+</span></span></code></pre></div><p>Random MAC</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nacchanger -r ens4
+</span></span></code></pre></div><p>Don&rsquo;t change the vendor bytes of MAC</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nacchanger -e ens4
+</span></span></code></pre></div><p>Random MAC</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nacchanger --mac <span style="color:#f92672">=</span> XX:XX:XX:XX:XX ens4
+</span></span></code></pre></div><p>Reset MAC address to its original, permanent hardware value.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nacchanger -p ens4
+</span></span></code></pre></div><p>up interface after changes</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ip link set dev ens4 up
+</span></span></code></pre></div><p>It is possible to change MAC address via NETPLAN
+In the interface section of the <code>/etc/netplan/00-installer-config.yaml</code> file
+Add fields
+ens3:
+match:
+macaddress: 50:00:00:01:00:00 #(default MAC-address)
+macaddress: 50:11:22:33:44:55 #(MAC what you want)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">ens3</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">match</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">macaddress</span>: <span style="color:#ae81ff">50</span>:<span style="color:#ae81ff">00</span>:<span style="color:#ae81ff">00</span>:<span style="color:#ae81ff">01</span>:<span style="color:#ae81ff">00</span>:<span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">macaddress</span>: <span style="color:#ae81ff">50</span>:<span style="color:#ae81ff">11</span>:<span style="color:#ae81ff">22</span>:<span style="color:#ae81ff">33</span>:<span style="color:#ae81ff">44</span>:<span style="color:#ae81ff">55</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">dhcp4</span>: <span style="color:#66d9ef">no</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">routes</span>: <span style="color:#66d9ef">no</span>
+</span></span><span style="display:flex;"><span>   - <span style="color:#f92672">to</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span>   - <span style="color:#f92672">via</span>: <span style="color:#f92672">2a05:4800:4:f200:</span>:
+</span></span><span style="display:flex;"><span>   - <span style="color:#f92672">to</span>: <span style="color:#ae81ff">default</span>
+</span></span><span style="display:flex;"><span>   - <span style="color:#f92672">via</span>: <span style="color:#ae81ff">192.168.1.1</span>
+</span></span></code></pre></div><h2 id="vpn">VPN</h2>
+<h2 id="wireguard">Wireguard</h2>
+<ol>
+<li>Updating the list of packages.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo apt-get update <span style="color:#f92672">&amp;&amp;</span> sudo apt-get upgrade
+</span></span><span style="display:flex;"><span>sudo apt-get install wireguard
+</span></span></code></pre></div><ol start="2">
+<li>Firewall settings
+On deb-based systems, by default, the firewall allows all packets. But if protection is configured in our system, then we need to open a UDP port for WireGuard. Different sources have different numbers, but the official website uses 51820:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>iptables -I INPUT -p udp --dport <span style="color:#ae81ff">51820</span> -j ACCEPT
+</span></span></code></pre></div><p>To save the setting, use the iptables-persistent package:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install iptables-persistent
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>netfilter-persistent save
+</span></span></code></pre></div><p>You can proceed to install the VPN server.</p>
+<h3 id="installing-and-configuring-the-server">Installing and configuring the server</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install wireguard
+</span></span></code></pre></div><p>Create public and private keys to be used by our server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wg genkey | tee /etc/wireguard/private.key | wg pubkey &gt; /etc/wireguard/public.key
+</span></span></code></pre></div><p>We display the contents of the private key on the screen:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/wireguard/private.key
+</span></span></code></pre></div><p>In my case it is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>2Hl2UlyD/xFrDyzIBEkfPa27yKllp0O+7e9023u8sHk<span style="color:#f92672">=</span>
+</span></span></code></pre></div><p>We fix it. We need it to set up the server.</p>
+<p>Create a configuration file for the server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi /etc/wireguard/server.conf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Interface<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>PrivateKey <span style="color:#f92672">=</span> 2Hl2UlyD/xFrDyzIBEkfPa27yKllp0O+7e9023u8sHk<span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>Address <span style="color:#f92672">=</span> 176.16.10.1/24
+</span></span><span style="display:flex;"><span>ListenPort <span style="color:#f92672">=</span> <span style="color:#ae81ff">51820</span>
+</span></span><span style="display:flex;"><span>SaveConfig <span style="color:#f92672">=</span> false
+</span></span></code></pre></div><ul>
+<li>Where:</li>
+</ul>
+<p>PrivateKey is the private key that we created and looked at with the cat command.
+Address - address in the VPN network. You can use any subnet, but you should limit yourself to choosing from the reserved ranges for local networks. Also, this subnet should not overlap with the used ranges.
+ListenPort is the port on which our server will run.
+SaveConfig - whether or not to save the configuration from the current state upon shutdown. In fact, if set to true, then restarting the service does not accept new changes in the configuration file, but returns the old settings. To make changes, you will need to stop the service, make changes, start the service. It didn&rsquo;t seem very convenient to me.</p>
+<p>Let&rsquo;s autostart the service:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl enable wg-quick@server --now
+</span></span></code></pre></div><ul>
+<li>pay attention to what comes after the dog ( server ). This is the name of the configuration file. If desired, we can create many such files and run several VPN servers on different ports.</li>
+</ul>
+<p>Let&rsquo;s make sure that our server has started listening on the specified port:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ss-tunlp | grep :51820
+</span></span></code></pre></div><p>The server is ready to accept requests.</p>
+<h3 id="client-connection">Client connection</h3>
+<p>As an example, we will install and configure clients for Windows and Linux. The setup will be done in four steps:</p>
+<p>We look at the key on the server.
+Setting up the client.
+Setting up the server.
+We check the connection.</p>
+<p>Key on the server
+On the server, we look at the public key that we generated at the beginning of the instruction:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/wireguard/public.key
+</span></span></code></pre></div><p>In my case it was:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Z5E6sWmAX9JqSBpO2frcIZ9vkkm/V+8xgP7ZxWXnOCs<span style="color:#f92672">=</span>
+</span></span></code></pre></div><h3 id="client-setup">Client setup</h3>
+<p>for Ubuntu or Debian:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install wireguard
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wg genkey | tee /etc/wireguard/private.key | wg pubkey &gt; /etc/wireguard/public.key
+</span></span></code></pre></div><p>After installation, you need to generate keys and complete the configuration.</p>
+<p>We create keys with the command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/wireguard/private.key
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat /etc/wireguard/public.key
+</span></span></code></pre></div><p>We fix the values. To configure the client, we need the contents of the private key, to configure the server - the public key.</p>
+<p>Create a configuration file for the server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi /etc/wireguard/client.conf
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Interface<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>PrivateKey <span style="color:#f92672">=</span> &lt;contents-of-client-privatekey&gt;
+</span></span><span style="display:flex;"><span>Address <span style="color:#f92672">=</span> 176.16.10.10/24
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Peer<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>PublicKey <span style="color:#f92672">=</span> &lt;contents-of-server-publickey&gt;
+</span></span><span style="display:flex;"><span>AllowedIPs <span style="color:#f92672">=</span> 176.16.1 0.0/24
+</span></span><span style="display:flex;"><span>Endpoint <span style="color:#f92672">=</span> 1.1.1.1:51820
+</span></span><span style="display:flex;"><span>PersistentKeepalive <span style="color:#f92672">=</span> <span style="color:#ae81ff">15</span>
+</span></span></code></pre></div><ul>
+<li>[Interface] —  block of settings for the client.</li>
+<li>PrivateKey is  the client&rsquo;s private key. We generated it.</li>
+<li>Address -  The VPN IP address that will be assigned to the client.</li>
+<li>[Peer] -  settings for connecting to the server.</li>
+<li>PublicKey -  The public key of the server. We looked at it at the very beginning of this section.</li>
+<li>AllowedIPs -  route allowed for the client.</li>
+<li>Endpoint -  the address and port of the server to which we will connect as a client.</li>
+<li>PersistentKeepalive -  interval between connection availability checks.</li>
+</ul>
+<p>Let&rsquo;s allow autostart of the service:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl enable wg-quick@client
+</span></span></code></pre></div><ul>
+<li>as in the case of the server, what comes after the dog ( client ) is the name of the configuration file. If desired, we can create many such files and run several VPN connections to different servers.</li>
+</ul>
+<h3 id="adding-a-client-on-the-server">Adding a client on the server</h3>
+<p>Let&rsquo;s open the configuration file for our server:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi /etc/wireguard/server.conf
+</span></span></code></pre></div><pre tabindex="0"><code>[Peer]
+PublicKey = 6sDdWDSdYcoBAC7EVKg+z8Gcd+F5OQDkKBELf9MEOTY=
+AllowedIPs = 176.16.10.10/32
+</code></pre><p>where  PublicKey is the public key that we saw when setting up the client; AllowedIPs - allowed address for the client (which we gave him).
+** for each client that will connect to the server, we must create our own  [Peer] settings block .</p>
+<p>Restarting the service:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl restart wg-quick@server
+</span></span></code></pre></div><p>Routes through the VPN server
+Typically, a VPN is used as a transit to other subnets. Consider now how to configure our server to act as a router. Settings are performed both on the server and the client.</p>
+<p>We will assume that our server should let clients into the 192.168.100.0/24 network.</p>
+<p>On server</p>
+<p>Open <code>sysctl.conf</code> for editing:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>vi /etc/sysctl.conf
+</span></span></code></pre></div><pre tabindex="0"><code>net.ipv4.ip_forward=1
+</code></pre><p>Apply sysctl settings:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sysctl -p /etc/sysctl.conf
+</span></span></code></pre></div><p>Add a rule to the firewall:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>iptables -t nat -I POSTROUTING -o ens18 -j MASQUERADE
+</span></span></code></pre></div><ul>
+<li>in this example, we are counting on the fact that our network 192.168.100.0/24 is available to the server via the  ens18 interface . You must replace the value with your own.</li>
+</ul>
+<p>Our server is configured as a router to the 192.168.100.0/24 network. Let&rsquo;s go to the client</p>
+<p>On the client
+In the client configuration, edit the  AllowedIPs option in the  [Peer] block :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Peer<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AllowedIPs <span style="color:#f92672">=</span> 176.16.10.0/24, 192.168.100.0/24
+</span></span></code></pre></div><ul>
+<li>note that we have added the  192.168.100.0/24 subnet - this will cause the client to connect to the server with a route to this subnet through the VPN server.</li>
+</ul>
+<p>And if we want <code>all traffic</code> to go through the VPN, we set the value for  AllowedIPs :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Peer<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AllowedIPs <span style="color:#f92672">=</span> AllowedIPs <span style="color:#f92672">=</span> 0.0.0.0/0
+</span></span></code></pre></div>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#all-routing-command">All Routing command</a>
+      <ul>
+        <li><a href="#routing-for-ip-v6">Routing for ip v6</a></li>
+        <li><a href="#old-command-to-see-routing">Old command to see routing</a></li>
+        <li><a href="#new-utilities-for-networking">New utilities for networking</a></li>
+      </ul>
+    </li>
+    <li><a href="#ip-route">IP Route</a>
+      <ul>
+        <li><a href="#route-add-route-before-reboot-via-ip">Route add route before reboot via ip</a></li>
+        <li><a href="#route-change-route-before-reboot-via-ip">Route change route before reboot via ip</a></li>
+      </ul>
+    </li>
+    <li><a href="#netplan">NETPLAN</a></li>
+    <li><a href="#dhcp">DHCP</a>
+      <ul>
+        <li><a href="#dora">DORA</a></li>
+        <li><a href="#renew-dhcp">Renew DHCP</a></li>
+      </ul>
+    </li>
+    <li><a href="#dhcp-client-identification">DHCP CLIENT IDENTIFICATION</a>
+      <ul>
+        <li><a href="#display-stored-pool-of-leased-dhcp">Display stored pool of leased dhcp</a></li>
+      </ul>
+    </li>
+    <li><a href="#dhcp-server-install">DHCP Server Install</a>
+      <ul>
+        <li><a href="#install-dhcp">Install DHCP</a></li>
+        <li><a href="#dhcp-static-leases">DHCP Static leases</a></li>
+      </ul>
+    </li>
+    <li><a href="#ipv6">IPV6</a>
+      <ul>
+        <li><a href="#slaac">SLAAC</a></li>
+        <li><a href="#slaac-address-construction">SLAAC Address Construction</a></li>
+        <li><a href="#slaac-subneting">SLAAC Subneting</a></li>
+        <li><a href="#installation-slaac-on-ubuntu">Installation SLAAC on Ubuntu</a></li>
+        <li><a href="#netplan-on-client">NETPLAN on Client</a></li>
+      </ul>
+    </li>
+    <li><a href="#tools-for-working-with-mac-addresses">Tools for working with MAC addresses</a>
+      <ul>
+        <li><a href="#arp-tools">ARP Tools</a></li>
+        <li><a href="#arpscan">ARPscan</a></li>
+        <li><a href="#arp--ndp">ARP = NDP</a></li>
+      </ul>
+    </li>
+    <li><a href="#icmpv6">ICMPv6</a></li>
+    <li><a href="#mac">MAC</a>
+      <ul>
+        <li><a href="#know-mac">Know MAC</a></li>
+        <li><a href="#change-mac">Change MAC</a></li>
+      </ul>
+    </li>
+    <li><a href="#vpn">VPN</a></li>
+    <li><a href="#wireguard">Wireguard</a>
+      <ul>
+        <li><a href="#installing-and-configuring-the-server">Installing and configuring the server</a></li>
+        <li><a href="#client-connection">Client connection</a></li>
+        <li><a href="#client-setup">Client setup</a></li>
+        <li><a href="#adding-a-client-on-the-server">Adding a client on the server</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>

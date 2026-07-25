@@ -1,7 +1,7 @@
 ---
 title: "Windows Server Domain Change"
 discription: Windows Server 2025
-date: 2024-12-13T21:29:01+08:00 
+date: 2024-12-13 
 draft: false
 type: post
 tags: ["Windows Server"]

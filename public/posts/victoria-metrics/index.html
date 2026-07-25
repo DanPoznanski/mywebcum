@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+            --font-size: 1.1rem;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Victoria Metrics</title>
+    <meta name="description" content="
+Pre-setting Installing packages Let&rsquo;s make sure some packages are available:
+tar - to unpack the archive with the binary. wget - to download the archive. …">
+    <meta name="keywords" content='VictoriaMetrics, Monitoring, Graphana, Prometheus'>
+
+    <meta property="og:url" content="http://localhost:60118/posts/victoria-metrics/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Victoria Metrics">
+    <meta property="og:description" content="
+Pre-setting Installing packages Let&rsquo;s make sure some packages are available:
+tar - to unpack the archive with the binary. wget - to download the archive. …">
+    <meta property="og:image" content="http://localhost:60118/">
+    <meta property="og:image:secure_url" content="http://localhost:60118/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Victoria Metrics">
+    <meta name="twitter:description" content="
+Pre-setting Installing packages Let&rsquo;s make sure some packages are available:
+tar - to unpack the archive with the binary. wget - to download the archive. …">
+    <meta property="twitter:domain" content="http://localhost:60118/posts/victoria-metrics/">
+    <meta property="twitter:url" content="http://localhost:60118/posts/victoria-metrics/">
+    <meta name="twitter:image" content="http://localhost:60118/">
+
+    
+    <link rel="canonical" href="http://localhost:60118/posts/victoria-metrics/">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
+
+    
+
+    
+    
+</head>
+<body>
+        <script>
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com" aria-label="github" >  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                <a aria-hidden="true" role="switch">
+                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
+                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/posts/" > Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:60118/tags/" > Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com" >  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
+                    <a role="switch">
+                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Victoria Metrics</h1>
+
+        
+
+        
+	
+	
+	
+	
+        
+
+	
+
+	
+
+	
+          <small role="doc-subtitle"></small>
+	
+
+	
+          <p class="post-date">
+              
+
+              January 1, 2023
+
+              
+          </p>
+	
+
+        <ul class="post-tags">
+          
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/victoriametrics">VictoriaMetrics</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/monitoring">Monitoring</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/graphana">Graphana</a></li>
+           
+         
+           
+             <li class="post-tag"><a href="http://localhost:60118/tags/prometheus">Prometheus</a></li>
+           
+         
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p><img src="images/victoria1.svg" alt="victoria1"></p>
+<h2 id="pre-setting">Pre-setting</h2>
+<p>Installing packages
+Let&rsquo;s make sure some packages are available:</p>
+<p><code>tar</code> - to unpack the archive with the binary.
+<code>wget</code> - to download the archive.
+<code>curl</code> - to execute queries to test the system.
+Depending on the Linux distribution, the installation will be slightly different.</p>
+<p>for DEB-based systems (Astra Linux / Debian / Ubuntu):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install tar wget curl
+</span></span></code></pre></div><p>for RPM-based systems (RED OS / Rocky Linux / CentOS):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>yum install tar wget curl
+</span></span></code></pre></div><h2 id="firewall">Firewall</h2>
+<p>By default, VictoriaMetrics listens for requests on port <code>8428</code>. To communicate with it over the network, we need to open the appropriate TCP port. Our actions will differ depending on the firewall management utility we are using.</p>
+<p>Iptables (typically for DEB-based systems):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>iptables -I INPUT -p tcp --dport <span style="color:#ae81ff">8428</span> -j ACCEPT
+</span></span></code></pre></div><p>We use iptables-persistent to save the rule:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>apt install iptables-persistent
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>netfilter-persistent save
+</span></span></code></pre></div><p>Firewalld (typically for RPM-based systems):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>firewall-cmd --permanent --add-port<span style="color:#f92672">=</span>8428/tcp
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>firewall-cmd --reload
+</span></span></code></pre></div><h2 id="installing-and-running-victoriametrics">Installing and running VictoriaMetrics</h2>
+<p>loading the binary and studying its startup parameters</p>
+<p>download <a href="https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/victoria-metrics-linux-amd64-v1.95.1.tar.gz">https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/victoria-metrics-linux-amd64-v1.95.1.tar.gz</a></p>
+<p>or</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>wget https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.95.1/victoria-metrics-linux-amd64-v1.95.1.tar.gz
+</span></span></code></pre></div><p>Let&rsquo;s unpack the downloaded archive:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar zxf victoria-metrics-linux-amd64-*.tar.gz -C /usr/local/bin/
+</span></span></code></pre></div><p>This command breaks down as follows:</p>
+<p><code>-x</code>: Extract</p>
+<p><code>-z</code>: Use gzip compression</p>
+<p><code>-v</code>: Verbose mode (show the progress)</p>
+<p><code>-f</code>: Specify the file to extract</p>
+<p>You can run the command to examine all the application startup parameters:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>victoria-metrics-prod -help | less
+</span></span></code></pre></div><p>We will use:</p>
+<p><code>storageDataPath</code> - the path to the data storage directory.</p>
+<p><code>retentionPeriod</code> - period in months, after which the data will be removed from the database.</p>
+<h2 id="creating-and-configuring-the-systemd-unit">Creating and configuring the systemd unit</h2>
+<p>In our example we will create an autorun with the following nuances:</p>
+<p>The service will be started from a separate user to maximize security.
+We will store the data in the <code>/var/lib/victoriametrics</code> directory.</p>
+<p>Create a service user victoriametrics:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>useradd -r -c <span style="color:#e6db74">&#39;VictoriaMetrics TSDB Service&#39;</span> victoriametrics
+</span></span></code></pre></div><p>We also create directories for store data and process identifier</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p /var/lib/victoriametrics /run/victoriametrics
+</span></span></code></pre></div><p>Let&rsquo;s set our new user as the owner for the created directories</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>chown victoriametrics:victoriametrics /var/lib/victoriametrics /run/victoriametrics
+</span></span></code></pre></div><p>Now let&rsquo;s create a unit file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/systemd/system/victoriametrics.service
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>VictoriaMetrics
+</span></span><span style="display:flex;"><span>After<span style="color:#f92672">=</span>network.target
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Type<span style="color:#f92672">=</span>simple
+</span></span><span style="display:flex;"><span>User<span style="color:#f92672">=</span>victoriametrics
+</span></span><span style="display:flex;"><span>PIDFile<span style="color:#f92672">=</span>/run/victoriametrics/victoriametrics.pid
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/usr/local/bin/victoria-metrics-prod -storageDataPath /var/lib/victoriametrics -retentionPeriod <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>ExecStop<span style="color:#f92672">=</span>/bin/kill -s SIGTERM $MAINPID
+</span></span><span style="display:flex;"><span>StartLimitBurst<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>StartLimitInterval<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Restart<span style="color:#f92672">=</span>on-failure
+</span></span><span style="display:flex;"><span>RestartSec<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi-user.target
+</span></span></code></pre></div><p><strong>* in this example we will store the files in the <code>/var/lib/victoriametrics</code> directory, as we said above. The data storage period is 1 year.</strong></p>
+<p>Rereading the systemd configuration:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl daemon-reload
+</span></span></code></pre></div><p>Allow the unit to autostart and start it:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl enable victoriametrics --now
+</span></span></code></pre></div><p>Allow the unit to start and start it: By default, VictoriaMetrics listens on port 8428. We can make a request using curl:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl 127.0.0.1:8428
+</span></span></code></pre></div><p><em><strong>VictoriaMetrics is installed and working.</strong></em></p>
+<h2 id="storing-prometheus-metrics-in-victoriametrics">Storing Prometheus metrics in VictoriaMetrics</h2>
+<p>Let&rsquo;s check the availability of VictoriaMetrics:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl 192.168.0.15:8428
+</span></span></code></pre></div><ul>
+<li>where 192.168.0.15 is the address of the VictoriaMetrics server.</li>
+</ul>
+<p>We should get a page with links that are located next to the service after it is installed.</p>
+<p>open the Prometheus configuration file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano/etc/prometheus/prometheus.yml
+</span></span></code></pre></div><p>add to global</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">global</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">external_labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server_name</span>: <span style="color:#ae81ff">prometheus0</span>
+</span></span></code></pre></div><ul>
+<li>the <code>external_labels</code> option allows us to add a tag that will let us know that specific metrics came from a specific Prometheus server.</li>
+</ul>
+<p>And add option:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>remote_write:
+</span></span><span style="display:flex;"><span>  - url: http://192.168.0.15:8428/api/v1/write
+</span></span><span style="display:flex;"><span>    queue_config:
+</span></span><span style="display:flex;"><span>      max_samples_per_send: <span style="color:#ae81ff">10000</span>
+</span></span><span style="display:flex;"><span>      capacity: <span style="color:#ae81ff">20000</span>
+</span></span><span style="display:flex;"><span>      max_shards: <span style="color:#ae81ff">30</span>
+</span></span></code></pre></div><p>And add
+<code>url</code> - address of VictoriaMetrics server, where will be duplicated.</p>
+<p><code>max_samples_per_send</code> - the maximum number of metrics that can be sent at one time.</p>
+<p><code>capacity</code> - determines how many samples are queued in memory for each segment before reading from the WAL is blocked. Once the WAL is locked, no samples can be added to any shards and all bandwidth will cease.</p>
+<p><code>max_shards</code> - the maximum number of segments Prometheus will use for each remote write queue.</p>
+<p>and restart prometheus</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>systemctl restart prometheus
+</span></span></code></pre></div><p>we can access the VictoriaMetrics web interface at http://192.168.0.15:8428/vmui/, where 192.168.0.15 is the address of server. We can enter any PromQL query in the Query 1 field,</p>
+<pre tabindex="0"><code>node_memory_MemTotal_bytes{server_name=&#34;prometheus01&#34;}
+</code></pre><ul>
+<li>where <code>server_name=&quot;prometheus01&quot;</code> is the tag and its value that we specified in the prometheus settings.</li>
+</ul>
+<p>This query should return values to us. This means that the data gets from Prometheus to VictoriaMetrics.</p>
+<h2 id="customizing-grafana">Customizing Grafana</h2>
+<p>Adding data source</p>
+<p>Go to the web interface of the graphana. Go to <strong>Configuration</strong> - <strong>Data sources</strong>:</p>
+<p>[Add Data Source]</p>
+<p>Select Prometheus as the source:</p>
+<p>Specify the name of the source and the URL address where the VictoriaMetrics service is available:</p>
+<pre tabindex="0"><code>HTTP
+
+URL                      http://192.168.0.15:8428
+Allowed cookies
+Timeout
+</code></pre><p>Save the settings.</p>
+<h2 id="visualization-of-metrics-by-victoriametrics-itself">Visualization of metrics by VictoriaMetrics itself</h2>
+<p>VictoriaMetrics&rsquo; own metrics are available at http://<!-- raw HTML omitted -->:8428/metrics. We need to exportera this address to Prometheus, which passes the data back to VictoriaMetrics. We can then visualize the information using the datasource added above.</p>
+<p>Open the Prometheus configuration file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano /etc/prometheus/prometheus.yml
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#e6db74">&#39;node_exporter_clients&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">static_configs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">targets</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#ae81ff">...</span>
+</span></span><span style="display:flex;"><span>          - <span style="color:#ae81ff">192.168.0.15</span>:<span style="color:#ae81ff">8428</span>
+</span></span></code></pre></div><p>Now it is possible to customize Grafana. On the official website we can read about VictoriaMetrics dashboard and also get an identifier to install it.</p>
+<p>In Grafana go to <strong>Dashboards</strong> - <strong>Import</strong>:</p>
+<p>Enter the dashboard identifier for VictoriaMetrics. It&rsquo;s <strong>10229</strong>:</p>
+<pre tabindex="0"><code>import via grafana.com
+10229
+</code></pre><p>In the next step, you can simply click <strong>Import</strong></p>
+<p>Done. We can move on to the dashboard</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"></code></pre></div><h2 id="vmagent">Vmagent</h2>
+<p><code>vmagent</code> is an agent designed for collecting and sending time series data to the central data store in VictoriaMetrics.</p>
+<p>Data Collection: vmagent can be configured to collect time series data from various sources, such as Prometheus, InfluxDB, and others.</p>
+<p>Data Conversion: It can convert data from different formats into a format understandable by VictoriaMetrics.</p>
+<p>Data Sending: vmagent sends the collected data to the central VictoriaMetrics data store for subsequent analysis and visualization.</p>
+<p>Data Aggregation: vmagent can perform pre-aggregation of data before sending it to the data store. This can help reduce the data volume and lower the network load.</p>
+<p>Scalability and High Performance: VictoriaMetrics and its components, including vmagent, provide high performance and scalability for efficient handling of large volumes of time series data.</p>
+<p><img src="images/vmagent.webp" alt="victoria2"></p>
+<p>download <a href="https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/vmutils-linux-arm64-v1.95.1.tar.gz">https://github.com/VictoriaMetrics/VictoriaMetrics/releases/tag/v1.95.1/vmutils-linux-arm64-v1.95.1.tar.gz</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tar -zxvf vmutils-linux-arm64-v1.95.1.tar.gz
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd vmutils-linux-arm64-v1.95.1
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./vmagent -storageDataPath<span style="color:#f92672">=</span>&lt;were storage db&gt;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>scrape_configs:
+</span></span><span style="display:flex;"><span>  - job_name: node_exporter
+</span></span><span style="display:flex;"><span>    consul_sd_configs:
+</span></span><span style="display:flex;"><span>      - server: <span style="color:#e6db74">&#39;localhost:9100&#39;</span>
+</span></span></code></pre></div><h2 id="prometheus--consul">Prometheus + Consul</h2>
+<p>mkdir ./configs.d</p>
+<p>run in dev mode</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>consul agent -dev
+</span></span></code></pre></div><p>consul run in port 8500</p>
+<p>exporter1.json</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;service&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#960050;background-color:#1e0010">exporter</span><span style="color:#ae81ff">0</span><span style="color:#e6db74">&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &#34;</span><span style="color:#960050;background-color:#1e0010">tags</span><span style="color:#e6db74">&#34;: [
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;</span><span style="color:#960050;background-color:#1e0010">exporter</span><span style="color:#ae81ff">0</span><span style="color:#e6db74">&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;</span><span style="color:#960050;background-color:#1e0010">test</span><span style="color:#e6db74">&#34;,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      ],
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">      &#34;</span><span style="color:#960050;background-color:#1e0010">port&#34;</span>: <span style="color:#ae81ff">9100</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>consul agent -dev -enable-script-checks -config-dir<span style="color:#f92672">=</span>./configs.d
+</span></span></code></pre></div><hr>
+<p>other machine create node exporter</p>
+<p>cd prom/node_exporter-1.3.1.linux-amd64/</p>
+<p>./node_exporter</p>
+<hr>
+<p>in directory prometheus and edit</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>nano prometheus.yml
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-yml" data-lang="yml"><span style="display:flex;"><span><span style="color:#f92672">scrape_configs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#ae81ff">consul</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">consul_cd_configs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">server</span>: <span style="color:#ae81ff">localhost:8500</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">tags</span>: [<span style="color:#ae81ff">test]</span>
+</span></span></code></pre></div><pre tabindex="0"><code>./prometheus
+</code></pre><p>status =&gt; tagrets  and see target</p>
+<p>USE:</p>
+<p>Utilisation</p>
+<p>avg by (instance,mode)(irate(node_cpu_seconds_total{mode!=&lsquo;indle&rsquo;}[1m]))</p>
+<p>Saturation</p>
+<p>node_load*</p>
+<p>Errors
+{job=&ldquo;somejob&rdquo;} |= &ldquo;error&rdquo;</p>
+<p>rate(http_requests_total{status_code=~&ldquo;5.*&rdquo;}[5m])</p>
+<p>RED:</p>
+<p>Rate</p>
+<p>rate(request_count[5m])</p>
+<p>Errors</p>
+<p>Loki + 5** ( for example)</p>
+<p>Duration</p>
+<p>rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m])</p>
+
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+
+    
+    
+    
+</div>
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pre-setting">Pre-setting</a></li>
+    <li><a href="#firewall">Firewall</a></li>
+    <li><a href="#installing-and-running-victoriametrics">Installing and running VictoriaMetrics</a></li>
+    <li><a href="#creating-and-configuring-the-systemd-unit">Creating and configuring the systemd unit</a></li>
+    <li><a href="#storing-prometheus-metrics-in-victoriametrics">Storing Prometheus metrics in VictoriaMetrics</a></li>
+    <li><a href="#customizing-grafana">Customizing Grafana</a></li>
+    <li><a href="#visualization-of-metrics-by-victoriametrics-itself">Visualization of metrics by VictoriaMetrics itself</a></li>
+    <li><a href="#vmagent">Vmagent</a></li>
+    <li><a href="#prometheus--consul">Prometheus + Consul</a></li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+
+    
+
+    
+
+    <span>
+        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
+    </span>
+</footer>
+</body>
+</html>
