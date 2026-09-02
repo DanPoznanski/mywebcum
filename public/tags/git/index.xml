@@ -2,29 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>GIT on myblog</title>
-		<link>http://localhost:60118/tags/git/</link>
+		<link>http://localhost:1313/tags/git/</link>
 		<description>Recent content in GIT on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Thu, 01 Sep 2022 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/git/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/git/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Git</title>
-				<link>http://localhost:60118/posts/git/</link>
+				<link>http://localhost:1313/posts/git/</link>
 				<pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
-				<guid>http://localhost:60118/posts/git/</guid>
+				<guid>http://localhost:1313/posts/git/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/git1.svg&#34; alt=&#34;git1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Create a repository in an existing directory:&lt;/p&gt;&#xA;&lt;p&gt;Linux:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd home user my_project&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;MacOS:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd Users user my_project&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Windows:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;cd C:/Users/user/my_project&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;then run the command:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git init&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Add existing files under version control:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git add *.c&#xD;&#xA;git add LICENSE&#xD;&#xA;git commit -m ‘Initial project version’&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Clone an existing repository&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/libgit2/libgit2&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Clone the repository to a directory named mylibgit:&#xA;$ git clone &lt;a href=&#34;https://github.com/libgit2/libgit2&#34;&gt;https://github.com/libgit2/libgit2&lt;/a&gt; mylibgit&lt;/p&gt;&#xA;&lt;h2 id=&#34;working-with-git&#34;&gt;Working with Git&lt;/h2&gt;&#xA;&lt;h3 id=&#34;git-add&#34;&gt;Git Add&lt;/h3&gt;&#xA;&lt;p&gt;Add existing files under version control:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;$ git status&#xD;&#xA;&#xD;&#xA;On branch main&#xD;&#xA;Your branch is up to date with &amp;#39;origin/main&amp;#39;.&#xD;&#xA;&#xD;&#xA;nothing to commit, working tree clean  &#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Adding README + status:&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Gitlab</title>
-				<link>http://localhost:60118/posts/gitlab/</link>
+				<link>http://localhost:1313/posts/gitlab/</link>
 				<pubDate>Thu, 01 Sep 2022 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/gitlab/</guid>
+				<guid>http://localhost:1313/posts/gitlab/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/gitlab.svg&#34; alt=&#34;gitlab&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://gitlab.com/rluna-gitlab/gitlab-ce&#34;&gt;https://gitlab.com/rluna-gitlab/gitlab-ce&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;For Ubuntu 20.04 and 22.04, &lt;code&gt;arm64&lt;/code&gt; packages are also available and will be automatically used on that platform when using the GitLab repository for installation.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-sh&#34; data-lang=&#34;sh&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get update&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get install -y curl openssh-server ca-certificates tzdata perl&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Next, install Postfix (or Sendmail) to send notification emails. If you want to use another solution to send emails please skip this step and configure an external SMTP server after GitLab has been installed&lt;/p&gt;</description>
 			</item>
 	</channel>

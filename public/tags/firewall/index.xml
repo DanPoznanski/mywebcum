@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Firewall on myblog</title>
-		<link>http://localhost:60118/tags/firewall/</link>
+		<link>http://localhost:1313/tags/firewall/</link>
 		<description>Recent content in Firewall on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Fri, 14 Nov 2025 00:00:00 +0000</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/firewall/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/firewall/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Fortinet</title>
-				<link>http://localhost:60118/posts/forticlient/</link>
+				<link>http://localhost:1313/posts/forticlient/</link>
 				<pubDate>Fri, 14 Nov 2025 00:00:00 +0000</pubDate>
-				<guid>http://localhost:60118/posts/forticlient/</guid>
+				<guid>http://localhost:1313/posts/forticlient/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/00.png&#34; alt=&#34;img00&#34;&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;configuring-the-lan-interface-including-dhcp-server&#34;&gt;Configuring the LAN interface, including DHCP server&lt;/h3&gt;&#xA;&lt;p&gt;Network &amp;gt; Interfaces &amp;gt; doble-click on &lt;code&gt;port5&lt;/code&gt;&#xA;&lt;img src=&#34;images/01.webp&#34; alt=&#34;img01&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Alias: &lt;code&gt;LAN-HQ&lt;/code&gt; Role: &lt;code&gt;LAN&lt;/code&gt; IP/Netmask &lt;code&gt;172.16.10.1/24&lt;/code&gt;&#xA;&lt;img src=&#34;images/02.webp&#34; alt=&#34;img02&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Administrative Access IPV4 : &lt;code&gt;HTTPS&lt;/code&gt;, &lt;code&gt;PING&lt;/code&gt;, &lt;code&gt;SSH&lt;/code&gt; after Enable DHCP Server&#xA;&lt;img src=&#34;images/03.webp&#34; alt=&#34;img03&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Address range: &lt;code&gt;172.16.10.21-172.16.10.256&lt;/code&gt;&#xA;&lt;img src=&#34;images/04.webp&#34; alt=&#34;img04&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Comments: &lt;code&gt;Lan port connected to HQ&lt;/code&gt; and click &lt;code&gt;OK&lt;/code&gt;&#xA;&lt;img src=&#34;images/05.webp&#34; alt=&#34;img05&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Double-click on &lt;code&gt;port6&lt;/code&gt;&#xA;&lt;img src=&#34;images/06.webp&#34; alt=&#34;img06&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Alias: &lt;code&gt;WAN-ISP&lt;/code&gt; Role: &lt;code&gt;WAN&lt;/code&gt;&#xA;&lt;img src=&#34;images/07.webp&#34; alt=&#34;img07&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;IP/Netmask: &lt;code&gt;172.16.20.1/30&lt;/code&gt; and IPV4: &lt;code&gt;SSH&lt;/code&gt;&#xA;&lt;img src=&#34;images/08.webp&#34; alt=&#34;img08&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Comments: &lt;code&gt;WAN port connected to ISP&lt;/code&gt; and click &lt;code&gt;OK&lt;/code&gt;&#xA;&lt;img src=&#34;images/09.webp&#34; alt=&#34;img09&#34;&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Configuration of the LAN and WAN interfaces is complete.&lt;/p&gt;</description>
 			</item>
 	</channel>

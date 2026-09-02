@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Graphana on myblog</title>
-		<link>http://localhost:60118/tags/graphana/</link>
+		<link>http://localhost:1313/tags/graphana/</link>
 		<description>Recent content in Graphana on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Tue, 01 Aug 2023 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/graphana/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/graphana/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Loki</title>
-				<link>http://localhost:60118/posts/loki/</link>
+				<link>http://localhost:1313/posts/loki/</link>
 				<pubDate>Tue, 01 Aug 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/loki/</guid>
+				<guid>http://localhost:1313/posts/loki/</guid>
 				<description>&lt;p&gt;&lt;em&gt;&lt;strong&gt;The architecture of Loki&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/loki1.webp&#34; alt=&#34;loki1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;A brief overview of components in Loki architecture:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Promtail - It is the log collection agent that runs on each node of a Kubernetes cluster.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Distributor - The first component to receive logs from promtail.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Ingestor - It builds compressed chunks of log data and flushes them out as chunks.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Querior - It handles the read path, scanning the index to figure out which chunks match&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Prometheus</title>
-				<link>http://localhost:60118/posts/prometheus/</link>
+				<link>http://localhost:1313/posts/prometheus/</link>
 				<pubDate>Tue, 01 Aug 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/prometheus/</guid>
+				<guid>http://localhost:1313/posts/prometheus/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/prometheus1.svg&#34; alt=&#34;prometheus1&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;prometheus&#34;&gt;Prometheus&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Prometheus - database of time series&lt;/li&gt;&#xA;&lt;li&gt;Exporter - instrument for get metric&lt;/li&gt;&#xA;&lt;li&gt;Alertmanager - notification and everything is connected with it&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Basic startup parameters&lt;/p&gt;&#xA;&lt;p&gt;We will start looking at the configuration file in the next task, but now let&amp;rsquo;s look at the main Prometheus startup keys:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;--config.file=&amp;quot;prometheus.yml&amp;quot;&lt;/code&gt; - which configuration file to use;&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;--web.listen-address=&amp;quot;0.0.0.0:9090&amp;quot;&lt;/code&gt; - the address that the embedded web server will listen to;&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;--web.enable-admin-api&lt;/code&gt; - enable or disable administrative API via web-interface;&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Victoria Metrics</title>
-				<link>http://localhost:60118/posts/victoria-metrics/</link>
+				<link>http://localhost:1313/posts/victoria-metrics/</link>
 				<pubDate>Sun, 01 Jan 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/victoria-metrics/</guid>
+				<guid>http://localhost:1313/posts/victoria-metrics/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/victoria1.svg&#34; alt=&#34;victoria1&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;pre-setting&#34;&gt;Pre-setting&lt;/h2&gt;&#xA;&lt;p&gt;Installing packages&#xA;Let&amp;rsquo;s make sure some packages are available:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;tar&lt;/code&gt; - to unpack the archive with the binary.&#xA;&lt;code&gt;wget&lt;/code&gt; - to download the archive.&#xA;&lt;code&gt;curl&lt;/code&gt; - to execute queries to test the system.&#xA;Depending on the Linux distribution, the installation will be slightly different.&lt;/p&gt;&#xA;&lt;p&gt;for DEB-based systems (Astra Linux / Debian / Ubuntu):&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apt install tar wget curl&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;for RPM-based systems (RED OS / Rocky Linux / CentOS):&lt;/p&gt;</description>
 			</item>
 	</channel>

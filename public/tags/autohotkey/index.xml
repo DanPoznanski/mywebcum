@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>AutoHotKey on myblog</title>
-		<link>http://localhost:60118/tags/autohotkey/</link>
+		<link>http://localhost:1313/tags/autohotkey/</link>
 		<description>Recent content in AutoHotKey on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Wed, 22 Jan 2025 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/autohotkey/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/autohotkey/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>AutoHotKey</title>
-				<link>http://localhost:60118/posts/autohotkey/</link>
+				<link>http://localhost:1313/posts/autohotkey/</link>
 				<pubDate>Wed, 22 Jan 2025 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/autohotkey/</guid>
+				<guid>http://localhost:1313/posts/autohotkey/</guid>
 				<description>&lt;p&gt;For complex sites with redirects to another site, where each user has a unique token in the GET request metadata, making it impossible to store credentials in the browser cache since the page is different each time.&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/0.svg&#34; alt=&#34;img0&#34;&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;download-autohotkey&#34;&gt;Download AutoHotkey&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;we need to download it from the website. &lt;a href=&#34;https://www.autohotkey.com&#34;&gt;https://www.autohotkey.com&lt;/a&gt; (download all versions.)&#xA;&lt;img src=&#34;images/1.png&#34; alt=&#34;img01&#34;&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h3 id=&#34;simple-script&#34;&gt;Simple Script&lt;/h3&gt;&#xA;&lt;p&gt;create simple script for autoconnect for website&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Open new text document and copy &amp;amp; past &lt;code&gt;dan&lt;/code&gt; and &lt;code&gt;pasword&lt;/code&gt; replace it with yours and save it like &lt;code&gt;myscript.ahk&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-ahk&#34; data-lang=&#34;ahk&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Run, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;https://*****.co.il/*****/default.php&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Sleep, &lt;span style=&#34;color:#ae81ff&#34;&gt;5000&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt; ; We will wait 5 sec for the site to load (you can increase the time if necessary)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;; Automatic input&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Send, dan&lt;span style=&#34;color:#75715e&#34;&gt; ; Enter your username&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Send, {Tab}&lt;span style=&#34;color:#75715e&#34;&gt; ; Switching to the password entry field&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Send, Mypassword&lt;span style=&#34;color:#75715e&#34;&gt; ; Enter your password&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Send, {Enter}&lt;span style=&#34;color:#75715e&#34;&gt; ; Press Enter to enter&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;Save it like &lt;code&gt;myscript.ahk&lt;/code&gt; or your custom name&#xA;&lt;img src=&#34;images/5.png&#34; alt=&#34;img05&#34;&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;h3 id=&#34;convert-fileahk-to-fileexe&#34;&gt;Convert file.ahk to file.exe&lt;/h3&gt;&#xA;&lt;p&gt;Now we want to run it where there is no AutoHotKey program. so we need to turn it into an &lt;code&gt;.exe&lt;/code&gt; file.&lt;/p&gt;</description>
 			</item>
 	</channel>

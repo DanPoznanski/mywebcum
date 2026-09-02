@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
         :root {
             --accent-color: #FF4D4D;
-            --font-size: 1.1rem;
         }
     </style>
 
@@ -19,28 +18,25 @@
 
     
     <title>SQL</title>
-    <meta name="description" content="
-Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries INNER JOIN countries -- Match on country codes ON cities.country_code = …">
+    <meta name="description" content="">
     <meta name="keywords" content='SQL, PostSQL'>
 
-    <meta property="og:url" content="http://localhost:60118/posts/sql/">
+    <meta property="og:url" content="http://localhost:1313/posts/sql/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="SQL">
-    <meta property="og:description" content="
-Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries INNER JOIN countries -- Match on country codes ON cities.country_code = …">
-    <meta property="og:image" content="http://localhost:60118/">
-    <meta property="og:image:secure_url" content="http://localhost:60118/">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="http://localhost:1313/">
+    <meta property="og:image:secure_url" content="http://localhost:1313/">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SQL">
-    <meta name="twitter:description" content="
-Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries INNER JOIN countries -- Match on country codes ON cities.country_code = …">
-    <meta property="twitter:domain" content="http://localhost:60118/posts/sql/">
-    <meta property="twitter:url" content="http://localhost:60118/posts/sql/">
-    <meta name="twitter:image" content="http://localhost:60118/">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="http://localhost:1313/posts/sql/">
+    <meta property="twitter:url" content="http://localhost:1313/posts/sql/">
+    <meta name="twitter:image" content="http://localhost:1313/">
 
     
-    <link rel="canonical" href="http://localhost:60118/posts/sql/">
+    <link rel="canonical" href="http://localhost:1313/posts/sql/" />
 
     
     <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
@@ -52,15 +48,13 @@ Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries 
     <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
 
     
-    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
-
-    
+    <script src="/js/bundle.min.ef10d7d7d37aae7580051737eebfc7dc5a06901e247d0ab8540df015533b8b75.js" integrity="sha256-7xDX19N6rnWABRc37r/H3FoGkB4kfQq4VA3wFVM7i3U="></script>
 
     
     
 </head>
 <body>
-        <script>
+        <script type="text/javascript">
             
             setThemeByUserPref();
         </script><header class="header">
@@ -69,35 +63,35 @@ Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries 
         
 
         <div class="nav-title">
-            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+            <a class="nav-brand" href="http://localhost:1313/">myblog</a>
         </div>
 
         <div class="nav-links">
             
             <div class="nav-link">
-                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+                <a href="http://localhost:1313/posts/"> Posts </a>
             </div>
             
             <div class="nav-link">
-                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+                <a href="http://localhost:1313/tags/"> Tags </a>
             </div>
             
             <div class="nav-link">
-                <a href="https://github.com" aria-label="github" >  </a>
+                <a href="https://github.com">  </a>
             </div>
             
 
             <span class="nav-icons-divider"></span>
             <div class="nav-link dark-theme-toggle">
-                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
-                <a aria-hidden="true" role="switch">
-                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
                 </a>
             </div>
 
             <div class="nav-link" id="hamburger-menu-toggle">
-                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
-                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
                     <span data-feather="menu"></span>
                 </a>
             </div>
@@ -106,21 +100,21 @@ Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries 
             <ul class="nav-hamburger-list visibility-hidden">
                 
                 <li class="nav-item">
-                    <a href="http://localhost:60118/posts/" > Posts </a>
+                    <a href="http://localhost:1313/posts/"> Posts </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="http://localhost:60118/tags/" > Tags </a>
+                    <a href="http://localhost:1313/tags/"> Tags </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="https://github.com" >  </a>
+                    <a href="https://github.com">  </a>
                 </li>
                 
                 <li class="nav-item dark-theme-toggle">
-                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
-                    <a role="switch">
-                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
                     </a>
                 </li>
             </ul>
@@ -132,49 +126,23 @@ Joining Data in SQL Inner JOINs SELECT * FROM cities -- Inner join to countries 
     <div class="post container">
     <div class="post-header-section">
         <h1>SQL</h1>
-
-        
-
-        
-	
-	
-	
-	
-        
-
-	
-
-	
-
-	
-          <small role="doc-subtitle"></small>
-	
-
-	
-          <p class="post-date">
-              
-
-              October 1, 2025
-
-              
-          </p>
-	
+        <small role="doc-subtitle"></small>
+        <p class="post-date">
+            October 1, 2025
+        </p>
 
         <ul class="post-tags">
-          
-           
-             <li class="post-tag"><a href="http://localhost:60118/tags/sql">SQL</a></li>
-           
-         
-           
-             <li class="post-tag"><a href="http://localhost:60118/tags/postsql">PostSQL</a></li>
-           
-         
+        
+            <li class="post-tag"><a href="http://localhost:1313/tags/sql">SQL</a></li>
+        
+            <li class="post-tag"><a href="http://localhost:1313/tags/postsql">PostSQL</a></li>
+        
         </ul>
     </div>
 
     <div class="post-content">
-        <p><img src="images/00.svg" alt="img00"></p>
+        <p>
+            <p><img src="images/00.svg" alt="img00"></p>
 <p>   </p>
 <p>   </p>
 <p>   </p>
@@ -1774,17 +1742,15 @@ CURRENT ROW
 </span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">OR</span> (away.team_long_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Manchester United&#39;</span> <span style="color:#66d9ef">AND</span> away.outcome <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;MU Loss&#39;</span>));
 </span></span></code></pre></div><p><img src="images/240.webp" alt="img240"></p>
 
+        </p>
         
     </div>
 
     <div class="prev-next">
         
     </div>
-
-    
-    
-    
 </div>
+
 
 <aside class="post-toc">
     <nav id="toc">
@@ -1839,13 +1805,7 @@ CURRENT ROW
     
 
     
-
-    
-
-    
-
     <span>
-        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
     </span>
 </footer>
 </body>

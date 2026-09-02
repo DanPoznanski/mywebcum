@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Remote on myblog</title>
-		<link>http://localhost:60118/tags/remote/</link>
+		<link>http://localhost:1313/tags/remote/</link>
 		<description>Recent content in Remote on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Sat, 01 Mar 2025 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/remote/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/remote/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>MacOS</title>
-				<link>http://localhost:60118/posts/macos/</link>
+				<link>http://localhost:1313/posts/macos/</link>
 				<pubDate>Sat, 01 Mar 2025 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/macos/</guid>
+				<guid>http://localhost:1313/posts/macos/</guid>
 				<description>&lt;h2 id=&#34;macos-sequoia&#34;&gt;MacOS Sequoia&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/0.svg&#34; alt=&#34;img0&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/1.webp&#34; alt=&#34;img1&#34;&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;install-anydesk-and-allow-permissions&#34;&gt;Install Anydesk and Allow Permissions&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;Open  &lt;a href=&#34;https://anydesk.com&#34;&gt;https://anydesk.com&lt;/a&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/2.webp&#34; alt=&#34;img2&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;Click-on &lt;code&gt;Allow&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/3.webp&#34; alt=&#34;img3&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;3&#34;&gt;&#xA;&lt;li&gt;Double-click on icon&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/4.webp&#34; alt=&#34;img4&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;4&#34;&gt;&#xA;&lt;li&gt;Double-click on &lt;code&gt;anydesk.dmg&lt;/code&gt; and drag &lt;code&gt;Anydesk&lt;/code&gt; on &lt;code&gt;Applications&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/5.webp&#34; alt=&#34;img5&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;5&#34;&gt;&#xA;&lt;li&gt;Double-click on icon &lt;code&gt;Applications&lt;/code&gt; after double-click on icon &lt;code&gt;Anydesk&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/6.webp&#34; alt=&#34;img6&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;6&#34;&gt;&#xA;&lt;li&gt;Click on &lt;code&gt;Open&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/7.webp&#34; alt=&#34;img7&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;7&#34;&gt;&#xA;&lt;li&gt;Click on &lt;code&gt;Allow&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/8.webp&#34; alt=&#34;img8&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;8&#34;&gt;&#xA;&lt;li&gt;Now need give permission for &lt;code&gt;Screen Recording&lt;/code&gt; and &lt;code&gt;Accessibility&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/9.webp&#34; alt=&#34;img9&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;9&#34;&gt;&#xA;&lt;li&gt;Switch it to ON and enter your password&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/10.webp&#34; alt=&#34;img10&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;10&#34;&gt;&#xA;&lt;li&gt;Click on &lt;code&gt;Ouit &amp;amp; Reopen&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/11.webp&#34; alt=&#34;img11&#34;&gt;&lt;/p&gt;</description>
 			</item>
 	</channel>

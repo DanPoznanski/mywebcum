@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Mail on myblog</title>
-		<link>http://localhost:60118/tags/mail/</link>
+		<link>http://localhost:1313/tags/mail/</link>
 		<description>Recent content in Mail on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Wed, 10 Jul 2024 20:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/mail/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/mail/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Gmail</title>
-				<link>http://localhost:60118/posts/gmail/</link>
+				<link>http://localhost:1313/posts/gmail/</link>
 				<pubDate>Wed, 10 Jul 2024 20:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/gmail/</guid>
+				<guid>http://localhost:1313/posts/gmail/</guid>
 				<description>&lt;p&gt;Settings :&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/pop3.webp&#34; alt=&#34;img01&#34;&gt;&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pop.gmail.com&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;smtp.gmail.com&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;POP3 = 995 &#xD;&#xA;SMTP = 587&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;WEB:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;https://myaccount.google.com/apppasswords&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;images/web.webp&#34; alt=&#34;img02&#34;&gt;&lt;/p&gt;</description>
 			</item>
 	</channel>

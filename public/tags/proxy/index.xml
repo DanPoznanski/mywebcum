@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Proxy on myblog</title>
-		<link>http://localhost:60118/tags/proxy/</link>
+		<link>http://localhost:1313/tags/proxy/</link>
 		<description>Recent content in Proxy on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Sat, 04 Nov 2023 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Sleeping-Hacker</title>
-				<link>http://localhost:60118/posts/hacker/</link>
+				<link>http://localhost:1313/posts/hacker/</link>
 				<pubDate>Sat, 04 Nov 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/hacker/</guid>
+				<guid>http://localhost:1313/posts/hacker/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/ofek.jpg&#34; alt=&#34;ofek1&#34;&gt;&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Ngrok</title>
-				<link>http://localhost:60118/posts/ngrok/</link>
+				<link>http://localhost:1313/posts/ngrok/</link>
 				<pubDate>Sun, 03 Sep 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/ngrok/</guid>
+				<guid>http://localhost:1313/posts/ngrok/</guid>
 				<description>&lt;h2 id=&#34;ngrok-on-ubuntu&#34;&gt;Ngrok on Ubuntu&lt;/h2&gt;&#xA;&lt;p&gt;sign up on ngrok website&lt;/p&gt;&#xA;&lt;p&gt;after download ngrok Unzip&lt;/p&gt;&#xA;&lt;p&gt;create folders and file&lt;/p&gt;&#xA;&lt;p&gt;root/.config/ngrok/ngrok.yml&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-yml&#34; data-lang=&#34;yml&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# in ngrok.yml&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;authtoken&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;2UoPmLJDDOzSLlTA3obRZuswHTN_ZbmHcjZYLDdsPShY5KYP&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;version&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;region&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;us&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;for config&#xA;&lt;code&gt;./ngrok config edit&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;to run&#xA;&lt;code&gt;./ngrok http 8080 &lt;/code&gt;&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Nginx</title>
-				<link>http://localhost:60118/posts/nginx/</link>
+				<link>http://localhost:1313/posts/nginx/</link>
 				<pubDate>Tue, 18 Jun 2019 00:00:00 +0000</pubDate>
-				<guid>http://localhost:60118/posts/nginx/</guid>
+				<guid>http://localhost:1313/posts/nginx/</guid>
 				<description>&lt;p&gt;&amp;mdash;&amp;mdash;&amp;mdash;&amp;ndash; redirect site to yandex.ru&#xA;/etc/nginx/sites-enebled&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;server&#xA;listen 80;&lt;/p&gt;&#xA;&lt;p&gt;server_nane nginx.srwx.net;&lt;/p&gt;&#xA;&lt;p&gt;return 301 &amp;ldquo;&lt;a href=&#34;http://ya.ru&#34;&gt;http://ya.ru&lt;/a&gt;&amp;rdquo;;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;test config&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nginx -t&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;curl -D - -o /dev/null -s &lt;a href=&#34;http://nginx.srwx.net&#34;&gt;http://nginx.srwx.net&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;cat etc/nginx/sites-enabled&lt;/p&gt;&#xA;&lt;p&gt;nginx reload&lt;/p&gt;&#xA;&lt;h1 id=&#34;location&#34;&gt;Location&lt;/h1&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;location /test &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;201&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;TEST&amp;#34;&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;password and user&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;location /restricted &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  auth_basic &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Restrictred&amp;#34;&lt;/span&gt;;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  auth_basic_user_file .htpasswd; &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;proxy to yandex on main domain&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;location /admin &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  proxy_pass http://ya.ru;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;balance beetwen servers&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;upstream app &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  server 127.0.0.1:8080;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  server 10.10.21.12:8080;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;server &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  listen &lt;span style=&#34;color:#ae81ff&#34;&gt;80&lt;/span&gt; default_server;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  server_nane nginx.srwx.net;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  location /admin &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    proxy_pass http://app;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Makes the site faster and gives the static css&lt;/p&gt;</description>
 			</item>
 	</channel>

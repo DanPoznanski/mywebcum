@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>WDS on myblog</title>
-		<link>http://localhost:60118/tags/wds/</link>
+		<link>http://localhost:1313/tags/wds/</link>
 		<description>Recent content in WDS on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Sun, 01 May 2022 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/wds/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/wds/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Windows Server WDS</title>
-				<link>http://localhost:60118/posts/windows-server-wds/</link>
+				<link>http://localhost:1313/posts/windows-server-wds/</link>
 				<pubDate>Sun, 01 May 2022 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/windows-server-wds/</guid>
+				<guid>http://localhost:1313/posts/windows-server-wds/</guid>
 				<description>&lt;h2 id=&#34;windows-server-wds&#34;&gt;Windows Server WDS&lt;/h2&gt;&#xA;&lt;h3 id=&#34;create-automatically-install-images&#34;&gt;Create Automatically Install Images&lt;/h3&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;First download &amp;ldquo;ADK download for Windows 10&amp;rdquo; from Microsoft&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Install &lt;code&gt;adksetup.exe&lt;/code&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Select the features you want change&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; - Deployment Tools&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/wds1.webp&#34; alt=&#34;wds1&#34;&gt;&lt;/p&gt;&#xA;&lt;ol start=&#34;4&#34;&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Need Take &lt;code&gt;install.wim&lt;/code&gt; from windows_10.iso but we have only in &amp;hellip; source\install.esd&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Mount windows.iso go to folder &amp;ldquo;souces&amp;rdquo; and copy install.esd to c:\&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;We need cover from &lt;code&gt;install.esd&lt;/code&gt; to &lt;code&gt;install.wim&lt;/code&gt; and we need know index of windows version&lt;/p&gt;&#xA;&lt;ol start=&#34;6&#34;&gt;&#xA;&lt;li&gt;open Deployment and Images Tools Environment&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dism /get-wiminfo /wimfile:c:\install.esd&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;7&#34;&gt;&#xA;&lt;li&gt;after take your nember of index  what you want  and cover from  &lt;code&gt;.esd&lt;/code&gt; format to &lt;code&gt;.vim&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;dism /export image /sourceimagefile:c:\install.esd /sourceindex:3 /destinationimagefile:c:\install.wim /compress:mix /checkintegrity&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;8&#34;&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;now we need create file config for it go to &lt;a href=&#34;https://www.windowsafg.com/&#34;&gt;site1&lt;/a&gt; or &lt;a href=&#34;https://schneegans.de/windows/unattend-generator/&#34;&gt;site2&lt;/a&gt; after generate file config and download with name  &amp;ldquo;Autounattend.xml&amp;rdquo;&lt;/p&gt;</description>
 			</item>
 	</channel>

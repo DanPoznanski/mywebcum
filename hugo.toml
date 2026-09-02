@@ -1,6 +1,6 @@
 baseURL = "http://blog.pdan.dev"
 defaultContentLanguage = "en"
-languageCode = "en"
+locale = "en-US"
 title = "myblog"
 theme = "gokarna"
 

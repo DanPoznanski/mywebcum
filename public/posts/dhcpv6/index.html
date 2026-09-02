@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=60118&amp;path=livereload" data-no-instant defer></script>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style>
         :root {
             --accent-color: #FF4D4D;
-            --font-size: 1.1rem;
         }
     </style>
 
@@ -19,25 +18,25 @@
 
     
     <title>DHCPv6</title>
-    <meta name="description" content="Pv6 Address Types The IPv6 Address Space As we already learned, IPv6 addresses are 128-bit long, which means that there are 340 undecillion possible addresses …">
+    <meta name="description" content="">
     <meta name="keywords" content='DHCP, Network'>
 
-    <meta property="og:url" content="http://localhost:60118/posts/dhcpv6/">
+    <meta property="og:url" content="http://localhost:1313/posts/dhcpv6/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="DHCPv6">
-    <meta property="og:description" content="Pv6 Address Types The IPv6 Address Space As we already learned, IPv6 addresses are 128-bit long, which means that there are 340 undecillion possible addresses …">
-    <meta property="og:image" content="http://localhost:60118/">
-    <meta property="og:image:secure_url" content="http://localhost:60118/">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="http://localhost:1313/">
+    <meta property="og:image:secure_url" content="http://localhost:1313/">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="DHCPv6">
-    <meta name="twitter:description" content="Pv6 Address Types The IPv6 Address Space As we already learned, IPv6 addresses are 128-bit long, which means that there are 340 undecillion possible addresses …">
-    <meta property="twitter:domain" content="http://localhost:60118/posts/dhcpv6/">
-    <meta property="twitter:url" content="http://localhost:60118/posts/dhcpv6/">
-    <meta name="twitter:image" content="http://localhost:60118/">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="http://localhost:1313/posts/dhcpv6/">
+    <meta property="twitter:url" content="http://localhost:1313/posts/dhcpv6/">
+    <meta name="twitter:image" content="http://localhost:1313/">
 
     
-    <link rel="canonical" href="http://localhost:60118/posts/dhcpv6/">
+    <link rel="canonical" href="http://localhost:1313/posts/dhcpv6/" />
 
     
     <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
@@ -49,15 +48,13 @@
     <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
 
     
-    <script src="/js/bundle.min.7136b4abac7b277aba8bc933917f4602d39a5c44f5590be687244bc86ef4f162.js" integrity="sha256-cTa0q6x7J3q6i8kzkX9GAtOaXET1WQvmhyRLyG708WI="></script>
-
-    
+    <script src="/js/bundle.min.ef10d7d7d37aae7580051737eebfc7dc5a06901e247d0ab8540df015533b8b75.js" integrity="sha256-7xDX19N6rnWABRc37r/H3FoGkB4kfQq4VA3wFVM7i3U="></script>
 
     
     
 </head>
 <body>
-        <script>
+        <script type="text/javascript">
             
             setThemeByUserPref();
         </script><header class="header">
@@ -66,35 +63,35 @@
         
 
         <div class="nav-title">
-            <a class="nav-brand" href="http://localhost:60118/">myblog</a>
+            <a class="nav-brand" href="http://localhost:1313/">myblog</a>
         </div>
 
         <div class="nav-links">
             
             <div class="nav-link">
-                <a href="http://localhost:60118/posts/" aria-label="posts" > Posts </a>
+                <a href="http://localhost:1313/posts/"> Posts </a>
             </div>
             
             <div class="nav-link">
-                <a href="http://localhost:60118/tags/" aria-label="tags" > Tags </a>
+                <a href="http://localhost:1313/tags/"> Tags </a>
             </div>
             
             <div class="nav-link">
-                <a href="https://github.com" aria-label="github" >  </a>
+                <a href="https://github.com">  </a>
             </div>
             
 
             <span class="nav-icons-divider"></span>
             <div class="nav-link dark-theme-toggle">
-                <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
-                <a aria-hidden="true" role="switch">
-                    <span class="theme-toggle-icon" data-feather="moon"></span>
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
                 </a>
             </div>
 
             <div class="nav-link" id="hamburger-menu-toggle">
-                <span class="sr-only hamburger-menu-toggle-screen-reader-target">menu</span>
-                <a aria-checked="false" aria-labelledby="hamburger-menu-toggle" id="hamburger-menu-toggle-target" role="switch">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
                     <span data-feather="menu"></span>
                 </a>
             </div>
@@ -103,21 +100,21 @@
             <ul class="nav-hamburger-list visibility-hidden">
                 
                 <li class="nav-item">
-                    <a href="http://localhost:60118/posts/" > Posts </a>
+                    <a href="http://localhost:1313/posts/"> Posts </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="http://localhost:60118/tags/" > Tags </a>
+                    <a href="http://localhost:1313/tags/"> Tags </a>
                 </li>
                 
                 <li class="nav-item">
-                    <a href="https://github.com" >  </a>
+                    <a href="https://github.com">  </a>
                 </li>
                 
                 <li class="nav-item dark-theme-toggle">
-                    <span class="sr-only dark-theme-toggle-screen-reader-target">theme</span>
-                    <a role="switch">
-                        <span class="theme-toggle-icon" data-feather="moon"></span>
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
                     </a>
                 </li>
             </ul>
@@ -129,49 +126,23 @@
     <div class="post container">
     <div class="post-header-section">
         <h1>DHCPv6</h1>
-
-        
-
-        
-	
-	
-	
-	
-        
-
-	
-
-	
-
-	
-          <small role="doc-subtitle"></small>
-	
-
-	
-          <p class="post-date">
-              
-
-              May 1, 2022
-
-              
-          </p>
-	
+        <small role="doc-subtitle"></small>
+        <p class="post-date">
+            May 1, 2022
+        </p>
 
         <ul class="post-tags">
-          
-           
-             <li class="post-tag"><a href="http://localhost:60118/tags/dhcp">DHCP</a></li>
-           
-         
-           
-             <li class="post-tag"><a href="http://localhost:60118/tags/network">Network</a></li>
-           
-         
+        
+            <li class="post-tag"><a href="http://localhost:1313/tags/dhcp">DHCP</a></li>
+        
+            <li class="post-tag"><a href="http://localhost:1313/tags/network">Network</a></li>
+        
         </ul>
     </div>
 
     <div class="post-content">
-        <h2 id="pv6-address-types">Pv6 Address Types</h2>
+        <p>
+            <h2 id="pv6-address-types">Pv6 Address Types</h2>
 <h3 id="the-ipv6-address-space">The IPv6 Address Space</h3>
 <p>As we already learned, IPv6 addresses are 128-bit long, which means that there are 340 undecillion possible addresses (the exact number is shown below).</p>
 <pre tabindex="0"><code>340,282,366,920,938,463,463,374,607,431,768,211,456
@@ -736,17 +707,15 @@ Random Time                         : 6s
 <p><img src="images/ws149.svg" alt="ws149">
 <em><strong>Figure 3. An IPv6 address States and Lifetimes</strong></em></p>
 
+        </p>
         
     </div>
 
     <div class="prev-next">
         
     </div>
-
-    
-    
-    
 </div>
+
 
 <aside class="post-toc">
     <nav id="toc">
@@ -815,13 +784,7 @@ Random Time                         : 6s
     
 
     
-
-    
-
-    
-
     <span>
-        Made with &#10084;&#65039; using <a target="_blank" href="https://github.com/gokarna-theme/gokarna-hugo">Gokarna</a>
     </span>
 </footer>
 </body>

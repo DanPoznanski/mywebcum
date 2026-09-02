@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>ELK on myblog</title>
-		<link>http://localhost:60118/tags/elk/</link>
+		<link>http://localhost:1313/tags/elk/</link>
 		<description>Recent content in ELK on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Mon, 08 May 2023 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/elk/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/elk/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>ELK Stack</title>
-				<link>http://localhost:60118/posts/elk-stack/</link>
+				<link>http://localhost:1313/posts/elk-stack/</link>
 				<pubDate>Mon, 08 May 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/elk-stack/</guid>
+				<guid>http://localhost:1313/posts/elk-stack/</guid>
 				<description>&lt;h2 id=&#34;elk-stack&#34;&gt;ELK Stack&lt;/h2&gt;&#xA;&lt;h2 id=&#34;elasticsearch&#34;&gt;Elasticsearch&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/elk2.svg&#34; alt=&#34;elk2&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;is search and analytics engine that is widely used for full-text search, log and event data analysis&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;storage&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;analytics&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;search&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Shard - shard is a basic unit of storage and search&lt;/p&gt;&#xA;&lt;p&gt;Indexer - logical space for storing shards&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/elk1.svg&#34; alt=&#34;elk1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;Logstach&lt;/p&gt;&#xA;&lt;p&gt;Kibana&lt;/p&gt;&#xA;&lt;p&gt;Download and install the Debian package manually&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.11.1-amd64.deb&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.11.1-amd64.deb.sha512&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;shasum -a &lt;span style=&#34;color:#ae81ff&#34;&gt;512&lt;/span&gt; -c elasticsearch-8.11.1-amd64.deb.sha512 &#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dpkg -i elasticsearch-8.11.1-amd64.deb&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;after install take password from cli&lt;/p&gt;</description>
 			</item>
 	</channel>

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Vault on myblog</title>
-		<link>http://localhost:60118/tags/vault/</link>
+		<link>http://localhost:1313/tags/vault/</link>
 		<description>Recent content in Vault on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Mon, 01 May 2023 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/vault/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/vault/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Vault</title>
-				<link>http://localhost:60118/posts/vault/</link>
+				<link>http://localhost:1313/posts/vault/</link>
 				<pubDate>Mon, 01 May 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/vault/</guid>
+				<guid>http://localhost:1313/posts/vault/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/0.svg&#34; alt=&#34;vault0&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;vault-overview-use-cases-architecture-basics&#34;&gt;Vault Overview. Use-cases. Architecture Basics&lt;/h2&gt;&#xA;&lt;h3 id=&#34;description&#34;&gt;&lt;strong&gt;Description&lt;/strong&gt;&lt;/h3&gt;&#xA;&lt;p&gt;We are glad to welcome you to the first task of the mini-workshop on HashiCorp Vault.&lt;/p&gt;&#xA;&lt;p&gt;Today we will look at:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;What are secrets and why keep them? What is Vault and what problems does it solve?&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Vault Architecture Basics (Seal/Unseal, Tokens, Secret Engines, ACLs, etc.)&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;What are the analogues of Vault?&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Practice: install Vault on a Linux virtual machine and configure the KV Secret engine there&lt;/p&gt;</description>
 			</item>
 	</channel>

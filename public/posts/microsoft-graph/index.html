@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en"><head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        :root {
+            --accent-color: #FF4D4D;
+        }
+    </style>
+
+    
+    
+    
+    
+    
+    
+
+    
+    <title>Microsoft Graph</title>
+    <meta name="description" content="">
+    <meta name="keywords" content='Microsoft 365, API, Entra ID'>
+
+    <meta property="og:url" content="http://localhost:1313/posts/microsoft-graph/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Microsoft Graph">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="http://localhost:1313/">
+    <meta property="og:image:secure_url" content="http://localhost:1313/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Microsoft Graph">
+    <meta name="twitter:description" content="">
+    <meta property="twitter:domain" content="http://localhost:1313/posts/microsoft-graph/">
+    <meta property="twitter:url" content="http://localhost:1313/posts/microsoft-graph/">
+    <meta name="twitter:image" content="http://localhost:1313/">
+
+    
+    <link rel="canonical" href="http://localhost:1313/posts/microsoft-graph/" />
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/normalize.min.css" media="print">
+
+    
+    <link rel="stylesheet" type="text/css" href="/css/main.min.css">
+
+    
+    <link id="dark-theme" rel="stylesheet" href="/css/dark.min.css">
+
+    
+    <script src="/js/bundle.min.ef10d7d7d37aae7580051737eebfc7dc5a06901e247d0ab8540df015533b8b75.js" integrity="sha256-7xDX19N6rnWABRc37r/H3FoGkB4kfQq4VA3wFVM7i3U="></script>
+
+    
+    
+</head>
+<body>
+        <script type="text/javascript">
+            
+            setThemeByUserPref();
+        </script><header class="header">
+    <nav class="header-nav">
+
+        
+
+        <div class="nav-title">
+            <a class="nav-brand" href="http://localhost:1313/">myblog</a>
+        </div>
+
+        <div class="nav-links">
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/posts/"> Posts </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="http://localhost:1313/tags/"> Tags </a>
+            </div>
+            
+            <div class="nav-link">
+                <a href="https://github.com">  </a>
+            </div>
+            
+
+            <span class="nav-icons-divider"></span>
+            <div class="nav-link dark-theme-toggle">
+                <span id="dark-theme-toggle-screen-reader-target" class="sr-only"></span>
+                <a>
+                    <span id="theme-toggle-icon" data-feather="moon"></span>
+                </a>
+            </div>
+
+            <div class="nav-link" id="hamburger-menu-toggle">
+                <span id="hamburger-menu-toggle-screen-reader-target" class="sr-only">menu</span>
+                <a>
+                    <span data-feather="menu"></span>
+                </a>
+            </div>
+
+            
+            <ul class="nav-hamburger-list visibility-hidden">
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/posts/"> Posts </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="http://localhost:1313/tags/"> Tags </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="https://github.com">  </a>
+                </li>
+                
+                <li class="nav-item dark-theme-toggle">
+                    <span id="dark-theme-toggle-screen-reader-target" class="sr-only">theme</span>
+                    <a>
+                        <span id="theme-toggle-icon" data-feather="moon"></span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+<main id="content">
+    <div class="post container">
+    <div class="post-header-section">
+        <h1>Microsoft Graph</h1>
+        <small role="doc-subtitle"></small>
+        <p class="post-date">
+            August 14, 2026
+        </p>
+
+        <ul class="post-tags">
+        
+            <li class="post-tag"><a href="http://localhost:1313/tags/microsoft-365">Microsoft 365</a></li>
+        
+            <li class="post-tag"><a href="http://localhost:1313/tags/api">API</a></li>
+        
+            <li class="post-tag"><a href="http://localhost:1313/tags/entra-id">Entra ID</a></li>
+        
+        </ul>
+    </div>
+
+    <div class="post-content">
+        <p>
+            <p><img src="images/Graph%20API%20logo.png" alt="img01"></p>
+<h2 id="microsoft-graph">Microsoft GRAPH</h2>
+<h3 id="install">Install</h3>
+<p>Install module</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Module Microsoft.Graph -Scope CurrentUser
+</span></span></code></pre></div><p>Connect to Graph and tenant</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Disconnect-MgGraph -ErrorAction SilentlyContinue
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Connect-MgGraph `
+</span></span><span style="display:flex;"><span>    -TenantId <span style="color:#e6db74">&#34;YOUR_ACCOUNT.onmicrosoft.com&#34;</span> `
+</span></span><span style="display:flex;"><span>    -Scopes <span style="color:#e6db74">&#34;RoleManagement.Read.Directory&#34;</span>,<span style="color:#e6db74">&#34;Directory.Read.All&#34;</span>
+</span></span></code></pre></div><p>See All Global Administrator</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>$role = Get-MgDirectoryRole -Filter <span style="color:#e6db74">&#34;displayName eq &#39;Global Administrator&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Get-MgDirectoryRoleMember -DirectoryRoleId $role.Id -All |
+</span></span><span style="display:flex;"><span>ForEach-Object {
+</span></span><span style="display:flex;"><span>    Get-MgUser -UserId $_.Id `
+</span></span><span style="display:flex;"><span>        -Property DisplayName,UserPrincipalName,AccountEnabled
+</span></span><span style="display:flex;"><span>} |
+</span></span><span style="display:flex;"><span>Where-Object {
+</span></span><span style="display:flex;"><span>    $_.UserPrincipalName <span style="color:#f92672">-ne</span> <span style="color:#e6db74">&#34;admin@temworld25.onmicrosoft.com&#34;</span>
+</span></span><span style="display:flex;"><span>} |
+</span></span><span style="display:flex;"><span>Select-Object DisplayName,UserPrincipalName,AccountEnabled |
+</span></span><span style="display:flex;"><span>Format-Table -AutoSize
+</span></span></code></pre></div><p>Check what tenant you connected</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-MgContext | Select-Object Account,TenantId,Scopes
+</span></span></code></pre></div><p>Disconnect from Graph</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Disconnect-MgGraph
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Disconnect-MgGraph -ErrorAction SilentlyContinue
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Connect-MgGraph `
+</span></span><span style="display:flex;"><span>    -TenantId <span style="color:#e6db74">&#34;YOUR_TENNANT.onmicrosoft.com&#34;</span> `
+</span></span><span style="display:flex;"><span>    -Scopes <span style="color:#e6db74">&#34;User.ReadWrite.All&#34;</span>,<span style="color:#e6db74">&#34;RoleManagement.ReadWrite.Directory&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$upn = <span style="color:#e6db74">&#34;root@YOUR_TENNANT.onmicrosoft.com&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Pop-up New Window  — Add new Password</span>
+</span></span><span style="display:flex;"><span>$cred = Get-Credential -UserName $upn -Message <span style="color:#e6db74">&#34;Please write New Password&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$passwordProfile = @{
+</span></span><span style="display:flex;"><span>    Password = $cred.GetNetworkCredential().Password
+</span></span><span style="display:flex;"><span>    ForceChangePasswordNextSignIn = $true
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$newUser = New-MgUser `
+</span></span><span style="display:flex;"><span>    -DisplayName <span style="color:#e6db74">&#34;Emergency Global Admin&#34;</span> `
+</span></span><span style="display:flex;"><span>    -UserPrincipalName $upn `
+</span></span><span style="display:flex;"><span>    -MailNickname <span style="color:#e6db74">&#34;root&#34;</span> `
+</span></span><span style="display:flex;"><span>    -AccountEnabled `
+</span></span><span style="display:flex;"><span>    -PasswordProfile $passwordProfile
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$gaRole = Get-MgRoleManagementDirectoryRoleDefinition `
+</span></span><span style="display:flex;"><span>    -Filter <span style="color:#e6db74">&#34;displayName eq &#39;Global Administrator&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$params = @{
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;@odata.type&#34;</span>    = <span style="color:#e6db74">&#34;#microsoft.graph.unifiedRoleAssignment&#34;</span>
+</span></span><span style="display:flex;"><span>    roleDefinitionId = $gaRole.Id
+</span></span><span style="display:flex;"><span>    principalId      = $newUser.Id
+</span></span><span style="display:flex;"><span>    directoryScopeId = <span style="color:#e6db74">&#34;/&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>New-MgRoleManagementDirectoryRoleAssignment -BodyParameter $params
+</span></span></code></pre></div><p>check new user if create</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-MgUser -UserId <span style="color:#e6db74">&#34;root@YOUR_TENANT.onmicrosoft.com&#34;</span> |
+</span></span><span style="display:flex;"><span>Select-Object DisplayName,UserPrincipalName,AccountEnabled
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Get-MgRoleManagementDirectoryRoleAssignment `
+</span></span><span style="display:flex;"><span>    -Filter <span style="color:#e6db74">&#34;principalId eq &#39;</span>$($newUser.Id)<span style="color:#e6db74">&#39;&#34;</span> -All |
+</span></span><span style="display:flex;"><span>Where-Object RoleDefinitionId <span style="color:#f92672">-eq</span> $gaRole.Id |
+</span></span><span style="display:flex;"><span>Select-Object PrincipalId,RoleDefinitionId,DirectoryScopeId
+</span></span></code></pre></div>
+        </p>
+        
+    </div>
+
+    <div class="prev-next">
+        
+    </div>
+</div>
+
+
+<aside class="post-toc">
+    <nav id="toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#microsoft-graph">Microsoft GRAPH</a>
+      <ul>
+        <li><a href="#install">Install</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+</aside>
+
+
+
+    
+
+        </main><footer class="footer">
+    
+    
+
+    
+    <span>
+    </span>
+</footer>
+</body>
+</html>

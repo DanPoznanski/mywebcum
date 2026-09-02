@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>VictoriaMetrics on myblog</title>
-		<link>http://localhost:60118/tags/victoriametrics/</link>
+		<link>http://localhost:1313/tags/victoriametrics/</link>
 		<description>Recent content in VictoriaMetrics on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Sun, 01 Jan 2023 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/victoriametrics/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/victoriametrics/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Victoria Metrics</title>
-				<link>http://localhost:60118/posts/victoria-metrics/</link>
+				<link>http://localhost:1313/posts/victoria-metrics/</link>
 				<pubDate>Sun, 01 Jan 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/victoria-metrics/</guid>
+				<guid>http://localhost:1313/posts/victoria-metrics/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/victoria1.svg&#34; alt=&#34;victoria1&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;pre-setting&#34;&gt;Pre-setting&lt;/h2&gt;&#xA;&lt;p&gt;Installing packages&#xA;Let&amp;rsquo;s make sure some packages are available:&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;tar&lt;/code&gt; - to unpack the archive with the binary.&#xA;&lt;code&gt;wget&lt;/code&gt; - to download the archive.&#xA;&lt;code&gt;curl&lt;/code&gt; - to execute queries to test the system.&#xA;Depending on the Linux distribution, the installation will be slightly different.&lt;/p&gt;&#xA;&lt;p&gt;for DEB-based systems (Astra Linux / Debian / Ubuntu):&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;apt install tar wget curl&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;for RPM-based systems (RED OS / Rocky Linux / CentOS):&lt;/p&gt;</description>
 			</item>
 	</channel>

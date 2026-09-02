@@ -2,29 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Virtualization on myblog</title>
-		<link>http://localhost:60118/tags/virtualization/</link>
+		<link>http://localhost:1313/tags/virtualization/</link>
 		<description>Recent content in Virtualization on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Mon, 01 May 2023 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Proxmox</title>
-				<link>http://localhost:60118/posts/proxmox/</link>
+				<link>http://localhost:1313/posts/proxmox/</link>
 				<pubDate>Mon, 01 May 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/proxmox/</guid>
+				<guid>http://localhost:1313/posts/proxmox/</guid>
 				<description>&lt;h2 id=&#34;before-create-datacenter&#34;&gt;Before Create Datacenter&lt;/h2&gt;&#xA;&lt;p&gt;add ssh public key to hosts&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nano /etc/ssh/ssh_config&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;PermitRootLogin yes&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;copy key to node1&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-copy-id -i root@192.168.1.128&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;copy key to node2&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-copy-id -i root@192.168.1.129&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;copy key t node3&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ssh-copy-id -i root@192.168.1.130&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;config-local-dns&#34;&gt;Config Local DNS&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Node1&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;connect to ssh&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ssh root@192.168.1.129&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nano /etc/hosts &#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;192.168.1.128 pve1.local pve1&#xD;&#xA;192.168.1.129 pve2.local pve2&#xD;&#xA;192.168.1.130 pve3.local pve3&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;p&gt;test for ping  &lt;code&gt;ping pve2&lt;/code&gt; and &lt;code&gt;ping pve3&lt;/code&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;&lt;strong&gt;Wrong Repository&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nano /etc/apt/sources.list&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise&#xD;&#xA;&#xD;&#xA;dev https://download.proxmox.com/debian/pve stretch no-subscription &#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;install htop and mc&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>VMware</title>
-				<link>http://localhost:60118/posts/vmware/</link>
+				<link>http://localhost:1313/posts/vmware/</link>
 				<pubDate>Sun, 01 May 2022 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/vmware/</guid>
+				<guid>http://localhost:1313/posts/vmware/</guid>
 				<description>&lt;h2 id=&#34;compobility&#34;&gt;Compobility&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://www.vmware.com/resources/compatibility/search.php&#34;&gt;https://www.vmware.com/resources/compatibility/search.php&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;vsan&#34;&gt;vSAN&lt;/h2&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/vmware2.png&#34; alt=&#34;vmware2&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;vSAN Calculator&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://vsan.virtualappliances.eu/&#34;&gt;https://vsan.virtualappliances.eu/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/vsan4.webp&#34; alt=&#34;vware3&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/vmware4.svg&#34; alt=&#34;vware4&#34;&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;10TB HDD neeed 1TB SSD cache&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Resistance formula (N = Dead Disk) N x 2 + 1&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h2 id=&#34;esxi-shell-cli&#34;&gt;ESXi Shell CLI&lt;/h2&gt;&#xA;&lt;p&gt;Troubleshooting Mode Options &amp;gt; Enable ESXI Shell&lt;/p&gt;&#xA;&lt;p&gt;to enter to shell &lt;code&gt;Alt&lt;/code&gt; + &lt;code&gt;F1&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;to exit from Shell &lt;code&gt;Alt&lt;/code&gt; + &lt;code&gt;F2&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;List Commands&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;esxcli&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;List of adapters&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;esxcli nic list&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;List of vSwitch&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;esxcli network vswitch list&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;List of standard vSwitch&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;esxcli network vswitch standard list&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;List of distributed vSwitch&lt;/p&gt;</description>
 			</item>
 	</channel>

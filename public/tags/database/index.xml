@@ -2,29 +2,29 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Database on myblog</title>
-		<link>http://localhost:60118/tags/database/</link>
+		<link>http://localhost:1313/tags/database/</link>
 		<description>Recent content in Database on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Fri, 10 Oct 2025 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/database/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/database/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Database Design</title>
-				<link>http://localhost:60118/posts/database-design/</link>
+				<link>http://localhost:1313/posts/database-design/</link>
 				<pubDate>Fri, 10 Oct 2025 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/database-design/</guid>
+				<guid>http://localhost:1313/posts/database-design/</guid>
 				<description>&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;h2 id=&#34;database-design&#34;&gt;Database Design&lt;/h2&gt;&#xA;&lt;h3 id=&#34;oltp-and-olap&#34;&gt;OLTP and OLAP&lt;/h3&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;How should we organize and manage data?&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Schemas: How should my data be logically organized?&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Normalization: Should my data have minimal dependency and redundancy?&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Views: What joins will be done most often?&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Access control: Should all users of the data have the same level of access?&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;DBMS: How do I pick between all the SQL and NoSQL options?&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;and more!&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;It depends on the intended use the date&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>PostgreSQL</title>
-				<link>http://localhost:60118/posts/postgresql/</link>
+				<link>http://localhost:1313/posts/postgresql/</link>
 				<pubDate>Thu, 09 Oct 2025 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/postgresql/</guid>
+				<guid>http://localhost:1313/posts/postgresql/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/00.png&#34; alt=&#34;img00&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;h2 id=&#34;postgresql-summary-stats-and-window-functions&#34;&gt;PostgreSQL Summary stats and window functions&lt;/h2&gt;&#xA;&lt;h3 id=&#34;introduction-to-windows-functions&#34;&gt;Introduction to windows functions&lt;/h3&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/01.webp&#34; alt=&#34;img01&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/02.webp&#34; alt=&#34;img02&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/03.webp&#34; alt=&#34;img03&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;h4 id=&#34;window-functions&#34;&gt;Window functions&lt;/h4&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Perform calculations across a set of table rows that are somehow related to the current row&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Similar to &lt;code&gt;GROUP BY&lt;/code&gt; aggregation, but all rows remain in the output (no grouping)&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;Uses&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Fetching values from preceding or following rows (e.g. fetching the previous row&amp;rsquo;s value)&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Determining reigning champion status&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Calculating growth over time&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Assigning ordinal ranks (1st, 2nd, etc.) to rows based on their values&amp;rsquo; positions in a sorted list&lt;/p&gt;</description>
 			</item>
 	</channel>

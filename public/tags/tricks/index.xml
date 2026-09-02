@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Tricks on myblog</title>
-		<link>http://localhost:60118/tags/tricks/</link>
+		<link>http://localhost:1313/tags/tricks/</link>
 		<description>Recent content in Tricks on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Sun, 01 May 2022 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/tricks/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/tricks/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Hack &amp; Tricks</title>
-				<link>http://localhost:60118/posts/hacks--tricks/</link>
+				<link>http://localhost:1313/posts/hacks--tricks/</link>
 				<pubDate>Sun, 01 May 2022 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/hacks--tricks/</guid>
+				<guid>http://localhost:1313/posts/hacks--tricks/</guid>
 				<description>&lt;h2 id=&#34;whatsapp-link&#34;&gt;Whatsapp link&lt;/h2&gt;&#xA;&lt;p&gt;exemple:&#xA;&lt;a href=&#34;https://wa.me/972501234567&#34;&gt;https://wa.me/972501234567&lt;/a&gt;&lt;/p&gt;</description>
 			</item>
 	</channel>

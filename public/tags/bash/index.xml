@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>Bash on myblog</title>
-		<link>http://localhost:60118/tags/bash/</link>
+		<link>http://localhost:1313/tags/bash/</link>
 		<description>Recent content in Bash on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Thu, 18 Sep 2025 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/bash/index.xml" rel="self" type="application/rss+xml" />
 			<item>
 				<title>Bash</title>
-				<link>http://localhost:60118/posts/bash/</link>
+				<link>http://localhost:1313/posts/bash/</link>
 				<pubDate>Thu, 18 Sep 2025 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/bash/</guid>
+				<guid>http://localhost:1313/posts/bash/</guid>
 				<description>&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/img1.png&#34; alt=&#34;img&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;h2 id=&#34;using-variables-in-shell-scripts&#34;&gt;Using Variables in Shell Scripts&lt;/h2&gt;&#xA;&lt;p&gt;Welcome back to the world of shell scripting. In the previous lesson, you crafted your very first shell script that printed &amp;ldquo;Hello, World!&amp;rdquo; to the screen. Today, we will take the next step by exploring how to use &lt;strong&gt;variables&lt;/strong&gt; in shell scripts. This lesson will introduce you to variable declaration, reassignment, and some basic arithmetic operations.&lt;/p&gt;&#xA;&lt;p&gt;Using variables can make your scripts more dynamic and flexible, allowing you to store information, reuse values, and perform calculations. Let&amp;rsquo;s get started!&lt;/p&gt;</description>
 			</item>
 	</channel>

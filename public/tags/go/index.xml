@@ -2,36 +2,43 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>GO on myblog</title>
-		<link>http://localhost:60118/tags/go/</link>
+		<link>http://localhost:1313/tags/go/</link>
 		<description>Recent content in GO on myblog</description>
 		<generator>Hugo</generator>
-		<language>en</language>
+		<language>en-US</language>
 		
 		
 		
 		
 			<lastBuildDate>Mon, 03 Apr 2023 21:29:01 +0800</lastBuildDate>
 		
-			<atom:link href="http://localhost:60118/tags/go/index.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://localhost:1313/tags/go/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>GO API</title>
+				<link>http://localhost:1313/posts/go-api/</link>
+				<pubDate>Wed, 19 May 2021 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/go-api/</guid>
+				<description>&lt;p&gt;&lt;img src=&#34;images/01.webp&#34; alt=&#34;img01&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h2 id=&#34;making-get-requests-and-handling-responses-in-go&#34;&gt;Making GET Requests and Handling Responses in Go&lt;/h2&gt;&#xA;&lt;p&gt; &lt;/p&gt;&#xA;&lt;h3 id=&#34;making-get-requests-and-handling-responses&#34;&gt;Making GET Requests and Handling Responses&lt;/h3&gt;&#xA;&lt;p&gt;Welcome to the second lesson in our journey of interacting with &lt;code&gt;APIs&lt;/code&gt; using Go. In the previous lesson, we established a strong understanding of &lt;code&gt;RESTful APIs&lt;/code&gt; and how &lt;code&gt;HTTP requests&lt;/code&gt; facilitate interactions with them. We used &lt;code&gt;curl&lt;/code&gt; to interact directly with an API endpoint. Now, we will automate this process using Go&amp;rsquo;s &lt;code&gt;net/http&lt;/code&gt; package. This lesson will guide you through making HTTP requests in Go, equipping you with essential skills for web development and API integration.&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>GO</title>
-				<link>http://localhost:60118/posts/go/</link>
+				<link>http://localhost:1313/posts/go/</link>
 				<pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
-				<guid>http://localhost:60118/posts/go/</guid>
+				<guid>http://localhost:1313/posts/go/</guid>
 				<description>&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;h1 id=&#34;introduction-to-programming-with-go&#34;&gt;Introduction to Programming with Go&lt;/h1&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/01.webp&#34; alt=&#34;img01&#34;&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;taking-your-first-step-in-go-programming&#34;&gt;Taking Your First Step in Go Programming&lt;/h2&gt;&#xA;&lt;p&gt;Can you feel the excitement coursing through your veins? You&amp;rsquo;re on the verge of diving into the world of programming. Let&amp;rsquo;s get started!&lt;/p&gt;&#xA;&lt;h4 id=&#34;what-youll-learn&#34;&gt;What You&amp;rsquo;ll Learn&lt;/h4&gt;&#xA;&lt;p&gt;&lt;strong&gt;Go&lt;/strong&gt; is a powerful language that enables us to build a range of applications and solve real-world problems. As we embark on this journey, we&amp;rsquo;ll first learn to create a basic program in Go — a simple &lt;code&gt;fmt.Println&lt;/code&gt; statement. This program will offer a friendly greeting to the world, setting the pace for our future explorations.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>GO for Beginners</title>
-				<link>http://localhost:60118/posts/go-for-beginners/</link>
+				<link>http://localhost:1313/posts/go-for-beginners/</link>
 				<pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
-				<guid>http://localhost:60118/posts/go-for-beginners/</guid>
+				<guid>http://localhost:1313/posts/go-for-beginners/</guid>
 				<description>&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;&lt;img src=&#34;images/01.webp&#34; alt=&#34;img01&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;h2 id=&#34;getting-started-with-go-syntax-and-your-first-program&#34;&gt;Getting Started with Go: Syntax and Your First Program&lt;/h2&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;   &lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Go Syntax Basics&lt;/strong&gt;&#xA;In &lt;code&gt;Go&lt;/code&gt;, we use statements to perform actions. These are usually terminated by a new line or a semicolon (&lt;code&gt;;&lt;/code&gt;). The semicolon in the end of the statement is optional and used rarely. &lt;code&gt;Go&lt;/code&gt; uses curly braces (&lt;code&gt;{ }&lt;/code&gt;) to group statements into blocks.&lt;/p&gt;&#xA;&lt;p&gt;Take a look at this simple &lt;code&gt;Go&lt;/code&gt; syntax example:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, Go World!&amp;#34;&lt;/span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this example, &lt;code&gt;package main&lt;/code&gt; specifies that it&amp;rsquo;s the main entry point of the &lt;code&gt;Go&lt;/code&gt; application. &lt;code&gt;import &amp;quot;fmt&amp;quot;&lt;/code&gt; instructs &lt;code&gt;Go&lt;/code&gt; to use the &lt;code&gt;fmt&lt;/code&gt; library for formatted I/O operations, and in the &lt;code&gt;main&lt;/code&gt; function, we print &lt;code&gt;&amp;quot;Hello, Go World!&amp;quot;&lt;/code&gt;. Though you may not fully understand this code just yet, we will explore each part of it step-by-step in forthcoming lessons.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>Terraform</title>
-				<link>http://localhost:60118/posts/terraform/</link>
+				<link>http://localhost:1313/posts/terraform/</link>
 				<pubDate>Mon, 03 Apr 2023 21:29:01 +0800</pubDate>
-				<guid>http://localhost:60118/posts/terraform/</guid>
+				<guid>http://localhost:1313/posts/terraform/</guid>
 				<description>&lt;p&gt;&lt;img src=&#34;images/terraform1.svg&#34; alt=&#34;terraform1&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;structura of terraform:&lt;/p&gt;&#xA;&lt;p&gt;main.tf&lt;/p&gt;&#xA;&lt;p&gt;outputs.tf&lt;/p&gt;&#xA;&lt;p&gt;terraform.tfstate&lt;/p&gt;&#xA;&lt;p&gt;terraform.tfstate.backup&lt;/p&gt;&#xA;&lt;p&gt;variable.tf&lt;/p&gt;&#xA;&lt;p&gt;used for create new project &lt;code&gt;terraform init&lt;/code&gt; command in Terraform initializes a new or existing Terraform configuration, setting up the environment, downloading necessary plugins, modules, and configuring the backend to prepare for managing infrastructure as code.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;cd /path/to/your/terraform/project&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;terraform init&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;terraform plan&lt;/code&gt; command in Terraform creates an execution plan that outlines the actions Terraform will take to modify the infrastructure according to the configuration files. It shows the changes, additions, modifications, or deletions of resources without actually applying these changes, allowing users to review and validate the proposed modifications before execution.&lt;/p&gt;</description>
 			</item>
 	</channel>
