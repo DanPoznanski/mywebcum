@@ -385,7 +385,7 @@
 				<description></description>
 			</item>
 			<item>
-				<title>GO</title>
+				<title>Go</title>
 				<link>http://localhost:1313/tags/go/</link>
 				<pubDate>Mon, 03 Apr 2023 21:29:01 +0800</pubDate>
 				<guid>http://localhost:1313/tags/go/</guid>
@@ -399,7 +399,7 @@
 				<description></description>
 			</item>
 			<item>
-				<title>GIT</title>
+				<title>Git</title>
 				<link>http://localhost:1313/tags/git/</link>
 				<pubDate>Thu, 01 Sep 2022 21:29:01 +0800</pubDate>
 				<guid>http://localhost:1313/tags/git/</guid>
